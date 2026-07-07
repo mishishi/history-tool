@@ -1,0 +1,131 @@
+# 读通鉴 · Du Tongjian
+
+> 把资治通鉴讲成你听得懂、用得上的故事。
+
+## 项目结构
+
+```
+history-tool/
+├── app/                          # Next.js App Router
+│   ├── layout.tsx               # 全局布局
+│   ├── page.tsx                 # 首页
+│   ├── article/[slug]/page.tsx  # 文章详情(动态路由)
+│   ├── unlock/page.tsx          # 付费解锁
+│   └── globals.css              # 全局样式
+├── components/                   # React 组件
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── ArticleCard.tsx
+│   └── Seal.tsx
+├── content/articles/             # Markdown 文章
+│   ├── 01-zhishi-wang.md        # 三家分晋·智氏之亡
+│   └── 02-shangyang.md          # 商鞅变法·徙木立信
+├── lib/                          # 工具函数
+│   ├── articles.ts
+│   └── types.ts
+├── content-pipeline/             # 内容生成流水线
+│   ├── sources/                 # 原文素材
+│   ├── output/                  # 生成结果
+│   ├── generate.py              # 生成脚本(LLM API 跑)
+│   └── README.md
+├── prototype/                    # 设计稿(静态 HTML,原型阶段)
+│   ├── index.html
+│   ├── article.html
+│   └── unlock.html
+└── package.json
+```
+
+## 快速开始
+
+### 环境要求
+
+- Node.js 18+
+- npm / pnpm / yarn(任选)
+
+### 安装依赖
+
+```bash
+cd /Users/zhurenbao/Jason/ai-workspaces/history-tool
+npm install
+```
+
+### 启动开发服务器
+
+```bash
+npm run dev
+```
+
+打开 http://localhost:3000 查看。
+
+### 构建生产版本
+
+```bash
+npm run build
+npm run start
+```
+
+## 添加新文章
+
+1. 在 `content/articles/` 下创建新的 markdown 文件,文件名格式:`XX-slug.md`
+2. 顶部加 frontmatter(参考已有文件):
+
+```yaml
+---
+title: 你的标题
+subtitle: 副标题
+dynasty: 战国 / 秦汉 / 三国 / ...
+volume: 卷X
+episode: N
+excerpt: 卡片副标题
+classicalQuote: 古文引子
+readingTime: 8
+views: 0
+publishedAt: 2026-07-07
+tags: [标签1, 标签2]
+---
+```
+
+3. 写正文(markdown)
+4. 在文章中可用特殊 class:
+   - `<p class="lead">` - 开篇钩子
+   - `<blockquote>` - 古文引用(自动应用楷体样式)
+   - `<div class="modern-mapping">` - 现代映射区
+   - `<p class="closing-quote">` - 金句收尾
+5. 重启 dev server,新文章自动出现在首页
+
+## 部署
+
+### Vercel(推荐,MVP 阶段免费)
+
+1. 把代码 push 到 GitHub
+2. 打开 https://vercel.com,导入 GitHub 仓库
+3. 默认配置即可,点击 Deploy
+4. 之后每次 push 自动部署
+
+### 命令行部署
+
+```bash
+npm i -g vercel
+vercel        # 第一次部署,按提示走
+vercel --prod # 生产环境部署
+```
+
+## 设计稿
+
+`prototype/` 目录下是早期设计稿(静态 HTML)。MVP 阶段用 Next.js 实现后,prototype 不再需要,可以删除或保留作为参考。
+
+## MVP 阶段不做的
+
+- 用户系统(后期接 Supabase Auth)
+- 真支付(微信支付 mock,留接入点)
+- 评论系统
+- 搜索
+- 数据统计
+- 小程序版
+
+## 下一步
+
+1. 完善到 8 篇内容(已写 2 篇)
+2. 接 Supabase Auth + 真实付费
+3. 内容运营(公众号引流 + 微信支付转化)
+4. SEO 优化 + 数据埋点
