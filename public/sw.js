@@ -26,12 +26,39 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(STATIC_CACHE);
-      // Promise.allSettled 等价 — 任一失败不影响其他
+
+      // 1) 预缓存 HTML / manifest / icons
       await Promise.allSettled(
         PRE_CACHE_URLS.map((u) =>
           cache.add(new Request(u, { cache: 'reload' })).catch(() => {})
         )
       );
+
+      // 2) 解析 / 和 /offline 的 HTML,提取 _next/static chunks,一并预缓存
+      //    否则离线 fallback 到 /offline 时,它的 chunk 会因 offline fetch 失败 → ChunkLoadError
+      try {
+        const urlsToPreCache = new Set();
+        for (const htmlUrl of ['/', '/offline']) {
+          const resp = await fetch(htmlUrl, { cache: 'reload' });
+          if (!resp.ok) continue;
+          const html = await resp.text();
+          // 抓 src="/_next/static/..." 和 href="/_next/static/..."
+          const re = /(?:src|href)="(\/_next\/static\/[^"]+)"/g;
+          let m;
+          while ((m = re.exec(html))) {
+            urlsToPreCache.add(m[1]);
+          }
+        }
+        // 并发缓存,失败不影响整体
+        await Promise.allSettled(
+          [...urlsToPreCache].map((u) =>
+            cache.add(new Request(u, { cache: 'reload' })).catch(() => {})
+          )
+        );
+      } catch (_e) {
+        // 解析失败不致命,运行时还会通过页面访问补齐
+      }
+
       // 立即激活新 SW(否则用户得关掉所有 tab)
       self.skipWaiting();
     })()
