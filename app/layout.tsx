@@ -1,18 +1,28 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ReadingProgress from '@/components/ReadingProgress';
+import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar';
+import InstallPrompt from '@/components/InstallPrompt';
 import { getSearchData } from '@/lib/search';
 
+// Next 14 要求 themeColor 在 viewport export 里
+export const viewport: Viewport = {
+  themeColor: '#B23A3A',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5, // a11y — 不要禁用缩放
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL('https://history-tool.vercel.app/'),
   title: '读通鉴 — 把资治通鉴讲成你听得懂的故事',
   description: '我们用 AI 把司马光写给皇帝的这部书,翻译成当代人能读懂、能用上的东西。资治通鉴不只是历史,它是 1362 年里所有关键决策的复盘。',
   keywords: ['资治通鉴', '历史', 'AI 解读', '司马光', '古代史', '管理智慧'],
   authors: [{ name: '读通鉴 · 主编 Jason' }],
   applicationName: '读通鉴',
   manifest: '/manifest.json',
-  themeColor: '#B23A3A',
   appleWebApp: {
     capable: true,
     title: '读通鉴',
@@ -77,6 +87,9 @@ export default function RootLayout({
         <Header docs={searchDocs} />
         <main className="flex-1">{children}</main>
         <Footer />
+        {/* PWA:Service Worker 注册 + 桌面安装引导 */}
+        <ServiceWorkerRegistrar />
+        <InstallPrompt />
       </body>
     </html>
   );

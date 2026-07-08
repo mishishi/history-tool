@@ -50,6 +50,7 @@ export default function MobileMenu() {
     { href: '/#articles', label: '最新解读' },
     { href: '/#dynasties', label: '按朝代' },
     { href: '/unlock', label: '订阅' },
+    { href: '/favorites', label: '我的收藏' },
   ];
 
   return (

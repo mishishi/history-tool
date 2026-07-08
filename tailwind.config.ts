@@ -31,6 +31,7 @@ const config: Config = {
       maxWidth: {
         'reading': '720px',
         'wide': '1200px',
+        'narrow': '580px',
       },
     },
   },

@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { getAllArticles, getArticleBySlug, getClassicBySlug, formatDate } from '@/lib/articles';
 import ArticleCard from '@/components/ArticleCard';
+import FavoriteButton from '@/components/FavoriteButton';
 import Seal from '@/components/Seal';
 
 // 静态生成所有路由
@@ -90,6 +91,11 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             <span>{article.readingTime} 分钟阅读</span>
             <span className="w-1 h-1 rounded-full bg-ink-mute"></span>
             <span>{article.views >= 1000 ? `${(article.views / 1000).toFixed(1)}k` : article.views} 人已读</span>
+          </div>
+
+          {/* 操作:收藏 */}
+          <div className="mt-6 flex justify-center">
+            <FavoriteButton slug={article.slug} title={article.title} />
           </div>
         </div>
 

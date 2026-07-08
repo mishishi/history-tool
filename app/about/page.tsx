@@ -165,6 +165,96 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* PWA 使用指南 */}
+      <section id="pwa-guide" className="max-w-wide mx-auto px-6 py-12 scroll-mt-20">
+        <div className="max-w-3xl">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="classical text-3xl text-cinnabar font-bold">3</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-ink">装到桌面,像 App 一样用</h2>
+          </div>
+
+          <div className="space-y-6 text-base text-ink-soft leading-relaxed">
+            <p>
+              读通鉴是一个 PWA(渐进式网络应用) ——
+              浏览器会给你一个「添加到主屏幕」的提示,装完之后:
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              {[
+                {
+                  title: '离线也能读',
+                  desc: '你打开过的页面、最近读的文章、断网也能接着看。',
+                  icon: (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636a9 9 0 010 12.728M5.636 18.364a9 9 0 010-12.728M12 9v4m0 4h.01" />
+                    </svg>
+                  ),
+                },
+                {
+                  title: '收藏 + 阅读进度',
+                  desc: '喜欢的文章点❤ 收藏,读到哪里自动记住,下次接着看。',
+                  icon: (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  ),
+                },
+                {
+                  title: '不占内存',
+                  desc: '不是真 App,只在浏览器里跑,占 1MB 还是 100MB 都一样轻。',
+                  icon: (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  ),
+                },
+                {
+                  title: '每次新文章自动更新',
+                  desc: '不用去应用商店更新,刷新就是最新版。',
+                  icon: (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  ),
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="p-5 bg-paper-card border border-border rounded-sm"
+                >
+                  <div className="w-9 h-9 flex items-center justify-center bg-cinnabar/10 text-cinnabar rounded-sm mb-3">
+                    {item.icon}
+                  </div>
+                  <h3 className="font-semibold text-ink mb-1.5">{item.title}</h3>
+                  <p className="text-sm text-ink-soft leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 grid md:grid-cols-2 gap-4">
+              {/* Android / Chrome */}
+              <div className="p-5 bg-paper-deep border border-border-soft rounded-sm">
+                <div className="text-[10px] text-gold-dark tracking-widest uppercase mb-2">Android · Chrome</div>
+                <p className="text-sm text-ink-soft leading-relaxed">
+                  浏览器地址栏右侧会出现「安装」图标,点一下就有桌面图标。或者等页面底部的提示条弹出。
+                </p>
+              </div>
+              {/* iOS Safari */}
+              <div className="p-5 bg-paper-deep border border-border-soft rounded-sm">
+                <div className="text-[10px] text-gold-dark tracking-widest uppercase mb-2">iOS · Safari</div>
+                <p className="text-sm text-ink-soft leading-relaxed">
+                  点底部的「分享」⬆️ 按钮 → 选「添加到主屏幕」→ 点「添加」。桌面就有图标了。
+                </p>
+              </div>
+            </div>
+
+            <p className="text-xs text-ink-mute">
+              数据(收藏 + 阅读进度)存在你本机,清浏览器缓存会丢。订阅后可同步到云端(规划中)。
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="max-w-wide mx-auto px-6 py-12">
         <div className="max-w-3xl bg-gradient-to-br from-paper-deep via-paper-card to-paper-deep border border-border rounded-sm p-8 md:p-12">

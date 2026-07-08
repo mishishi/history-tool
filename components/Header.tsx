@@ -32,10 +32,23 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
           <Link href="/unlock" className="text-ink-soft hover:text-cinnabar transition-colors">
             订阅
           </Link>
+          <Link href="/favorites" className="text-ink-soft hover:text-cinnabar transition-colors">
+            收藏
+          </Link>
         </nav>
 
         {/* 右侧 — 桌面 */}
         <div className="hidden md:flex items-center gap-2">
+          <Link
+            href="/favorites"
+            aria-label="我的收藏"
+            title="我的收藏"
+            className="p-2 text-ink-soft hover:text-cinnabar transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </Link>
           <SearchButton docs={docs} />
           <Link
             href="/unlock"
