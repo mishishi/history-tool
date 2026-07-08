@@ -19,7 +19,14 @@ function getFontData(): ArrayBuffer {
 }
 
 export default async function Image() {
-  const fontData = getFontData();
+  try {
+    var fontData = getFontData();
+  } catch (e) {
+    return new Response(
+      `OG font error: ${e instanceof Error ? e.message : String(e)}\nStack: ${e instanceof Error ? e.stack : ''}`,
+      { status: 500, headers: { 'Content-Type': 'text/plain' } }
+    );
+  }
 
   return new ImageResponse(
     (
