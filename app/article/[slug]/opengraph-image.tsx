@@ -4,16 +4,23 @@ import path from 'node:path';
 import { getArticleBySlug } from '@/lib/articles';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 export const alt = '读通鉴文章';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
+let _fontData: ArrayBuffer | null = null;
+function getFontData(): ArrayBuffer {
+  if (_fontData) return _fontData;
+  const fontPath = path.join(process.cwd(), 'public', 'fonts', 'NotoSerifSC-Regular.ttf');
+  const buf = fs.readFileSync(fontPath);
+  _fontData = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
+  return _fontData;
+}
+
 export default async function Image({ params }: { params: { slug: string } }) {
   const article = getArticleBySlug(params.slug);
-
-  // 加载中文字体
-  const fontPath = path.join(process.cwd(), 'public', 'fonts', 'NotoSerifSC-Regular.ttf');
-  const fontData = fs.readFileSync(fontPath);
+  const fontData = getFontData();
 
   // fallback,如果文章不存在
   if (!article) {

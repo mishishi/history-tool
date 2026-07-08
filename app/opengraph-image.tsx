@@ -3,14 +3,23 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 export const alt = '读通鉴 — 用 AI 重读 1362 年';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default async function Image() {
-  // 加载中文字体(从 public/fonts 取)
+let _fontData: ArrayBuffer | null = null;
+function getFontData(): ArrayBuffer {
+  if (_fontData) return _fontData;
   const fontPath = path.join(process.cwd(), 'public', 'fonts', 'NotoSerifSC-Regular.ttf');
-  const fontData = fs.readFileSync(fontPath);
+  const buf = fs.readFileSync(fontPath);
+  // ArrayBufferLike → ArrayBuffer 转换
+  _fontData = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
+  return _fontData;
+}
+
+export default async function Image() {
+  const fontData = getFontData();
 
   return new ImageResponse(
     (
