@@ -1,7 +1,4 @@
 import { ImageResponse } from 'next/og';
-// 直接 import JSON,避免 runtime fetch 自己 URL 触发可能的 timeout
-// (Vercel self-fetch 在 serverless 里有 10s 限制)
-import articleData from '../../../public/article-data.json';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -20,34 +17,8 @@ async function getFontData(): Promise<ArrayBuffer> {
   return _fontCache;
 }
 
-interface ArticleMeta {
-  slug: string;
-  title: string;
-  subtitle: string;
-  dynasty: string;
-  episode: number;
-  volume: string;
-  readingTime: number;
-  views: number;
-  excerpt: string;
-  classicalSlug: string;
-  publishedAt: string;
-}
-
-const articles = articleData as ArticleMeta[];
-
 export default async function Image({ params }: { params: { slug: string } }) {
-  const article = articles.find((a) => a.slug === params.slug) ?? null;
   const fontData = await getFontData();
-
-  const title = article?.title ?? params.slug;
-  const subtitle = article?.subtitle ?? '用 AI 重读 1362 年';
-  const dynasty = article?.dynasty ?? '资治通鉴';
-  const episode = article?.episode ?? 1;
-  const volume = article?.volume ?? '';
-  const readingTime = article?.readingTime ?? 8;
-  const views = article?.views ?? 0;
-  const truncatedTitle = title.length > 32 ? title.slice(0, 30) + '…' : title;
 
   return new ImageResponse(
     (
@@ -110,7 +81,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
               borderRadius: '2px',
             }}
           >
-            {dynasty} · 第 {episode} 期
+            {params.slug}
           </div>
         </div>
 
@@ -134,7 +105,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
               letterSpacing: '-0.01em',
             }}
           >
-            {truncatedTitle}
+            测试文章 — {params.slug}
           </div>
           <div
             style={{
@@ -144,37 +115,21 @@ export default async function Image({ params }: { params: { slug: string } }) {
               maxWidth: '900px',
             }}
           >
-            {subtitle}
+            这是 OG image 路由的最小可运行测试
           </div>
         </div>
 
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
             borderTop: '2px solid #B23A3A',
             paddingTop: '24px',
+            justifyContent: 'space-between',
           }}
         >
-          {volume && (
-            <div style={{ fontSize: '16px', color: '#888', fontStyle: 'italic' }}>
-              资治通鉴 · {volume}
-            </div>
-          )}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <div style={{ fontSize: '16px', color: '#666' }}>
-              {readingTime} 分钟阅读 · {views} 人已读
-            </div>
-            <div style={{ fontSize: '18px', color: '#B23A3A', fontWeight: 600 }}>
-              history-tool.vercel.app
-            </div>
+          <div style={{ fontSize: '16px', color: '#666' }}>8 分钟阅读</div>
+          <div style={{ fontSize: '18px', color: '#B23A3A', fontWeight: 600 }}>
+            history-tool.vercel.app
           </div>
         </div>
       </div>
