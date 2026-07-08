@@ -1,4 +1,7 @@
 import { ImageResponse } from 'next/og';
+// 直接 import JSON,避免 runtime fetch 自己 URL 触发可能的 timeout
+// (Vercel self-fetch 在 serverless 里有 10s 限制)
+import articleData from '@/../public/article-data.json';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -17,31 +20,25 @@ async function getFontData(): Promise<ArrayBuffer> {
   return _fontCache;
 }
 
-let _articlesCache: any[] | null = null;
-async function getArticles(): Promise<any[]> {
-  if (_articlesCache) return _articlesCache;
-  const res = await fetch('https://history-tool.vercel.app/article-data.json', {
-    cache: 'force-cache',
-  });
-  if (!res.ok) throw new Error(`Articles fetch ${res.status}`);
-  _articlesCache = await res.json();
-  return _articlesCache!;
+interface ArticleMeta {
+  slug: string;
+  title: string;
+  subtitle: string;
+  dynasty: string;
+  episode: number;
+  volume: string;
+  readingTime: number;
+  views: number;
+  excerpt: string;
+  classicalSlug: string;
+  publishedAt: string;
 }
 
-export default async function Image({ params }: { params: { slug: string } }) {
-  let article: any = null;
-  let fontData: ArrayBuffer | null = null;
-  let errMsg = '';
+const articles = articleData as ArticleMeta[];
 
-  try {
-    const [arts, font] = await Promise.all([getArticles(), getFontData()]);
-    article = arts.find((a) => a.slug === params.slug) ?? null;
-    fontData = font;
-    console.log('[OG article]', params.slug, 'articles:', arts.length, 'article:', !!article, 'fontBytes:', font.byteLength);
-  } catch (e: any) {
-    errMsg = `init: ${e?.message ?? e}`;
-    console.log('[OG article] init error:', errMsg);
-  }
+export default async function Image({ params }: { params: { slug: string } }) {
+  const article = articles.find((a) => a.slug === params.slug) ?? null;
+  const fontData = await getFontData();
 
   const title = article?.title ?? params.slug;
   const subtitle = article?.subtitle ?? '用 AI 重读 1362 年';
@@ -50,7 +47,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
   const volume = article?.volume ?? '';
   const readingTime = article?.readingTime ?? 8;
   const views = article?.views ?? 0;
-
   const truncatedTitle = title.length > 32 ? title.slice(0, 30) + '…' : title;
 
   return new ImageResponse(
@@ -183,6 +179,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
         </div>
       </div>
     ),
-    { ...size, fonts: [{ name: 'Noto Serif SC', data: fontData!, weight: '400' as any, style: 'normal' as any }] }
+    { ...size, fonts: [{ name: 'Noto Serif SC', data: fontData, weight: '400' as any, style: 'normal' as any }] }
   );
 }
