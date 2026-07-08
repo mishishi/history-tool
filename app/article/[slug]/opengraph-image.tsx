@@ -37,32 +37,10 @@ export default async function Image({ params }: { params: { slug: string } }) {
     const [arts, font] = await Promise.all([getArticles(), getFontData()]);
     article = arts.find((a) => a.slug === params.slug) ?? null;
     fontData = font;
+    console.log('[OG article]', params.slug, 'articles:', arts.length, 'article:', !!article, 'fontBytes:', font.byteLength);
   } catch (e: any) {
     errMsg = `init: ${e?.message ?? e}`;
-  }
-
-  if (errMsg) {
-    return new ImageResponse(
-      (
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: '#F5F0E8',
-            color: '#B23A3A',
-            fontSize: '36px',
-            fontFamily: '"Noto Serif SC"',
-            padding: '60px',
-          }}
-        >
-          {errMsg}
-        </div>
-      ),
-      { ...size, fonts: [{ name: 'Noto Serif SC', data: new ArrayBuffer(0), weight: '400' as any, style: 'normal' as any }] }
-    );
+    console.log('[OG article] init error:', errMsg);
   }
 
   const title = article?.title ?? params.slug;
