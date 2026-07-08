@@ -45,8 +45,14 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   // 关联的原文
   const classic = getClassicBySlug(article.classicalSlug);
 
-  // 相关推荐(同朝代的其他文章,排除当前)
+  // 所有文章 + 上一篇/下一篇(按发布时间倒序,索引 i-1 更新 / i+1 更早)
   const allArticles = getAllArticles();
+  const currentIndex = allArticles.findIndex((a) => a.slug === article.slug);
+  const prevArticle = currentIndex > 0 ? allArticles[currentIndex - 1] : null;
+  const nextArticle =
+    currentIndex >= 0 && currentIndex < allArticles.length - 1 ? allArticles[currentIndex + 1] : null;
+
+  // 相关推荐(同朝代的其他文章,排除当前)
   const relatedArticles = allArticles
     .filter((a) => a.slug !== article.slug && a.dynasty === article.dynasty)
     .slice(0, 3);
@@ -267,6 +273,73 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             </div>
           </div>
         </section>
+      )}
+
+      {/* 上一篇 / 下一篇 —— 大字导航,读完一篇顺到下一篇 */}
+      {(prevArticle || nextArticle) && (
+        <nav
+          aria-label="文章导航"
+          className="max-w-wide mx-auto px-6 pb-20"
+        >
+          <div className="border-t border-border pt-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-0 relative">
+              {/* 中央竖线(仅桌面端) */}
+              <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2"></div>
+
+              {/* 上一篇(更晚发布) */}
+              {prevArticle ? (
+                <Link
+                  href={`/article/${prevArticle.slug}`}
+                  className="group prev-next-card prev-next-card-left relative block p-6 md:p-8 rounded-sm"
+                >
+                  <div className="flex items-center gap-2 text-xs text-ink-mute mb-3 tracking-widest uppercase">
+                    <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span>上一篇 · 第 {prevArticle.episode} 期</span>
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-ink mb-2 group-hover:text-cinnabar transition-colors leading-snug">
+                    {prevArticle.title}
+                  </h3>
+                  <div className="flex items-center gap-2 text-xs text-ink-mute">
+                    <span className="seal-gold">{prevArticle.dynasty}</span>
+                    <span>{prevArticle.volume}</span>
+                    <span className="w-1 h-1 rounded-full bg-ink-mute"></span>
+                    <span>{prevArticle.readingTime} 分钟</span>
+                  </div>
+                </Link>
+              ) : (
+                <div className="hidden md:block" aria-hidden="true"></div>
+              )}
+
+              {/* 下一篇(更早发布) */}
+              {nextArticle ? (
+                <Link
+                  href={`/article/${nextArticle.slug}`}
+                  className="group prev-next-card prev-next-card-right relative block p-6 md:p-8 rounded-sm md:text-right"
+                >
+                  <div className="flex items-center justify-end gap-2 text-xs text-ink-mute mb-3 tracking-widest uppercase">
+                    <span>下一篇 · 第 {nextArticle.episode} 期</span>
+                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-ink mb-2 group-hover:text-cinnabar transition-colors leading-snug">
+                    {nextArticle.title}
+                  </h3>
+                  <div className="flex items-center justify-end gap-2 text-xs text-ink-mute">
+                    <span className="seal-gold">{nextArticle.dynasty}</span>
+                    <span>{nextArticle.volume}</span>
+                    <span className="w-1 h-1 rounded-full bg-ink-mute"></span>
+                    <span>{nextArticle.readingTime} 分钟</span>
+                  </div>
+                </Link>
+              ) : (
+                <div className="hidden md:block" aria-hidden="true"></div>
+              )}
+            </div>
+          </div>
+        </nav>
       )}
     </>
   );

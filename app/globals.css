@@ -213,6 +213,9 @@ body {
   transform: scale(1.35);
   box-shadow: 0 0 0 6px var(--color-cinnabar-soft);
 }
+.dark .timeline-node:hover .timeline-dot {
+  box-shadow: 0 0 0 6px rgba(214, 90, 90, 0.18);
+}
 .timeline-node:hover .timeline-name {
   color: var(--color-cinnabar);
 }
@@ -232,16 +235,23 @@ body {
 }
 .timeline-count {
   font-size: 10px;
-  color: var(--color-ink-mute);
+  color: var(--color-ink-soft);
   font-variant-numeric: tabular-nums;
-  padding: 1px 6px;
+  padding: 2px 7px;
   background: var(--color-paper-deep);
+  border: 1px solid var(--color-border-soft);
   border-radius: 999px;
   transition: all var(--dur-base) var(--ease-out-expo);
+}
+.dark .timeline-count {
+  color: var(--color-ink-soft);
+  background: var(--color-paper-card);
+  border-color: var(--color-border);
 }
 .timeline-node:hover .timeline-count {
   background: var(--color-cinnabar);
   color: var(--color-paper);
+  border-color: var(--color-cinnabar-dark);
 }
 @media (min-width: 768px) {
   .timeline-name { font-size: 22px; }
@@ -294,6 +304,50 @@ body {
 }
 .article-card:hover .card-accent {
   height: 3px;
+}
+
+/* ===== 上一篇 / 下一篇导航 ===== */
+.prev-next-card {
+  transition: background-color var(--dur-base) var(--ease-out-expo),
+              transform var(--dur-base) var(--ease-out-expo);
+}
+.prev-next-card:hover {
+  background-color: var(--color-paper-deep);
+  transform: translateY(-2px);
+}
+.dark .prev-next-card:hover {
+  background-color: var(--color-paper-card);
+}
+.prev-next-card-left:hover {
+  padding-left: 1.75rem;
+}
+.prev-next-card-right:hover {
+  padding-right: 1.75rem;
+}
+
+/* ===== Skeleton 骨架屏 ===== */
+.skeleton-block {
+  background: linear-gradient(
+    90deg,
+    var(--color-paper-deep) 0%,
+    var(--color-border) 50%,
+    var(--color-paper-deep) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.dark .skeleton-block {
+  background: linear-gradient(
+    90deg,
+    var(--color-paper-card) 0%,
+    var(--color-paper-deep) 50%,
+    var(--color-paper-card) 100%
+  );
+  background-size: 200% 100%;
 }
 
 /* ===== 文章正文样式(响应式 + dark variant) ===== */
