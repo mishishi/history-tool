@@ -1,6 +1,4 @@
 import { ImageResponse } from 'next/og';
-import fs from 'node:fs';
-import path from 'node:path';
 import { getArticleBySlug } from '@/lib/articles';
 
 export const runtime = 'nodejs';
@@ -9,20 +7,22 @@ export const alt = '读通鉴文章';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-let _fontData: ArrayBuffer | null = null;
-function getFontData(): ArrayBuffer {
-  if (_fontData) return _fontData;
-  const fontPath = path.join(process.cwd(), 'public', 'fonts', 'NotoSerifSC-subset.ttf');
-  const buf = fs.readFileSync(fontPath);
-  _fontData = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
-  return _fontData;
+const FONT_URL = 'https://history-tool.vercel.app/fonts/NotoSerifSC-subset.ttf';
+
+let _fontCache: ArrayBuffer | null = null;
+async function getFontData(): Promise<ArrayBuffer> {
+  if (_fontCache) return _fontCache;
+  const res = await fetch(FONT_URL, { cache: 'force-cache' });
+  if (!res.ok) throw new Error(`Font fetch ${res.status}`);
+  _fontCache = await res.arrayBuffer();
+  return _fontCache;
 }
 
 export default async function Image({ params }: { params: { slug: string } }) {
   const article = getArticleBySlug(params.slug);
-  const fontData = getFontData();
+  const fontData = await getFontData();
 
-  // fallback,如果文章不存在
+  // fallback
   if (!article) {
     return new ImageResponse(
       <div style={{ width: '100%', height: '100%', background: '#F5F0E8' }} />,
@@ -30,11 +30,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
     );
   }
 
-  // 截断长标题
   const truncatedTitle =
-    article.title.length > 32
-      ? article.title.slice(0, 30) + '…'
-      : article.title;
+    article.title.length > 32 ? article.title.slice(0, 30) + '…' : article.title;
 
   return new ImageResponse(
     (
@@ -51,7 +48,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
           fontFamily: '"Noto Serif SC"',
         }}
       >
-        {/* 顶部 — 印章 + 朝代标签 + 期号 */}
+        {/* 顶部 */}
         <div
           style={{
             display: 'flex',
@@ -77,13 +74,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
               鉴
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div
-                style={{
-                  fontSize: '24px',
-                  color: '#1A1A1A',
-                  fontWeight: 600,
-                }}
-              >
+              <div style={{ fontSize: '24px', color: '#1A1A1A', fontWeight: 600 }}>
                 读通鉴
               </div>
               <div
@@ -114,7 +105,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
           </div>
         </div>
 
-        {/* 中间 — 标题 + 副标题 */}
+        {/* 中间 */}
         <div
           style={{
             display: 'flex',
@@ -151,7 +142,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
           )}
         </div>
 
-        {/* 底部 — 古典原文 + 站点 */}
+        {/* 底部 */}
         <div
           style={{
             display: 'flex',
@@ -162,11 +153,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
           }}
         >
           <div
-            style={{
-              fontSize: '16px',
-              color: '#888',
-              fontStyle: 'italic',
-            }}
+            style={{ fontSize: '16px', color: '#888', fontStyle: 'italic' }}
           >
             资治通鉴 · {article.volume}
           </div>

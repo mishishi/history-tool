@@ -1,6 +1,4 @@
 import { ImageResponse } from 'next/og';
-import fs from 'node:fs';
-import path from 'node:path';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -8,25 +6,19 @@ export const alt = '读通鉴 — 用 AI 重读 1362 年';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-let _fontData: ArrayBuffer | null = null;
-function getFontData(): ArrayBuffer {
-  if (_fontData) return _fontData;
-  const fontPath = path.join(process.cwd(), 'public', 'fonts', 'NotoSerifSC-subset.ttf');
-  const buf = fs.readFileSync(fontPath);
-  // ArrayBufferLike → ArrayBuffer 转换
-  _fontData = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
-  return _fontData;
+const FONT_URL = 'https://history-tool.vercel.app/fonts/NotoSerifSC-subset.ttf';
+
+let _fontCache: ArrayBuffer | null = null;
+async function getFontData(): Promise<ArrayBuffer> {
+  if (_fontCache) return _fontCache;
+  const res = await fetch(FONT_URL, { cache: 'force-cache' });
+  if (!res.ok) throw new Error(`Font fetch ${res.status}`);
+  _fontCache = await res.arrayBuffer();
+  return _fontCache;
 }
 
 export default async function Image() {
-  try {
-    var fontData = getFontData();
-  } catch (e) {
-    return new Response(
-      `OG font error: ${e instanceof Error ? e.message : String(e)}\nStack: ${e instanceof Error ? e.stack : ''}`,
-      { status: 500, headers: { 'Content-Type': 'text/plain' } }
-    );
-  }
+  const fontData = await getFontData();
 
   return new ImageResponse(
     (
@@ -42,7 +34,7 @@ export default async function Image() {
           fontFamily: '"Noto Serif SC"',
         }}
       >
-        {/* 顶部印章 + 站名 */}
+        {/* 顶部 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
           <div
             style={{
@@ -61,7 +53,9 @@ export default async function Image() {
             鉴
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ fontSize: '32px', color: '#1A1A1A', fontWeight: 600 }}>
+            <div
+              style={{ fontSize: '32px', color: '#1A1A1A', fontWeight: 600 }}
+            >
               读通鉴
             </div>
             <div
@@ -77,7 +71,7 @@ export default async function Image() {
           </div>
         </div>
 
-        {/* 中间主标题 */}
+        {/* 中间 */}
         <div
           style={{
             display: 'flex',
@@ -116,7 +110,7 @@ export default async function Image() {
           </div>
         </div>
 
-        {/* 底部 — 数字 + URL */}
+        {/* 底部 */}
         <div
           style={{
             display: 'flex',
