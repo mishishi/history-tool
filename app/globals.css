@@ -350,6 +350,13 @@ body {
   background-size: 200% 100%;
 }
 
+/* ===== QR SVG 自适应外层 ===== */
+.qr-svg-wrap svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
 /* ===== 文章正文样式(响应式 + dark variant) ===== */
 .prose-article {
   font-size: 16px;
