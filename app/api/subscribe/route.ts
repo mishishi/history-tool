@@ -53,10 +53,12 @@ export async function POST(req: NextRequest) {
     });
 
     if (!result.ok) {
-      return NextResponse.json(
-        { ok: false, error: '这个邮箱已经订阅过了' },
-        { status: 409 }
-      );
+      const msg =
+        result.reason === 'already_confirmed'
+          ? '这个邮箱已经订阅过了'
+          : '邮件服务暂未配置,请稍后再试(我们已在修)';
+      const status = result.reason === 'already_confirmed' ? 409 : 503;
+      return NextResponse.json({ ok: false, error: msg }, { status });
     }
 
     // 构造确认邮件 + 发送
