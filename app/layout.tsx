@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ReadingProgress from '@/components/ReadingProgress';
 import { getSearchData } from '@/lib/search';
 
 export const metadata: Metadata = {
@@ -9,6 +10,25 @@ export const metadata: Metadata = {
   description: '我们用 AI 把司马光写给皇帝的这部书,翻译成当代人能读懂、能用上的东西。资治通鉴不只是历史,它是 1362 年里所有关键决策的复盘。',
   keywords: ['资治通鉴', '历史', 'AI 解读', '司马光', '古代史', '管理智慧'],
   authors: [{ name: '读通鉴 · 主编 Jason' }],
+  applicationName: '读通鉴',
+  manifest: '/manifest.json',
+  themeColor: '#B23A3A',
+  appleWebApp: {
+    capable: true,
+    title: '读通鉴',
+    statusBarStyle: 'default',
+    startupImage: '/icons/apple-touch-icon.png',
+  },
+  formatDetection: { telephone: false },
+  icons: {
+    icon: [
+      { url: '/icons/favicon-16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icons/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180' }],
+  },
   alternates: {
     types: {
       'application/rss+xml': [
@@ -40,7 +60,20 @@ export default function RootLayout({
   const searchDocs = getSearchData();
   return (
     <html lang="zh-CN">
+      <head>
+        {/* iOS PWA 适配 */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="读通鉴" />
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+        {/* Android/Chrome PWA */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#B23A3A" />
+        {/* 防止电话号码识别 */}
+        <meta name="format-detection" content="telephone=no" />
+      </head>
       <body className="pattern-bg min-h-screen flex flex-col">
+        <ReadingProgress />
         <Header docs={searchDocs} />
         <main className="flex-1">{children}</main>
         <Footer />
