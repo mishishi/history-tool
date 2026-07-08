@@ -12,7 +12,7 @@ export const contentType = 'image/png';
 let _fontData: ArrayBuffer | null = null;
 function getFontData(): ArrayBuffer {
   if (_fontData) return _fontData;
-  const fontPath = path.join(process.cwd(), 'public', 'fonts', 'NotoSerifSC-Regular.ttf');
+  const fontPath = path.join(process.cwd(), 'public', 'fonts', 'NotoSerifSC-subset.ttf');
   const buf = fs.readFileSync(fontPath);
   _fontData = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
   return _fontData;
