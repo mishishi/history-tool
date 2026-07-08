@@ -129,3 +129,27 @@ vercel --prod # 生产环境部署
 2. 接 Supabase Auth + 真实付费
 3. 内容运营(公众号引流 + 微信支付转化)
 4. SEO 优化 + 数据埋点
+
+## 已上线的能力(2026-07 起)
+
+| 类别 | 能力 | 状态 |
+|------|------|------|
+| 内容 | 50 篇深度解读 + 原文 + 关键人物 | ✅ |
+| 渠道 | SEO 基础(robots/sitemap)、OG 图、RSS、站内搜索 Cmd+K | ✅ |
+| PWA | Service Worker 离线缓存、/offline fallback、Android/iOS 安装引导、收藏 + 阅读进度 | ✅ |
+| 留存 | 邮件订阅(Resend + Upstash Redis,双确认) | 🟡 待激活 |
+
+### 邮件订阅激活步骤
+
+1. 注册 [Resend](https://resend.com) 拿到 `re_xxx` API Key
+2. 注册 [Upstash](https://upstash.com) 创建一个 Redis,选 "Global",把 REST URL + Token 复制过来
+3. Vercel 项目 → Settings → Environment Variables,加 3 个:
+   ```
+   RESEND_API_KEY=re_xxx
+   UPSTASH_REDIS_REST_URL=https://xxx.upstash.io
+   UPSTASH_REDIS_REST_TOKEN=Axxx
+   ```
+4. (可选)`SUBSCRIBE_FROM_EMAIL` 改为你自己的域名地址,Resend 域名校验通过才行
+5. 重新部署即可。激活后流程:用户填邮箱 → 收到确认邮件 → 点链接 → 入列表
+
+参考 `.env.local.example`,本地开发也用同一份环境变量。
