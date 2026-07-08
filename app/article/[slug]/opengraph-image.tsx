@@ -6,6 +6,21 @@ export const alt = '读通鉴文章';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
+export async function generateImageMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  return [
+    {
+      id: params.slug,
+      alt: `读通鉴 · ${params.slug}`,
+      contentType: 'image/png',
+      size: { width: 1200, height: 630 },
+    },
+  ];
+}
+
 const FONT_URL = 'https://history-tool.vercel.app/fonts/NotoSerifSC-subset.ttf';
 
 let _fontCache: ArrayBuffer | null = null;
