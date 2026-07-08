@@ -1,10 +1,33 @@
 import Link from 'next/link';
 import Seal from '@/components/Seal';
 import SubscribeForm from '@/components/SubscribeForm';
+import CheckoutButton from '@/components/CheckoutButton';
 
-export default function UnlockPage() {
+export default function UnlockPage({
+  searchParams,
+}: {
+  searchParams: { cancelled?: string };
+}) {
   return (
     <>
+      {/* 用户从 Stripe 取消付款后的轻提示 */}
+      {searchParams.cancelled === '1' && (
+        <section className="max-w-wide mx-auto px-6 pt-6">
+          <div className="p-4 bg-paper-deep border border-border-soft rounded-sm flex items-start gap-3">
+            <svg className="w-5 h-5 text-ink-soft flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <h4 className="font-medium text-ink text-sm">支付已取消,没扣款</h4>
+              <p className="text-xs text-ink-soft leading-relaxed mt-1">
+                你刚才在 Stripe 点了取消,没事。下次想支持我们再来这一页,或者直接
+                <Link href="/unlock#newsletter" className="text-cinnabar hover:text-cinnabar-dark underline mx-1">免费订邮件</Link>
+                收每周新解读。
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
       {/* Hero 区 */}
       <section className="max-w-wide mx-auto px-6 pt-16 pb-12">
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
@@ -202,9 +225,7 @@ export default function UnlockPage() {
                 <span className="text-ink-mute">不含新内容更新</span>
               </li>
             </ul>
-            <button className="w-full py-3 border border-border hover:border-cinnabar text-ink hover:text-cinnabar rounded-md transition-colors font-medium text-sm">
-              试读一篇
-            </button>
+            <CheckoutButton plan="single" label="真·付 ¥9.90 → Stripe" />
           </div>
 
           {/* 方案 2:年度会员(推荐) */}
@@ -256,10 +277,14 @@ export default function UnlockPage() {
                 <span className="text-ink-soft">会员专属社群(可选)</span>
               </li>
             </ul>
-            <button className="w-full py-3 bg-cinnabar hover:bg-cinnabar-dark text-paper rounded-md transition-colors font-medium text-sm shadow-md">
-              立即订阅
+            <button
+              disabled
+              className="w-full py-3 bg-paper-deep text-ink-mute rounded-md transition-colors font-medium text-sm cursor-not-allowed"
+              title="年付方案需要用户系统(Supabase Auth),等接入后开放"
+            >
+              即将开放 — 等用户系统
             </button>
-            <div className="mt-3 text-center text-[11px] text-ink-mute">微信支付 · 7 天无理由退款</div>
+            <div className="mt-3 text-center text-[11px] text-ink-mute">年付需要登录 · Stripe / 微信支付</div>
           </div>
 
           {/* 方案 3:三年会员 */}
@@ -305,10 +330,13 @@ export default function UnlockPage() {
                 <span className="text-ink-soft">会员限定纸质书(每季度邮寄)</span>
               </li>
             </ul>
-            <button className="w-full py-3 border border-gold hover:border-gold-dark text-gold-dark hover:bg-gold-soft rounded-md transition-colors font-medium text-sm">
-              锁定三年
+            <button
+              disabled
+              className="w-full py-3 border border-gold/50 text-gold-dark/60 rounded-md transition-colors font-medium text-sm cursor-not-allowed"
+            >
+              即将开放 — 等用户系统
             </button>
-            <div className="mt-3 text-center text-[11px] text-ink-mute">限量 100 名 · 微信支付</div>
+            <div className="mt-3 text-center text-[11px] text-ink-mute">年付需要登录 · Stripe / 微信支付</div>
           </div>
         </div>
       </section>

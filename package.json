@@ -19,6 +19,7 @@
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.0",
     "resend": "^6.17.1",
+    "stripe": "^22.3.0",
     "subset-font": "^2.5.0",
     "zod": "^4.4.3"
   },
