@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
 import { getAllArticles, DYNASTIES } from '@/lib/articles';
 import ArticleCard from '@/components/ArticleCard';
 import Seal from '@/components/Seal';
@@ -125,34 +126,51 @@ export default function HomePage() {
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestArticles.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
+            {latestArticles.map((article, i) => (
+              <ArticleCard key={article.slug} article={article} index={i} />
             ))}
           </div>
         )}
       </section>
 
-      {/* 按朝代浏览 */}
-      <section id="dynasties" className="max-w-wide mx-auto px-6 py-12">
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-ink mb-2">按朝代浏览</h2>
-            <p className="text-sm text-ink-mute">1362 年的历史,从战国走到五代</p>
+      {/* 按朝代浏览 — 横向时间轴 */}
+      <section id="dynasties" className="max-w-wide mx-auto px-6 py-12 md:py-16">
+        <div className="text-center mb-10 md:mb-14">
+          <h2 className="text-2xl md:text-3xl font-bold text-ink mb-2">按朝代浏览</h2>
+          <p className="text-sm text-ink-mute">1362 年的历史,从战国走到五代</p>
+        </div>
+
+        {/* 时间轴主体 */}
+        <div className="relative">
+          {/* 横向轴线 */}
+          <div className="timeline-rail"></div>
+
+          {/* 节点(横向滚动适配窄屏) */}
+          <div className="flex items-start justify-between gap-6 md:gap-4 -mt-[6px] overflow-x-auto pb-4 px-2 md:px-4 snap-x snap-mandatory scrollbar-thin">
+            {DYNASTIES.map((d, i) => (
+              <Link
+                key={d.slug}
+                href={`/?dynasty=${d.slug}`}
+                className="timeline-node snap-center stagger-card"
+                style={{ ['--stagger-delay' as string]: `${i * 80}ms` } as CSSProperties}
+                aria-label={`${d.name} · ${d.count} 篇`}
+              >
+                {/* 朝代名 */}
+                <div className="timeline-name">{d.name}</div>
+                {/* dot 节点 */}
+                <div className="timeline-dot"></div>
+                {/* 时期 */}
+                <div className="timeline-period">{d.period}</div>
+                {/* 计数徽标 */}
+                <div className="timeline-count">{d.count} 篇</div>
+              </Link>
+            ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
-          {DYNASTIES.map((d) => (
-            <Link
-              key={d.slug}
-              href={`/?dynasty=${d.slug}`}
-              className="group relative p-4 bg-paper-card border border-border hover:border-cinnabar rounded-sm text-center transition-all hover:shadow-md hover:-translate-y-1"
-            >
-              <div className="classical text-2xl text-cinnabar font-bold mb-1">{d.name}</div>
-              <div className="text-[10px] text-ink-mute">{d.period}</div>
-              <div className="mt-2 text-[10px] text-ink-mute group-hover:text-cinnabar">{d.count} 篇</div>
-            </Link>
-          ))}
+        {/* 移动端左右提示 */}
+        <div className="md:hidden mt-4 text-center text-[10px] text-ink-mute tracking-widest uppercase">
+          ← 横向滑动查看更多 →
         </div>
       </section>
 

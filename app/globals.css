@@ -38,6 +38,15 @@
   color-scheme: light;
 }
 
+/* ===== 全站统一过渡曲线 ===== */
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --dur-fast: 200ms;
+  --dur-base: 300ms;
+  --dur-slow: 500ms;
+}
+
 .dark {
   /* dark — 主背景近黑,纸质感保留(#1A1A1A / #222)但偏暖一点 */
   --color-paper: #161311;        /* 主背景,带轻微暖调 */
@@ -75,7 +84,8 @@ body {
   -webkit-font-smoothing: antialiased;
   font-feature-settings: "kern", "liga";
   /* 平滑色彩过渡 */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color var(--dur-base) var(--ease-out-expo),
+              color var(--dur-base) var(--ease-out-expo);
 }
 
 .classical {
@@ -129,6 +139,161 @@ body {
 }
 .dark .seal-gold {
   background-color: rgba(201, 168, 117, 0.08);
+}
+
+/* ===== Stagger 入场 — 卡片错落淡入 ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.stagger-card {
+  opacity: 0;
+  animation: fadeInUp 0.7s var(--ease-out-expo) both;
+  animation-delay: var(--stagger-delay, 0ms);
+}
+
+/* ===== 首字下沉(中文阅读仪式感) ===== */
+.prose-article > p:first-of-type::first-letter {
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  float: left;
+  font-size: 3.5em;
+  line-height: 0.9;
+  font-weight: 700;
+  color: var(--color-cinnabar);
+  margin: 0.08em 0.12em 0 -0.05em;
+  padding: 0;
+}
+.prose-article > p.lead::first-letter {
+  font-size: 1em;
+  float: none;
+  margin: 0;
+  color: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+}
+
+/* ===== 时间轴(按朝代浏览) ===== */
+.timeline-rail {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--color-gold) 12%,
+    var(--color-gold) 88%,
+    transparent 100%
+  );
+}
+.timeline-dot {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--color-paper);
+  border: 2px solid var(--color-gold);
+  transition: all var(--dur-base) var(--ease-out-expo);
+  flex-shrink: 0;
+}
+.timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 92px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--dur-base) var(--ease-out-expo);
+}
+.timeline-node:hover {
+  transform: translateY(-4px);
+}
+.timeline-node:hover .timeline-dot {
+  background: var(--color-cinnabar);
+  border-color: var(--color-cinnabar-dark);
+  transform: scale(1.35);
+  box-shadow: 0 0 0 6px var(--color-cinnabar-soft);
+}
+.timeline-node:hover .timeline-name {
+  color: var(--color-cinnabar);
+}
+.timeline-name {
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-ink);
+  transition: color var(--dur-base) var(--ease-out-expo);
+  letter-spacing: 0.04em;
+}
+.timeline-period {
+  font-size: 10px;
+  color: var(--color-ink-mute);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.timeline-count {
+  font-size: 10px;
+  color: var(--color-ink-mute);
+  font-variant-numeric: tabular-nums;
+  padding: 1px 6px;
+  background: var(--color-paper-deep);
+  border-radius: 999px;
+  transition: all var(--dur-base) var(--ease-out-expo);
+}
+.timeline-node:hover .timeline-count {
+  background: var(--color-cinnabar);
+  color: var(--color-paper);
+}
+@media (min-width: 768px) {
+  .timeline-name { font-size: 22px; }
+  .timeline-period { font-size: 11px; }
+}
+
+/* ===== Hero 古文衬底大字 ===== */
+.hero-quote-bg {
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ===== 文章页 Hero —— 顶部细金线 ===== */
+.hero-rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-gold) 30%,
+    var(--color-gold) 70%,
+    transparent
+  );
+}
+.hero-episode {
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--color-gold-dark);
+  text-transform: uppercase;
+}
+
+/* ===== ArticleCard hover ===== */
+.article-card {
+  transition: transform var(--dur-base) var(--ease-out-expo),
+              box-shadow var(--dur-base) var(--ease-out-expo),
+              border-color var(--dur-base) var(--ease-out-expo);
+}
+.article-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.12);
+}
+.dark .article-card:hover {
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.4);
+}
+.article-card .card-accent {
+  transition: height var(--dur-base) var(--ease-out-expo);
+}
+.article-card:hover .card-accent {
+  height: 3px;
 }
 
 /* ===== 文章正文样式(响应式 + dark variant) ===== */
@@ -266,15 +431,11 @@ body {
   overflow: hidden;
 }
 
-/* 动画 */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.fade-in-up { animation: fadeInUp 0.7s ease-out; }
-.fade-in-up.delay-100 { animation-delay: 0.1s; animation-fill-mode: both; }
-.fade-in-up.delay-200 { animation-delay: 0.2s; animation-fill-mode: both; }
-.fade-in-up.delay-300 { animation-delay: 0.3s; animation-fill-mode: both; }
+/* 动画(沿用上方 .stagger-card 的 fadeInUp keyframe) */
+.fade-in-up { animation: fadeInUp 0.7s var(--ease-out-expo) both; }
+.fade-in-up.delay-100 { animation-delay: 0.1s; }
+.fade-in-up.delay-200 { animation-delay: 0.2s; }
+.fade-in-up.delay-300 { animation-delay: 0.3s; }
 
 /* 关键字高亮(搜索结果) */
 mark.search-hit {

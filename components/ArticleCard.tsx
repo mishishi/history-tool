@@ -1,16 +1,19 @@
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
 import type { ArticleMeta } from '@/lib/types';
 import { formatRelativeDate } from '@/lib/articles';
 
 interface ArticleCardProps {
   article: ArticleMeta;
   variant?: 'default' | 'compact';
+  /** stagger 序号:从 0 开始,每张卡片延迟 index * 60ms 进入视口 */
+  index?: number;
 }
 
 /**
  * 文章卡片(首页列表用)
  */
-export default function ArticleCard({ article, variant = 'default' }: ArticleCardProps) {
+export default function ArticleCard({ article, variant = 'default', index = 0 }: ArticleCardProps) {
   const accentColor =
     article.dynasty === '唐' || article.dynasty === '五代'
       ? 'bg-ink'
@@ -18,12 +21,19 @@ export default function ArticleCard({ article, variant = 'default' }: ArticleCar
       ? 'bg-cinnabar'
       : 'bg-gold';
 
+  // stagger 入场 — 第 0 张立即,后面每张延后 60ms
+  const staggerStyle: CSSProperties =
+    index > 0
+      ? ({ ['--stagger-delay' as string]: `${index * 60}ms` } as CSSProperties)
+      : {};
+
   return (
     <Link
       href={`/article/${article.slug}`}
-      className="group block bg-paper-card border border-border hover:border-cinnabar rounded-sm overflow-hidden transition-all hover:shadow-lg"
+      style={staggerStyle}
+      className="article-card stagger-card group block bg-paper-card border border-border hover:border-cinnabar rounded-sm overflow-hidden"
     >
-      <div className={`h-1 ${accentColor}`}></div>
+      <div className={`card-accent h-1 ${accentColor}`}></div>
       <div className={`p-6 ${variant === 'compact' ? 'p-5' : ''}`}>
         {/* 标签行 */}
         <div className="flex items-center gap-2 mb-4 flex-wrap">

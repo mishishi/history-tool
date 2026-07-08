@@ -68,24 +68,42 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         </nav>
       </div>
 
-      {/* 文章头 */}
-      <article className="max-w-reading mx-auto px-6 pt-8 pb-12">
-        <div className="text-center mb-10">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <Seal variant="gold">{article.dynasty}</Seal>
-            <span className="text-xs text-ink-mute">资治通鉴 · {article.volume}</span>
-            <span className="text-xs text-ink-mute">·</span>
-            <span className="text-xs text-ink-mute">第 {article.episode} 期</span>
+      {/* 文章头 — 杂志感开篇 */}
+      <article className="max-w-reading mx-auto px-6 pt-10 pb-12">
+        {/* 顶部细金线 + 期刊编号 */}
+        <div className="hero-rule mb-5"></div>
+        <div className="text-center mb-10 fade-in-up">
+          <div className="hero-episode mb-6">
+            DU TONGJIAN · 第 {article.episode} 期
           </div>
-          <h1 className="text-3xl md:text-[44px] font-bold text-ink leading-[1.25] mb-6">
+
+          {/* 朝代徽标 + 卷次 */}
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <Seal variant="gold">{article.dynasty}</Seal>
+            <span className="text-xs text-ink-mute tracking-wide">资治通鉴 · {article.volume}</span>
+          </div>
+
+          {/* 主标题 */}
+          <h1 className="text-4xl md:text-[52px] font-bold text-ink leading-[1.18] mb-7 tracking-tight">
             {article.title}
           </h1>
+
+          {/* 副标题 */}
           {article.subtitle && (
-            <p className="text-base md:text-lg text-ink-soft leading-relaxed mb-6">
+            <p className="text-base md:text-lg text-ink-soft leading-relaxed mb-7 max-w-2xl mx-auto">
               {article.subtitle}
             </p>
           )}
-          <div className="flex items-center justify-center gap-5 text-xs text-ink-mute">
+
+          {/* 古文引子 — 做衬底斜体 */}
+          {article.classicalQuote && (
+            <blockquote className="classical text-base md:text-lg text-gold-dark italic leading-relaxed mb-10 max-w-2xl mx-auto">
+              「{article.classicalQuote}」
+            </blockquote>
+          )}
+
+          {/* meta 行 */}
+          <div className="flex items-center justify-center gap-5 text-xs text-ink-mute mb-5">
             <span>{formatDate(article.publishedAt)}</span>
             <span className="w-1 h-1 rounded-full bg-ink-mute"></span>
             <span>{article.readingTime} 分钟阅读</span>
@@ -94,10 +112,13 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           </div>
 
           {/* 操作:收藏 */}
-          <div className="mt-6 flex justify-center">
+          <div className="flex justify-center">
             <FavoriteButton slug={article.slug} title={article.title} />
           </div>
         </div>
+
+        {/* 底部细金线 */}
+        <div className="hero-rule mt-2"></div>
 
         {/* 原文区(classic) */}
         {classic && (
