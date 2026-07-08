@@ -19,8 +19,23 @@ async function getFontData(): Promise<ArrayBuffer> {
 }
 
 export default async function Image({ params }: { params: { slug: string } }) {
-  const article = await getArticleMeta(params.slug);
-  const fontData = await getFontData();
+  let article = null;
+  let fontData: ArrayBuffer | null = null;
+  try {
+    [article, fontData] = await Promise.all([
+      getArticleMeta(params.slug),
+      getFontData(),
+    ]);
+  } catch (e) {
+    return new Response(
+      `OG article init error: ${e instanceof Error ? e.message : String(e)}`,
+      { status: 500, headers: { 'Content-Type': 'text/plain' } }
+    );
+  }
+
+  if (!fontData) {
+    return new Response('Font data empty', { status: 500 });
+  }
 
   if (!article) {
     return new ImageResponse(
@@ -61,7 +76,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
           fontFamily: '"Noto Serif SC"',
         }}
       >
-        {/* 顶部 */}
         <div
           style={{
             display: 'flex',
@@ -118,7 +132,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
           </div>
         </div>
 
-        {/* 中间 */}
         <div
           style={{
             display: 'flex',
@@ -155,7 +168,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
           )}
         </div>
 
-        {/* 底部 */}
         <div
           style={{
             display: 'flex',
