@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 // 直接 import JSON,避免 runtime fetch 自己 URL 触发可能的 timeout
 // (Vercel self-fetch 在 serverless 里有 10s 限制)
-import articleData from '@/../public/article-data.json';
+import articleData from '../../../public/article-data.json';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
