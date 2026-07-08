@@ -1,5 +1,4 @@
 import { ImageResponse } from 'next/og';
-import { getArticleMeta } from '@/lib/articles-data';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -18,44 +17,31 @@ async function getFontData(): Promise<ArrayBuffer> {
   return _fontCache;
 }
 
-const fontConfig = { name: 'Noto Serif SC', weight: '400' as const, style: 'normal' as const };
+let _articlesCache: any[] | null = null;
+async function getArticles(): Promise<any[]> {
+  if (_articlesCache) return _articlesCache;
+  const res = await fetch('https://history-tool.vercel.app/article-data.json', {
+    cache: 'force-cache',
+  });
+  if (!res.ok) throw new Error(`Articles fetch ${res.status}`);
+  _articlesCache = await res.json();
+  return _articlesCache!;
+}
 
 export default async function Image({ params }: { params: { slug: string } }) {
-  let article = null;
+  let article: any = null;
   let fontData: ArrayBuffer | null = null;
-  let error: string | null = null;
+  let errMsg = '';
 
   try {
-    [article, fontData] = await Promise.all([
-      getArticleMeta(params.slug),
-      getFontData(),
-    ]);
-  } catch (e) {
-    error = `init: ${e instanceof Error ? e.message : String(e)}`;
+    const [arts, font] = await Promise.all([getArticles(), getFontData()]);
+    article = arts.find((a) => a.slug === params.slug) ?? null;
+    fontData = font;
+  } catch (e: any) {
+    errMsg = `init: ${e?.message ?? e}`;
   }
 
-  if (error) {
-    return new Response(error, { status: 500, headers: { 'Content-Type': 'text/plain' } });
-  }
-
-  if (!fontData) {
-    return new Response('No font', { status: 500 });
-  }
-
-  const truncatedTitle = article
-    ? article.title.length > 32
-      ? article.title.slice(0, 30) + '…'
-      : article.title
-    : '读通鉴';
-
-  const dynasty = article?.dynasty ?? '资治通鉴';
-  const episode = article?.episode ?? 1;
-  const subtitle = article?.subtitle ?? '用 AI 重读 1362 年';
-  const volume = article?.volume ?? '';
-  const readingTime = article?.readingTime ?? 8;
-  const views = article?.views ?? 0;
-
-  try {
+  if (errMsg) {
     return new ImageResponse(
       (
         <div
@@ -63,150 +49,162 @@ export default async function Image({ params }: { params: { slug: string } }) {
             width: '100%',
             height: '100%',
             display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            padding: '80px',
-            background:
-              'linear-gradient(135deg, #F5F0E8 0%, #EFE8DA 60%, #E8DFD0 100%)',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: '#F5F0E8',
+            color: '#B23A3A',
+            fontSize: '36px',
             fontFamily: '"Noto Serif SC"',
+            padding: '60px',
           }}
         >
+          {errMsg}
+        </div>
+      ),
+      { ...size, fonts: [{ name: 'Noto Serif SC', data: new ArrayBuffer(0), weight: '400' as any, style: 'normal' as any }] }
+    );
+  }
+
+  const title = article?.title ?? params.slug;
+  const subtitle = article?.subtitle ?? '用 AI 重读 1362 年';
+  const dynasty = article?.dynasty ?? '资治通鉴';
+  const episode = article?.episode ?? 1;
+  const volume = article?.volume ?? '';
+  const readingTime = article?.readingTime ?? 8;
+  const views = article?.views ?? 0;
+
+  const truncatedTitle = title.length > 32 ? title.slice(0, 30) + '…' : title;
+
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '80px',
+          background:
+            'linear-gradient(135deg, #F5F0E8 0%, #EFE8DA 60%, #E8DFD0 100%)',
+          fontFamily: '"Noto Serif SC"',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div
+              style={{
+                width: '60px',
+                height: '60px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#B23A3A',
+                color: '#F5F0E8',
+                fontSize: '36px',
+                fontWeight: 700,
+                borderRadius: '4px',
+              }}
+            >
+              鉴
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ fontSize: '24px', color: '#1A1A1A', fontWeight: 600 }}>
+                读通鉴
+              </div>
+              <div style={{ fontSize: '12px', color: '#888', letterSpacing: '0.3em' }}>
+                DU TONGJIAN
+              </div>
+            </div>
+          </div>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-              <div
-                style={{
-                  width: '60px',
-                  height: '60px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: '#B23A3A',
-                  color: '#F5F0E8',
-                  fontSize: '36px',
-                  fontWeight: 700,
-                  borderRadius: '4px',
-                }}
-              >
-                鉴
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: '24px', color: '#1A1A1A', fontWeight: 600 }}>
-                  读通鉴
-                </div>
-                <div
-                  style={{
-                    fontSize: '12px',
-                    color: '#888',
-                    letterSpacing: '0.3em',
-                  }}
-                >
-                  DU TONGJIAN
-                </div>
-              </div>
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '16px',
-                padding: '8px 20px',
-                border: '1.5px solid #B23A3A',
-                color: '#B23A3A',
-                fontSize: '16px',
-                fontWeight: 600,
-                borderRadius: '2px',
-              }}
-            >
-              {dynasty} · 第 {episode} 期
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '24px',
-              flex: 1,
-              justifyContent: 'center',
-              marginTop: '40px',
-              marginBottom: '40px',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '64px',
-                color: '#1A1A1A',
-                fontWeight: 700,
-                lineHeight: 1.2,
-                letterSpacing: '-0.01em',
-              }}
-            >
-              {truncatedTitle}
-            </div>
-            <div
-              style={{
-                fontSize: '26px',
-                color: '#666',
-                lineHeight: 1.5,
-                maxWidth: '900px',
-              }}
-            >
-              {subtitle}
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
               gap: '16px',
-              borderTop: '2px solid #B23A3A',
-              paddingTop: '24px',
+              padding: '8px 20px',
+              border: '1.5px solid #B23A3A',
+              color: '#B23A3A',
+              fontSize: '16px',
+              fontWeight: 600,
+              borderRadius: '2px',
             }}
           >
-            {volume && (
-              <div style={{ fontSize: '16px', color: '#888', fontStyle: 'italic' }}>
-                资治通鉴 · {volume}
-              </div>
-            )}
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <div style={{ fontSize: '16px', color: '#666' }}>
-                {readingTime} 分钟阅读 · {views} 人已读
-              </div>
-              <div
-                style={{
-                  fontSize: '18px',
-                  color: '#B23A3A',
-                  fontWeight: 600,
-                }}
-              >
-                history-tool.vercel.app
-              </div>
+            {dynasty} · 第 {episode} 期
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '24px',
+            flex: 1,
+            justifyContent: 'center',
+            marginTop: '40px',
+            marginBottom: '40px',
+          }}
+        >
+          <div
+            style={{
+              fontSize: '64px',
+              color: '#1A1A1A',
+              fontWeight: 700,
+              lineHeight: 1.2,
+              letterSpacing: '-0.01em',
+            }}
+          >
+            {truncatedTitle}
+          </div>
+          <div
+            style={{
+              fontSize: '26px',
+              color: '#666',
+              lineHeight: 1.5,
+              maxWidth: '900px',
+            }}
+          >
+            {subtitle}
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            borderTop: '2px solid #B23A3A',
+            paddingTop: '24px',
+          }}
+        >
+          {volume && (
+            <div style={{ fontSize: '16px', color: '#888', fontStyle: 'italic' }}>
+              资治通鉴 · {volume}
+            </div>
+          )}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <div style={{ fontSize: '16px', color: '#666' }}>
+              {readingTime} 分钟阅读 · {views} 人已读
+            </div>
+            <div style={{ fontSize: '18px', color: '#B23A3A', fontWeight: 600 }}>
+              history-tool.vercel.app
             </div>
           </div>
         </div>
-      ),
-      {
-        ...size,
-        fonts: [{ ...fontConfig, data: fontData! } as any],
-      }
-    );
-  } catch (e) {
-    return new Response(
-      `OG render error: ${e instanceof Error ? e.message : String(e)}`,
-      { status: 500, headers: { 'Content-Type': 'text/plain' } }
-    );
-  }
+      </div>
+    ),
+    { ...size, fonts: [{ name: 'Noto Serif SC', data: fontData!, weight: '400' as any, style: 'normal' as any }] }
+  );
 }
