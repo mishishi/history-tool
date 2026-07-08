@@ -54,19 +54,14 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-ink mb-3">关于</h4>
             <ul className="space-y-2 text-xs text-ink-soft">
               <li>
-                <Link href="/about" className="hover:text-cinnabar transition-colors">
+                <Link href="/about#who-we-are" className="hover:text-cinnabar transition-colors">
                   我们是谁
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-cinnabar transition-colors">
+                <Link href="/about#how-we-read" className="hover:text-cinnabar transition-colors">
                   如何解读
                 </Link>
-              </li>
-              <li>
-                <a href="#" className="hover:text-cinnabar transition-colors">
-                  公众号
-                </a>
               </li>
               <li>
                 <a href="mailto:hello@du-tongjian.com" className="hover:text-cinnabar transition-colors">
