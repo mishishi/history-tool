@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { searchDocs, type SearchDoc, type ScoredDoc } from '@/lib/search-client';
+import { highlightMatch } from '@/lib/highlight';
 
 interface Props {
   open: boolean;
@@ -155,15 +156,15 @@ export default function SearchModal({ open, onClose, docs }: Props) {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-semibold text-ink leading-snug truncate">
-                        {r.title}
+                        {highlightMatch(r.title, query)}
                       </div>
                       {r.subtitle && (
                         <div className="mt-1 text-xs text-ink-soft line-clamp-1">
-                          {r.subtitle}
+                          {highlightMatch(r.subtitle, query)}
                         </div>
                       )}
                       <div className="mt-1 text-[10px] text-ink-mute">
-                        第 {r.episode} 期
+                        第 {r.episode} 期 · {r.dynasty}
                       </div>
                     </div>
                   </button>

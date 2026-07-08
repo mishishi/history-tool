@@ -6,13 +6,76 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css');
 
-/* 全局 */
+/* ===== CSS Variables — 同时驱动 Tailwind colors ===== */
+:root {
+  /* light(默认) */
+  --color-paper: #F5F0E8;
+  --color-paper-deep: #EFE8DA;
+  --color-paper-card: #FBF8F2;
+  --color-ink: #1A1A1A;
+  --color-ink-soft: #4A4A4A;
+  --color-ink-mute: #8A8A8A;
+  --color-cinnabar: #B23A3A;
+  --color-cinnabar-dark: #8E2828;
+  --color-cinnabar-soft: #F5E6E6;
+  --color-gold: #A8895C;
+  --color-gold-dark: #8C6E45;
+  --color-gold-soft: #F2EBDD;
+  --color-border: #E8E4DC;
+  --color-border-soft: #F0EBE0;
+
+  /* prose-specific */
+  --color-prose-text: #2A2A2A;
+  --color-prose-lead: #1A1A1A;
+  --color-prose-strong: #B23A3A;
+  --color-prose-blockquote-text: #5C4A2A;
+  --color-prose-blockquote-bg: #FBF8F2;
+  --color-prose-strong-highlight: rgba(178, 58, 58, 0.12);
+  --color-pattern-overlay-1: rgba(168, 137, 92, 0.05);
+  --color-pattern-overlay-2: rgba(178, 58, 58, 0.04);
+
+  /* 配色适应 */
+  color-scheme: light;
+}
+
+.dark {
+  /* dark — 主背景近黑,纸质感保留(#1A1A1A / #222)但偏暖一点 */
+  --color-paper: #161311;        /* 主背景,带轻微暖调 */
+  --color-paper-deep: #0F0D0B;
+  --color-paper-card: #1F1B17;
+  --color-ink: #E8E2D5;          /* 主文字,奶白偏暖 */
+  --color-ink-soft: #B8B0A0;
+  --color-ink-mute: #786E60;
+  --color-cinnabar: #D65A5A;     /* 朱红在 dark 下要提亮 */
+  --color-cinnabar-dark: #B23A3A;
+  --color-cinnabar-soft: #2A1A1A;
+  --color-gold: #C9A875;
+  --color-gold-dark: #A8895C;
+  --color-gold-soft: #2A2418;
+  --color-border: #2D2823;
+  --color-border-soft: #221E1A;
+
+  --color-prose-text: #C8C2B5;
+  --color-prose-lead: #E8E2D5;
+  --color-prose-strong: #E57575;
+  --color-prose-blockquote-text: #C9A875;
+  --color-prose-blockquote-bg: #1F1B17;
+  --color-prose-strong-highlight: rgba(214, 90, 90, 0.18);
+  --color-pattern-overlay-1: rgba(201, 168, 117, 0.04);
+  --color-pattern-overlay-2: rgba(214, 90, 90, 0.05);
+
+  color-scheme: dark;
+}
+
+/* ===== 全局 ===== */
 body {
   font-family: '"Noto Serif SC"', '"Source Han Serif SC"', serif;
-  background-color: #F5F0E8;
-  color: #1A1A1A;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   font-feature-settings: "kern", "liga";
+  /* 平滑色彩过渡 */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .classical {
@@ -21,52 +84,62 @@ body {
 }
 
 .pattern-bg {
-  background-color: #F5F0E8;
+  background-color: var(--color-paper);
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(168, 137, 92, 0.05) 0%, transparent 45%),
-    radial-gradient(circle at 80% 80%, rgba(178, 58, 58, 0.04) 0%, transparent 45%);
+    radial-gradient(circle at 20% 20%, var(--color-pattern-overlay-1) 0%, transparent 45%),
+    radial-gradient(circle at 80% 80%, var(--color-pattern-overlay-2) 0%, transparent 45%);
 }
 
 /* 滚动条 */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #EFE8DA; }
-::-webkit-scrollbar-thumb { background: #A8895C; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #8C6E45; }
+::-webkit-scrollbar-track { background: var(--color-paper-deep); }
+::-webkit-scrollbar-thumb { background: var(--color-gold); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gold-dark); }
 
 /* 选中文本 */
-::selection { background-color: #B23A3A; color: #F5F0E8; }
+::selection { background-color: var(--color-cinnabar); color: var(--color-paper); }
 
-/* 印章 */
+/* ===== 印章 ===== */
 .seal {
   display: inline-flex;
   align-items: center;
   padding: 3px 10px;
-  border: 1.5px solid #B23A3A;
-  color: #B23A3A;
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', serif;
+  border: 1.5px solid var(--color-cinnabar);
+  color: var(--color-cinnabar);
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
   font-weight: 600;
   font-size: 11px;
   letter-spacing: 0.15em;
   background-color: rgba(178, 58, 58, 0.04);
 }
+.dark .seal {
+  background-color: rgba(214, 90, 90, 0.08);
+}
 .seal-gold {
   display: inline-flex;
   align-items: center;
   padding: 3px 10px;
-  border: 1px solid #A8895C;
-  color: #8C6E45;
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', serif;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold-dark);
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.15em;
   background-color: rgba(168, 137, 92, 0.06);
 }
+.dark .seal-gold {
+  background-color: rgba(201, 168, 117, 0.08);
+}
 
-/* 文章正文样式(响应式) */
+/* ===== 文章正文样式(响应式 + dark variant) ===== */
 .prose-article {
   font-size: 16px;
   line-height: 1.85;
-  color: #2A2A2A;
+  color: var(--color-prose-text);
+  /* 整体中文阅读体验优化 */
+  text-rendering: optimizeLegibility;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 @media (min-width: 768px) {
   .prose-article {
@@ -80,7 +153,7 @@ body {
 .prose-article p.lead {
   font-size: 17px;
   line-height: 1.75;
-  color: #1A1A1A;
+  color: var(--color-prose-lead);
   font-weight: 500;
 }
 @media (min-width: 768px) {
@@ -90,18 +163,20 @@ body {
   }
 }
 .prose-article strong {
-  color: #B23A3A;
+  color: var(--color-prose-strong);
   font-weight: 600;
-  background: linear-gradient(transparent 60%, rgba(178, 58, 58, 0.12) 60%);
+  background: linear-gradient(transparent 60%, var(--color-prose-strong-highlight) 60%);
   padding: 0 2px;
 }
 .prose-article h3 {
   font-size: 19px;
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--color-prose-lead);
   margin: 2em 0 1em;
   padding-left: 12px;
-  border-left: 3px solid #B23A3A;
+  border-left: 3px solid var(--color-cinnabar);
+  /* h3 自动让 scroll 内偏移被 anchor 看到 */
+  scroll-margin-top: 80px;
 }
 @media (min-width: 768px) {
   .prose-article h3 {
@@ -113,13 +188,14 @@ body {
   font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
   font-size: 15px;
   line-height: 1.9;
-  color: #5C4A2A;
-  background: #FBF8F2;
-  border: 1px solid #E8E4DC;
-  border-left: 3px solid #A8895C;
+  color: var(--color-prose-blockquote-text);
+  background: var(--color-prose-blockquote-bg);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-gold);
   padding: 18px 20px;
   margin: 1.5em 0;
   letter-spacing: 0.02em;
+  border-radius: 2px;
 }
 @media (min-width: 768px) {
   .prose-article blockquote {
@@ -129,11 +205,12 @@ body {
   }
 }
 .prose-article .modern-mapping {
-  background: linear-gradient(135deg, #F2EBDD 0%, #F5F0E8 100%);
-  border: 1px solid #E8E4DC;
-  border-left: 3px solid #A8895C;
+  background: linear-gradient(135deg, var(--color-gold-soft) 0%, var(--color-paper) 100%);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-gold);
   padding: 20px 22px;
   margin: 2em 0;
+  border-radius: 2px;
 }
 @media (min-width: 768px) {
   .prose-article .modern-mapping {
@@ -142,9 +219,9 @@ body {
   }
 }
 .prose-article .modern-mapping-title {
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
   font-size: 11px;
-  color: #8C6E45;
+  color: var(--color-gold-dark);
   letter-spacing: 0.2em;
   margin-bottom: 12px;
   text-transform: uppercase;
@@ -159,11 +236,11 @@ body {
   font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
   font-size: 17px;
   line-height: 1.75;
-  color: #1A1A1A;
+  color: var(--color-prose-lead);
   text-align: center;
   padding: 24px 0;
-  border-top: 1px solid #E8E4DC;
-  border-bottom: 1px solid #E8E4DC;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   margin: 2em 0;
   font-weight: 500;
 }
@@ -198,3 +275,21 @@ body {
 .fade-in-up.delay-100 { animation-delay: 0.1s; animation-fill-mode: both; }
 .fade-in-up.delay-200 { animation-delay: 0.2s; animation-fill-mode: both; }
 .fade-in-up.delay-300 { animation-delay: 0.3s; animation-fill-mode: both; }
+
+/* 关键字高亮(搜索结果) */
+mark.search-hit {
+  background: linear-gradient(transparent 60%, rgba(214, 90, 90, 0.32) 60%);
+  color: var(--color-prose-strong);
+  font-weight: 600;
+  padding: 0 1px;
+  border-radius: 1px;
+}
+
+/* 减少动画偏好(尊重系统设置) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

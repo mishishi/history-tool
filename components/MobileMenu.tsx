@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import ThemeToggle from './ThemeToggle';
 
 /**
  * 移动端汉堡菜单
@@ -72,6 +73,10 @@ export default function MobileMenu() {
           </svg>
         )}
       </button>
+      {/* 主题切换 — 仅 mobile 显示 */}
+      <div className="md:hidden">
+        <ThemeToggle />
+      </div>
 
       {/* 全屏下拉 — 移动端 */}
       {open && (
