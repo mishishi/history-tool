@@ -42,8 +42,18 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/feed.xml" className="hover:text-cinnabar transition-colors">
+                  RSS 订阅
+                </Link>
+              </li>
+              <li>
+                <Link href="/unlock#newsletter" className="hover:text-cinnabar transition-colors">
+                  邮件订阅(免费)
+                </Link>
+              </li>
+              <li>
                 <Link href="/unlock" className="hover:text-cinnabar transition-colors">
-                  订阅会员
+                  付费订阅会员
                 </Link>
               </li>
             </ul>

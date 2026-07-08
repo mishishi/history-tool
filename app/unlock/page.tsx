@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Seal from '@/components/Seal';
+import SubscribeForm from '@/components/SubscribeForm';
 
 export default function UnlockPage() {
   return (
@@ -66,6 +67,50 @@ export default function UnlockPage() {
                   <div className="text-xs text-ink-mute">某互联网公司 VP · 订阅 11 个月</div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 免费邮件订阅 — 0 元入口 */}
+      <section className="max-w-wide mx-auto px-6 py-12 md:py-16">
+        <div className="relative bg-gradient-to-br from-paper-deep via-paper-card to-paper-deep border border-border rounded-sm overflow-hidden">
+          <div className="absolute top-0 right-0 w-40 h-40 opacity-5">
+            <div className="classical text-[140px] text-cinnabar leading-none">信</div>
+          </div>
+          <div className="relative grid md:grid-cols-2 gap-8 md:gap-12 p-8 md:p-12">
+            <div>
+              <Seal className="mb-3">免费入口</Seal>
+              <h2 className="text-2xl md:text-3xl font-bold text-ink mb-4 leading-tight">
+                还没决定订阅?<br />
+                <span className="text-cinnabar">先留个邮箱,</span>我们每周三送你一篇
+              </h2>
+              <p className="text-base text-ink-soft leading-relaxed mb-6">
+                完全免费。一封信就是一篇文章。不想继续了,每封信底部点一下就走。
+              </p>
+              <ul className="space-y-2.5 text-sm text-ink-soft">
+                <li className="flex items-start gap-2">
+                  <span className="text-cinnabar mt-0.5">✓</span>
+                  <span>不卖,不分享,只发订阅邮件</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-cinnabar mt-0.5">✓</span>
+                  <span>每周一封,频率固定,不灌水</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-cinnabar mt-0.5">✓</span>
+                  <span>想退就退,留 30 秒就能完成</span>
+                </li>
+              </ul>
+            </div>
+            <div className="md:bg-paper-card md:rounded-sm md:p-6 md:border md:border-border md:shadow-sm">
+              <h3 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
+                <svg className="w-4 h-4 text-cinnabar" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                填邮箱,确认后即可每周收到
+              </h3>
+              <SubscribeForm />
             </div>
           </div>
         </div>
