@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-import { getArticleBySlug } from '@/lib/articles';
+import { getArticleMeta } from '@/lib/articles-data';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -19,29 +19,27 @@ async function getFontData(): Promise<ArrayBuffer> {
 }
 
 export default async function Image({ params }: { params: { slug: string } }) {
-  let article = null;
-  try {
-    article = getArticleBySlug(params.slug);
-  } catch (e) {
-    return new Response(
-      `Article lookup error: ${e instanceof Error ? e.message : String(e)}`,
-      { status: 500, headers: { 'Content-Type': 'text/plain' } }
-    );
-  }
-
-  if (!article) {
-    return new Response(
-      `Article not found: ${params.slug}`,
-      { status: 404, headers: { 'Content-Type': 'text/plain' } }
-    );
-  }
-
+  const article = await getArticleMeta(params.slug);
   const fontData = await getFontData();
 
-  if (!fontData || fontData.byteLength === 0) {
-    return new Response(
-      `Empty font data: ${fontData?.byteLength ?? 0} bytes`,
-      { status: 500, headers: { 'Content-Type': 'text/plain' } }
+  if (!article) {
+    return new ImageResponse(
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#F5F0E8',
+          color: '#B23A3A',
+          fontSize: '48px',
+          fontFamily: '"Noto Serif SC"',
+        }}
+      >
+        读通鉴 · 文章已迁移
+      </div>,
+      { ...size, fonts: [{ name: 'Noto Serif SC', data: fontData, weight: 400, style: 'normal' }] }
     );
   }
 
