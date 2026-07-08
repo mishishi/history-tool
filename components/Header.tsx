@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
+import SearchButton from './SearchButton';
+import type { SearchDoc } from '@/lib/search-client';
 
-export default function Header() {
+export default function Header({ docs }: { docs: SearchDoc[] }) {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-paper/85 border-b border-border">
       <div className="max-w-wide mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
@@ -34,20 +36,7 @@ export default function Header() {
 
         {/* 右侧 — 桌面 */}
         <div className="hidden md:flex items-center gap-2">
-          <button
-            className="flex items-center gap-2 px-3 py-1.5 rounded-md hover:bg-paper-deep text-ink-soft hover:text-ink transition-colors"
-            aria-label="搜索"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <span className="text-xs">搜索</span>
-          </button>
+          <SearchButton docs={docs} />
           <Link
             href="/unlock"
             className="px-4 py-1.5 bg-cinnabar hover:bg-cinnabar-dark text-paper text-sm rounded-md transition-colors font-medium"
