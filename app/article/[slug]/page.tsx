@@ -20,6 +20,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${article.title} — 读通鉴`,
     description: article.excerpt,
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      type: 'article',
+      locale: 'zh_CN',
+      images: [
+        {
+          url: 'https://history-tool.vercel.app/opengraph-image',
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
   };
 }
 
