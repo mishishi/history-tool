@@ -18,7 +18,7 @@ async function getFontData(): Promise<ArrayBuffer> {
   return _fontCache;
 }
 
-const fontConfig = { name: 'Noto Serif SC', weight: 400, style: 'normal' as const };
+const fontConfig = { name: 'Noto Serif SC', weight: '400' as const, style: 'normal' as const };
 
 export default async function Image({ params }: { params: { slug: string } }) {
   let article = null;
@@ -200,7 +200,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
       ),
       {
         ...size,
-        fonts: [{ ...fontConfig, data: fontData! }],
+        fonts: [{ ...fontConfig, data: fontData! } as any],
       }
     );
   } catch (e) {
