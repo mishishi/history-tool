@@ -6,7 +6,6 @@ import rehypeRaw from 'rehype-raw';
 import { getAllArticles, getArticleBySlug, getClassicBySlug, formatDate } from '@/lib/articles';
 import ArticleCard from '@/components/ArticleCard';
 import FavoriteButton from '@/components/FavoriteButton';
-import MobileQRButton from '@/components/MobileQRButton';
 import Seal from '@/components/Seal';
 
 // 静态生成所有路由
@@ -118,10 +117,9 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             <span>{article.views >= 1000 ? `${(article.views / 1000).toFixed(1)}k` : article.views} 人已读</span>
           </div>
 
-          {/* 操作:收藏 + 手机继续读 */}
-          <div className="flex justify-center gap-3 flex-wrap">
+          {/* 操作:收藏(手机继续读已转为全站浮动按钮) */}
+          <div className="flex justify-center">
             <FavoriteButton slug={article.slug} title={article.title} />
-            <MobileQRButton />
           </div>
         </div>
 

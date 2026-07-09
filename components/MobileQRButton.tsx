@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
 
 /**
- * 手机扫码继续阅读按钮 + Modal
- * - 桌面端用户在文章页看到喜欢的文章,点这个按钮 → 弹 QR + URL → 手机扫码继续读
- * - QR code 主题随 dark/light 切换:light 下黑底, dark 下朱红底
+ * 全站右下角浮动按钮 + Modal
+ * - 桌面端用户在任何页面都能一键唤起 QR,扫码到当前页
+ * - 与 ScrollToTop 在右下角垂直堆叠:QR 上方(始终可见),ScrollToTop 下方(滚动 >400px 出现)
  */
 export default function MobileQRButton() {
   const [open, setOpen] = useState(false);
@@ -87,24 +87,36 @@ export default function MobileQRButton() {
 
   return (
     <>
-      {/* 触发按钮 —— 收藏按钮同款样式 */}
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-label="在手机上继续阅读"
-        title="在手机上继续阅读"
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-border text-sm text-ink-soft hover:border-cinnabar hover:text-cinnabar transition-all"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2zM7 4h10M9 4v0M9 18v0"
-          />
-        </svg>
-        <span>手机继续读</span>
-      </button>
+      {/* 浮动按钮 — 右下角 FAB,在 ScrollToTop 上方 */}
+      <div className="group fixed bottom-20 right-4 md:right-6 z-40">
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="在手机上继续阅读"
+          className="floating-qr-btn relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-cinnabar hover:bg-cinnabar-dark text-paper shadow-lg hover:shadow-xl flex items-center justify-center transition-all hover:-translate-y-0.5"
+          style={{
+            transition: 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease',
+          }}
+        >
+          {/* 手机+QR 图标 */}
+          <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.8}
+              d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+            />
+          </svg>
+
+          {/* hover 时显示 tooltip */}
+          <span className="absolute right-full mr-3 px-3 py-1.5 bg-ink text-paper text-xs whitespace-nowrap rounded-sm opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity shadow-md">
+            手机继续读
+          </span>
+
+          {/* 脉冲呼吸点(吸引注意) */}
+          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-gold border-2 border-paper animate-pulse-soft"></span>
+        </button>
+      </div>
 
       {/* Modal */}
       {open && (

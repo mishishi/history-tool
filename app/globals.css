@@ -357,6 +357,33 @@ body {
   display: block;
 }
 
+/* ===== Floating QR FAB 脉冲呼吸点 ===== */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.7; transform: scale(1.15); }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-soft { animation: none; }
+}
+
+/* ===== 浮动 QR 按钮 hover 提亮 ===== */
+.floating-qr-btn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  border: 2px solid var(--color-cinnabar);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-out-expo);
+}
+.floating-qr-btn:hover::after {
+  opacity: 0.35;
+}
+
 /* ===== 文章正文样式(响应式 + dark variant) ===== */
 .prose-article {
   font-size: 16px;

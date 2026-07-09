@@ -7,6 +7,7 @@ import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar';
 import InstallPrompt from '@/components/InstallPrompt';
 import ThemeInitScript from '@/components/ThemeInitScript';
 import ScrollToTop from '@/components/ScrollToTop';
+import MobileQRButton from '@/components/MobileQRButton';
 import { getSearchData } from '@/lib/search';
 
 // Next 14 要求 themeColor 在 viewport export 里
@@ -95,6 +96,8 @@ export default function RootLayout({
         <ServiceWorkerRegistrar />
         <InstallPrompt />
         <ScrollToTop />
+        {/* 全站浮动 QR 按钮 — 桌面端右下角一键扫码继续读 */}
+        <MobileQRButton />
       </body>
     </html>
   );
