@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
-import { getAllArticles, DYNASTIES } from '@/lib/articles';
+import { getAllArticles } from '@/lib/articles';
+import { DYNASTIES } from '@/lib/dynasties';
 import ArticleCard from '@/components/ArticleCard';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';

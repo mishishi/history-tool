@@ -98,28 +98,11 @@ export function getClassicBySlug(slug: string): Classic | null {
 }
 
 // 日期格式化函数已抽到 lib/date.ts(纯 JS,client/server 都能用)
+// DYNASTIES 抽到 lib/dynasties.ts(纯数据,无 fs 依赖,client 能用)
 // 这里 re-export 保持向后兼容
 export { formatDate, formatRelativeDate } from './date';
-
-/**
- * 朝代分类
- */
-export interface Dynasty {
-  name: string;
-  period: string;
-  slug: string;
-  count: number;
-}
-
-export const DYNASTIES: Dynasty[] = [
-  { name: '战国', period: '前 403 - 前 221', slug: 'zhanguo', count: 12 },
-  { name: '秦汉', period: '前 221 - 220', slug: 'qinhan', count: 28 },
-  { name: '三国', period: '220 - 280', slug: 'sanguo', count: 31 },
-  { name: '两晋', period: '265 - 420', slug: 'liangjin', count: 19 },
-  { name: '南北朝', period: '420 - 589', slug: 'nanbeichao', count: 24 },
-  { name: '隋唐', period: '581 - 907', slug: 'suitang', count: 42 },
-  { name: '五代', period: '907 - 979', slug: 'wudai', count: 15 },
-];
+export { DYNASTIES, findDynasty } from './dynasties';
+export type { Dynasty } from './dynasties';
 
 /**
  * 文章目录项

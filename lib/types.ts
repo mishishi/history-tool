@@ -31,6 +31,8 @@ export interface ArticleMeta {
   views: number;
   publishedAt: string;
   tags: string[];
+  /** 可选:自定义封面图 URL(/covers/xx.png)。不填则用朝代默认封面 */
+  cover?: string;
 }
 
 // 完整文章(含正文)

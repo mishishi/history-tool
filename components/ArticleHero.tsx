@@ -3,8 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import FavoriteButton from './FavoriteButton';
 import Seal from './Seal';
+import ArticleCover from './ArticleCover';
 import type { ArticleMeta } from '@/lib/types';
 import { formatDate } from '@/lib/date';
+import { findDynasty } from '@/lib/dynasties';
 
 interface Props {
   article: ArticleMeta;
@@ -83,6 +85,13 @@ export default function ArticleHero({ article, parallax = 0.4 }: Props) {
     >
       {/* 顶部细金线 */}
       <div className="hero-rule mb-5"></div>
+
+      {/* 封面图(SVG inline) — 朝代配色 + motif 装饰 */}
+      {(() => {
+        const dynasty = findDynasty(article.dynasty);
+        if (!dynasty) return null;
+        return <ArticleCover article={article} dynasty={dynasty} />;
+      })()}
 
       <div className="text-center fade-in-up">
         {/* 期刊编号 */}

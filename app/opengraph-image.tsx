@@ -1,7 +1,8 @@
 import { ImageResponse } from 'next/og';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { getAllArticles, DYNASTIES } from '@/lib/articles';
+import { getAllArticles } from '@/lib/articles';
+import { DYNASTIES } from '@/lib/dynasties';
 import { SITE_URL } from '@/lib/site-config';
 
 export const runtime = 'nodejs';
