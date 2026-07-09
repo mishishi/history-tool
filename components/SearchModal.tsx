@@ -163,10 +163,29 @@ export default function SearchModal({ open, onClose, docs }: Props) {
         </div>
 
         <div className="flex-1 min-h-0 overflow-y-auto md:max-h-[60vh]">
-          {/* 搜索无结果 */}
+          {/* 搜索无结果 — 回退到热门词 */}
           {isSearching && results.length === 0 && (
-            <div className="px-5 py-12 text-center text-sm text-ink-mute">
-              没有匹配「{query}」的文章
+            <div className="px-5 py-10">
+              <div className="text-center text-sm text-ink-mute mb-5">
+                没有匹配「{query}」的文章
+              </div>
+              <div className="text-[10px] text-ink-mute tracking-[0.3em] uppercase mb-3">
+                没 找 到?试 试 这 些
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {POPULAR_QUERIES.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => {
+                      setQuery(q);
+                      inputRef.current?.focus();
+                    }}
+                    className="px-2.5 py-1 text-xs text-ink-soft border border-border rounded-sm hover:border-cinnabar hover:text-cinnabar transition-colors"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
 

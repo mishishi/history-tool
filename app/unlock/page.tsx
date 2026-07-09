@@ -3,6 +3,7 @@ import Seal from '@/components/Seal';
 import SubscribeForm from '@/components/SubscribeForm';
 import CheckoutButton from '@/components/CheckoutButton';
 import JsonLd from '@/components/JsonLd';
+import UnlockStats from '@/components/UnlockStats';
 
 const SITE_URL = 'https://history-tool.vercel.app';
 
@@ -383,26 +384,7 @@ export default function UnlockPage({
       {/* 信任标识 */}
       <section className="max-w-wide mx-auto px-6 py-12">
         <div className="bg-paper-card border border-border rounded-sm p-8 md:p-10">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold text-cinnabar mb-2">2,800+</div>
-              <div className="text-xs text-ink-soft">订阅用户</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-cinnabar mb-2">12</div>
-              <div className="text-xs text-ink-soft">已发布深度解读</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-cinnabar mb-2">23</div>
-              <div className="text-xs text-ink-soft">人物长卷</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-cinnabar mb-2">4.9</div>
-              <div className="text-xs text-ink-soft flex items-center justify-center gap-1">
-                ★★★★★ <span className="ml-1">用户评分</span>
-              </div>
-            </div>
-          </div>
+          <UnlockStats />
         </div>
       </section>
 

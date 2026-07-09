@@ -17,6 +17,8 @@ interface Props {
   className?: string;
   /** 是否用 locale 格式化(千分位) */
   locale?: boolean;
+  /** 小数位数,默认 0 */
+  decimals?: number;
   /** 减震 */
   respectReducedMotion?: boolean;
 }
@@ -36,6 +38,7 @@ export default function CountUp({
   suffix = '',
   className = '',
   locale = true,
+  decimals = 0,
   respectReducedMotion = true,
 }: Props) {
   const [value, setValue] = useState(from);
@@ -57,13 +60,14 @@ export default function CountUp({
       animatedRef.current = true;
       const start = performance.now();
       const easeOutExpo = (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
-      const tick = (now: number) => {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = easeOutExpo(progress);
-        setValue(Math.round(from + (to - from) * eased));
-        if (progress < 1) requestAnimationFrame(tick);
-      };
+        const tick = (now: number) => {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeOutExpo(progress);
+          const raw = from + (to - from) * eased;
+          setValue(decimals > 0 ? Number(raw.toFixed(decimals)) : Math.round(raw));
+          if (progress < 1) requestAnimationFrame(tick);
+        };
       requestAnimationFrame(tick);
     };
 
@@ -86,7 +90,12 @@ export default function CountUp({
     }
   }, [to, duration, from, respectReducedMotion]);
 
-  const formatted = locale ? value.toLocaleString('zh-CN') : value.toString();
+  const formatted = locale
+    ? value.toLocaleString('zh-CN', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })
+    : value.toFixed(decimals);
 
   return (
     <span ref={ref} className={className}>

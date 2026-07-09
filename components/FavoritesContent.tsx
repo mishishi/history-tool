@@ -57,7 +57,7 @@ export default function FavoritesContent({
 
   // 两个都空 → 引导
   if (favorites.length === 0 && recent.length === 0) {
-    return <EmptyState />;
+    return <EmptyState allArticles={allArticles} />;
   }
 
   return (
@@ -162,27 +162,68 @@ function FavoritesSkeleton() {
   );
 }
 
-function EmptyState() {
+function EmptyState({ allArticles }: { allArticles: ArticleMeta[] }) {
+  // 取阅读数最高的 3 篇作为推荐
+  const recommended = [...allArticles]
+    .sort((a, b) => (b.views ?? 0) - (a.views ?? 0))
+    .slice(0, 3);
+
   return (
-    <div className="text-center py-16 md:py-20">
-      <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center bg-cinnabar/10 text-cinnabar rounded-sm">
-        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-        </svg>
+    <div className="py-12 md:py-16">
+      <div className="text-center mb-10">
+        <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center bg-cinnabar/10 text-cinnabar rounded-sm">
+          <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+          </svg>
+        </div>
+        <h2 className="text-xl font-semibold text-ink mb-3">还没收藏文章</h2>
+        <p className="text-ink-soft mb-6 max-w-md mx-auto">
+          在任何一篇文章页,标题下面有个「收藏」按钮,点一下就放到这里。
+        </p>
+        <Link
+          href="/#articles"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-cinnabar hover:bg-cinnabar-dark text-paper rounded-md transition-colors font-medium"
+        >
+          去发现好文章
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </Link>
       </div>
-      <h2 className="text-xl font-semibold text-ink mb-3">还没收藏文章</h2>
-      <p className="text-ink-soft mb-6 max-w-md mx-auto">
-        在任何一篇文章页,标题下面有个「收藏」按钮,点一下就放到这里。
-      </p>
-      <Link
-        href="/#articles"
-        className="inline-flex items-center gap-2 px-5 py-2.5 bg-cinnabar hover:bg-cinnabar-dark text-paper rounded-md transition-colors font-medium"
-      >
-        去发现好文章
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </Link>
+
+      {/* 推荐 3 篇热门文章 */}
+      {recommended.length > 0 && (
+        <div className="max-w-3xl mx-auto">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="text-[10px] text-ink-mute tracking-[0.3em] uppercase">热 门 推 荐</div>
+            <div className="flex-1 h-px bg-border" />
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {recommended.map((a) => (
+              <Link
+                key={a.slug}
+                href={`/article/${a.slug}`}
+                className="group block p-4 bg-paper-card border border-border rounded-sm hover:border-cinnabar transition-all hover:shadow-md"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="px-1.5 py-0.5 text-[10px] text-cinnabar border border-cinnabar/40 rounded">
+                    {a.dynasty}
+                  </span>
+                  <span className="text-[10px] text-ink-mute tabular-nums">
+                    {a.views} 阅读
+                  </span>
+                </div>
+                <h3 className="text-sm font-semibold text-ink leading-snug mb-1.5 line-clamp-2 group-hover:text-cinnabar transition-colors">
+                  {a.title}
+                </h3>
+                {a.subtitle && (
+                  <p className="text-xs text-ink-soft line-clamp-1">{a.subtitle}</p>
+                )}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
