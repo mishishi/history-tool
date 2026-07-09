@@ -1,34 +1,43 @@
 import type { MetadataRoute } from 'next';
 import { getAllArticles } from '@/lib/articles';
+import { SITE_URL } from '@/lib/site-config';
 
-const SITE_URL = 'https://history-tool.vercel.app';
+// 静态页 lastModified 用固定 build 时间,避免误导爬虫每周都改
+const BUILD_DATE = new Date('2026-07-01');
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles();
 
-  // 静态页面
+  // 收录的公开静态页(noindex 的 /subscribed / /unsubscribe / /unlock/success 不入 sitemap)
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: SITE_URL,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
       url: `${SITE_URL}/unlock`,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/about`,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    {
+      // /favorites 是公开可访问页(robots meta noindex,但占位有利于站点结构理解)
+      url: `${SITE_URL}/favorites`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'never',
+      priority: 0.3,
+    },
   ];
 
-  // 50 篇文章页
+  // 全部文章页 — lastModified 用 publishedAt(项目目前没编辑流,publishedAt 即最后修改)
   const articlePages: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `${SITE_URL}/article/${article.slug}`,
     lastModified: new Date(article.publishedAt),

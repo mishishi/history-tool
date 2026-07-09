@@ -12,6 +12,7 @@ import ScrollToTop from '@/components/ScrollToTop';
 import MobileQRButton from '@/components/MobileQRButton';
 import NetworkBanner from '@/components/NetworkBanner';
 import { getSearchData } from '@/lib/search';
+import { SITE_URL } from '@/lib/site-config';
 
 /**
  * 字体优化策略:
@@ -42,7 +43,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://history-tool.vercel.app/'),
+  metadataBase: new URL(SITE_URL + '/'),
   title: '读通鉴 — 把资治通鉴讲成你听得懂的故事',
   description: '我们用 AI 把司马光写给皇帝的这部书,翻译成当代人能读懂、能用上的东西。资治通鉴不只是历史,它是 1362 年里所有关键决策的复盘。',
   keywords: ['资治通鉴', '历史', 'AI 解读', '司马光', '古代史', '管理智慧'],

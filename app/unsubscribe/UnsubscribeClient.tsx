@@ -124,7 +124,7 @@ export default function UnsubscribeClient() {
         </button>
         <Link
           href="/"
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-paper border border-border text-ink hover:bg-paper-dark rounded-md transition-colors font-medium"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-paper border border-border text-ink hover:bg-paper-deep rounded-md transition-colors font-medium"
         >
           算了,继续发
         </Link>

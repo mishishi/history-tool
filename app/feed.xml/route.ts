@@ -1,6 +1,6 @@
 import { getAllArticles } from '@/lib/articles';
+import { SITE_URL } from '@/lib/site-config';
 
-const SITE_URL = 'https://history-tool.vercel.app';
 const SITE_TITLE = '读通鉴 — 把资治通鉴讲成你听得懂的故事';
 const SITE_DESCRIPTION =
   '我们用 AI 把司马光写给皇帝的这部书,翻译成当代人能读懂、能用上的东西。资治通鉴不只是历史,它是 1362 年里所有关键决策的复盘。';
@@ -25,6 +25,15 @@ export async function GET() {
       const url = `${SITE_URL}/article/${article.slug}`;
       const pubDate = new Date(article.publishedAt).toUTCString();
       const description = article.excerpt || article.subtitle || article.title;
+      // content:encoded 用 excerpt + subtitle + 古文引子拼一个完整摘要,订阅器才能渲染卡片
+      const contentSnippet =
+        [
+          description,
+          article.subtitle && article.subtitle !== description ? article.subtitle : '',
+          article.classicalQuote ? `「${article.classicalQuote}」` : '',
+        ]
+          .filter(Boolean)
+          .join('\n\n');
 
       return `
     <item>
@@ -32,15 +41,20 @@ export async function GET() {
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
       <pubDate>${pubDate}</pubDate>
-      <author>hello@du-tongjian.com (读通鉴 · 主编 Jason)</author>
+      <dc:creator>${escapeXml('读通鉴 · 主编 Jason')}</dc:creator>
+      <author>hello@du-tongjian.com</author>
       <category>${escapeXml(article.dynasty)}</category>
       <description>${escapeXml(description)}</description>
+      <content:encoded><![CDATA[${escapeXml(contentSnippet)}]]></content:encoded>
     </item>`;
     })
     .join('');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>${escapeXml(SITE_TITLE)}</title>
     <link>${SITE_URL}</link>

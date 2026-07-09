@@ -1,14 +1,14 @@
 /**
- * 站点营销数字 — 单点管理
+ * 站点配置 — 单点管理,改一处全部生效
  *
- * 这些数字会出现在 Header / Footer / Unlock 页 / UnlockStats / SubscribersBadge 等地方。
- * 改一处全部跟着变,避免文案不一致。
+ * SITE_URL: 生产域名,被 sitemap / robots / RSS / 邮件确认链接 / OG image / canonical 等引用。
+ * 改域名/多环境部署,只改这里(也可用 NEXT_PUBLIC_SITE_URL 环境变量覆盖)。
  *
- * subscribers: 订阅用户数(营销数字,可适当虚高)
- * ratings: 用户评分
- * readingMinutesAvg: 平均阅读时长(分钟)
- * contentCoverage: 内容覆盖范围(战国至五代)
+ * MARKETING_STATS: 营销数字,Header / Footer / Unlock 页 / UnlockStats / SubscribersBadge 等地方共用。
  */
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://history-tool.vercel.app';
+
 export const MARKETING_STATS = {
   subscribers: 2800,
   ratings: 4.9,

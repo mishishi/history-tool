@@ -17,6 +17,7 @@ import RevealOnScroll from '@/components/RevealOnScroll';
 import ShareButtons from '@/components/ShareButtons';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
+import { SITE_URL } from '@/lib/site-config';
 
 // 静态生成所有路由
 export async function generateStaticParams() {
@@ -25,7 +26,6 @@ export async function generateStaticParams() {
 }
 
 // 元数据 — 全套增强:OG + Twitter Card + 文章专属
-const SITE_URL = 'https://history-tool.vercel.app';
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const article = getArticleBySlug(params.slug);

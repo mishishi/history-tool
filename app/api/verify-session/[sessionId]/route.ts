@@ -42,9 +42,21 @@ export async function GET(
     });
   } catch (err: any) {
     console.error('[api/verify-session] error:', err);
+    // Stripe 真 404(资源不存在)— 才是"会话不存在"
+    // 其他异常(网络/限流/5xx)— 提示用户稍后再试
+    const isStripeNotFound = err?.statusCode === 404 || err?.code === 'resource_missing';
+    if (isStripeNotFound) {
+      return NextResponse.json(
+        { ok: false, error: '会话不存在或已过期' },
+        { status: 404 }
+      );
+    }
     return NextResponse.json(
-      { ok: false, error: '会话不存在或已过期' },
-      { status: 404 }
+      { ok: false, error: '支付服务暂时不可达,几秒后重试', transient: true },
+      {
+        status: 503,
+        headers: { 'Retry-After': '5' },
+      }
     );
   }
 }

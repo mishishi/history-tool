@@ -4,8 +4,8 @@ import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
 import StatsCard from '@/components/StatsCard';
 import { getAllArticles } from '@/lib/articles';
+import { SITE_URL } from '@/lib/site-config';
 
-const SITE_URL = 'https://history-tool.vercel.app';
 const articleCount = getAllArticles().length;
 
 export const metadata: Metadata = {

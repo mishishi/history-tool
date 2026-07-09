@@ -5,9 +5,8 @@ import CheckoutButton from '@/components/CheckoutButton';
 import JsonLd from '@/components/JsonLd';
 import UnlockStats from '@/components/UnlockStats';
 import { getAllArticles } from '@/lib/articles';
-import { MARKETING_STATS } from '@/lib/site-config';
+import { MARKETING_STATS, SITE_URL } from '@/lib/site-config';
 
-const SITE_URL = 'https://history-tool.vercel.app';
 const articleCount = getAllArticles().length;
 
 const FAQ_ITEMS: { q: string; a: string }[] = [

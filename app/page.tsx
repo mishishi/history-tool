@@ -5,8 +5,7 @@ import ArticleCard from '@/components/ArticleCard';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
 import SubscribersBadge from '@/components/SubscribersBadge';
-
-const SITE_URL = 'https://history-tool.vercel.app';
+import { SITE_URL } from '@/lib/site-config';
 
 export default function HomePage() {
   const articles = getAllArticles();
