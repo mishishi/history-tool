@@ -39,6 +39,10 @@ const FALLBACK_TIPS = [
 export default function OfflinePage() {
   return (
     <section className="max-w-narrow mx-auto px-6 py-16 md:py-24">
+      {/* 顶部细金线 + 期刊编号 — 跟 404 / 500 / subscribed 风格一致 */}
+      <div className="hero-rule mb-5"></div>
+      <div className="hero-episode mb-6 text-center">DU TONGJIAN · 离 线</div>
+
       <div className="text-center mb-12">
         {/* 朱红印章作"未读" 标记,反过来用 */}
         <div className="inline-flex items-center justify-center w-20 h-20 bg-cinnabar/10 text-cinnabar rounded-sm mb-6">
@@ -55,12 +59,15 @@ export default function OfflinePage() {
         </p>
       </div>
 
+      {/* 底部细金线 — 闭合装饰 */}
+      <div className="hero-rule mb-12"></div>
+
       {/* 操作 */}
       <div className="flex flex-wrap justify-center gap-3 mb-16">
         <RetryButton />
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-paper border border-border text-ink hover:bg-paper-dark rounded-md transition-colors font-medium"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-paper border border-border text-ink hover:bg-paper-deep rounded-md transition-colors font-medium"
         >
           回首页
         </Link>

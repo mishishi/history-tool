@@ -69,7 +69,7 @@ export default function NotFound() {
                 <Link
                   key={a.slug}
                   href={`/article/${a.slug}`}
-                  className="article-card stagger-card block bg-paper-card border border-border hover:border-cinnabar rounded-sm p-5"
+                  className="article-card stagger-card group block bg-paper-card border border-border hover:border-cinnabar rounded-sm p-5"
                   style={{ ['--stagger-delay' as string]: `${i * 80}ms` } as React.CSSProperties}
                 >
                   <div className="card-accent h-1 bg-cinnabar mb-4"></div>

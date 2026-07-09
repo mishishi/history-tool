@@ -31,7 +31,10 @@ export default function FavoriteButton({ slug, title }: { slug: string; title: s
   // 服务端 / 还没 mount 时不显示,避免水合不一致
   if (!mounted) {
     return (
-      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-border text-sm">
+      <div
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-border text-sm"
+        aria-hidden="true"
+      >
         <span className="w-4 h-4 block" />
         <span>收藏</span>
       </div>
@@ -41,7 +44,7 @@ export default function FavoriteButton({ slug, title }: { slug: string; title: s
   return (
     <button
       onClick={onClick}
-      aria-label={fav ? '取消收藏' : '收藏'}
+      aria-label={fav ? '从收藏移除' : '加入收藏文章'}
       aria-pressed={fav}
       title={fav ? '已收藏' : '加入收藏'}
       className={

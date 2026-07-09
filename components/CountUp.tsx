@@ -48,11 +48,14 @@ export default function CountUp({
   useEffect(() => {
     if (!ref.current) return;
     const el = ref.current;
+    let cancelled = false;
 
     // 减震偏好:直接显示 target
     if (respectReducedMotion && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setValue(to);
-      return;
+      if (!cancelled) setValue(to);
+      return () => {
+        cancelled = true;
+      };
     }
 
     const animate = () => {
@@ -61,6 +64,7 @@ export default function CountUp({
       const start = performance.now();
       const easeOutExpo = (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
         const tick = (now: number) => {
+          if (cancelled) return;
           const elapsed = now - start;
           const progress = Math.min(elapsed / duration, 1);
           const eased = easeOutExpo(progress);
@@ -86,8 +90,15 @@ export default function CountUp({
         { threshold: 0.2 }
       );
       observer.observe(el);
-      return () => observer.disconnect();
+      return () => {
+        cancelled = true;
+        observer.disconnect();
+      };
     }
+
+    return () => {
+      cancelled = true;
+    };
   }, [to, duration, from, respectReducedMotion]);
 
   const formatted = locale
