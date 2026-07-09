@@ -57,8 +57,6 @@ export default function MobileMenu({ docs }: Props) {
     { href: '/', label: '首页' },
     { href: '/#articles', label: '最新解读' },
     { href: '/#dynasties', label: '按朝代' },
-    { href: '/unlock', label: '订阅会员' },
-    { href: '/favorites', label: '我的收藏' },
     { href: '/about', label: '关于我们' },
   ];
 

@@ -4,8 +4,10 @@ import SubscribeForm from '@/components/SubscribeForm';
 import CheckoutButton from '@/components/CheckoutButton';
 import JsonLd from '@/components/JsonLd';
 import UnlockStats from '@/components/UnlockStats';
+import { getAllArticles } from '@/lib/articles';
 
 const SITE_URL = 'https://history-tool.vercel.app';
+const articleCount = getAllArticles().length;
 
 const FAQ_ITEMS: { q: string; a: string }[] = [
   {
@@ -195,7 +197,7 @@ export default function UnlockPage({
               每周一篇 3000-5000 字深度解读,选一段最值得讲的历史,
               从原文、背景、人物、决策、现代映射五个维度拆给你看。
             </p>
-            <div className="text-xs text-gold-dark classical">已更新 12 期 · 持续连载中</div>
+            <div className="text-xs text-gold-dark classical">已更新 {articleCount} 期 · 持续连载中</div>
           </div>
 
           <div className="p-8 bg-paper-card border border-border rounded-sm">
@@ -237,7 +239,7 @@ export default function UnlockPage({
               <div className="text-sm font-semibold text-ink-soft mb-2">单期试读</div>
               <div className="flex items-baseline gap-1 mb-2">
                 <span className="text-2xl text-ink-soft font-medium mr-1">¥</span>
-                <span className="text-5xl font-bold text-ink leading-none" style={{ fontFamily: 'Inter, sans-serif' }}>9.9</span>
+                <span className="text-5xl font-bold text-ink leading-none font-sans tabular-nums">9.9</span>
               </div>
               <div className="text-xs text-ink-mute">/ 单篇解读</div>
             </div>
@@ -277,7 +279,7 @@ export default function UnlockPage({
               <div className="text-sm font-semibold text-cinnabar mb-2">年度会员</div>
               <div className="flex items-baseline gap-1 mb-2">
                 <span className="text-2xl text-ink-soft font-medium mr-1">¥</span>
-                <span className="text-5xl font-bold text-ink leading-none" style={{ fontFamily: 'Inter, sans-serif' }}>99</span>
+                <span className="text-5xl font-bold text-ink leading-none font-sans tabular-nums">99</span>
               </div>
               <div className="text-xs text-ink-mute">/ 年 · 相当于 8.25 元 / 月</div>
             </div>
@@ -290,7 +292,7 @@ export default function UnlockPage({
                 <svg className="w-5 h-5 text-cinnabar flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-ink-soft"><strong>全部已发布解读</strong>(12 篇+)</span>
+                <span className="text-ink-soft"><strong>全部已发布解读</strong>({articleCount} 篇+)</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <svg className="w-5 h-5 text-cinnabar flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -336,7 +338,7 @@ export default function UnlockPage({
               </div>
               <div className="flex items-baseline gap-1 mb-2">
                 <span className="text-2xl text-ink-soft font-medium mr-1">¥</span>
-                <span className="text-5xl font-bold text-ink leading-none" style={{ fontFamily: 'Inter, sans-serif' }}>199</span>
+                <span className="text-5xl font-bold text-ink leading-none font-sans tabular-nums">199</span>
               </div>
               <div className="text-xs text-ink-mute">/ 3 年 · 相当于 5.5 元 / 月</div>
             </div>

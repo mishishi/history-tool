@@ -121,7 +121,6 @@ export default function InstallPrompt() {
       role="dialog"
       aria-label="安装读通鉴到桌面"
       className="fixed inset-x-0 bottom-0 z-[60] p-3 sm:p-4 animate-[slideUp_0.3s_ease-out]"
-      style={{ animation: 'slideUp 0.3s ease-out' }}
     >
       <div className="mx-auto max-w-md bg-paper border border-border rounded-lg shadow-2xl overflow-hidden">
         <div className="p-4 sm:p-5 flex items-start gap-3">
@@ -140,7 +139,7 @@ export default function InstallPrompt() {
           <button
             onClick={dismiss}
             aria-label="关闭"
-            className="shrink-0 w-7 h-7 flex items-center justify-center rounded text-ink-mute hover:bg-paper-dark hover:text-ink transition-colors"
+            className="shrink-0 w-7 h-7 flex items-center justify-center rounded text-ink-mute hover:bg-paper-deep hover:text-ink transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -159,7 +158,7 @@ export default function InstallPrompt() {
             </button>
             <button
               onClick={dismiss}
-              className="px-4 py-2 text-ink-soft hover:bg-paper-dark text-sm rounded-md transition-colors"
+              className="px-4 py-2 text-ink-soft hover:bg-paper-deep text-sm rounded-md transition-colors"
             >
               稍后
             </button>
@@ -175,7 +174,7 @@ export default function InstallPrompt() {
                   1
                 </span>
                 <span className="flex-1 pt-0.5">
-                  点底部的 <span className="inline-flex items-center px-1.5 py-0.5 bg-paper-dark rounded text-[11px]">
+                  点底部的 <span className="inline-flex items-center px-1.5 py-0.5 bg-paper-deep rounded text-[11px]">
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0-12l-4 4m4-4l4 4" />
                     </svg>
@@ -199,26 +198,13 @@ export default function InstallPrompt() {
             </ol>
             <button
               onClick={dismiss}
-              className="w-full px-4 py-2 text-ink-soft hover:bg-paper-dark text-sm rounded-md transition-colors"
+              className="w-full px-4 py-2 text-ink-soft hover:bg-paper-deep text-sm rounded-md transition-colors"
             >
               我知道了
             </button>
           </div>
         )}
       </div>
-
-      <style jsx>{`
-        @keyframes slideUp {
-          from {
-            transform: translateY(100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-      `}</style>
     </div>
   );
 }

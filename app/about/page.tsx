@@ -3,8 +3,10 @@ import type { Metadata } from 'next';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
 import StatsCard from '@/components/StatsCard';
+import { getAllArticles } from '@/lib/articles';
 
 const SITE_URL = 'https://history-tool.vercel.app';
+const articleCount = getAllArticles().length;
 
 export const metadata: Metadata = {
   title: '关于我们 — 读通鉴',
@@ -90,7 +92,7 @@ export default function AboutPage() {
             </p>
 
             <div className="mt-8 grid md:grid-cols-3 gap-4">
-              <StatsCard to={50} unit="篇" desc="已发布深度解读" />
+              <StatsCard to={articleCount} unit="篇" desc="已发布深度解读" />
               <StatsCard to={1362} unit="年" desc="从战国到当代的时间跨度" />
               <StatsCard to={1} unit="人 + AI" desc="主编 + 模型的协作生产" />
             </div>
@@ -283,7 +285,7 @@ export default function AboutPage() {
             开始读
           </h2>
           <p className="text-sm md:text-base text-ink-soft leading-relaxed mb-6">
-            50 篇文章,每一篇都是一段真实的决策复盘。
+            {articleCount} 篇文章,每一篇都是一段真实的决策复盘。
             选一篇,开始读通鉴。
           </p>
           <div className="flex flex-wrap items-center gap-3">

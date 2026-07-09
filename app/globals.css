@@ -740,3 +740,15 @@ mark.search-hit {
     animation: none;
   }
 }
+
+/* ===== InstallPrompt 底部滑入 ===== */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
