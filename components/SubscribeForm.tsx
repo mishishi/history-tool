@@ -81,7 +81,11 @@ export default function SubscribeForm({ compact = false }: Props) {
       );
     }
     return (
-      <div className="p-6 bg-cinnabar/5 border border-cinnabar/20 rounded-sm">
+      <div
+        className="p-6 bg-cinnabar/5 border border-cinnabar/20 rounded-sm"
+        role="status"
+        aria-live="polite"
+      >
         <div className="flex items-start gap-3">
           <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-cinnabar text-paper rounded-sm">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -89,7 +93,7 @@ export default function SubscribeForm({ compact = false }: Props) {
             </svg>
           </div>
           <div>
-            <h4 className="font-semibold text-ink mb-1">检查你的邮箱 📬</h4>
+            <h4 className="font-semibold text-ink mb-1">检查你的邮箱</h4>
             <p className="text-sm text-ink-soft leading-relaxed">{message}</p>
             <p className="text-xs text-ink-mute mt-3">
               没收到?看看垃圾箱,或者等几分钟后重新提交。

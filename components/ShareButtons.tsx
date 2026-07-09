@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ArticleMeta } from '@/lib/types';
 
 interface Props {
@@ -163,7 +163,11 @@ export default function ShareButtons({ article }: Props) {
 
       {/* 复制成功 toast — 居中用 flex,避免 fade-in-up 关键帧覆盖 transform */}
       {copied && (
-        <div className="fixed inset-x-0 bottom-24 z-[80] flex justify-center pointer-events-none">
+        <div
+          className="fixed inset-x-0 bottom-24 z-[80] flex justify-center pointer-events-none"
+          role="status"
+          aria-live="polite"
+        >
           <div className="fade-in-up pointer-events-auto px-4 py-2.5 bg-ink text-paper text-sm rounded-sm shadow-xl flex items-center gap-2">
             <svg className="w-4 h-4 text-cinnabar" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
@@ -181,14 +185,30 @@ export default function ShareButtons({ article }: Props) {
  */
 function WeChatShare({ url, title }: { url: string; title: string }) {
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  // Esc 关闭 + 打开时把焦点移到弹层(简单做法:聚焦第一个可聚焦元素)
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
 
   return (
     <div className="relative inline-block">
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         className="share-btn"
         aria-label="分享到微信"
+        aria-expanded={open}
         title="分享到微信(扫二维码)"
       >
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -209,6 +229,7 @@ function WeChatShare({ url, title }: { url: string; title: string }) {
           <div
             className="absolute right-0 top-full mt-2 w-[260px] z-[70] bg-paper-card border border-border rounded-sm shadow-2xl p-4 fade-in-up"
             role="dialog"
+            aria-modal="true"
             aria-label="微信扫码分享"
           >
             <div className="flex items-center gap-2 mb-3">

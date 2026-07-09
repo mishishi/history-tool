@@ -33,7 +33,7 @@ export function Skeleton({ className = '', rounded = 'sm' }: SkeletonProps) {
 export function ArticleCardSkeleton({ compact = false }: { compact?: boolean }) {
   return (
     <div
-      className={`block bg-paper-card border border-border rounded-sm overflow-hidden ${compact ? '' : ''}`}
+      className="block bg-paper-card border border-border rounded-sm overflow-hidden"
       aria-hidden="true"
     >
       <Skeleton className="h-1" />

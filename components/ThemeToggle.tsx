@@ -74,6 +74,16 @@ export default function ThemeToggle() {
     };
   }, [open]);
 
+  // Esc 关闭
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
+
   const selectMode = useCallback(
     (next: ThemeMode) => {
       setMode(next);
@@ -110,6 +120,7 @@ export default function ThemeToggle() {
         onClick={() => setOpen((v) => !v)}
         aria-label={`切换主题(当前 ${modeLabel(mode)})`}
         aria-expanded={open}
+        aria-haspopup="menu"
         title={`主题:${modeLabel(mode)}`}
         className="w-9 h-9 rounded-md flex items-center justify-center text-ink-soft hover:text-cinnabar hover:bg-paper-deep transition-colors"
       >

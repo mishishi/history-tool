@@ -1,10 +1,11 @@
 'use client';
 
 import CountUp from './CountUp';
+import { MARKETING_STATS } from '@/lib/site-config';
 
 /**
  * unlock 页底部"信任标识"区 — 4 个数字接入 CountUp
- * 2,800+ 订阅用户 / 12 已发布 / 23 人物长卷 / 4.9 评分
+ * 数字从 lib/site-config 的 MARKETING_STATS 取,避免散落多处不一致
  */
 export default function UnlockStats() {
   return (
@@ -12,7 +13,7 @@ export default function UnlockStats() {
       <div>
         <div className="text-3xl font-bold text-cinnabar mb-2">
           <CountUp
-            to={2800}
+            to={MARKETING_STATS.subscribers}
             suffix="+"
             className="tabular-nums"
           />
@@ -33,7 +34,7 @@ export default function UnlockStats() {
       </div>
       <div>
         <div className="text-3xl font-bold text-cinnabar mb-2">
-          <CountUp to={4.9} decimals={1} className="tabular-nums" />
+          <CountUp to={MARKETING_STATS.ratings} decimals={1} className="tabular-nums" />
         </div>
         <div className="text-xs text-ink-soft flex items-center justify-center gap-1">
           ★★★★★ <span className="ml-1">用户评分</span>

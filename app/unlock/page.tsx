@@ -5,6 +5,7 @@ import CheckoutButton from '@/components/CheckoutButton';
 import JsonLd from '@/components/JsonLd';
 import UnlockStats from '@/components/UnlockStats';
 import { getAllArticles } from '@/lib/articles';
+import { MARKETING_STATS } from '@/lib/site-config';
 
 const SITE_URL = 'https://history-tool.vercel.app';
 const articleCount = getAllArticles().length;
@@ -76,7 +77,7 @@ export default function UnlockPage({
           <div>
             <div className="flex items-center gap-3 mb-6">
               <Seal>订阅</Seal>
-              <span className="text-xs text-ink-mute">加入 2,800+ 订阅用户</span>
+              <span className="text-xs text-ink-mute">加入 {MARKETING_STATS.subscribers.toLocaleString()}+ 订阅用户</span>
             </div>
             <h1 className="text-3xl md:text-5xl font-bold text-ink leading-[1.2] mb-6">
               陪我们一起,<br />
