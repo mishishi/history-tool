@@ -77,8 +77,8 @@ export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle 
       onScroll();
     }
 
-window.addEventListener('scroll', onScroll, { passive: true });
-      return () => {
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
       window.removeEventListener('scroll', onScroll);
       if (stayTimer) clearTimeout(stayTimer);
     };

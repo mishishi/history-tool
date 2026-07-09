@@ -84,7 +84,7 @@ export default function ReadingProgress() {
         aria-hidden="true"
       >
         <div
-          className="h-full bg-gradient-to-r from-cinnabar via-cinnabar to-gold shadow-[0_0_8px_rgba(178,58,58,0.4)] transition-[width] duration-150 ease-out"
+          className="h-full bg-gradient-to-r from-cinnabar to-gold shadow-[0_0_8px_rgba(178,58,58,0.4)] transition-[width] duration-150 ease-out"
           style={{ width: `${progress}%` }}
         />
       </div>

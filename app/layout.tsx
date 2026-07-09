@@ -144,7 +144,7 @@ export default function RootLayout({
         {/* 全站浮动 QR 按钮 — 桌面端右下角一键扫码继续读 */}
         <MobileQRButton />
         {/* 首次访问引导 — 左下角气泡 */}
-        <OnboardingBubble />
+        <OnboardingBubble articleCount={searchDocs.length} />
       </body>
     </html>
   );

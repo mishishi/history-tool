@@ -6,6 +6,11 @@ import { usePathname } from 'next/navigation';
 const STORAGE_KEY = 'history-onboarding-dismissed';
 const AUTO_DISMISS_MS = 12000; // 12s 后自动淡出
 
+interface Props {
+  /** 文章总数 — 用于显示「快捷键搜索 N 篇文章」 */
+  articleCount?: number;
+}
+
 /**
  * 首次访问引导气泡 — 左下角
  * - 仅在首页 (/) 显示(用户入口)
@@ -13,7 +18,7 @@ const AUTO_DISMISS_MS = 12000; // 12s 后自动淡出
  * - 用户点 × 关闭,关闭后写 localStorage,7 天内不显示
  * - 12s 后自动淡出(用户没注意到 × 时兜底)
  */
-export default function OnboardingBubble() {
+export default function OnboardingBubble({ articleCount = 50 }: Props) {
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
   const [fading, setFading] = useState(false);
@@ -95,17 +100,23 @@ export default function OnboardingBubble() {
             <kbd className="shrink-0 mt-0.5 px-1.5 py-0.5 text-[10px] font-mono text-cinnabar border border-cinnabar/40 bg-cinnabar/5 rounded">
               ⌘ K
             </kbd>
-            <span>快捷键搜索 50 篇文章</span>
+            <span>快捷键搜索 {articleCount} 篇文章</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="shrink-0 mt-0.5 w-4 h-4 rounded-sm bg-gold/15 text-gold-dark text-[10px] flex items-center justify-center">
-              ▦
+            <span className="shrink-0 mt-0.5 w-4 h-4 rounded-sm bg-gold/15 text-gold-dark flex items-center justify-center">
+              {/* QR icon */}
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h6.75v6.75H3V4.5zM14.25 4.5H21v6.75h-6.75V4.5zM3 14.25h6.75V21H3v-6.75zM14.25 14.25H21V21h-6.75v-6.75zM14.25 14.25h.008v.008h-.008v-.008zM17.625 17.625h.008v.008h-.008v-.008zM17.625 20.25h.008v.008h-.008v-.008zM20.25 17.625h.008v.008h-.008v-.008z" />
+              </svg>
             </span>
             <span>右下角扫码订阅公众号</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="shrink-0 mt-0.5 w-4 h-4 rounded-sm bg-cinnabar/10 text-cinnabar text-[10px] flex items-center justify-center">
-              ◐
+            <span className="shrink-0 mt-0.5 w-4 h-4 rounded-sm bg-cinnabar/10 text-cinnabar flex items-center justify-center">
+              {/* 时钟/继续 icon */}
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
             </span>
             <span>Header 胶囊继续阅读</span>
           </li>

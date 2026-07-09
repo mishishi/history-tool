@@ -57,8 +57,6 @@ export default function ContinueReadingButton({ docs }: ContinueReadingButtonPro
 
   useEffect(() => {
     refresh();
-    const unsub = getRecent.toString; // keep import (actually not needed)
-    return () => {};
   }, [docs]);
 
   // 订阅 user-data 变化(进度 / recent 变了都更新)
