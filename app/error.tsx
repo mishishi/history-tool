@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import Seal from '@/components/Seal';
+import { SUPPORT_EMAIL } from '@/lib/site-config';
 
 /**
  * 全局错误兜底(Next.js App Router)
@@ -81,10 +82,10 @@ export default function GlobalError({
       <p className="text-xs text-ink-mute leading-relaxed max-w-md mx-auto">
         如果一直看到这个页面,可能是我们的锅 — 麻烦到{' '}
         <a
-          href="mailto:hello@du-tongjian.com"
+          href={`mailto:${SUPPORT_EMAIL}`}
           className="text-cinnabar hover:underline"
         >
-          hello@du-tongjian.com
+          {SUPPORT_EMAIL}
         </a>{' '}
         邮件告知,我们会尽快修复。
       </p>

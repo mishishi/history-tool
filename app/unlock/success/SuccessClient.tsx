@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Seal from '@/components/Seal';
+import { SUPPORT_EMAIL } from '@/lib/site-config';
 
 interface VerifyResult {
   ok: boolean;
@@ -101,7 +102,7 @@ export default function UnlockSuccessClient({ articleCount }: { articleCount: nu
             回订阅页
           </Link>
           <a
-            href="mailto:hello@du-tongjian.com"
+            href="mailto:${SUPPORT_EMAIL}"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-paper-card border border-border hover:border-cinnabar text-ink rounded-md transition-colors font-medium text-sm"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,7 +147,7 @@ export default function UnlockSuccessClient({ articleCount }: { articleCount: nu
             刷新查看
           </button>
           <a
-            href="mailto:hello@du-tongjian.com"
+            href="mailto:${SUPPORT_EMAIL}"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-paper-card border border-border hover:border-cinnabar text-ink rounded-md transition-colors font-medium text-sm"
           >
             联系客服

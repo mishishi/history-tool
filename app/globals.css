@@ -489,6 +489,15 @@ html {
   }
 }
 
+/* ===== 行高亮选中态(搜索结果 / 主题菜单 / 续读列表共用) ===== */
+.row-active {
+  background-color: rgba(178, 58, 58, 0.08);
+  border-left: 2px solid var(--color-cinnabar);
+}
+.dark .row-active {
+  background-color: rgba(214, 90, 90, 0.12);
+}
+
 /* ===== Floating QR FAB 脉冲呼吸点 ===== */
 @keyframes pulse-soft {
   0%, 100% { opacity: 1; transform: scale(1); }

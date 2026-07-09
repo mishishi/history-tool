@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Seal from './Seal';
 import SubscribeForm from './SubscribeForm';
+import { SUPPORT_EMAIL } from '@/lib/site-config';
 
 export default function Footer() {
   return (
@@ -89,7 +90,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="mailto:hello@du-tongjian.com" className="hover:text-cinnabar transition-colors">
+                <a href={`mailto:${SUPPORT_EMAIL}`} className="hover:text-cinnabar transition-colors">
                   联系我们
                 </a>
               </li>
@@ -115,7 +116,7 @@ export default function Footer() {
               </li>
             </ul>
             <p className="text-[10px] text-ink-mute mt-3 italic">
-              想交换友链?发邮件到 hello@du-tongjian.com
+              想交换友链?发邮件到 {SUPPORT_EMAIL}
             </p>
           </div>
         </div>

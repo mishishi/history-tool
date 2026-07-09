@@ -125,16 +125,16 @@ vercel --prod # 生产环境部署
 
 ## 下一步
 
-1. 完善到 8 篇内容(已写 2 篇)
-2. 接 Supabase Auth + 真实付费
-3. 内容运营(公众号引流 + 微信支付转化)
-4. SEO 优化 + 数据埋点
+1. 内容扩到 80-100 篇(当前 ~50 篇)+ 人物长卷
+2. 接用户系统 + 数据云同步(替代纯 localStorage)
+3. 公众号引流 + 真实付费转化
+4. 真实 Lighthouse 跑分 + Core Web Vitals 优化
 
 ## 已上线的能力(2026-07 起)
 
 | 类别 | 能力 | 状态 |
 |------|------|------|
-| 内容 | 50 篇深度解读 + 原文 + 关键人物 | ✅ |
+| 内容 | ~50 篇深度解读 + 原文 + 关键人物(共 7 个朝代) | ✅ |
 | 渠道 | SEO 基础(robots/sitemap)、OG 图、RSS、站内搜索 Cmd+K | ✅ |
 | PWA | Service Worker 离线缓存、/offline fallback、Android/iOS 安装引导、收藏 + 阅读进度 | ✅ |
 | 留存 | 邮件订阅(Resend + Upstash Redis,双确认) | 🟡 待激活 |

@@ -3,8 +3,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { savePendingSubscription } from '@/lib/store';
 import { checkRate, generateToken, sendEmail } from '@/lib/email';
+import { SITE_URL } from '@/lib/site-config';
 
 export const runtime = 'nodejs'; // 我们用 node:crypto
+
+// 邮件 HTML 品牌色(light 主题)— 邮件客户端不支持 CSS 变量,直接写 hex
+const BRAND = {
+  cinnabar: '#B23A3A',
+  paper: '#F5F0E8',
+  ink: '#1A1A1A',
+} as const;
 
 const BodySchema = z.object({
   email: z.string().email('请输入有效的邮箱地址').max(120),
@@ -71,17 +79,17 @@ export async function POST(req: NextRequest) {
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" /></head>
-<body style="margin:0;padding:0;background:#F5F0E8;font-family:'Helvetica Neue',Arial,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;">
+<body style="margin:0;padding:0;background:${BRAND.paper};font-family:'Helvetica Neue',Arial,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;">
   <div style="max-width:560px;margin:0 auto;padding:32px 24px;">
     <div style="text-align:center;margin-bottom:32px;">
-      <div style="display:inline-block;padding:10px 16px;background:#B23A3A;color:#F5F0E8;font-weight:bold;letter-spacing:0.1em;">读通鉴 · DU TONGJIAN</div>
+      <div style="display:inline-block;padding:10px 16px;background:${BRAND.cinnabar};color:${BRAND.paper};font-weight:bold;letter-spacing:0.1em;">读通鉴 · DU TONGJIAN</div>
     </div>
 
-    <h1 style="font-size:22px;color:#1A1A1A;margin:24px 0 12px;line-height:1.4;">
+    <h1 style="font-size:22px;color:${BRAND.ink};margin:24px 0 12px;line-height:1.4;">
       再点一下,我们就交个朋友
     </h1>
     <p style="font-size:15px;line-height:1.7;color:#4A4A4A;margin:0 0 16px;">
-      收到了你 <strong style="color:#1A1A1A;">${parsed.data.email}</strong> 的订阅请求。
+      收到了你 <strong style="color:${BRAND.ink};">${parsed.data.email}</strong> 的订阅请求。
       点击下面的按钮,确认是我本人、不是机器人,然后我就能在每周三把新写的解读送到你信箱。
     </p>
     <p style="font-size:15px;line-height:1.7;color:#4A4A4A;margin:0 0 24px;">
@@ -90,14 +98,14 @@ export async function POST(req: NextRequest) {
 
     <div style="text-align:center;margin:36px 0;">
       <a href="${confirmUrl}"
-         style="display:inline-block;padding:14px 28px;background:#B23A3A;color:#F5F0E8;text-decoration:none;font-weight:bold;border-radius:6px;letter-spacing:0.05em;font-size:15px;">
+         style="display:inline-block;padding:14px 28px;background:${BRAND.cinnabar};color:${BRAND.paper};text-decoration:none;font-weight:bold;border-radius:6px;letter-spacing:0.05em;font-size:15px;">
         确认订阅读通鉴
       </a>
     </div>
 
     <p style="font-size:13px;line-height:1.7;color:#8A8A8A;margin:32px 0 0;">
       如果按钮点不开,把这个链接复制到浏览器打开:
-      <br /><a href="${confirmUrl}" style="color:#B23A3A;word-break:break-all;">${confirmUrl}</a>
+      <br /><a href="${confirmUrl}" style="color:${BRAND.cinnabar};word-break:break-all;">${confirmUrl}</a>
     </p>
 
     <hr style="border:none;border-top:1px solid #E8E4DC;margin:32px 0;" />
@@ -105,7 +113,7 @@ export async function POST(req: NextRequest) {
     <p style="font-size:12px;line-height:1.6;color:#8A8A8A;margin:0;">
       读通鉴 · 主编 Jason<br />
       由 AI 辅助生产,人类编辑校对。<br />
-      <a href="${baseUrl}" style="color:#8A8A8A;">history-tool.vercel.app</a>
+      <a href="${baseUrl}" style="color:#8A8A8A;">${SITE_URL.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a>
     </p>
   </div>
 </body>

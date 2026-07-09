@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   alternates: {
     types: {
       'application/rss+xml': [
-        { url: 'https://history-tool.vercel.app/feed.xml', title: '读通鉴 RSS' },
+        { url: `${SITE_URL}/feed.xml`, title: '读通鉴 RSS' },
       ],
     },
   },
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     locale: 'zh_CN',
     images: [
       {
-        url: 'https://history-tool.vercel.app/opengraph-image',
+        url: `${SITE_URL}/opengraph-image`,
         width: 1200,
         height: 630,
         alt: '读通鉴 — 用 AI 重读 1362 年',

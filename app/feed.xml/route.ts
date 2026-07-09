@@ -1,5 +1,5 @@
 import { getAllArticles } from '@/lib/articles';
-import { SITE_URL } from '@/lib/site-config';
+import { SITE_URL, SUPPORT_EMAIL } from '@/lib/site-config';
 
 const SITE_TITLE = '读通鉴 — 把资治通鉴讲成你听得懂的故事';
 const SITE_DESCRIPTION =
@@ -42,7 +42,7 @@ export async function GET() {
       <guid isPermaLink="true">${url}</guid>
       <pubDate>${pubDate}</pubDate>
       <dc:creator>${escapeXml('读通鉴 · 主编 Jason')}</dc:creator>
-      <author>hello@du-tongjian.com</author>
+      <author>${SUPPORT_EMAIL}</author>
       <category>${escapeXml(article.dynasty)}</category>
       <description>${escapeXml(description)}</description>
       <content:encoded><![CDATA[${escapeXml(contentSnippet)}]]></content:encoded>
@@ -62,8 +62,8 @@ export async function GET() {
     <language>zh-CN</language>
     <lastBuildDate>${buildDate}</lastBuildDate>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
-    <managingEditor>hello@du-tongjian.com (读通鉴 · 主编 Jason)</managingEditor>
-    <webMaster>hello@du-tongjian.com (读通鉴 · 主编 Jason)</webMaster>
+    <managingEditor>${SUPPORT_EMAIL} (读通鉴 · 主编 Jason)</managingEditor>
+    <webMaster>${SUPPORT_EMAIL} (读通鉴 · 主编 Jason)</webMaster>
     <copyright>© 2026 读通鉴 · 资治通鉴原文属公共领域</copyright>
     <image>
       <url>${SITE_URL}/opengraph-image</url>

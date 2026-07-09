@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
               name: '读通鉴 · 单期精读',
               description:
                 '任选 1 篇深度解读,永久阅读。主理人每周邮件寄信。同时你的支持让这个项目跑得下去。',
-              images: ['https://history-tool.vercel.app/icons/icon-512.png'],
+              images: [`${process.env.NEXT_PUBLIC_SITE_URL || 'https://history-tool.vercel.app'}/icons/icon-512.png`],
             },
             unit_amount: SINGLE_PRICE_USD,
           },

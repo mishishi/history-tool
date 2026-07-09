@@ -201,7 +201,7 @@ function ModeOption({ mode, currentMode, onSelect, label, desc }: ModeOptionProp
       type="button"
       onClick={() => onSelect(mode)}
       className={`w-full text-left px-3 py-2 flex items-start gap-2.5 transition-colors ${
-        active ? 'bg-cinnabar/8 border-l-2 border-cinnabar' : 'border-l-2 border-transparent hover:bg-paper-deep'
+        active ? 'row-active' : 'border-l-2 border-transparent hover:bg-paper-deep'
       }`}
       role="menuitemradio"
       aria-checked={active}

@@ -221,7 +221,7 @@ export default function SearchModal({ open, onClose, docs }: Props) {
                     onMouseEnter={() => setActiveIdx(i)}
                     className={`w-full text-left px-5 py-3 flex items-start gap-3 transition-colors ${
                       i === activeIdx
-                        ? 'bg-cinnabar/8 border-l-2 border-cinnabar'
+                        ? 'row-active'
                         : 'border-l-2 border-transparent'
                     }`}
                   >
@@ -264,7 +264,7 @@ export default function SearchModal({ open, onClose, docs }: Props) {
                       onMouseEnter={() => setActiveIdx(i)}
                       className={`w-full text-left px-5 py-3 flex items-start gap-3 transition-colors ${
                         i === activeIdx
-                          ? 'bg-cinnabar/8 border-l-2 border-cinnabar'
+                          ? 'row-active'
                           : 'border-l-2 border-transparent'
                       }`}
                     >

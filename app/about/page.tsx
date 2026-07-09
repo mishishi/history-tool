@@ -4,7 +4,7 @@ import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
 import StatsCard from '@/components/StatsCard';
 import { getAllArticles } from '@/lib/articles';
-import { SITE_URL } from '@/lib/site-config';
+import { SITE_URL, SUPPORT_EMAIL } from '@/lib/site-config';
 
 const articleCount = getAllArticles().length;
 
@@ -38,7 +38,7 @@ export default function AboutPage() {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer support',
-      email: 'hello@du-tongjian.com',
+      email: SUPPORT_EMAIL,
     },
     sameAs: [
       `${SITE_URL}/feed.xml`,
