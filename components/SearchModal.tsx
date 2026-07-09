@@ -24,6 +24,23 @@ const POPULAR_QUERIES = [
   '司马光',
 ];
 
+/** 热门词按钮组 — 三处共用(无结果回退 / recents 续读下 / 全新用户) */
+function PopularQueries({ onPick }: { onPick: (q: string) => void }) {
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {POPULAR_QUERIES.map((q) => (
+        <button
+          key={q}
+          onClick={() => onPick(q)}
+          className="px-2.5 py-1 text-xs text-ink-soft border border-border rounded-sm hover:border-cinnabar hover:text-cinnabar transition-colors"
+        >
+          {q}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 /** 把 recents(只有 slug)映射回完整文章 meta,并附进度 */
 interface EnrichedRecent {
   slug: string;
@@ -145,7 +162,7 @@ export default function SearchModal({ open, onClose, docs }: Props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={onKeyDown}
-            placeholder="搜索 50 篇文章:标题、人物、朝代、关键字…"
+            placeholder={`搜索 ${docs.length} 篇文章:标题、人物、朝代、关键字…`}
             className="flex-1 bg-transparent outline-none text-base text-ink placeholder:text-ink-mute"
           />
           <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] text-ink-mute border border-border rounded">
@@ -182,20 +199,12 @@ export default function SearchModal({ open, onClose, docs }: Props) {
               <div className="text-[10px] text-ink-mute tracking-[0.3em] uppercase mb-3">
                 没 找 到?试 试 这 些
               </div>
-              <div className="flex flex-wrap gap-1.5">
-                {POPULAR_QUERIES.map((q) => (
-                  <button
-                    key={q}
-                    onClick={() => {
-                      setQuery(q);
-                      inputRef.current?.focus();
-                    }}
-                    className="px-2.5 py-1 text-xs text-ink-soft border border-border rounded-sm hover:border-cinnabar hover:text-cinnabar transition-colors"
-                  >
-                    {q}
-                  </button>
-                ))}
-              </div>
+              <PopularQueries
+                onPick={(q) => {
+                  setQuery(q);
+                  inputRef.current?.focus();
+                }}
+              />
             </div>
           )}
 
@@ -290,20 +299,12 @@ export default function SearchModal({ open, onClose, docs }: Props) {
                 <div className="mb-2 text-[10px] text-ink-mute tracking-[0.3em] uppercase">
                   热 门 搜 索
                 </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {POPULAR_QUERIES.map((q) => (
-                    <button
-                      key={q}
-                      onClick={() => {
-                        setQuery(q);
-                        inputRef.current?.focus();
-                      }}
-                      className="px-2.5 py-1 text-xs text-ink-soft border border-border rounded-sm hover:border-cinnabar hover:text-cinnabar transition-colors"
-                    >
-                      {q}
-                    </button>
-                  ))}
-                </div>
+                <PopularQueries
+                  onPick={(q) => {
+                    setQuery(q);
+                    inputRef.current?.focus();
+                  }}
+                />
               </div>
             </div>
           )}
@@ -314,19 +315,13 @@ export default function SearchModal({ open, onClose, docs }: Props) {
               <div className="mb-3 text-[10px] text-ink-mute tracking-[0.3em] uppercase">
                 热 门 搜 索
               </div>
-              <div className="flex flex-wrap gap-1.5 mb-6">
-                {POPULAR_QUERIES.map((q) => (
-                  <button
-                    key={q}
-                    onClick={() => {
-                      setQuery(q);
-                      inputRef.current?.focus();
-                    }}
-                    className="px-2.5 py-1 text-xs text-ink-soft border border-border rounded-sm hover:border-cinnabar hover:text-cinnabar transition-colors"
-                  >
-                    {q}
-                  </button>
-                ))}
+              <div className="mb-6">
+                <PopularQueries
+                  onPick={(q) => {
+                    setQuery(q);
+                    inputRef.current?.focus();
+                  }}
+                />
               </div>
               <div className="text-[10px] text-ink-mute tracking-[0.3em] uppercase mb-2">
                 提 示
@@ -359,7 +354,7 @@ export default function SearchModal({ open, onClose, docs }: Props) {
               <kbd className="px-1 border border-border rounded">ESC</kbd> 关闭
             </span>
           </div>
-          <div>读通鉴 · 50 篇</div>
+          <div>读通鉴 · {docs.length} 篇</div>
         </div>
       </div>
     </>
