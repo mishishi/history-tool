@@ -53,6 +53,8 @@ export default function UnlockSuccessClient() {
   }
 
   if (!data || data.error === 'no_session' || data.error === 'network') {
+    // 区分 transient 503(Stripe 暂时连不上)和真 404(会话不存在)
+    const isTransient = data?.error === 'network';
     return (
       <section className="max-w-narrow mx-auto px-6 py-16 text-center">
         <div className="hero-rule mb-5"></div>
@@ -60,7 +62,7 @@ export default function UnlockSuccessClient() {
 
         <div className="relative inline-block mb-8">
           <div className="text-[110px] md:text-[160px] font-bold text-cinnabar leading-none tracking-tight classical">
-            404
+            {isTransient ? '⏳' : '404'}
           </div>
           <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4">
             <Seal variant="gold">回 执</Seal>
@@ -68,13 +70,17 @@ export default function UnlockSuccessClient() {
         </div>
 
         <h1 className="text-2xl md:text-3xl font-bold text-ink mb-3 leading-tight">
-          付款回执没拿到
+          {isTransient ? '支付服务暂时连不上' : '付款回执没拿到'}
         </h1>
         <p className="text-base text-ink-soft leading-relaxed mb-2 max-w-lg mx-auto">
-          这个页面应该由 Stripe 付款成功后自动跳过来。
+          {isTransient
+            ? 'Stripe 的回执接口现在连不上,可能是网络抖动。'
+            : '这个页面应该由 Stripe 付款成功后自动跳过来。'}
         </p>
         <p className="text-sm text-ink-mute mb-8 max-w-lg mx-auto">
-          可能是网络抽风,或者你没从 Stripe 走完流程。先试试刷新;如果已经扣款,回邮箱找收据。
+          {isTransient
+            ? '你的钱已经扣了(可以从邮箱收据确认),我们正在拿支付凭证。30 秒后自动再试一次。'
+            : '可能是网络抽风,或者你没从 Stripe 走完流程。先试试刷新;如果已经扣款,回邮箱找收据。'}
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3 mb-8">

@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import QRCode from 'qrcode';
+import type QRCode from 'qrcode';
 
 /**
  * 全站右下角浮动按钮 + Modal
  * - 桌面端用户在任何页面都能一键唤起 QR,扫码到当前页
  * - 与 ScrollToTop 在右下角垂直堆叠:QR 上方(始终可见),ScrollToTop 下方(滚动 >400px 出现)
+ * - qrcode 包(~234KB)按需 dynamic import,不进首屏 bundle
  */
 export default function MobileQRButton() {
   const [open, setOpen] = useState(false);
@@ -29,27 +30,30 @@ export default function MobileQRButton() {
     return () => observer.disconnect();
   }, []);
 
-  // 生成 QR code
+  // 生成 QR code — 按需 import qrcode 包
   useEffect(() => {
     if (!open || !url) return;
     let cancelled = false;
-    QRCode.toString(url, {
-      type: 'svg',
-      margin: 1,
-      width: 240,
-      errorCorrectionLevel: 'M',
-      color: {
-        // dark: 朱红前景 + 暖白底; light: 深墨前景 + 米色底
-        dark: isDark ? '#D65A5A' : '#1A1A1A',
-        light: isDark ? '#1F1B17' : '#FBF8F2',
-      },
-    })
-      .then((svg) => {
+    (async () => {
+      try {
+        const { default: QRCode } = await import('qrcode');
+        if (cancelled) return;
+        const svg = await QRCode.toString(url, {
+          type: 'svg',
+          margin: 1,
+          width: 240,
+          errorCorrectionLevel: 'M',
+          color: {
+            // dark: 朱红前景 + 暖白底; light: 深墨前景 + 米色底
+            dark: isDark ? '#D65A5A' : '#1A1A1A',
+            light: isDark ? '#1F1B17' : '#FBF8F2',
+          },
+        });
         if (!cancelled) setQrSvg(svg);
-      })
-      .catch(() => {
+      } catch {
         if (!cancelled) setQrSvg('');
-      });
+      }
+    })();
     return () => {
       cancelled = true;
     };

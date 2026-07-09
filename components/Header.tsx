@@ -37,7 +37,7 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
           <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-cinnabar text-paper rounded-sm shadow-sm group-hover:bg-cinnabar-dark transition-colors">
             <span className="classical text-lg sm:text-xl font-bold">鉴</span>
           </div>
-          <div className="hidden xs:block sm:block">
+          <div className="hidden sm:block">
             <div className="text-sm sm:text-base font-semibold text-ink leading-tight">读通鉴</div>
             <div className="text-[9px] text-ink-mute tracking-[0.2em] uppercase leading-tight">Du Tongjian</div>
           </div>

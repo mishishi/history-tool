@@ -103,10 +103,9 @@ export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle 
 
   return (
     <div
-      className={`fixed left-1/2 -translate-x-1/2 z-[65] max-w-[calc(100vw-2rem)] transition-opacity duration-300 ${
+      className={`fixed left-1/2 -translate-x-1/2 z-[65] max-w-[calc(100vw-2rem)] transition-opacity duration-300 bottom-fab-3 ${
         exiting ? 'opacity-0' : 'opacity-100'
       }`}
-      style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 5rem)' }}
       role="status"
       aria-live="polite"
     >

@@ -219,7 +219,7 @@ export default function UnlockPage({
               把"古代权谋"翻译成"今天能用的人性洞察",
               每周一个"历史人物 + 当代映射"。
             </p>
-            <div className="text-xs text-gold-dark classical">已上线 23 位 · 持续更新</div>
+            <div className="text-xs text-gold-dark classical">已上线 {MARKETING_STATS.figuresCount} 位 · 持续更新</div>
           </div>
         </div>
       </section>

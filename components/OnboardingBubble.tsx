@@ -8,7 +8,7 @@ const AUTO_DISMISS_MS = 12000; // 12s 后自动淡出
 
 interface Props {
   /** 文章总数 — 用于显示「快捷键搜索 N 篇文章」 */
-  articleCount?: number;
+  articleCount: number;
 }
 
 /**
@@ -18,7 +18,7 @@ interface Props {
  * - 用户点 × 关闭,关闭后写 localStorage,7 天内不显示
  * - 12s 后自动淡出(用户没注意到 × 时兜底)
  */
-export default function OnboardingBubble({ articleCount = 50 }: Props) {
+export default function OnboardingBubble({ articleCount }: Props) {
   const pathname = usePathname();
   const [visible, setVisible] = useState(false);
   const [fading, setFading] = useState(false);

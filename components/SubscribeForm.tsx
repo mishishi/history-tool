@@ -108,10 +108,13 @@ export default function SubscribeForm({ compact = false }: Props) {
   if (compact) {
     return (
       <form onSubmit={onSubmit} noValidate className="space-y-2">
-        <div className="flex items-center gap-2 text-xs text-ink-mute mb-1">
+        <label
+          htmlFor="footer-subscribe-email"
+          className="flex items-center gap-2 text-xs text-ink-mute mb-1 cursor-pointer"
+        >
           <span className="classical text-cinnabar text-base font-bold">邮</span>
           <span className="font-medium text-ink">每周精读 · 每周三早 9 点</span>
-        </div>
+        </label>
 
         {/* honeypot */}
         <div className="absolute opacity-0 pointer-events-none -z-10" aria-hidden="true">
@@ -123,7 +126,9 @@ export default function SubscribeForm({ compact = false }: Props) {
 
         <div className="flex gap-2">
           <input
+            id="footer-subscribe-email"
             type="email"
+            name="email"
             autoComplete="email"
             required
             value={email}

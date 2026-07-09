@@ -28,7 +28,7 @@ export default function UnlockStats() {
       </div>
       <div>
         <div className="text-3xl font-bold text-cinnabar mb-2">
-          <CountUp to={23} className="tabular-nums" />
+          <CountUp to={MARKETING_STATS.figuresCount} className="tabular-nums" />
         </div>
         <div className="text-xs text-ink-soft">人物长卷</div>
       </div>
