@@ -13,6 +13,7 @@ import ArticleCard from '@/components/ArticleCard';
 import ArticleHero from '@/components/ArticleHero';
 import ArticleToc from '@/components/ArticleToc';
 import RevealOnScroll from '@/components/RevealOnScroll';
+import ShareButtons from '@/components/ShareButtons';
 import Seal from '@/components/Seal';
 
 // 静态生成所有路由
@@ -185,6 +186,11 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* 分享按钮 */}
+        <div className="mt-10 no-print">
+          <ShareButtons article={article} />
         </div>
       </article>
 

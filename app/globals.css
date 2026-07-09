@@ -357,6 +357,104 @@ body {
   display: block;
 }
 
+/* ===== Share buttons — 文章页分享按钮 ===== */
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8125rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.125rem;
+  background-color: var(--color-paper-card);
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--dur-base) var(--ease-out-expo);
+}
+.share-btn:hover {
+  border-color: var(--color-cinnabar);
+  color: var(--color-cinnabar);
+  background-color: var(--color-paper);
+  transform: translateY(-1px);
+}
+.share-btn svg {
+  flex-shrink: 0;
+}
+
+/* ===== 打印样式 — 文章页友好打印 / PDF 导出 ===== */
+@media print {
+  /* 隐藏交互元素 */
+  header,
+  footer,
+  nav,
+  aside,
+  button,
+  .floating-qr-wrap,
+  .reading-progress-track,
+  [role="dialog"] {
+    display: none !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  /* 正文最大可读 */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .prose-article {
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #1a1a1a;
+  }
+  .prose-article h3 {
+    page-break-after: avoid;
+    break-after: avoid;
+    color: #1a1a1a;
+  }
+  .prose-article p {
+    orphans: 3;
+    widows: 3;
+  }
+  /* 链接 — 打印时显示 URL */
+  .prose-article a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #666;
+  }
+  /* 避免图片分页 */
+  img,
+  blockquote,
+  .modern-mapping {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  /* 打印用色 */
+  * {
+    background: transparent !important;
+    color: #1a1a1a !important;
+    box-shadow: none !important;
+  }
+  /* 让链接可点击区显示 */
+  a {
+    color: #1a1a1a !important;
+    text-decoration: underline;
+  }
+  /* 调整文章页容器 */
+  article,
+  .max-w-reading,
+  .max-w-wide {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  /* URL 来源标记 */
+  @page {
+    margin: 2cm;
+  }
+}
+
 /* ===== Floating QR FAB 脉冲呼吸点 ===== */
 @keyframes pulse-soft {
   0%, 100% { opacity: 1; transform: scale(1); }
