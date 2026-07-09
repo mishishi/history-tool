@@ -4,19 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState, type CSSProperties } from 'react';
 import type { ArticleMeta } from '@/lib/types';
 import { getProgress, subscribe } from '@/lib/user-data';
-
-// 内联 — 避免 client component 引入 lib/articles 触发 node:fs / node:path
-function formatRelativeDate(iso: string): string {
-  const now = new Date();
-  const d = new Date(iso);
-  const diffMs = now.getTime() - d.getTime();
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  if (diffDays === 0) return '今天';
-  if (diffDays === 1) return '昨天';
-  if (diffDays < 7) return `${diffDays} 天前`;
-  if (diffDays < 30) return `${Math.floor(diffDays / 7)} 周前`;
-  return `${d.getFullYear()} 年 ${d.getMonth() + 1} 月 ${d.getDate()} 日`;
-}
+import { formatRelativeDate } from '@/lib/date';
 
 interface ArticleCardProps {
   article: ArticleMeta;

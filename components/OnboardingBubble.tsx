@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
-const STORAGE_KEY = 'history-onboarding-dismissed';
+const STORAGE_KEY = 'dt-onboarding-dismissed';
 const AUTO_DISMISS_MS = 12000; // 12s 后自动淡出
 
 interface Props {
@@ -109,7 +109,7 @@ export default function OnboardingBubble({ articleCount }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h6.75v6.75H3V4.5zM14.25 4.5H21v6.75h-6.75V4.5zM3 14.25h6.75V21H3v-6.75zM14.25 14.25H21V21h-6.75v-6.75zM14.25 14.25h.008v.008h-.008v-.008zM17.625 17.625h.008v.008h-.008v-.008zM17.625 20.25h.008v.008h-.008v-.008zM20.25 17.625h.008v.008h-.008v-.008z" />
               </svg>
             </span>
-            <span>右下角扫码订阅公众号</span>
+            <span>右下角扫码继续在手机读</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="shrink-0 mt-0.5 w-4 h-4 rounded-sm bg-cinnabar/10 text-cinnabar flex items-center justify-center">

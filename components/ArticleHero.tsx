@@ -4,12 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import FavoriteButton from './FavoriteButton';
 import Seal from './Seal';
 import type { ArticleMeta } from '@/lib/types';
-
-// 内联 — 避免 client component 引入 lib/articles 触发 node:fs / node:path
-function formatDate(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getFullYear()} 年 ${d.getMonth() + 1} 月 ${d.getDate()} 日`;
-}
+import { formatDate } from '@/lib/date';
 
 interface Props {
   article: ArticleMeta;
@@ -32,14 +27,27 @@ interface Props {
 export default function ArticleHero({ article, parallax = 0.4 }: Props) {
   const [scrollY, setScrollY] = useState(0);
   const [heroHeight, setHeroHeight] = useState(0);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  // 监听系统 reduce-motion 设置变化,用户切设置后视差立即响应
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const onChange = () => setReduceMotion(mq.matches);
+    onChange();
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     // 减震偏好:JS 视差也直接关
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) return;
+    if (reduceMotion) {
+      setScrollY(0);
+      return;
+    }
 
     const measure = () => {
       setHeroHeight(el.offsetHeight);
@@ -55,7 +63,7 @@ export default function ArticleHero({ article, parallax = 0.4 }: Props) {
       window.removeEventListener('resize', measure);
       window.removeEventListener('scroll', onScroll);
     };
-  }, []);
+  }, [reduceMotion]);
 
   // 视差计算:hero 还可见时才有视差
   const scrolledRatio = heroHeight > 0 ? Math.min(scrollY / heroHeight, 1) : 0;

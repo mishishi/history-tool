@@ -97,30 +97,9 @@ export function getClassicBySlug(slug: string): Classic | null {
   };
 }
 
-/**
- * 格式化日期(YYYY 年 M 月 D 日)
- */
-export function formatDate(iso: string): string {
-  const d = new Date(iso);
-  return `${d.getFullYear()} 年 ${d.getMonth() + 1} 月 ${d.getDate()} 日`;
-}
-
-/**
- * 格式化相对日期
- */
-export function formatRelativeDate(iso: string): string {
-  const now = new Date();
-  const d = new Date(iso);
-  const diffMs = now.getTime() - d.getTime();
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-  if (diffDays === 0) return '今天';
-  if (diffDays === 1) return '昨天';
-  if (diffDays < 7) return `${diffDays} 天前`;
-  if (diffDays < 30) return `${Math.floor(diffDays / 7)} 周前`;
-
-  return formatDate(iso);
-}
+// 日期格式化函数已抽到 lib/date.ts(纯 JS,client/server 都能用)
+// 这里 re-export 保持向后兼容
+export { formatDate, formatRelativeDate } from './date';
 
 /**
  * 朝代分类
