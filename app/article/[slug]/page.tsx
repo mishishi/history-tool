@@ -281,7 +281,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       {/* 订阅引导 */}
       <section className="max-w-reading mx-auto px-6 pb-16">
         <div className="relative bg-gradient-to-br from-paper-deep via-paper-card to-paper-deep border border-border rounded-sm p-8 md:p-10 overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
+          <div className="absolute top-0 right-0 w-32 h-32 opacity-10 dark:opacity-15">
             <div className="classical text-[100px] text-cinnabar leading-none">通</div>
           </div>
           <div className="relative">

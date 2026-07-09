@@ -63,7 +63,7 @@ export default function NetworkBanner() {
       <div
         role="status"
         aria-live="polite"
-        className="fixed top-0 left-0 right-0 z-[80] bg-emerald-600 text-paper px-4 py-2 text-xs md:text-sm text-center shadow-md flex items-center justify-center gap-2 fade-in-up"
+        className="fixed top-0 left-0 right-0 z-[80] bg-cinnabar text-paper px-4 py-2 text-xs md:text-sm text-center shadow-md flex items-center justify-center gap-2 fade-in-up"
       >
         <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

@@ -140,7 +140,7 @@ export default function UnlockPage({
       {/* 免费邮件订阅 — 0 元入口 */}
       <section className="max-w-wide mx-auto px-6 py-12 md:py-16">
         <div className="relative bg-gradient-to-br from-paper-deep via-paper-card to-paper-deep border border-border rounded-sm overflow-hidden">
-          <div className="absolute top-0 right-0 w-40 h-40 opacity-5">
+          <div className="absolute top-0 right-0 w-40 h-40 opacity-10 dark:opacity-15">
             <div className="classical text-[140px] text-cinnabar leading-none">信</div>
           </div>
           <div className="relative grid md:grid-cols-2 gap-8 md:gap-12 p-8 md:p-12">

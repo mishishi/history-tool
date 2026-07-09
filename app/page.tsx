@@ -209,7 +209,7 @@ export default function HomePage() {
       {/* 订阅引导条 */}
       <section className="max-w-wide mx-auto px-6 py-12">
         <div className="relative bg-gradient-to-br from-paper-deep via-paper-card to-paper-deep border border-border rounded-sm p-10 md:p-16 overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 opacity-5">
+          <div className="absolute top-0 right-0 w-64 h-64 opacity-10 dark:opacity-15">
             <div className="classical text-[200px] text-cinnabar leading-none">通</div>
           </div>
 
