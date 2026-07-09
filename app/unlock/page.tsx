@@ -2,6 +2,42 @@ import Link from 'next/link';
 import Seal from '@/components/Seal';
 import SubscribeForm from '@/components/SubscribeForm';
 import CheckoutButton from '@/components/CheckoutButton';
+import JsonLd from '@/components/JsonLd';
+
+const SITE_URL = 'https://history-tool.vercel.app';
+
+const FAQ_ITEMS: { q: string; a: string }[] = [
+  {
+    q: '订阅内容和公众号免费内容有什么区别?',
+    a: '公众号免费内容是引流入口,每周一篇摘要 + 关键观点。订阅内容是 3000-5000 字的完整深度解读,加上事件脉络、人物长卷等系列内容。简单说,公众号是"预告片",订阅是"完整版"。',
+  },
+  {
+    q: '如果订阅后觉得不合适,可以退款吗?',
+    a: '可以。订阅后 7 天内,如果你觉得内容不值这个价,直接联系客服,无理由全额退款。我们不希望任何一位订阅者带着遗憾离开。',
+  },
+  {
+    q: '一年大概会更新多少篇内容?',
+    a: '每周 1-2 篇精读 + 每月 2 篇人物长卷。一年下来大约 80-100 篇精读 + 24 篇人物长卷。我们的承诺:宁可少,不肯糙。每一篇都是主编亲自把关。',
+  },
+  {
+    q: '内容是用 AI 生成的吗?会不会不准确?',
+    a: '是的,初稿用 AI 生成,但每篇都经过主编 + 编辑两轮人工校对,重点段落会对照《资治通鉴》原文和《左传》《史记》等史料交叉验证。我们在每篇文末标注"原文出处",欢迎读者挑刺。',
+  },
+  {
+    q: '订阅之后能在哪些设备上阅读?',
+    a: '我们是 Web 端产品,任何能打开浏览器的设备都可以(桌面、平板、手机)。后续会推出微信小程序版,届时同一账号可以直接登录。',
+  },
+];
+
+const FAQ_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
 
 export default function UnlockPage({
   searchParams,
@@ -10,6 +46,9 @@ export default function UnlockPage({
 }) {
   return (
     <>
+      {/* SEO 结构化数据 — FAQ 折叠卡片(Google 搜索结果会显示 FAQ) */}
+      <JsonLd data={FAQ_JSON_LD} />
+
       {/* 用户从 Stripe 取消付款后的轻提示 */}
       {searchParams.cancelled === '1' && (
         <section className="max-w-wide mx-auto px-6 pt-6">
@@ -374,33 +413,18 @@ export default function UnlockPage({
         </div>
 
         <div className="space-y-3">
-          {[
-            {
-              q: '订阅内容和公众号免费内容有什么区别?',
-              a: '公众号免费内容是引流入口,每周一篇摘要 + 关键观点。订阅内容是 3000-5000 字的完整深度解读,加上事件脉络、人物长卷等系列内容。简单说,公众号是"预告片",订阅是"完整版"。',
-            },
-            {
-              q: '如果订阅后觉得不合适,可以退款吗?',
-              a: '可以。订阅后 7 天内,如果你觉得内容不值这个价,直接联系客服,无理由全额退款。我们不希望任何一位订阅者带着遗憾离开。',
-            },
-            {
-              q: '一年大概会更新多少篇内容?',
-              a: '每周 1-2 篇精读 + 每月 2 篇人物长卷。一年下来大约 80-100 篇精读 + 24 篇人物长卷。我们的承诺:宁可少,不肯糙。每一篇都是主编亲自把关。',
-            },
-            {
-              q: '内容是用 AI 生成的吗?会不会不准确?',
-              a: '是的,初稿用 AI 生成,但每篇都经过主编 + 编辑两轮人工校对,重点段落会对照《资治通鉴》原文和《左传》《史记》等史料交叉验证。我们在每篇文末标注"原文出处",欢迎读者挑刺。',
-            },
-            {
-              q: '订阅之后能在哪些设备上阅读?',
-              a: '我们是 Web 端产品,任何能打开浏览器的设备都可以(桌面、平板、手机)。后续会推出微信小程序版,届时同一账号可以直接登录。',
-            },
-          ].map((item, i) => (
-            <details key={i} className="group bg-paper-card border border-border rounded-sm">
+          {FAQ_ITEMS.map((item, i) => (
+            <details
+              key={i}
+              className="group bg-paper-card border border-border rounded-sm"
+              itemScope
+              itemProp="mainEntity"
+              itemType="https://schema.org/Question"
+            >
               <summary className="flex items-center justify-between p-5 cursor-pointer font-medium text-ink hover:text-cinnabar transition-colors list-none">
-                <span>{item.q}</span>
+                <span itemProp="name">{item.q}</span>
                 <svg
-                  className="w-5 h-5 text-ink-mute group-open:rotate-180 transition-transform"
+                  className="w-5 h-5 text-ink-mute group-open:rotate-180 transition-transform shrink-0 ml-3"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -408,7 +432,14 @@ export default function UnlockPage({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </summary>
-              <div className="px-5 pb-5 text-sm text-ink-soft leading-relaxed">{item.a}</div>
+              <div
+                className="px-5 pb-5 text-sm text-ink-soft leading-relaxed"
+                itemScope
+                itemProp="acceptedAnswer"
+                itemType="https://schema.org/Answer"
+              >
+                <div itemProp="text">{item.a}</div>
+              </div>
             </details>
           ))}
         </div>

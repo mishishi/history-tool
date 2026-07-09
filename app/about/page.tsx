@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import Seal from '@/components/Seal';
+import JsonLd from '@/components/JsonLd';
+
+const SITE_URL = 'https://history-tool.vercel.app';
 
 export const metadata: Metadata = {
   title: '关于我们 — 读通鉴',
@@ -10,8 +13,40 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  // Schema.org Organization JSON-LD — 让 Google Knowledge Graph 关联
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: '读通鉴',
+    alternateName: 'Du Tongjian',
+    url: SITE_URL,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/icons/icon-512.png`,
+      width: 512,
+      height: 512,
+    },
+    description: '读通鉴是一个独立运营的内容项目,主编 Jason + AI 协作生产,用 AI 把司马光写给皇帝的这部书翻译成当代人能读懂、能用上的东西。',
+    foundingDate: '2026',
+    founder: {
+      '@type': 'Person',
+      name: 'Jason',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email: 'hello@du-tongjian.com',
+    },
+    sameAs: [
+      `${SITE_URL}/feed.xml`,
+    ],
+  };
+
   return (
     <>
+      {/* SEO 结构化数据 */}
+      <JsonLd data={orgJsonLd} />
+
       {/* Hero */}
       <section className="max-w-wide mx-auto px-6 pt-12 md:pt-20 pb-12">
         <div className="max-w-3xl">

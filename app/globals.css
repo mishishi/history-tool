@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 字体 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css');
+/* 字体已通过 layout.tsx 加载(next/font Inter + <link> Noto Serif SC / LXGW WenKai)
+   + preconnect 提前建连,消除 FOIT */
 
 /* ===== CSS Variables — 同时驱动 Tailwind colors ===== */
 :root {

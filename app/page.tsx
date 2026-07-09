@@ -3,14 +3,41 @@ import type { CSSProperties } from 'react';
 import { getAllArticles, DYNASTIES } from '@/lib/articles';
 import ArticleCard from '@/components/ArticleCard';
 import Seal from '@/components/Seal';
+import JsonLd from '@/components/JsonLd';
+
+const SITE_URL = 'https://history-tool.vercel.app';
 
 export default function HomePage() {
   const articles = getAllArticles();
   const featured = articles[0]; // 最新一篇做 Hero
   const latestArticles = articles.slice(1); // 其余做列表
 
+  // Schema.org JSON-LD
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: '读通鉴',
+    alternateName: 'Du Tongjian',
+    url: SITE_URL,
+    description: '我们用 AI 把司马光写给皇帝的这部书,翻译成当代人能读懂、能用上的东西。资治通鉴不只是历史,它是 1362 年里所有关键决策的复盘。',
+    inLanguage: 'zh-CN',
+    publisher: {
+      '@type': 'Organization',
+      name: '读通鉴',
+      url: SITE_URL,
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/icons/icon-512.png`, width: 512, height: 512 },
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/?search={search_term_string}` },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
   return (
     <>
+      {/* SEO 结构化数据 */}
+      <JsonLd data={websiteJsonLd} />
       {/* Hero 区 */}
       <section id="hero" className="max-w-wide mx-auto px-6 pt-12 md:pt-20 pb-12">
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">

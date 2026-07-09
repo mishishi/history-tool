@@ -15,6 +15,7 @@ import ArticleToc from '@/components/ArticleToc';
 import RevealOnScroll from '@/components/RevealOnScroll';
 import ShareButtons from '@/components/ShareButtons';
 import Seal from '@/components/Seal';
+import JsonLd from '@/components/JsonLd';
 
 // 静态生成所有路由
 export async function generateStaticParams() {
@@ -22,26 +23,51 @@ export async function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
 
-// 元数据
+// 元数据 — 全套增强:OG + Twitter Card + 文章专属
+const SITE_URL = 'https://history-tool.vercel.app';
+
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const article = getArticleBySlug(params.slug);
   if (!article) return {};
+  const url = `${SITE_URL}/article/${article.slug}`;
   return {
     title: `${article.title} — 读通鉴`,
     description: article.excerpt,
+    keywords: article.tags?.length ? article.tags : [article.dynasty, '资治通鉴', '历史解读'],
+    authors: [{ name: '读通鉴 · 主编 Jason', url: SITE_URL }],
+    creator: '读通鉴 · 主编 Jason',
+    publisher: '读通鉴',
+    alternates: { canonical: url },
     openGraph: {
       title: article.title,
       description: article.excerpt,
       type: 'article',
       locale: 'zh_CN',
+      url,
+      siteName: '读通鉴',
+      publishedTime: article.publishedAt,
+      authors: ['读通鉴 · 主编 Jason'],
+      tags: article.tags,
       images: [
         {
-          url: 'https://history-tool.vercel.app/opengraph-image',
+          url: `${SITE_URL}/opengraph-image`,
           width: 1200,
           height: 630,
           alt: article.title,
         },
       ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.excerpt,
+      images: [`${SITE_URL}/opengraph-image`],
+      creator: '@du_tongjian',
+    },
+    other: {
+      'article:section': '历史解读',
+      'article:published_time': article.publishedAt,
+      'article:author': '读通鉴 · 主编 Jason',
     },
   };
 }
@@ -68,8 +94,57 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
     .filter((a) => a.slug !== article.slug && a.dynasty === article.dynasty)
     .slice(0, 3);
 
+  // Schema.org Article JSON-LD(让搜索引擎理解文章结构)
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.excerpt,
+    image: [`${SITE_URL}/opengraph-image`],
+    datePublished: article.publishedAt,
+    dateModified: article.publishedAt,
+    inLanguage: 'zh-CN',
+    articleSection: '历史解读',
+    keywords: (article.tags?.length ? article.tags : [article.dynasty, '资治通鉴']).join(','),
+    wordCount: article.content.length,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/article/${article.slug}`,
+    },
+    author: {
+      '@type': 'Person',
+      name: '读通鉴 · 主编 Jason',
+      url: `${SITE_URL}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: '读通鉴',
+      url: SITE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/icons/icon-512.png`,
+        width: 512,
+        height: 512,
+      },
+    },
+  };
+
+  // Breadcrumb JSON-LD
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首页', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: '最新解读', item: `${SITE_URL}/#articles` },
+      { '@type': 'ListItem', position: 3, name: article.title, item: `${SITE_URL}/article/${article.slug}` },
+    ],
+  };
+
   return (
     <>
+      {/* JSON-LD 结构化数据(SEO) */}
+      <JsonLd data={articleJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       {/* 滚动驱动:hero 视差 + h3 fade-in */}
       <RevealOnScroll />
 
