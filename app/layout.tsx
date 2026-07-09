@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import ReadingProgress from '@/components/ReadingProgress';
 import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar';
 import InstallPrompt from '@/components/InstallPrompt';
+import OnboardingBubble from '@/components/OnboardingBubble';
 import ThemeInitScript from '@/components/ThemeInitScript';
 import ScrollToTop from '@/components/ScrollToTop';
 import MobileQRButton from '@/components/MobileQRButton';
@@ -128,6 +129,8 @@ export default function RootLayout({
         <ScrollToTop />
         {/* 全站浮动 QR 按钮 — 桌面端右下角一键扫码继续读 */}
         <MobileQRButton />
+        {/* 首次访问引导 — 左下角气泡 */}
+        <OnboardingBubble />
       </body>
     </html>
   );

@@ -12,6 +12,18 @@ interface Props {
   docs: SearchDoc[];
 }
 
+/** 热门搜索词 — 引导新用户 */
+const POPULAR_QUERIES = [
+  '三国',
+  '长征',
+  '商鞅',
+  '贞观',
+  '唐',
+  '宋',
+  '战国',
+  '司马光',
+];
+
 /** 把 recents(只有 slug)映射回完整文章 meta,并附进度 */
 interface EnrichedRecent {
   slug: string;
@@ -107,9 +119,11 @@ export default function SearchModal({ open, onClose, docs }: Props) {
       />
 
       <div
-        className="fixed left-1/2 top-[10vh] -translate-x-1/2 z-[70] w-[92vw] max-w-2xl bg-paper-card border border-border rounded-sm shadow-2xl"
+        className="fixed inset-0 h-[100dvh] md:h-auto md:inset-auto md:left-1/2 md:top-[10vh] md:-translate-x-1/2 z-[70] md:w-[92vw] md:max-w-2xl bg-paper-card md:border md:border-border md:rounded-sm md:shadow-2xl flex flex-col"
+        style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
         role="dialog"
         aria-label="搜索文章"
+        aria-modal="true"
       >
         <div className="flex items-center gap-3 px-5 py-4 border-b border-border-soft">
           <svg
@@ -137,9 +151,18 @@ export default function SearchModal({ open, onClose, docs }: Props) {
           <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] text-ink-mute border border-border rounded">
             ESC
           </kbd>
+          <button
+            onClick={onClose}
+            className="md:hidden shrink-0 -mr-1 p-1.5 text-ink-soft hover:text-ink"
+            aria-label="关闭搜索"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
 
-        <div className="max-h-[60vh] overflow-y-auto">
+        <div className="flex-1 min-h-0 overflow-y-auto md:max-h-[60vh]">
           {/* 搜索无结果 */}
           {isSearching && results.length === 0 && (
             <div className="px-5 py-12 text-center text-sm text-ink-mute">
@@ -186,7 +209,7 @@ export default function SearchModal({ open, onClose, docs }: Props) {
             </ul>
           )}
 
-          {/* 空查询 + 有 recents — 显示「最近浏览 / 继续阅读」 */}
+          {/* 空查询 + 有 recents — 显示「最近浏览 / 继续阅读」 + 「热门词」 */}
           {!isSearching && recents.length > 0 && (
             <div className="py-2">
               <div className="px-5 pt-3 pb-1 text-[10px] text-ink-mute tracking-[0.3em] uppercase">
@@ -232,25 +255,56 @@ export default function SearchModal({ open, onClose, docs }: Props) {
                 ))}
               </ul>
 
-              {/* 分隔 + 提示 */}
+              {/* 分隔 + 热门词 */}
               <div className="mx-5 my-3 border-t border-border-soft" />
-              <div className="px-5 pb-2 text-xs text-ink-mute leading-relaxed">
-                <div className="mb-2 text-[10px] uppercase tracking-[0.3em]">提示</div>
-                <ul className="space-y-1">
-                  <li>· 输入关键字搜索 50 篇文章</li>
-                  <li>· 按 ↑↓ 选择,Enter 打开,ESC 关闭</li>
-                </ul>
+              <div className="px-5 pb-2">
+                <div className="mb-2 text-[10px] text-ink-mute tracking-[0.3em] uppercase">
+                  热 门 搜 索
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {POPULAR_QUERIES.map((q) => (
+                    <button
+                      key={q}
+                      onClick={() => {
+                        setQuery(q);
+                        inputRef.current?.focus();
+                      }}
+                      className="px-2.5 py-1 text-xs text-ink-soft border border-border rounded-sm hover:border-cinnabar hover:text-cinnabar transition-colors"
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           )}
 
-          {/* 空查询 + 无 recents — 只显示提示 */}
+          {/* 空查询 + 无 recents — 显示热门词 + 提示 */}
           {!isSearching && recents.length === 0 && (
-            <div className="px-5 py-8 text-sm text-ink-soft">
-              <div className="mb-3 text-xs text-ink-mute uppercase tracking-wider">提示</div>
-              <ul className="space-y-2">
-                <li>· 输入「长征」「商鞅」「贞观」等关键字试试</li>
+            <div className="px-5 py-8">
+              <div className="mb-3 text-[10px] text-ink-mute tracking-[0.3em] uppercase">
+                热 门 搜 索
+              </div>
+              <div className="flex flex-wrap gap-1.5 mb-6">
+                {POPULAR_QUERIES.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => {
+                      setQuery(q);
+                      inputRef.current?.focus();
+                    }}
+                    className="px-2.5 py-1 text-xs text-ink-soft border border-border rounded-sm hover:border-cinnabar hover:text-cinnabar transition-colors"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+              <div className="text-[10px] text-ink-mute tracking-[0.3em] uppercase mb-2">
+                提 示
+              </div>
+              <ul className="space-y-1.5 text-xs text-ink-mute">
                 <li>· 输入「唐」「宋」按朝代筛选</li>
+                <li>· 输入「三国」看全部三国主题</li>
                 <li>
                   · 按{' '}
                   <kbd className="px-1 border border-border rounded text-[10px]">↑</kbd>{' '}

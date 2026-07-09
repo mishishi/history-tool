@@ -4,6 +4,7 @@ import { getAllArticles, DYNASTIES } from '@/lib/articles';
 import ArticleCard from '@/components/ArticleCard';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
+import SubscribersBadge from '@/components/SubscribersBadge';
 
 const SITE_URL = 'https://history-tool.vercel.app';
 
@@ -228,12 +229,7 @@ export default function HomePage() {
                 </svg>
               </Link>
               <div className="flex items-center gap-4 text-xs text-ink-mute">
-                <div className="flex items-center gap-1.5">
-                  <svg className="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                  <span>2,800+ 订阅用户</span>
-                </div>
+                <SubscribersBadge />
                 <div className="flex items-center gap-1.5">
                   <svg className="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />

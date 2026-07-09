@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
+import StatsCard from '@/components/StatsCard';
 
 const SITE_URL = 'https://history-tool.vercel.app';
 
@@ -89,24 +90,9 @@ export default function AboutPage() {
             </p>
 
             <div className="mt-8 grid md:grid-cols-3 gap-4">
-              {[
-                { num: '50', unit: '篇', desc: '已发布深度解读' },
-                { num: '1362', unit: '年', desc: '从战国到当代的时间跨度' },
-                { num: '1', unit: '人 + AI', desc: '主编 + 模型的协作生产' },
-              ].map((stat) => (
-                <div
-                  key={stat.desc}
-                  className="p-6 bg-paper-card border border-border rounded-sm"
-                >
-                  <div className="flex items-baseline gap-1 mb-2">
-                    <span className="classical text-3xl font-bold text-cinnabar">
-                      {stat.num}
-                    </span>
-                    <span className="text-sm text-ink-soft">{stat.unit}</span>
-                  </div>
-                  <p className="text-xs text-ink-mute">{stat.desc}</p>
-                </div>
-              ))}
+              <StatsCard to={50} unit="篇" desc="已发布深度解读" />
+              <StatsCard to={1362} unit="年" desc="从战国到当代的时间跨度" />
+              <StatsCard to={1} unit="人 + AI" desc="主编 + 模型的协作生产" />
             </div>
           </div>
         </div>
