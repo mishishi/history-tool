@@ -29,7 +29,13 @@ const inter = Inter({
 
 // Next 14 要求 themeColor 在 viewport export 里
 export const viewport: Viewport = {
-  themeColor: '#B23A3A',
+  // iOS 让 env(safe-area-inset-*) 生效必须 viewport-fit=cover
+  viewportFit: 'cover',
+  // 状态栏颜色按主题切换:light 朱红,dark 黑
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#B23A3A' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+  ],
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5, // a11y — 不要禁用缩放

@@ -12,6 +12,7 @@ import {
 import ArticleCard from '@/components/ArticleCard';
 import ArticleHero from '@/components/ArticleHero';
 import ArticleToc from '@/components/ArticleToc';
+import ArticleCompleteToast from '@/components/ArticleCompleteToast';
 import RevealOnScroll from '@/components/RevealOnScroll';
 import ShareButtons from '@/components/ShareButtons';
 import Seal from '@/components/Seal';
@@ -150,6 +151,14 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
       {/* 右侧 ToC(xl+ 显示) */}
       <ArticleToc items={toc} />
+
+      {/* 阅读完成反馈 Toast — 滚到 90% 触发 */}
+      <ArticleCompleteToast
+        slug={article.slug}
+        title={article.title}
+        nextSlug={nextArticle?.slug}
+        nextTitle={nextArticle?.title}
+      />
 
       {/* 面包屑 */}
       <div className="max-w-wide mx-auto px-6 pt-6">

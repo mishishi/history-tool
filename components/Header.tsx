@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
 import SearchButton from './SearchButton';
@@ -6,8 +9,27 @@ import ContinueReadingButton from './ContinueReadingButton';
 import type { SearchDoc } from '@/lib/search-client';
 
 export default function Header({ docs }: { docs: SearchDoc[] }) {
+  // 滚动状态:scrollY > 50 时 header 背景加深 + 加 shadow
+  // 给"上下文切换"提供视觉反馈(读长文时,header 不再与内容混在一起)
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    onScroll(); // 初始化(防止刷新到 scrollY > 50 时 header 还是半透)
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-paper/85 border-b border-border">
+    <header
+      className={`sticky top-0 z-50 backdrop-blur-md transition-all duration-200 border-b ${
+        scrolled
+          ? 'bg-paper/95 shadow-sm border-border'
+          : 'bg-paper/70 border-transparent'
+      }`}
+    >
       <div className="max-w-wide mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
         {/* 品牌 */}
         <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0">
