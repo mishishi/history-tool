@@ -29,15 +29,11 @@ interface ArticleCardProps {
  * 文章卡片(首页列表用)
  * - server props: article meta + index
  * - client side: 读 localStorage 的进度,显示「已读」/「阅读中」
+ *
+ * 顶部 1px accent 用品牌主色 cinnabar — 之前按朝代映射不同颜色(T=ink/战国=cinnabar/其他=gold),
+ * 没有文档说明,用户也无法预测,简化为统一品牌色更清晰。
  */
 export default function ArticleCard({ article, variant = 'default', index = 0 }: ArticleCardProps) {
-  const accentColor =
-    article.dynasty === '唐' || article.dynasty === '五代'
-      ? 'bg-ink'
-      : article.dynasty === '战国'
-      ? 'bg-cinnabar'
-      : 'bg-gold';
-
   // 进度状态(0-100)— 默认 0,挂载后从 localStorage 读
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -61,7 +57,7 @@ export default function ArticleCard({ article, variant = 'default', index = 0 }:
       style={staggerStyle}
       className="article-card stagger-card group block relative bg-paper-card border border-border hover:border-cinnabar rounded-sm overflow-hidden"
     >
-      <div className={`card-accent h-1 ${accentColor}`}></div>
+      <div className="card-accent h-1 bg-cinnabar"></div>
       <div className={`p-6 ${variant === 'compact' ? 'p-5' : ''}`}>
         {/* 标签行 */}
         <div className="flex items-center gap-2 mb-4 flex-wrap">
