@@ -49,8 +49,9 @@ export async function POST(req: NextRequest) {
   }
 
   // baseUrl 优先级:env > SITE_URL > host header(本地开发)
+  // 跟 lib/site-config.ts 的 SITE_URL 用同一个 env key,避免自定义域名静默失效
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
     SITE_URL ||
     (req.headers.get('host') ? `https://${req.headers.get('host')}` : 'http://localhost:3000');
 

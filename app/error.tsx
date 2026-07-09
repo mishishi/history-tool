@@ -19,7 +19,7 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     // 生产环境可以上报到 Sentry 等监控
-    console.error('[history-tool] 页面渲染错误:', error);
+    console.error('[du-tongjian] 页面渲染错误:', error);
   }, [error]);
 
   return (
