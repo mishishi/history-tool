@@ -88,7 +88,7 @@ export default function MobileQRButton() {
   return (
     <>
       {/* 浮动按钮 — 右下角 FAB,在 ScrollToTop 上方 */}
-      <div className="group fixed bottom-20 right-4 md:right-6 z-40">
+      <div className="floating-qr-wrap group fixed bottom-20 right-4 md:right-6 z-40">
         <button
           type="button"
           onClick={() => setOpen(true)}

@@ -1,7 +1,22 @@
+'use client';
+
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import type { ArticleMeta } from '@/lib/types';
-import { formatRelativeDate } from '@/lib/articles';
+import { getProgress, subscribe } from '@/lib/user-data';
+
+// 内联 — 避免 client component 引入 lib/articles 触发 node:fs / node:path
+function formatRelativeDate(iso: string): string {
+  const now = new Date();
+  const d = new Date(iso);
+  const diffMs = now.getTime() - d.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  if (diffDays === 0) return '今天';
+  if (diffDays === 1) return '昨天';
+  if (diffDays < 7) return `${diffDays} 天前`;
+  if (diffDays < 30) return `${Math.floor(diffDays / 7)} 周前`;
+  return `${d.getFullYear()} 年 ${d.getMonth() + 1} 月 ${d.getDate()} 日`;
+}
 
 interface ArticleCardProps {
   article: ArticleMeta;
@@ -12,6 +27,8 @@ interface ArticleCardProps {
 
 /**
  * 文章卡片(首页列表用)
+ * - server props: article meta + index
+ * - client side: 读 localStorage 的进度,显示「已读」/「阅读中」
  */
 export default function ArticleCard({ article, variant = 'default', index = 0 }: ArticleCardProps) {
   const accentColor =
@@ -21,17 +38,28 @@ export default function ArticleCard({ article, variant = 'default', index = 0 }:
       ? 'bg-cinnabar'
       : 'bg-gold';
 
+  // 进度状态(0-100)— 默认 0,挂载后从 localStorage 读
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    setProgress(getProgress(article.slug));
+    const unsub = subscribe(() => setProgress(getProgress(article.slug)));
+    return unsub;
+  }, [article.slug]);
+
   // stagger 入场 — 第 0 张立即,后面每张延后 60ms
   const staggerStyle: CSSProperties =
     index > 0
       ? ({ ['--stagger-delay' as string]: `${index * 60}ms` } as CSSProperties)
       : {};
 
+  const isRead = progress >= 95;
+  const isInProgress = progress > 0 && progress < 95;
+
   return (
     <Link
       href={`/article/${article.slug}`}
       style={staggerStyle}
-      className="article-card stagger-card group block bg-paper-card border border-border hover:border-cinnabar rounded-sm overflow-hidden"
+      className="article-card stagger-card group block relative bg-paper-card border border-border hover:border-cinnabar rounded-sm overflow-hidden"
     >
       <div className={`card-accent h-1 ${accentColor}`}></div>
       <div className={`p-6 ${variant === 'compact' ? 'p-5' : ''}`}>
@@ -41,10 +69,20 @@ export default function ArticleCard({ article, variant = 'default', index = 0 }:
           <span className="text-xs text-ink-mute">{article.volume}</span>
           <span className="text-xs text-ink-mute">·</span>
           <span className="text-xs text-ink-mute">{article.readingTime} 分钟</span>
+
+          {/* 已读 ✓ 标记 */}
+          {isRead && (
+            <span className="ml-auto inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] text-cinnabar border border-cinnabar/40 bg-cinnabar/5 rounded-sm font-medium">
+              <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+              <span>已读</span>
+            </span>
+          )}
         </div>
 
         {/* 标题 */}
-        <h3 className="text-lg font-semibold text-ink mb-3 group-hover:text-cinnabar transition-colors leading-snug">
+        <h3 className={`text-lg font-semibold mb-3 group-hover:text-cinnabar transition-colors leading-snug ${isRead ? 'text-ink-soft' : 'text-ink'}`}>
           {article.title}
         </h3>
 
@@ -68,6 +106,26 @@ export default function ArticleCard({ article, variant = 'default', index = 0 }:
           <span>{article.views >= 1000 ? `${(article.views / 1000).toFixed(1)}k 阅读` : `${article.views} 阅读`}</span>
         </div>
       </div>
+
+      {/* 底部阅读进度条 — 只在阅读中显示 */}
+      {isInProgress && (
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-paper-deep">
+          <div
+            className="h-full bg-gradient-to-r from-cinnabar to-gold transition-[width] duration-300"
+            style={{ width: `${progress}%` }}
+            aria-label={`已读 ${Math.round(progress)}%`}
+          />
+        </div>
+      )}
+
+      {/* 已读 ✓ 角标 — 右上角浮动 */}
+      {isRead && (
+        <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-cinnabar text-paper flex items-center justify-center shadow-md" aria-label="已读完">
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+      )}
     </Link>
   );
 }

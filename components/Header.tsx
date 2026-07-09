@@ -2,6 +2,7 @@ import Link from 'next/link';
 import MobileMenu from './MobileMenu';
 import SearchButton from './SearchButton';
 import ThemeToggle from './ThemeToggle';
+import ContinueReadingButton from './ContinueReadingButton';
 import type { SearchDoc } from '@/lib/search-client';
 
 export default function Header({ docs }: { docs: SearchDoc[] }) {
@@ -40,6 +41,8 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
 
         {/* 右侧 — 桌面 */}
         <div className="hidden md:flex items-center gap-2">
+          {/* 继续阅读 — 只在有未读完文章时出现 */}
+          <ContinueReadingButton docs={docs} />
           <Link
             href="/favorites"
             aria-label="我的收藏"
@@ -62,6 +65,7 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
 
         {/* 右侧 — 移动端:只显示汉堡按钮 */}
         <div className="md:hidden flex items-center gap-1">
+          <ContinueReadingButton docs={docs} />
           <Link
             href="/unlock"
             className="px-3 py-1.5 bg-cinnabar hover:bg-cinnabar-dark text-paper text-xs rounded-md transition-colors font-medium"

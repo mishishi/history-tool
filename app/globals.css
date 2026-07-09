@@ -384,6 +384,20 @@ body {
   opacity: 0.35;
 }
 
+/* ===== Install prompt 与 FAB 共存 ===== */
+/* InstallPrompt 弹出时,FAB 自动上移避开(用 :has 选择器,无需 JS 状态共享) */
+body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) .floating-qr-wrap {
+  transform: translateY(-100px);
+  transition: transform 0.3s var(--ease-out-expo);
+}
+.floating-qr-wrap {
+  transition: transform 0.3s var(--ease-out-expo);
+}
+/* 同样的规则应用到 ScrollToTop,避免被 install bar 挡住 */
+body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-label="回到顶部"] {
+  transform: translateY(-100px) !important;
+}
+
 /* ===== 文章正文样式(响应式 + dark variant) ===== */
 .prose-article {
   font-size: 16px;
