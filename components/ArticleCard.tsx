@@ -5,12 +5,16 @@ import { useEffect, useState, type CSSProperties } from 'react';
 import type { ArticleMeta } from '@/lib/types';
 import { getProgress, subscribe } from '@/lib/user-data';
 import { formatRelativeDate } from '@/lib/date';
+import { findDynasty } from '@/lib/dynasties';
+import ArticleCover from './ArticleCover';
 
 interface ArticleCardProps {
   article: ArticleMeta;
   variant?: 'default' | 'compact';
   /** stagger 序号:从 0 开始,每张卡片延迟 index * 60ms 进入视口 */
   index?: number;
+  /** 是否显示朝代封面(默认 true,可在 404 兜底等场景关闭) */
+  showCover?: boolean;
 }
 
 /**
@@ -21,7 +25,7 @@ interface ArticleCardProps {
  * 顶部 1px accent 用品牌主色 cinnabar — 之前按朝代映射不同颜色(T=ink/战国=cinnabar/其他=gold),
  * 没有文档说明,用户也无法预测,简化为统一品牌色更清晰。
  */
-export default function ArticleCard({ article, variant = 'default', index = 0 }: ArticleCardProps) {
+export default function ArticleCard({ article, variant = 'default', index = 0, showCover = true }: ArticleCardProps) {
   // 进度状态(0-100)— 默认 0,挂载后从 localStorage 读
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -45,7 +49,13 @@ export default function ArticleCard({ article, variant = 'default', index = 0 }:
       style={staggerStyle}
       className="article-card stagger-card group block relative bg-paper-card border border-border hover:border-cinnabar rounded-sm overflow-hidden"
     >
-      <div className="card-accent h-1 bg-cinnabar"></div>
+      {/* 顶部朝代封面 — 替代之前的 1px accent(更有视觉) */}
+      {showCover &&
+        (() => {
+          const dynasty = findDynasty(article.dynasty);
+          if (!dynasty) return null;
+          return <ArticleCover article={article} dynasty={dynasty} compact />;
+        })()}
       <div className={`p-6 ${variant === 'compact' ? 'p-5' : ''}`}>
         {/* 标签行 */}
         <div className="flex items-center gap-2 mb-4 flex-wrap">
