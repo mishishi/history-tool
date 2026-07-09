@@ -42,7 +42,7 @@
     {
       "name": "搜索",
       "short_name": "搜索",
-      "description": "搜索 50 篇文章",
+      "description": "搜文章 / 人物 / 关键字",
       "url": "/?search=1",
       "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     }
