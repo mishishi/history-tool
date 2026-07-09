@@ -161,13 +161,15 @@ export default function ShareButtons({ article }: Props) {
         </div>
       </div>
 
-      {/* 复制成功 toast */}
+      {/* 复制成功 toast — 居中用 flex,避免 fade-in-up 关键帧覆盖 transform */}
       {copied && (
-        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[80] px-4 py-2.5 bg-ink text-paper text-sm rounded-sm shadow-xl fade-in-up flex items-center gap-2">
-          <svg className="w-4 h-4 text-cinnabar" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-          </svg>
-          <span>链接已复制 · 去发给朋友吧</span>
+        <div className="fixed inset-x-0 bottom-24 z-[80] flex justify-center pointer-events-none">
+          <div className="fade-in-up pointer-events-auto px-4 py-2.5 bg-ink text-paper text-sm rounded-sm shadow-xl flex items-center gap-2">
+            <svg className="w-4 h-4 text-cinnabar" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+            </svg>
+            <span>链接已复制 · 去发给朋友吧</span>
+          </div>
         </div>
       )}
     </>
