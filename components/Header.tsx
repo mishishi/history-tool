@@ -24,10 +24,10 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
 
   return (
     <header
-      className={`sticky top-0 z-50 backdrop-blur-md transition-all duration-200 border-b ${
+      className={`sticky top-0 z-50 backdrop-blur-md transition-all duration-300 border-b ${
         scrolled
-          ? 'bg-paper/95 shadow-sm border-border'
-          : 'bg-paper/70 border-transparent'
+          ? 'bg-paper/98 shadow-md border-border'
+          : 'bg-paper/40 border-transparent'
       }`}
       style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
     >
@@ -43,7 +43,7 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
           </div>
         </Link>
 
-        {/* 中间导航 — 桌面 */}
+        {/* 中间导航 — 桌面(精简到 3 项核心入口,订阅/收藏走右侧快速操作区) */}
         <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium">
           <Link href="/" className="text-ink hover:text-cinnabar transition-colors">
             首页
@@ -53,12 +53,6 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
           </Link>
           <Link href="/#dynasties" className="text-ink-soft hover:text-cinnabar transition-colors">
             按朝代
-          </Link>
-          <Link href="/unlock" className="text-ink-soft hover:text-cinnabar transition-colors">
-            订阅
-          </Link>
-          <Link href="/favorites" className="text-ink-soft hover:text-cinnabar transition-colors">
-            收藏
           </Link>
         </nav>
 

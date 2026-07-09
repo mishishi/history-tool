@@ -113,27 +113,10 @@ export default function Footer() {
                   </svg>
                 </a>
               </li>
-              <li>
-                <a
-                  href="https://www.zhihu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-cinnabar transition-colors"
-                >
-                  知乎
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://sspai.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-cinnabar transition-colors"
-                >
-                  少数派
-                </a>
-              </li>
             </ul>
+            <p className="text-[10px] text-ink-mute mt-3 italic">
+              想交换友链?发邮件到 hello@du-tongjian.com
+            </p>
           </div>
         </div>
 

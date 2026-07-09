@@ -46,7 +46,11 @@ export default function HomePage() {
             <div className="flex items-center gap-3 mb-6">
               <Seal>本周精读</Seal>
               <span className="text-xs text-ink-mute">
-                2026 年 7 月 · 第 {featured?.episode ?? 1} 期
+                {featured
+                  ? `${new Date(featured.publishedAt).getFullYear()} 年 ${
+                      new Date(featured.publishedAt).getMonth() + 1
+                    } 月 · 第 ${featured.episode} 期`
+                  : '第 1 期'}
               </span>
             </div>
             <h1 className="text-3xl md:text-5xl font-bold text-ink leading-[1.2] mb-6">
