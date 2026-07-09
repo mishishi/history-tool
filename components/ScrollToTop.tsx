@@ -25,13 +25,14 @@ export default function ScrollToTop() {
       aria-label="回到顶部"
       title="回到顶部"
       className={
-        'fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full ' +
+        'fixed right-6 z-40 w-11 h-11 rounded-full ' +
         'bg-cinnabar/90 hover:bg-cinnabar text-paper shadow-lg ' +
         'flex items-center justify-center transition-all hover:shadow-xl ' +
         'hover:-translate-y-0.5 backdrop-blur-sm ' +
         (visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none')
       }
       style={{
+        bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)',
         transition: 'opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease, box-shadow 0.2s ease',
       }}
     >

@@ -88,7 +88,10 @@ export default function MobileQRButton() {
   return (
     <>
       {/* 浮动按钮 — 右下角 FAB,在 ScrollToTop 上方 */}
-      <div className="floating-qr-wrap group fixed bottom-20 right-4 md:right-6 z-40">
+      <div
+        className="floating-qr-wrap group fixed right-4 md:right-6 z-40"
+        style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 5rem)' }}
+      >
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -126,12 +129,14 @@ export default function MobileQRButton() {
             onClick={() => setOpen(false)}
             aria-hidden="true"
           />
-          <div
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[70] w-[92vw] max-w-md bg-paper-card border border-border rounded-sm shadow-2xl fade-in-up"
-            role="dialog"
-            aria-modal="true"
-            aria-label="在手机上继续阅读"
-          >
+          {/* 居中用 flex,不用 -translate-X/Y — 避免 fade-in-up 关键帧覆盖 transform 把模态推到角落 */}
+          <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 pointer-events-none">
+            <div
+              className="fade-in-up pointer-events-auto w-full max-w-md max-h-[90vh] overflow-y-auto bg-paper-card border border-border rounded-sm shadow-2xl"
+              role="dialog"
+              aria-modal="true"
+              aria-label="在手机上继续阅读"
+            >
             {/* 头部 */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-border-soft">
               <div className="flex items-center gap-2">
@@ -207,6 +212,7 @@ export default function MobileQRButton() {
             {/* 底部 */}
             <div className="px-5 py-2.5 border-t border-border-soft text-[10px] text-ink-mute text-center tracking-widest uppercase">
               ← 按 ESC 关闭 →
+            </div>
             </div>
           </div>
         </>

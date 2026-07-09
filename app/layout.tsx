@@ -52,7 +52,8 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: '读通鉴',
-    statusBarStyle: 'default',
+    // iOS PWA standalone 模式:状态栏透明 + 白色文字,适配 dark mode header
+    statusBarStyle: 'black-translucent',
     startupImage: '/icons/apple-touch-icon.png',
   },
   formatDetection: { telephone: false },
@@ -124,10 +125,17 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
       </head>
       <body className="pattern-bg min-h-screen flex flex-col">
+        {/* Skip-to-content — a11y:键盘 Tab 第一个元素,跳到主内容 */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cinnabar focus:text-paper focus:text-sm focus:font-medium focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-cinnabar focus:ring-offset-2 focus:ring-offset-paper"
+        >
+          跳到主内容
+        </a>
         <NetworkBanner />
         <ReadingProgress />
         <Header docs={searchDocs} />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1" tabIndex={-1}>{children}</main>
         <Footer />
         {/* PWA:Service Worker 注册 + 桌面安装引导 */}
         <ServiceWorkerRegistrar />

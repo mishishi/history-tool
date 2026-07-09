@@ -17,9 +17,9 @@ interface Props {
 
 /**
  * 文章页阅读完成反馈 Toast
- * - 滚动到 90% 时触发(给点容差,避免"差一点"没触发)
- * - 自动 setProgress(slug, 100) 标记完成
- * - 首次阅读触发,已完成文章不再触发
+ * - 滚到 90% 先亮 Toast(给"接近读完"反馈,不写 progress)
+ * - 真·滚到底 + 停留 1s 才算 100% 读完,触发 setProgress + localStorage 标记
+ * - localStorage(不是 sessionStorage):关 tab 重访同一文章不复弹
  * - 3.5s 自动消失(用户可点 × 立即关闭)
  * - 含下一篇跳转 CTA
  */
@@ -30,28 +30,46 @@ export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // 已完成的文章不显示
+    // 已完成的文章不显示(用 localStorage,关 tab 重访不复弹)
     try {
-      const completed = sessionStorage.getItem(`dt-article-completed-${slug}`);
+      const completed = localStorage.getItem(`dt-article-completed-${slug}`);
       if (completed) return;
     } catch {
       /* ignore */
     }
 
-    const onScroll = () => {
-      const scrolled = window.scrollY + window.innerHeight;
-      const total = document.body.scrollHeight;
-      // 滚到 90% + 触发
-      if (scrolled / total >= 0.9) {
-        setVisible(true);
-        // 标记完成(同时更新 user-data 进度)
-        try {
-          setProgress(slug, 100);
-          sessionStorage.setItem(`dt-article-completed-${slug}`, '1');
-        } catch {
-          /* ignore */
-        }
+    let reachedBottom = false;
+    let stayTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const markComplete = () => {
+      try {
+        setProgress(slug, 100);
+        localStorage.setItem(`dt-article-completed-${slug}`, '1');
+      } catch {
+        /* ignore */
       }
+      setVisible(true);
+    };
+
+    const onScroll = () => {
+      const scrolledPx = window.scrollY + window.innerHeight;
+      const total = document.body.scrollHeight;
+
+      // 90% 阈值:先亮 Toast(给"接近读完"反馈),但不写 progress
+      const nearBottom = scrolledPx >= total * 0.9;
+      if (nearBottom && !visible) {
+        setVisible(true);
+      }
+
+      // 真·滚到底(scrollY + viewport ≥ scrollHeight,容差 8px 避免小数抖动)
+      const atBottom = scrolledPx >= total - 8;
+      if (!atBottom) return;
+      if (reachedBottom) return;
+
+      // 真·100%:滚到底 + 停留 1s 才算"读完"(防误触发)
+      reachedBottom = true;
+      if (stayTimer) clearTimeout(stayTimer);
+      stayTimer = setTimeout(markComplete, 1000);
     };
 
     // 初始化:如果已经接近底部,直接触发
@@ -59,8 +77,11 @@ export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle 
       onScroll();
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+window.addEventListener('scroll', onScroll, { passive: true });
+      return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (stayTimer) clearTimeout(stayTimer);
+    };
   }, [slug]);
 
   // 出现 3.5s 后自动消失
@@ -82,9 +103,10 @@ export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle 
 
   return (
     <div
-      className={`fixed left-1/2 -translate-x-1/2 bottom-20 md:bottom-24 z-[65] max-w-[calc(100vw-2rem)] transition-opacity duration-300 ${
+      className={`fixed left-1/2 -translate-x-1/2 z-[65] max-w-[calc(100vw-2rem)] transition-opacity duration-300 ${
         exiting ? 'opacity-0' : 'opacity-100'
       }`}
+      style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 5rem)' }}
       role="status"
       aria-live="polite"
     >

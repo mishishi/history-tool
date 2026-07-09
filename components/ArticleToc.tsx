@@ -112,7 +112,7 @@ export default function ArticleToc({ items }: Props) {
                   <a
                     href={`#${item.id}`}
                     onClick={(e) => onClick(e, item.id)}
-                    className={`block pl-3 pr-2 py-1 text-xs leading-relaxed border-l-2 -ml-px transition-all ${
+                    className={`block pl-3 pr-2 py-1 text-xs leading-relaxed border-l-2 -ml-px transition-all outline-none focus-visible:bg-cinnabar/10 focus-visible:text-cinnabar focus-visible:border-cinnabar/50 ${
                       active
                         ? 'border-cinnabar text-cinnabar font-medium'
                         : 'border-transparent text-ink-soft hover:text-ink hover:border-gold'
@@ -131,7 +131,8 @@ export default function ArticleToc({ items }: Props) {
       {/* Mobile — 浮动目录按钮(< xl 显示,避开右下 FAB) */}
       <button
         onClick={() => setDrawerOpen(true)}
-        className="xl:hidden fixed right-4 bottom-32 z-40 flex items-center gap-1.5 px-3 py-2 bg-paper-card border border-border rounded-full shadow-md text-xs text-ink-soft hover:text-cinnabar hover:border-cinnabar transition-colors"
+        className="xl:hidden fixed right-4 z-40 flex items-center gap-1.5 px-3 py-2 bg-paper-card border border-border rounded-full shadow-md text-xs text-ink-soft hover:text-cinnabar hover:border-cinnabar transition-colors"
+        style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 8rem)' }}
         aria-label="打开文章目录"
       >
         <svg

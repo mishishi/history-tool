@@ -64,9 +64,10 @@ export default function OnboardingBubble() {
 
   return (
     <div
-      className={`fixed left-4 bottom-4 md:left-6 md:bottom-6 z-40 max-w-[280px] md:max-w-[300px] ${
+      className={`fixed left-4 md:left-6 z-40 max-w-[280px] md:max-w-[300px] ${
         fading ? 'onboarding-fade-out' : 'onboarding-fade-in'
       }`}
+      style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)' }}
       role="dialog"
       aria-label="新功能引导"
     >

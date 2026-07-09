@@ -29,6 +29,7 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
           ? 'bg-paper/95 shadow-sm border-border'
           : 'bg-paper/70 border-transparent'
       }`}
+      style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
     >
       <div className="max-w-wide mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
         {/* 品牌 */}
