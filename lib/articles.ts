@@ -162,10 +162,22 @@ function slugify(text: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
+/** HTML 实体 escape,防止标题里出现 < > & " ' 破坏 HTML */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 /**
  * 从 markdown 内容里提取所有 ### 标题,生成 ToC
  * 同时把 ### 替换为 <h3 id="...">...</h3> HTML,
  * 这样 react-markdown + rehype-raw 渲染时会保留 id(供锚点跳转)
+ *
+ * 标题内容用 escapeHtml 转义,防止含 < > & 字符破坏 HTML(XSS 防护)
  */
 export function extractToc(markdown: string): { toc: TocItem[]; content: string } {
   const toc: TocItem[] = [];
@@ -179,7 +191,7 @@ export function extractToc(markdown: string): { toc: TocItem[]; content: string 
     if (count > 0) id = `${id}-${count + 1}`;
 
     toc.push({ id, title: trimmed });
-    return `<h3 id="${id}">${trimmed}</h3>`;
+    return `<h3 id="${id}">${escapeHtml(trimmed)}</h3>`;
   });
 
   return { toc, content };

@@ -15,3 +15,9 @@ export const MARKETING_STATS = {
   ratings: 4.9,
   figuresCount: 23,
 } as const;
+
+/** 客服邮箱(也用于邮件 from 默认值) */
+export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'hello@du-tongjian.com';
+
+/** Resend / SMTP 发件人(可被 SUBSCRIBE_FROM_EMAIL 环境变量覆盖) */
+export const MAIL_FROM = process.env.SUBSCRIBE_FROM_EMAIL || '读通鉴 <hello@du-tongjian.com>';

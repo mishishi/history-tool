@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { getAllArticles } from '@/lib/articles';
 import SuccessClient from './SuccessClient';
 
 export const metadata = {
@@ -8,6 +9,7 @@ export const metadata = {
 };
 
 export default function UnlockSuccessPage() {
+  const articleCount = getAllArticles().length;
   return (
     <Suspense
       fallback={
@@ -16,7 +18,7 @@ export default function UnlockSuccessPage() {
         </section>
       }
     >
-      <SuccessClient />
+      <SuccessClient articleCount={articleCount} />
     </Suspense>
   );
 }

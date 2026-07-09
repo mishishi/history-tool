@@ -16,7 +16,7 @@ interface VerifyResult {
   error?: string;
 }
 
-export default function UnlockSuccessClient() {
+export default function UnlockSuccessClient({ articleCount }: { articleCount: number }) {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
 
@@ -188,7 +188,7 @@ export default function UnlockSuccessClient() {
             {
               num: '①',
               title: '开始读',
-              desc: '选一篇今晚就读,所有 50 篇现已对你永久开放。',
+              desc: `选一篇今晚就读,所有 ${articleCount} 篇现已对你永久开放。`,
               cta: { href: '/#articles', label: '选一篇开始读' },
             },
             {

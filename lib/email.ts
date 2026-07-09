@@ -1,5 +1,6 @@
 // Resend 邮件包装,没配置时降级到 console.log
 import { Resend } from 'resend';
+import { MAIL_FROM } from './site-config';
 
 export interface EmailParams {
   to: string;
@@ -25,7 +26,7 @@ function getResend(): Resend | null {
   return resend;
 }
 
-const FROM = process.env.SUBSCRIBE_FROM_EMAIL || '读通鉴 <hello@history-tool.vercel.app>';
+const FROM = MAIL_FROM;
 
 export async function sendEmail(params: EmailParams): Promise<SendResult> {
   const r = getResend();

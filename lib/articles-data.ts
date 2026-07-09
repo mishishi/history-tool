@@ -23,7 +23,8 @@ let _cache: ArticleMeta[] | null = null;
 export async function loadArticles(): Promise<ArticleMeta[]> {
   if (_cache) return _cache;
   try {
-    const res = await fetch('https://history-tool.vercel.app/article-data.json', {
+    // 相对路径,从 public 拉 — 跨环境一致,不再硬编码域名
+    const res = await fetch('/article-data.json', {
       cache: 'force-cache',
     });
     if (!res.ok) return FALLBACK;

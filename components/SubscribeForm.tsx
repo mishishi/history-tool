@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 type Status = 'idle' | 'submitting' | 'sent' | 'error';
 
@@ -15,6 +15,7 @@ export default function SubscribeForm({ compact = false }: Props) {
   const [website, setWebsite] = useState(''); // honeypot
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState<string>('');
+  const emailRef = useRef<HTMLInputElement>(null);
 
   const validate = (): string | null => {
     const v = email.trim();
@@ -32,6 +33,8 @@ export default function SubscribeForm({ compact = false }: Props) {
     if (err) {
       setStatus('error');
       setMessage(err);
+      // 焦点回到 email,键盘用户可以立刻重输
+      emailRef.current?.focus();
       return;
     }
 
@@ -127,6 +130,7 @@ export default function SubscribeForm({ compact = false }: Props) {
         <div className="flex gap-2">
           <input
             id="footer-subscribe-email"
+            ref={emailRef}
             type="email"
             name="email"
             autoComplete="email"
@@ -137,6 +141,8 @@ export default function SubscribeForm({ compact = false }: Props) {
               if (status === 'error') setStatus('idle');
             }}
             placeholder="your@email.com"
+            aria-invalid={status === 'error'}
+            aria-describedby={status === 'error' ? 'footer-subscribe-error' : undefined}
             className="flex-1 min-w-0 px-3 py-2 bg-paper-card border border-border rounded-sm text-sm text-ink placeholder:text-ink-mute focus:outline-none focus:border-cinnabar focus:ring-1 focus:ring-cinnabar/30 transition-colors"
           />
           <button
@@ -164,7 +170,9 @@ export default function SubscribeForm({ compact = false }: Props) {
         </label>
 
         {status === 'error' && message && (
-          <div className="text-xs text-cinnabar">{message}</div>
+          <div id="footer-subscribe-error" role="alert" className="text-xs text-cinnabar">
+            {message}
+          </div>
         )}
       </form>
     );
@@ -183,6 +191,7 @@ export default function SubscribeForm({ compact = false }: Props) {
         </label>
         <input
           id="subscribe-email"
+          ref={emailRef}
           name="email"
           type="email"
           autoComplete="email"
@@ -193,6 +202,8 @@ export default function SubscribeForm({ compact = false }: Props) {
             if (status === 'error') setStatus('idle');
           }}
           placeholder="you@example.com"
+          aria-invalid={status === 'error'}
+          aria-describedby={status === 'error' ? 'subscribe-error' : undefined}
           className="w-full px-4 py-3 bg-paper-card border border-border rounded-md text-ink placeholder:text-ink-mute focus:outline-none focus:border-cinnabar focus:ring-2 focus:ring-cinnabar/20 transition-colors"
         />
       </div>
@@ -227,7 +238,11 @@ export default function SubscribeForm({ compact = false }: Props) {
       </label>
 
       {status === 'error' && message && (
-        <div className="p-3 bg-cinnabar-soft border border-cinnabar/30 text-cinnabar text-sm rounded-sm">
+        <div
+          id="subscribe-error"
+          role="alert"
+          className="p-3 bg-cinnabar-soft border border-cinnabar/30 text-cinnabar text-sm rounded-sm"
+        >
           {message}
         </div>
       )}

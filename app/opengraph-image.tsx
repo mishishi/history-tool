@@ -1,4 +1,8 @@
 import { ImageResponse } from 'next/og';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { getAllArticles, DYNASTIES } from '@/lib/articles';
+import { SITE_URL } from '@/lib/site-config';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -6,14 +10,13 @@ export const alt = '读通鉴 — 用 AI 重读 1362 年';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-const FONT_URL = 'https://history-tool.vercel.app/fonts/NotoSerifSC-subset.ttf';
-
 let _fontCache: ArrayBuffer | null = null;
 async function getFontData(): Promise<ArrayBuffer> {
   if (_fontCache) return _fontCache;
-  const res = await fetch(FONT_URL, { cache: 'force-cache' });
-  if (!res.ok) throw new Error(`Font fetch ${res.status}`);
-  _fontCache = await res.arrayBuffer();
+  // 读 public/fonts 下的本地字体,无网络往返,跨环境一致
+  const fontPath = join(process.cwd(), 'public', 'fonts', 'NotoSerifSC-subset.ttf');
+  const buffer = await readFile(fontPath);
+  _fontCache = buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
   return _fontCache;
 }
 
@@ -21,6 +24,12 @@ const fontConfig = { name: 'Noto Serif SC', weight: '400' as const, style: 'norm
 
 export default async function Image() {
   const fontData = await getFontData();
+  // 数字从 source 实时算,新增文章/朝代自动同步
+  const articles = getAllArticles();
+  const articleCount = articles.length;
+  const dynastyCount = DYNASTIES.length;
+  // 从 SITE_URL 取 host(去掉 protocol),social 分享预览永远指向当前域名
+  const displayHost = SITE_URL.replace(/^https?:\/\//, '').replace(/\/$/, '');
 
   return new ImageResponse(
     (
@@ -131,7 +140,7 @@ export default async function Image() {
                   fontWeight: 700,
                 }}
               >
-                50
+                {articleCount}
               </div>
               <div style={{ fontSize: '14px', color: '#888' }}>篇深度解读</div>
             </div>
@@ -155,7 +164,7 @@ export default async function Image() {
                   fontWeight: 700,
                 }}
               >
-                14
+                {dynastyCount}
               </div>
               <div style={{ fontSize: '14px', color: '#888' }}>个朝代</div>
             </div>
@@ -167,7 +176,7 @@ export default async function Image() {
               fontWeight: 600,
             }}
           >
-            history-tool.vercel.app
+            {displayHost}
           </div>
         </div>
       </div>
