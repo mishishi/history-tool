@@ -63,16 +63,10 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
           </Link>
         </div>
 
-        {/* 右侧 — 移动端:只显示汉堡按钮 */}
+        {/* 右侧 — 移动端:只保留 继续阅读 + 汉堡 */}
         <div className="md:hidden flex items-center gap-1">
           <ContinueReadingButton docs={docs} />
-          <Link
-            href="/unlock"
-            className="px-3 py-1.5 bg-cinnabar hover:bg-cinnabar-dark text-paper text-xs rounded-md transition-colors font-medium"
-          >
-            订阅
-          </Link>
-          <MobileMenu />
+          <MobileMenu docs={docs} />
         </div>
       </div>
     </header>

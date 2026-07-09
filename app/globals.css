@@ -88,6 +88,30 @@ body {
               color var(--dur-base) var(--ease-out-expo);
 }
 
+/* ===== 全局 focus-visible 焦点环(a11y) ===== */
+/* 仅键盘聚焦时显示,鼠标点击不显示 */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-cinnabar);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+/* FAB / 浮动按钮的焦点环稍大 */
+.floating-qr-btn:focus-visible,
+button[aria-label="回到顶部"]:focus-visible {
+  outline: 2px solid var(--color-paper);
+  outline-offset: 4px;
+}
+/* 卡片 / 链接区(article-card / prev-next-card)focus 视觉一致 */
+.article-card:focus-visible,
+.prev-next-card:focus-visible {
+  outline: 2px solid var(--color-cinnabar);
+  outline-offset: 4px;
+}
+/* Dark mode 焦点环加亮 */
+.dark :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline-color: var(--color-cinnabar);
+}
+
 .classical {
   font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
   letter-spacing: 0.02em;
@@ -108,6 +132,17 @@ body {
 
 /* 选中文本 */
 ::selection { background-color: var(--color-cinnabar); color: var(--color-paper); }
+.dark ::selection { background-color: var(--color-cinnabar); color: var(--color-paper); }
+
+/* ===== 全局平滑滚动(尊重用户偏好) ===== */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 
 /* ===== 印章 ===== */
 .seal {
@@ -672,9 +707,20 @@ mark.search-hit {
 
 /* 减少动画偏好(尊重系统设置) */
 @media (prefers-reduced-motion: reduce) {
+  /* 全局减震 — 任何 transition / animation 都几乎瞬间完成 */
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  /* h3 reveal 跳过入场动画 */
+  .prose-article h3.reveal-pending {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  /* 脉冲呼吸点静止 */
+  .animate-pulse-soft {
+    animation: none;
   }
 }

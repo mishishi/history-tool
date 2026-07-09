@@ -27,7 +27,7 @@ export default function SubscribedPage({
       </h1>
       <p className="text-ink-soft text-lg mb-2">接下来:</p>
       <p className="text-ink-soft mb-10">
-        每周三上午 9 点,
+        每周三早 9 点,
         {email ? (
           <span className="text-ink"> <code className="px-2 py-1 bg-paper-deep rounded text-sm">{email}</code> </span>
         ) : (
@@ -79,19 +79,60 @@ export default function SubscribedPage({
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-3">
+      {/* 主 CTA */}
+      <div className="flex flex-wrap justify-center gap-3 mb-8">
         <Link
           href="/"
           className="inline-flex items-center gap-2 px-6 py-3 bg-cinnabar hover:bg-cinnabar-dark text-paper rounded-md transition-colors font-medium"
         >
           开始读第一篇
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
         </Link>
         <Link
-          href="/#articles"
+          href="/#dynasties"
           className="inline-flex items-center gap-2 px-6 py-3 bg-paper border border-border hover:border-cinnabar text-ink rounded-md transition-colors font-medium"
         >
-          浏览全部解读
+          按朝代浏览
         </Link>
+        <Link
+          href="/feed.xml"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-paper border border-border hover:border-cinnabar text-ink rounded-md transition-colors font-medium"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z" />
+          </svg>
+          <span>RSS 订阅</span>
+        </Link>
+      </div>
+
+      {/* 后续小贴士 */}
+      <div className="mt-8 p-5 bg-paper-deep border border-border-soft rounded-sm text-left">
+        <h3 className="text-sm font-semibold text-ink mb-3 flex items-center gap-2">
+          <span className="classical text-cinnabar text-base">鉴</span>
+          <span>订阅之后还能做这些</span>
+        </h3>
+        <ul className="space-y-2 text-sm text-ink-soft">
+          <li className="flex items-start gap-2">
+            <svg className="w-4 h-4 text-cinnabar mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span>把读通鉴加到主屏,像 App 一样打开(<Link href="/about#pwa-guide" className="text-cinnabar hover:underline">安装指南</Link>)</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <svg className="w-4 h-4 text-cinnabar mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span>把读通鉴分享给朋友,每周三一起读一篇</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <svg className="w-4 h-4 text-cinnabar mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span>订阅了付费会员还能看每周精读音频、事件脉络图、人物长卷系列(<Link href="/unlock" className="text-cinnabar hover:underline">了解会员</Link>)</span>
+          </li>
+        </ul>
       </div>
     </section>
   );

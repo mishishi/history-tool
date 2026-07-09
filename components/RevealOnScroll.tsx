@@ -15,6 +15,13 @@ export default function RevealOnScroll() {
     const headings = article.querySelectorAll('h3');
     if (headings.length === 0) return;
 
+    // 减震偏好:直接显示,不隐藏不动画
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+      headings.forEach((h) => h.classList.add('reveal-in'));
+      return;
+    }
+
     // 初始:所有 h3 都是隐藏状态(由 CSS 默认 opacity: 0)
     headings.forEach((h) => h.classList.add('reveal-pending'));
 

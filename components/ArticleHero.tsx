@@ -37,6 +37,10 @@ export default function ArticleHero({ article, parallax = 0.4 }: Props) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // 减震偏好:JS 视差也直接关
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
     const measure = () => {
       setHeroHeight(el.offsetHeight);
     };

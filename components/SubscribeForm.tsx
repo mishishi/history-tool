@@ -106,7 +106,7 @@ export default function SubscribeForm({ compact = false }: Props) {
       <form onSubmit={onSubmit} noValidate className="space-y-2">
         <div className="flex items-center gap-2 text-xs text-ink-mute mb-1">
           <span className="classical text-cinnabar text-base font-bold">邮</span>
-          <span className="font-medium text-ink">每周精读 · 每周日早 8 点</span>
+          <span className="font-medium text-ink">每周精读 · 每周三早 9 点</span>
         </div>
 
         {/* honeypot */}

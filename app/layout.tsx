@@ -8,6 +8,7 @@ import InstallPrompt from '@/components/InstallPrompt';
 import ThemeInitScript from '@/components/ThemeInitScript';
 import ScrollToTop from '@/components/ScrollToTop';
 import MobileQRButton from '@/components/MobileQRButton';
+import NetworkBanner from '@/components/NetworkBanner';
 import { getSearchData } from '@/lib/search';
 
 // Next 14 要求 themeColor 在 viewport export 里
@@ -88,6 +89,7 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
       </head>
       <body className="pattern-bg min-h-screen flex flex-col">
+        <NetworkBanner />
         <ReadingProgress />
         <Header docs={searchDocs} />
         <main className="flex-1">{children}</main>
