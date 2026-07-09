@@ -386,7 +386,7 @@ export default function UnlockPage({
       {/* 信任标识 */}
       <section className="max-w-wide mx-auto px-6 py-12">
         <div className="bg-paper-card border border-border rounded-sm p-8 md:p-10">
-          <UnlockStats />
+          <UnlockStats articleCount={articleCount} />
         </div>
       </section>
 

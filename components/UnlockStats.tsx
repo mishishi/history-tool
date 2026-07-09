@@ -1,15 +1,16 @@
 'use client';
 
 import CountUp from './CountUp';
-import { getAllArticles } from '@/lib/articles';
 import { MARKETING_STATS } from '@/lib/site-config';
 
 /**
  * unlock 页底部"信任标识"区 — 4 个数字接入 CountUp
- * 数字从 lib/site-config 的 MARKETING_STATS 取,文章数从 articles 实时算,避免散落多处不一致
+ * 数字从 lib/site-config 的 MARKETING_STATS 取
+ *
+ * 注:已发布深度解读数字从父组件 server 注入为 prop,避免 client component
+ * 引入 lib/articles(用了 node:fs,server-only)破坏 build
  */
-export default function UnlockStats() {
-  const articleCount = getAllArticles().length;
+export default function UnlockStats({ articleCount }: { articleCount: number }) {
   return (
     <div className="grid md:grid-cols-4 gap-8 text-center">
       <div>
