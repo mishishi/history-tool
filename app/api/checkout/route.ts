@@ -2,6 +2,7 @@
 // 用户点 "试读一篇" 按钮 → 前端 fetch 这里 → 拿 url → 跳转
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { SITE_URL } from '@/lib/site-config';
 
 export const runtime = 'nodejs';
 
@@ -47,8 +48,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // baseUrl 优先级:env > SITE_URL > host header(本地开发)
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL ||
+    SITE_URL ||
     (req.headers.get('host') ? `https://${req.headers.get('host')}` : 'http://localhost:3000');
 
   try {
@@ -63,7 +66,7 @@ export async function POST(req: NextRequest) {
               name: '读通鉴 · 单期精读',
               description:
                 '任选 1 篇深度解读,永久阅读。主理人每周邮件寄信。同时你的支持让这个项目跑得下去。',
-              images: [`${process.env.NEXT_PUBLIC_SITE_URL || 'https://history-tool.vercel.app'}/icons/icon-512.png`],
+              images: [`${SITE_URL}/icons/icon-512.png`],
             },
             unit_amount: SINGLE_PRICE_USD,
           },

@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: article.title,
       description: article.excerpt,
       images: [`${SITE_URL}/opengraph-image`],
-      creator: '@du_tongjian',
+      // creator 字段省略 — 项目暂无官方 Twitter 账号,写了错的 handle 社交分享时品牌错位
     },
     other: {
       'article:section': '历史解读',

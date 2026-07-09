@@ -70,8 +70,10 @@ export async function POST(req: NextRequest) {
     }
 
     // 构造确认邮件 + 发送
+    // baseUrl 优先级:env > SITE_URL > host header(本地开发)
     const baseUrl =
       process.env.NEXT_PUBLIC_BASE_URL ||
+      SITE_URL ||
       (req.headers.get('host') ? `https://${req.headers.get('host')}` : 'http://localhost:3000');
     const confirmUrl = `${baseUrl}/api/confirm?token=${encodeURIComponent(token)}`;
 

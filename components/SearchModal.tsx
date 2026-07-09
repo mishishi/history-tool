@@ -57,6 +57,16 @@ export default function SearchModal({ open, onClose, docs }: Props) {
   const [recents, setRecents] = useState<EnrichedRecent[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // 打开时锁 body 滚动(mobile 体验一致:跟 MobileMenu / MobileQRButton / ArticleToc drawer 统一)
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   // Esc 关闭
   useEffect(() => {
     if (!open) return;
