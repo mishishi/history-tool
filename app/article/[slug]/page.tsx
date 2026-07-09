@@ -3,9 +3,16 @@ import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import { getAllArticles, getArticleBySlug, getClassicBySlug, formatDate } from '@/lib/articles';
+import {
+  getAllArticles,
+  getArticleBySlug,
+  getClassicBySlug,
+  extractToc,
+} from '@/lib/articles';
 import ArticleCard from '@/components/ArticleCard';
-import FavoriteButton from '@/components/FavoriteButton';
+import ArticleHero from '@/components/ArticleHero';
+import ArticleToc from '@/components/ArticleToc';
+import RevealOnScroll from '@/components/RevealOnScroll';
 import Seal from '@/components/Seal';
 
 // 静态生成所有路由
@@ -45,6 +52,9 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   // 关联的原文
   const classic = getClassicBySlug(article.classicalSlug);
 
+  // 提取 ToC + 改写 h3 自动加 id
+  const { toc, content: articleContent } = extractToc(article.content);
+
   // 所有文章 + 上一篇/下一篇(按发布时间倒序,索引 i-1 更新 / i+1 更早)
   const allArticles = getAllArticles();
   const currentIndex = allArticles.findIndex((a) => a.slug === article.slug);
@@ -59,6 +69,12 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
   return (
     <>
+      {/* 滚动驱动:hero 视差 + h3 fade-in */}
+      <RevealOnScroll />
+
+      {/* 右侧 ToC(xl+ 显示) */}
+      <ArticleToc items={toc} />
+
       {/* 面包屑 */}
       <div className="max-w-wide mx-auto px-6 pt-6">
         <nav className="flex items-center gap-2 text-xs text-ink-mute">
@@ -74,57 +90,9 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         </nav>
       </div>
 
-      {/* 文章头 — 杂志感开篇 */}
+      {/* 文章 Hero — 滚动视差 */}
       <article className="max-w-reading mx-auto px-6 pt-10 pb-12">
-        {/* 顶部细金线 + 期刊编号 */}
-        <div className="hero-rule mb-5"></div>
-        <div className="text-center mb-10 fade-in-up">
-          <div className="hero-episode mb-6">
-            DU TONGJIAN · 第 {article.episode} 期
-          </div>
-
-          {/* 朝代徽标 + 卷次 */}
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <Seal variant="gold">{article.dynasty}</Seal>
-            <span className="text-xs text-ink-mute tracking-wide">资治通鉴 · {article.volume}</span>
-          </div>
-
-          {/* 主标题 */}
-          <h1 className="text-4xl md:text-[52px] font-bold text-ink leading-[1.18] mb-7 tracking-tight">
-            {article.title}
-          </h1>
-
-          {/* 副标题 */}
-          {article.subtitle && (
-            <p className="text-base md:text-lg text-ink-soft leading-relaxed mb-7 max-w-2xl mx-auto">
-              {article.subtitle}
-            </p>
-          )}
-
-          {/* 古文引子 — 做衬底斜体 */}
-          {article.classicalQuote && (
-            <blockquote className="classical text-base md:text-lg text-gold-dark italic leading-relaxed mb-10 max-w-2xl mx-auto">
-              「{article.classicalQuote}」
-            </blockquote>
-          )}
-
-          {/* meta 行 */}
-          <div className="flex items-center justify-center gap-5 text-xs text-ink-mute mb-5">
-            <span>{formatDate(article.publishedAt)}</span>
-            <span className="w-1 h-1 rounded-full bg-ink-mute"></span>
-            <span>{article.readingTime} 分钟阅读</span>
-            <span className="w-1 h-1 rounded-full bg-ink-mute"></span>
-            <span>{article.views >= 1000 ? `${(article.views / 1000).toFixed(1)}k` : article.views} 人已读</span>
-          </div>
-
-          {/* 操作:收藏(手机继续读已转为全站浮动按钮) */}
-          <div className="flex justify-center">
-            <FavoriteButton slug={article.slug} title={article.title} />
-          </div>
-        </div>
-
-        {/* 底部细金线 */}
-        <div className="hero-rule mt-2"></div>
+        <ArticleHero article={article} />
 
         {/* 原文区(classic) */}
         {classic && (
@@ -199,7 +167,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
           >
-            {article.content}
+            {articleContent}
           </ReactMarkdown>
         </div>
 
@@ -294,7 +262,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 >
                   <div className="flex items-center gap-2 text-xs text-ink-mute mb-3 tracking-widest uppercase">
                     <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l7-7 7 7" />
                     </svg>
                     <span>上一篇 · 第 {prevArticle.episode} 期</span>
                   </div>

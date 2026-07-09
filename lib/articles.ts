@@ -141,3 +141,46 @@ export const DYNASTIES: Dynasty[] = [
   { name: '隋唐', period: '581 - 907', slug: 'suitang', count: 42 },
   { name: '五代', period: '907 - 979', slug: 'wudai', count: 15 },
 ];
+
+/**
+ * 文章目录项
+ */
+export interface TocItem {
+  id: string;
+  title: string;
+}
+
+/**
+ * slug 化:中文保留,英文转小写,空白转 -
+ */
+function slugify(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    // 保留 ASCII 字母数字 + 中文 + 下划线,其他转 -
+    .replace(/[^\w\u4e00-\u9fa5]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+/**
+ * 从 markdown 内容里提取所有 ### 标题,生成 ToC
+ * 同时把 ### 替换为 <h3 id="...">...</h3> HTML,
+ * 这样 react-markdown + rehype-raw 渲染时会保留 id(供锚点跳转)
+ */
+export function extractToc(markdown: string): { toc: TocItem[]; content: string } {
+  const toc: TocItem[] = [];
+  const seen = new Map<string, number>();
+
+  const content = markdown.replace(/^### (.+)$/gm, (_, title: string) => {
+    const trimmed = title.trim();
+    let id = slugify(trimmed);
+    const count = seen.get(id) || 0;
+    seen.set(id, count + 1);
+    if (count > 0) id = `${id}-${count + 1}`;
+
+    toc.push({ id, title: trimmed });
+    return `<h3 id="${id}">${trimmed}</h3>`;
+  });
+
+  return { toc, content };
+}

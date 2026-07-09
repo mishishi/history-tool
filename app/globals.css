@@ -398,6 +398,30 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
   transform: translateY(-100px) !important;
 }
 
+/* ===== h3 滚动入场 ===== */
+.prose-article h3.reveal-pending {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+}
+.prose-article h3.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .prose-article h3.reveal-pending {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ===== ArticleHero 滚动视差容器 ===== */
+.article-hero {
+  /* 给 hero 加 will-change 优化合成层 */
+  will-change: transform, opacity;
+}
+
 /* ===== 文章正文样式(响应式 + dark variant) ===== */
 .prose-article {
   font-size: 16px;

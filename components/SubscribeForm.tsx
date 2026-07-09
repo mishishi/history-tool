@@ -4,7 +4,12 @@ import { useState } from 'react';
 
 type Status = 'idle' | 'submitting' | 'sent' | 'error';
 
-export default function SubscribeForm() {
+interface Props {
+  /** compact 模式用于 Footer / 侧边:水平布局,无显式 label,极简文案 */
+  compact?: boolean;
+}
+
+export default function SubscribeForm({ compact = false }: Props) {
   const [email, setEmail] = useState('');
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(''); // honeypot
@@ -14,7 +19,6 @@ export default function SubscribeForm() {
   const validate = (): string | null => {
     const v = email.trim();
     if (!v) return '邮箱不能为空';
-    // 简单 email 校验,不依赖 zod 在客户端
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return '邮箱格式不对';
     if (!consent) return '请同意隐私条款后再提交';
     return null;
@@ -62,7 +66,20 @@ export default function SubscribeForm() {
     }
   };
 
+  // 订阅成功 — compact / 普通模式都显示统一的简洁成功态
   if (status === 'sent') {
+    if (compact) {
+      return (
+        <div className="flex items-center gap-2 p-3 bg-cinnabar/5 border border-cinnabar/20 rounded-sm">
+          <div className="w-6 h-6 shrink-0 flex items-center justify-center bg-cinnabar text-paper rounded-sm">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <p className="text-xs text-ink-soft leading-snug">检查邮箱点确认就订阅成功</p>
+        </div>
+      );
+    }
     return (
       <div className="p-6 bg-cinnabar/5 border border-cinnabar/20 rounded-sm">
         <div className="flex items-start gap-3">
@@ -83,6 +100,68 @@ export default function SubscribeForm() {
     );
   }
 
+  // compact 模式 — Footer 内联用,单行 email + checkbox inline + submit button
+  if (compact) {
+    return (
+      <form onSubmit={onSubmit} noValidate className="space-y-2">
+        <div className="flex items-center gap-2 text-xs text-ink-mute mb-1">
+          <span className="classical text-cinnabar text-base font-bold">邮</span>
+          <span className="font-medium text-ink">每周精读 · 每周日早 8 点</span>
+        </div>
+
+        {/* honeypot */}
+        <div className="absolute opacity-0 pointer-events-none -z-10" aria-hidden="true">
+          <label>
+            如果你不是机器人请留空
+            <input type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+          </label>
+        </div>
+
+        <div className="flex gap-2">
+          <input
+            type="email"
+            autoComplete="email"
+            required
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (status === 'error') setStatus('idle');
+            }}
+            placeholder="your@email.com"
+            className="flex-1 min-w-0 px-3 py-2 bg-paper-card border border-border rounded-sm text-sm text-ink placeholder:text-ink-mute focus:outline-none focus:border-cinnabar focus:ring-1 focus:ring-cinnabar/30 transition-colors"
+          />
+          <button
+            type="submit"
+            disabled={status === 'submitting'}
+            className="shrink-0 px-4 py-2 bg-cinnabar hover:bg-cinnabar-dark disabled:bg-ink-mute text-paper rounded-sm text-sm transition-colors font-medium"
+          >
+            {status === 'submitting' ? '...' : '订阅'}
+          </button>
+        </div>
+
+        <label className="flex items-start gap-2 cursor-pointer group pt-1">
+          <input
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => {
+              setConsent(e.target.checked);
+              if (status === 'error') setStatus('idle');
+            }}
+            className="mt-0.5 w-3.5 h-3.5 accent-cinnabar shrink-0"
+          />
+          <span className="text-[11px] text-ink-mute leading-snug select-none">
+            同意收每周邮件,可随时退订
+          </span>
+        </label>
+
+        {status === 'error' && message && (
+          <div className="text-xs text-cinnabar">{message}</div>
+        )}
+      </form>
+    );
+  }
+
+  // 普通模式 — 用于 /unlock 等独立页
   return (
     <form
       onSubmit={onSubmit}
@@ -109,7 +188,7 @@ export default function SubscribeForm() {
         />
       </div>
 
-      {/* honeypot — 隐藏字段,肉眼看不到 */}
+      {/* honeypot */}
       <div className="absolute opacity-0 pointer-events-none -z-10" aria-hidden="true">
         <label>
           如果你不是机器人请留空
