@@ -166,9 +166,19 @@ export default function SearchModal({ open, onClose, docs }: Props) {
           {/* 搜索无结果 — 回退到热门词 */}
           {isSearching && results.length === 0 && (
             <div className="px-5 py-10">
-              <div className="text-center text-sm text-ink-mute mb-5">
-                没有匹配「{query}」的文章
+              {/* 搜索感更强的空态:图标 + 主文案 + 副文案 */}
+              <div className="flex flex-col items-center text-center mb-7">
+                <div className="w-12 h-12 rounded-full bg-paper-deep flex items-center justify-center mb-3">
+                  <svg className="w-5 h-5 text-ink-mute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+                  </svg>
+                </div>
+                <div className="text-sm text-ink mb-1">
+                  没找到「<span className="font-semibold text-ink">{query}</span>」相关的文章
+                </div>
+                <div className="text-xs text-ink-mute">试试热门词,或者换个关键字再搜</div>
               </div>
+
               <div className="text-[10px] text-ink-mute tracking-[0.3em] uppercase mb-3">
                 没 找 到?试 试 这 些
               </div>
