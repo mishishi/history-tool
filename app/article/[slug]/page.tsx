@@ -191,7 +191,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             <div className="bg-paper-card border border-border rounded-sm p-6 md:p-8 shadow-sm">
               <div className="text-center mb-5">
                 <span className="text-[10px] text-ink-mute tracking-[0.3em] uppercase">
-                  资治通鉴 · {classic.volume} · {classic.period}
+                  资治通鉴 · {classic.volume || article.volume} · {classic.period}
                 </span>
               </div>
 
@@ -223,7 +223,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                   <div className="grid sm:grid-cols-2 gap-3 max-w-xl mx-auto">
                     {classic.keyFigures.map((fig, i) => (
                       <div key={i} className="flex items-start gap-3 px-3 py-2 bg-paper-deep rounded-sm">
-                        <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-cinnabar text-paper rounded-sm classical text-sm font-bold">
+                        <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-cinnabar text-paper rounded-sm classical text-sm font-bold text-center leading-none">
                           {fig.name.charAt(0)}
                         </div>
                         <div className="min-w-0">
@@ -287,7 +287,9 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           <div className="relative">
             <Seal className="mb-3">继续阅读</Seal>
             <h3 className="text-xl md:text-2xl font-bold text-ink mb-3 leading-tight">
-              这只是开篇。还有 1361 年等我们读
+              这只是开篇。<br />
+              剩下的故事,<br />
+              我们一起读完
             </h3>
             <p className="text-sm text-ink-soft leading-relaxed mb-6">
               订阅后,你将解锁每周精读、全部解读稿、事件脉络图。
@@ -348,11 +350,12 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               {prevArticle ? (
                 <Link
                   href={`/article/${prevArticle.slug}`}
+                  aria-label={`上一篇 · ${prevArticle.dynasty} · 第 ${prevArticle.episode} 期 · ${prevArticle.title}`}
                   className="group prev-next-card prev-next-card-left relative block p-6 md:p-8 rounded-sm"
                 >
                   <div className="flex items-center gap-2 text-xs text-ink-mute mb-3 tracking-widest uppercase">
                     <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l7-7 7 7" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 18l-6-6 6-6" />
                     </svg>
                     <span>上一篇 · 第 {prevArticle.episode} 期</span>
                   </div>
@@ -374,6 +377,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               {nextArticle ? (
                 <Link
                   href={`/article/${nextArticle.slug}`}
+                  aria-label={`下一篇 · ${nextArticle.dynasty} · 第 ${nextArticle.episode} 期 · ${nextArticle.title}`}
                   className="group prev-next-card prev-next-card-right relative block p-6 md:p-8 rounded-sm md:text-right"
                 >
                   <div className="flex items-center justify-end gap-2 text-xs text-ink-mute mb-3 tracking-widest uppercase">

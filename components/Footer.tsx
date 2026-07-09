@@ -4,7 +4,7 @@ import SubscribeForm from './SubscribeForm';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border mt-12 bg-paper-deep/30">
+    <footer id="site-footer" className="border-t border-border mt-12 bg-paper-deep/30">
       {/* 上半 — 订阅 + 导航 + 关于 */}
       <div className="max-w-wide mx-auto px-6 py-12 md:py-16">
         <div className="grid md:grid-cols-12 gap-8 mb-10">
