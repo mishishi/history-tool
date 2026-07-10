@@ -154,7 +154,7 @@ function FiguresStat({ to, unit, desc }: { to: number; unit: string; desc: strin
         </span>
         <span className="text-xs md:text-sm text-ink-soft">{unit}</span>
       </div>
-      <p className="text-[10px] md:text-xs text-ink-mute">{desc}</p>
+      <p className="text-xs text-ink-mute">{desc}</p>
     </div>
   );
 }
@@ -181,12 +181,12 @@ function FigureCard({
           <h3 className="text-sm font-semibold text-ink group-hover:text-cinnabar transition-colors truncate">
             {figure.name}
           </h3>
-          <span className="text-[10px] text-ink-mute tabular-nums shrink-0">
+          <span className="text-xs text-ink-mute tabular-nums shrink-0">
             ×{count}
           </span>
         </div>
         {figure.aliases.length > 0 && (
-          <p className="text-[10px] text-ink-mute truncate">
+          <p className="text-xs text-ink-mute truncate">
             {figure.aliases.join(' · ')}
           </p>
         )}
@@ -205,7 +205,7 @@ function FigureCard({
           {figure.name}
         </h3>
         <span
-          className={`px-1.5 py-0.5 text-[10px] tabular-nums rounded-sm ${
+          className={`px-1.5 py-0.5 text-xs tabular-nums rounded-sm ${
             count >= 3
               ? 'bg-cinnabar text-paper'
               : 'bg-cinnabar-soft text-cinnabar-dark'
@@ -233,7 +233,7 @@ function FigureCard({
           return (
             <li
               key={slug}
-              className="text-[10px] text-ink-mute flex items-baseline gap-1.5 truncate"
+              className="text-xs text-ink-mute flex items-baseline gap-1.5 truncate"
             >
               <span className="text-ink-mute/60 tabular-nums shrink-0 w-5 text-right">
                 {String(a.episode).padStart(2, '0')}
@@ -243,7 +243,7 @@ function FigureCard({
           );
         })}
         {figure.articleSlugs.length > 3 && (
-          <li className="text-[10px] text-ink-mute/70">
+          <li className="text-xs text-ink-mute/70">
             等 {figure.articleSlugs.length - 3} 篇…
           </li>
         )}
