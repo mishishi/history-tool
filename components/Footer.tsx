@@ -39,6 +39,11 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs text-ink-soft">
               <li>
+                <Link href="/archive" className="hover:text-cinnabar transition-colors">
+                  通鉴目录
+                </Link>
+              </li>
+              <li>
                 <Link href="/#articles" className="hover:text-cinnabar transition-colors">
                   最新解读
                 </Link>

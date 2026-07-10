@@ -165,7 +165,7 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* 按朝代浏览 — 横向时间轴 */}
+      {/* 按朝代浏览 — 横向时间轴(点击跳到 /archive 完整目录) */}
       <section id="dynasties" className="max-w-wide mx-auto px-6 py-12 md:py-16">
         <div className="text-center mb-10 md:mb-14">
           <h2 className="text-2xl md:text-3xl font-bold text-ink mb-2">按朝代浏览</h2>
@@ -177,12 +177,15 @@ export default function HomePage() {
           {/* 横向轴线 */}
           <div className="timeline-rail"></div>
 
-          {/* 节点(横向滚动适配窄屏) */}
+          {/* 节点(横向滚动适配窄屏)
+              用原生 <a> 不用 <Link>:跨页面 hash 链接需要完整页面加载,
+              浏览器原生处理 hash 锚点跳转 — 比 Next.js 客户端 SPA + scroll-to-top
+              后再手动滚更可靠 */}
           <div className="flex items-start justify-between gap-6 md:gap-4 -mt-[6px] overflow-x-auto pb-4 px-2 md:px-4 snap-x snap-mandatory scrollbar-thin">
             {DYNASTIES.map((d, i) => (
-              <Link
+              <a
                 key={d.slug}
-                href={`/?dynasty=${d.slug}`}
+                href={`/archive#group-${d.slug}`}
                 className="timeline-node snap-center stagger-card"
                 style={{ ['--stagger-delay' as string]: `${i * 80}ms` } as CSSProperties}
                 aria-label={`${d.name} · ${d.count} 篇`}
@@ -195,14 +198,39 @@ export default function HomePage() {
                 <div className="timeline-period">{d.period}</div>
                 {/* 计数徽标 */}
                 <div className="timeline-count">{d.count} 篇</div>
-              </Link>
+              </a>
             ))}
+            {/* 末尾追加「近现代」节点 — 跳到 archive 完整目录 */}
+            <a
+              href="/archive#group-modern"
+              className="timeline-node snap-center stagger-card"
+              style={{ ['--stagger-delay' as string]: `${DYNASTIES.length * 80}ms` } as CSSProperties}
+              aria-label="近现代 · 通鉴之后"
+            >
+              <div className="timeline-name">近现代</div>
+              <div className="timeline-dot"></div>
+              <div className="timeline-period">960 - 2013</div>
+              <div className="timeline-count">通鉴之后</div>
+            </a>
           </div>
         </div>
 
         {/* 移动端左右提示 */}
         <div className="md:hidden mt-4 text-center text-[10px] text-ink-mute tracking-widest uppercase">
           ← 横向滑动查看更多 →
+        </div>
+
+        {/* 查看完整目录 — 桌面端显示,移动端由横向时间轴自带滚动 */}
+        <div className="mt-8 text-center">
+          <Link
+            href="/archive"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-paper-card border border-border hover:border-cinnabar hover:text-cinnabar rounded-sm text-sm text-ink-soft transition-all hover:shadow-md"
+          >
+            <span>查看完整通鉴目录</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         </div>
       </section>
 
