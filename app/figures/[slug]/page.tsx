@@ -186,13 +186,13 @@ export default function FigureDetailPage({
                     className="group block p-4 md:p-5 bg-paper-card border border-border hover:border-cinnabar rounded-sm transition-colors"
                   >
                     <div className="flex items-baseline gap-3 mb-2">
-                      <span className="text-[10px] text-ink-mute tabular-nums shrink-0">
+                      <span className="text-xs text-ink-mute tabular-nums shrink-0">
                         EP{String(a.episode).padStart(2, '0')}
                       </span>
-                      <span className="text-[10px] text-cinnabar-dark font-medium uppercase tracking-widest">
+                      <span className="text-xs text-cinnabar-dark font-medium uppercase tracking-widest">
                         {a.archive.era}
                       </span>
-                      <span className="text-[10px] text-ink-mute">
+                      <span className="text-xs text-ink-mute">
                         {a.archive.groupId === 'modern'
                           ? '近现代'
                           : a.dynasty}
