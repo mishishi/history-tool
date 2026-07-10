@@ -49,6 +49,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/ask" className="hover:text-cinnabar transition-colors">
+                  AI 问典
+                </Link>
+              </li>
+              <li>
                 <Link href="/#articles" className="hover:text-cinnabar transition-colors">
                   最新解读
                 </Link>

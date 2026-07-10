@@ -43,7 +43,7 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
           </div>
         </Link>
 
-        {/* 中间导航 — 桌面(精简到 4 项核心入口,订阅/收藏走右侧快速操作区) */}
+        {/* 中间导航 — 桌面(精简到 5 项核心入口,订阅/收藏走右侧快速操作区) */}
         <nav className="hidden md:flex items-center gap-5 lg:gap-7 text-sm font-medium">
           <Link href="/" className="text-ink hover:text-cinnabar transition-colors">
             首页
@@ -53,6 +53,9 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
           </Link>
           <Link href="/figures" className="text-ink-soft hover:text-cinnabar transition-colors">
             人物
+          </Link>
+          <Link href="/ask" className="text-ink-soft hover:text-cinnabar transition-colors">
+            AI 问典
           </Link>
           <Link href="/#articles" className="text-ink-soft hover:text-cinnabar transition-colors">
             最新
