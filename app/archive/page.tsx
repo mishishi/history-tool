@@ -229,7 +229,9 @@ export default function ArchivePage() {
                 className={`inline-flex items-center gap-1.5 border rounded-sm transition-colors ${sizeClass} ${colorClass}`}
               >
                 <span>{t.name}</span>
-                <span className="opacity-70 tabular-nums">{t.count}</span>
+                {/* 去 opacity-70:text-ink-soft + 0.7 opacity 在 paper-card 上对比度 3.7:1
+                   不达 AA,直接 tabular-nums 让父级 color 透传(深色 hot tag 也保持可读) */}
+                <span className="tabular-nums">{t.count}</span>
               </Link>
             );
           })}
@@ -253,12 +255,13 @@ export default function ArchivePage() {
                     个朝代
                   </span>
                 </div>
-                <ul className="grid md:grid-cols-2 gap-x-6 gap-y-1.5">
+                <ul className="grid md:grid-cols-2 gap-x-6 gap-y-0.5">
                   {t.articles.map((a) => (
                     <li key={a.slug} className="text-xs">
                       <Link
                         href={`/article/${a.slug}`}
-                        className="text-ink-soft hover:text-cinnabar transition-colors flex items-baseline gap-1.5"
+                        // py-2.5 + flex 保证触摸目标 ≥ 24px(WCAG target size)
+                        className="text-ink-soft hover:text-cinnabar transition-colors flex items-baseline gap-1.5 py-2.5 -mx-2 px-2 rounded-sm"
                       >
                         <span className="text-ink-mute tabular-nums shrink-0">
                           {String(a.episode).padStart(2, '0')}
@@ -368,12 +371,13 @@ function ArchiveGroupCard({
       <div className="divide-y divide-border-soft">
         {Array.from(eraGroups.entries()).map(([era, arts]) => (
           <div key={era} className="px-5 md:px-7 py-3">
-            {/* era 标签(二级时代)— 只在 era 有 >1 篇时显示成"分组",否则 inline */}
+            {/* era 标签(二级时代)— 只在 era 有 >1 篇时显示成"分组",否则 inline
+                用 cinnabar-dark 而不是 dynasty.primary:某些朝代的 primary 在 paper-card 上
+                对比度 < 4.5:1(隋唐金 #A8895C 是 3.0:1),改统一色保留层级不破坏 a11y */}
             {eraGroups.size > 1 && (
               <div className="flex items-center gap-2 mb-2 mt-1">
                 <span
-                  className="text-[10px] font-semibold tracking-widest uppercase"
-                  style={{ color }}
+                  className="text-[10px] font-semibold tracking-widest uppercase text-cinnabar-dark"
                 >
                   {era}
                 </span>

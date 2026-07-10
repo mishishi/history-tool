@@ -135,17 +135,20 @@ function escapeHtml(str: string): string {
 }
 
 /**
- * 从 markdown 内容里提取所有 ### 标题,生成 ToC
- * 同时把 ### 替换为 <h3 id="...">...</h3> HTML,
+ * 从 markdown 内容里提取所有 ## 标题,生成 ToC
+ * 同时把 ## 替换为 <h2 id="...">...</h2> HTML,
  * 这样 react-markdown + rehype-raw 渲染时会保留 id(供锚点跳转)
  *
  * 标题内容用 escapeHtml 转义,防止含 < > & 字符破坏 HTML(XSS 防护)
+ *
+ * 注:之前是 ### / <h3>,改成 ## / <h2> 是为了符合 a11y heading-order 规则
+ *    文章页 h1(标题)→ h2(节标题)→ ...,h1 后不能直接跳 h3
  */
 export function extractToc(markdown: string): { toc: TocItem[]; content: string } {
   const toc: TocItem[] = [];
   const seen = new Map<string, number>();
 
-  const content = markdown.replace(/^### (.+)$/gm, (_, title: string) => {
+  const content = markdown.replace(/^## (.+)$/gm, (_, title: string) => {
     const trimmed = title.trim();
     let id = slugify(trimmed);
     const count = seen.get(id) || 0;
@@ -153,7 +156,7 @@ export function extractToc(markdown: string): { toc: TocItem[]; content: string 
     if (count > 0) id = `${id}-${count + 1}`;
 
     toc.push({ id, title: trimmed });
-    return `<h3 id="${id}">${escapeHtml(trimmed)}</h3>`;
+    return `<h2 id="${id}">${escapeHtml(trimmed)}</h2>`;
   });
 
   return { toc, content };

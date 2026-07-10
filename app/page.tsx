@@ -136,7 +136,7 @@ export default function HomePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-              <h3 className="text-base font-semibold text-ink mb-2">{col.title}</h3>
+              <h2 className="text-base font-semibold text-ink mb-2">{col.title}</h2>
               <p className="text-xs text-ink-soft leading-relaxed">{col.desc}</p>
             </Link>
           ))}
@@ -188,7 +188,8 @@ export default function HomePage() {
                 href={`/archive#group-${d.slug}`}
                 className="timeline-node snap-center stagger-card"
                 style={{ ['--stagger-delay' as string]: `${i * 80}ms` } as CSSProperties}
-                aria-label={`${d.name} · ${d.count} 篇`}
+                // 不写 aria-label:让屏幕阅读器读可视文本(朝代名 + 时期 + 计数)
+                // 之前的 aria-label 跟 dynasties.ts 旧 count 不一致,且会替换 visible text
               >
                 {/* 朝代名 */}
                 <div className="timeline-name">{d.name}</div>
@@ -205,7 +206,6 @@ export default function HomePage() {
               href="/archive#group-modern"
               className="timeline-node snap-center stagger-card"
               style={{ ['--stagger-delay' as string]: `${DYNASTIES.length * 80}ms` } as CSSProperties}
-              aria-label="近现代 · 通鉴之后"
             >
               <div className="timeline-name">近现代</div>
               <div className="timeline-dot"></div>

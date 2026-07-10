@@ -35,3 +35,4 @@ next-env.d.ts
 # 开发产物(不提交)
 /prototype/              # 旧版设计稿,已转 Next.js
 /screenshots/            # Playwright 临时截图
+lighthouse-reports/  # Lighthouse 跑分报告(临时)

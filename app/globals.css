@@ -13,12 +13,14 @@
   --color-paper-card: #FBF8F2;
   --color-ink: #1A1A1A;
   --color-ink-soft: #4A4A4A;
-  --color-ink-mute: #8A8A8A;
+  /* ink-mute:从 #8A8A8A (3.25:1) 加深到 #6A6A6A (4.7:1) 通过 WCAG AA
+     10-12px 副文本之前的对比度不达标,影响 card meta / hero subtitle 等多处 a11y */
+  --color-ink-mute: #6A6A6A;
   --color-cinnabar: #B23A3A;
   --color-cinnabar-dark: #8E2828;
   --color-cinnabar-soft: #F5E6E6;
   --color-gold: #A8895C;
-  --color-gold-dark: #8C6E45;
+  --color-gold-dark: #7A5E3A;
   --color-gold-soft: #F2EBDD;
   --color-border: #E8E4DC;
   --color-border-soft: #F0EBE0;
@@ -53,7 +55,8 @@
   --color-paper-card: #1F1B17;
   --color-ink: #E8E2D5;          /* 主文字,奶白偏暖 */
   --color-ink-soft: #B8B0A0;
-  --color-ink-mute: #786E60;
+  /* dark mode ink-mute:从 #786E60 (3.6:1) 提亮到 #9C8E7E (5.6:1) 通过 WCAG AA */
+  --color-ink-mute: #9C8E7E;
   --color-cinnabar: #D65A5A;     /* 朱红在 dark 下要提亮 */
   --color-cinnabar-dark: #B23A3A;
   --color-cinnabar-soft: #2A1A1A;

@@ -350,7 +350,8 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               {prevArticle ? (
                 <Link
                   href={`/article/${prevArticle.slug}`}
-                  aria-label={`上一篇 · ${prevArticle.dynasty} · 第 ${prevArticle.episode} 期 · ${prevArticle.title}`}
+                  // 不写 aria-label:可视文本里已经包含 上一篇 · 标题 · 朝代 · 期数
+                  // 之前的 aria-label 把标题原样加进去,会替换 visible text 让屏幕阅读器读不到布局信息
                   className="group prev-next-card prev-next-card-left relative block p-6 md:p-8 rounded-sm"
                 >
                   <div className="flex items-center gap-2 text-xs text-ink-mute mb-3 tracking-widest uppercase">
@@ -377,7 +378,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               {nextArticle ? (
                 <Link
                   href={`/article/${nextArticle.slug}`}
-                  aria-label={`下一篇 · ${nextArticle.dynasty} · 第 ${nextArticle.episode} 期 · ${nextArticle.title}`}
                   className="group prev-next-card prev-next-card-right relative block p-6 md:p-8 rounded-sm md:text-right"
                 >
                   <div className="flex items-center justify-end gap-2 text-xs text-ink-mute mb-3 tracking-widest uppercase">

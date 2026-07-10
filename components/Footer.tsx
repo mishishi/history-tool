@@ -33,10 +33,10 @@ export default function Footer() {
 
           {/* 内容导航 — 占 3 列 */}
           <div className="md:col-span-3">
-            <h4 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
+            <h2 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
               <span className="w-3 h-px bg-cinnabar"></span>
               <span>内容</span>
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-xs text-ink-soft">
               <li>
                 <Link href="/archive" className="hover:text-cinnabar transition-colors">
@@ -79,10 +79,10 @@ export default function Footer() {
 
           {/* 关于 + 友链 — 占 4 列 */}
           <div className="md:col-span-4">
-            <h4 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
+            <h2 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
               <span className="w-3 h-px bg-cinnabar"></span>
               <span>关于</span>
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-xs text-ink-soft mb-6">
               <li>
                 <Link href="/about#who-we-are" className="hover:text-cinnabar transition-colors">
@@ -101,10 +101,10 @@ export default function Footer() {
               </li>
             </ul>
 
-            <h4 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
+            <h2 className="text-sm font-semibold text-ink mb-4 flex items-center gap-2">
               <span className="w-3 h-px bg-gold"></span>
               <span>友链</span>
-            </h4>
+            </h2>
             <ul className="space-y-2.5 text-xs text-ink-soft">
               <li>
                 <a
