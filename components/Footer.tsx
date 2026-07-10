@@ -44,6 +44,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/figures" className="hover:text-cinnabar transition-colors">
+                  人物长卷
+                </Link>
+              </li>
+              <li>
                 <Link href="/#articles" className="hover:text-cinnabar transition-colors">
                   最新解读
                 </Link>

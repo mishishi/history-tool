@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllArticles } from '@/lib/articles';
+import { getAllFigures } from '@/lib/figures';
 import { SITE_URL } from '@/lib/site-config';
 
 // 静态页 lastModified 用固定 build 时间,避免误导爬虫每周都改
@@ -29,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${SITE_URL}/figures`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
       url: `${SITE_URL}/about`,
       lastModified: BUILD_DATE,
       changeFrequency: 'monthly',
@@ -51,5 +58,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...articlePages];
+  // 人物页(全部静态化) — 238 位,长尾 SEO 入口
+  const figurePages: MetadataRoute.Sitemap = getAllFigures().map((f) => ({
+    url: `${SITE_URL}/figures/${encodeURIComponent(f.name)}`,
+    lastModified: BUILD_DATE,
+    changeFrequency: 'monthly',
+    priority: f.articleSlugs.length >= 2 ? 0.7 : 0.5,
+  }));
+
+  return [...staticPages, ...articlePages, ...figurePages];
 }
