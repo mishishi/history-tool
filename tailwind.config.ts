@@ -26,8 +26,8 @@ const config: Config = {
         'border-soft': 'var(--color-border-soft)',
       },
       fontFamily: {
-        serif: ['"Noto Serif SC"', '"Source Han Serif SC"', 'serif'],
-        kai: ['"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'serif'],
+        serif: ['"Noto Serif SC"', '"Source Han Serif SC"', 'PingFang SC', 'Hiragino Sans GB', '"Microsoft YaHei"', 'serif'],
+        kai: ['"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', 'serif'],
         sans: ['"Inter"', '"Noto Serif SC"', 'system-ui', 'sans-serif'],
       },
       maxWidth: {

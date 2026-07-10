@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 字体已通过 layout.tsx 加载(next/font Inter + <link> Noto Serif SC / LXGW WenKai)
-   + preconnect 提前建连,消除 FOIT */
+/* 字体由 layout.tsx 通过 next/font/local 加载(Inter + Noto Serif SC + LXGW WenKai)
+   全部 self-host,无外部 CDN,自动 preload + size-adjust + swap */
 
 /* ===== CSS Variables — 同时驱动 Tailwind colors ===== */
 :root {
@@ -80,7 +80,7 @@
 
 /* ===== 全局 ===== */
 body {
-  font-family: '"Noto Serif SC"', '"Source Han Serif SC"', serif;
+  font-family: '"Noto Serif SC"', '"Source Han Serif SC"', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', serif;
   background-color: var(--color-paper);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
@@ -115,7 +115,7 @@ button[aria-label="回到顶部"]:focus-visible {
 }
 
 .classical {
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
   letter-spacing: 0.02em;
 }
 
@@ -153,7 +153,7 @@ html {
   padding: 3px 10px;
   border: 1.5px solid var(--color-cinnabar);
   color: var(--color-cinnabar);
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
   font-weight: 600;
   font-size: 11px;
   letter-spacing: 0.15em;
@@ -168,7 +168,7 @@ html {
   padding: 3px 10px;
   border: 1px solid var(--color-gold);
   color: var(--color-gold-dark);
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.15em;
@@ -191,7 +191,7 @@ html {
 
 /* ===== 首字下沉(中文阅读仪式感) ===== */
 .prose-article > p:first-of-type::first-letter {
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
   float: left;
   font-size: 3.5em;
   line-height: 0.9;
@@ -257,7 +257,7 @@ html {
   color: var(--color-cinnabar);
 }
 .timeline-name {
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
   font-size: 18px;
   font-weight: 700;
   color: var(--color-ink);
@@ -297,7 +297,7 @@ html {
 
 /* ===== Hero 古文衬底大字 ===== */
 .hero-quote-bg {
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
   font-weight: 700;
   line-height: 1;
   user-select: none;
@@ -316,7 +316,7 @@ html {
   );
 }
 .hero-episode {
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
   font-size: 11px;
   letter-spacing: 0.4em;
   color: var(--color-gold-dark);
@@ -620,7 +620,7 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
   }
 }
 .prose-article blockquote {
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
   font-size: 15px;
   line-height: 1.9;
   color: var(--color-prose-blockquote-text);
@@ -654,7 +654,7 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
   }
 }
 .prose-article .modern-mapping-title {
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
   font-size: 11px;
   color: var(--color-gold-dark);
   letter-spacing: 0.2em;
@@ -668,7 +668,7 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
   }
 }
 .prose-article .closing-quote {
-  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', serif;
+  font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
   font-size: 17px;
   line-height: 1.75;
   color: var(--color-prose-lead);

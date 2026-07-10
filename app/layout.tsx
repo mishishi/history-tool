@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { inter } from './fonts';
+import { AsyncFontCss } from '@/components/AsyncFontCss';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -13,20 +14,6 @@ import MobileQRButton from '@/components/MobileQRButton';
 import NetworkBanner from '@/components/NetworkBanner';
 import { getSearchData } from '@/lib/search';
 import { SITE_URL } from '@/lib/site-config';
-
-/**
- * 字体优化策略:
- * - Inter(拉丁字符)走 next/font — 自动 host + preload + size-adjust 无 FOIT
- * - Noto Serif SC(中文)走 Google Fonts CDN + preconnect — 文件太大(>10MB),next/font 不友好
- * - LXGW WenKai(中文古典字体)走 jsDelivr CDN + preconnect
- * 效果:首屏 FOIT 0ms(字体文件预下载,首次 paint 已就位)
- */
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-inter',
-  display: 'swap',
-});
 
 // Next 14 要求 themeColor 在 viewport export 里
 export const viewport: Viewport = {
@@ -105,15 +92,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
-        {/* 字体 stylesheet — 放在 preconnect 之后,优先解析 */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600;700;900&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css"
-        />
+        {/* 字体 stylesheet 异步加载
+            渲染时 media="print"(不阻塞屏幕),客户端 mount 后切到 media="all"
+            Lighthouse mobile 慢 4G 下 Google Fonts CSS 121KB 耗时 17s+,异步后不影响首屏
+            LXGW WenKai 用单一 lxgwwenkaiscreen.css(873 行,0 @import,97 unicode-range 拆分)
+            跳过 style.css 的 5-@import 链(慢 4G 串行 5s+) */}
+        <AsyncFontCss href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" />
+        <AsyncFontCss href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/lxgwwenkaiscreen.css" />
         {/* iOS PWA 适配 */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
