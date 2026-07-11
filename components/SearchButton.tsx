@@ -8,19 +8,24 @@ interface Props {
   docs: SearchDoc[];
 }
 
-export default function SearchButton({ docs }: Props) {
+export default function SearchButton({ docs }: { docs: SearchDoc[] }) {
   const [open, setOpen] = useState(false);
 
-  // 全局 Cmd/Ctrl + K 快捷键
+  // 全局 Cmd/Ctrl + K 快捷键 + 监听 dt-open-search 事件(由 KeyboardShortcuts 派发)
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
+    const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         setOpen((prev) => !prev);
       }
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    const onEvent = () => setOpen(true);
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('dt-open-search', onEvent as EventListener);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('dt-open-search', onEvent as EventListener);
+    };
   }, []);
 
   return (

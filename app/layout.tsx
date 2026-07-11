@@ -9,6 +9,9 @@ import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar';
 import InstallPrompt from '@/components/InstallPrompt';
 import OnboardingBubble from '@/components/OnboardingBubble';
 import ThemeInitScript from '@/components/ThemeInitScript';
+import ReadingPrefsScript from '@/components/ReadingPrefsScript';
+import KeyboardShortcuts from '@/components/KeyboardShortcuts';
+import ReadingPrefs from '@/components/ReadingPrefs';
 import ScrollToTop from '@/components/ScrollToTop';
 import MobileQRButton from '@/components/MobileQRButton';
 import NetworkBanner from '@/components/NetworkBanner';
@@ -88,6 +91,8 @@ export default function RootLayout({
       <head>
         {/* 主题脚本必须在第一次 paint 前执行(防暗模式闪烁) */}
         <ThemeInitScript />
+        {/* 阅读偏好脚本 — 同步应用字号/行高/字体到 <html>,防正文区「瞬变」 */}
+        <ReadingPrefsScript />
         {/* 字体 preconnect — 提前建立 TCP,消除 DNS 解析延迟 */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -135,6 +140,10 @@ export default function RootLayout({
         <ScrollToTop />
         {/* 全站浮动 QR 按钮 — 桌面端右下角一键扫码继续读 */}
         <MobileQRButton />
+        {/* 阅读偏好浮窗 — 只在文章页显示 */}
+        <ReadingPrefs />
+        {/* 全局键盘快捷键(? 打开面板,文章页 j/k 翻页,+/- 调字号) */}
+        <KeyboardShortcuts />
         {/* 首次访问引导 — 左下角气泡 */}
         <OnboardingBubble articleCount={searchDocs.length} />
       </body>

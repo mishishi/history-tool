@@ -48,6 +48,54 @@
   --dur-slow: 500ms;
 }
 
+/* ===== 阅读偏好(由 ReadingPrefsScript + ReadingPrefs 组件注入 data-* 到 <html>)=====
+   只影响 .prose-article 正文区,不污染卡片 / 按钮 / 导航
+   sm 档适合手机小屏 / 长时间阅读,lg 档适合视障 / 大屏 */
+:root {
+  --reading-font-size: 17px;
+  --reading-line-height: 1.95;
+  --reading-font-size-mobile: 16px;
+  --reading-line-height-mobile: 1.85;
+  --reading-font-family: '"Noto Serif SC"', '"Source Han Serif SC"', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', serif;
+}
+[data-font-size="sm"] {
+  --reading-font-size: 15px;
+  --reading-font-size-mobile: 14px;
+}
+[data-font-size="base"] {
+  --reading-font-size: 17px;
+  --reading-font-size-mobile: 16px;
+}
+[data-font-size="lg"] {
+  --reading-font-size: 20px;
+  --reading-font-size-mobile: 18px;
+}
+[data-line-height="tight"] {
+  --reading-line-height: 1.7;
+  --reading-line-height-mobile: 1.65;
+}
+[data-line-height="normal"] {
+  --reading-line-height: 1.95;
+  --reading-line-height-mobile: 1.85;
+}
+[data-line-height="loose"] {
+  --reading-line-height: 2.2;
+  --reading-line-height-mobile: 2.05;
+}
+[data-font-family="serif"] {
+  --reading-font-family: '"Noto Serif SC"', '"Source Han Serif SC"', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', serif;
+}
+[data-font-family="kai"] {
+  --reading-font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
+}
+[data-font-family="sans"] {
+  --reading-font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+/* 尊重系统动画偏好 — 字号切换时不要 transition(瞬切更利落) */
+@media (prefers-reduced-motion: no-preference) {
+  .prose-article { transition: font-size 0.15s linear; }
+}
+
 .dark {
   /* dark — 主背景近黑,纸质感保留(#1A1A1A / #222)但偏暖一点 */
   --color-paper: #161311;        /* 主背景,带轻微暖调 */
@@ -568,8 +616,9 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
 
 /* ===== 文章正文样式(响应式 + dark variant) ===== */
 .prose-article {
-  font-size: 16px;
-  line-height: 1.85;
+  font-size: var(--reading-font-size-mobile);
+  line-height: var(--reading-line-height-mobile);
+  font-family: var(--reading-font-family);
   color: var(--color-prose-text);
   /* 整体中文阅读体验优化 */
   text-rendering: optimizeLegibility;
@@ -578,23 +627,23 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
 }
 @media (min-width: 768px) {
   .prose-article {
-    font-size: 17px;
-    line-height: 1.95;
+    font-size: var(--reading-font-size);
+    line-height: var(--reading-line-height);
   }
 }
 .prose-article p {
   margin-bottom: 1.6em;
 }
 .prose-article p.lead {
-  font-size: 17px;
-  line-height: 1.75;
+  font-size: 1.05em;
+  line-height: 1.6;
   color: var(--color-prose-lead);
   font-weight: 500;
 }
 @media (min-width: 768px) {
   .prose-article p.lead {
-    font-size: 19px;
-    line-height: 1.85;
+    font-size: 1.1em;
+    line-height: 1.7;
   }
 }
 .prose-article strong {
@@ -604,7 +653,7 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
   padding: 0 2px;
 }
 .prose-article h3 {
-  font-size: 19px;
+  font-size: 1.2em;
   font-weight: 700;
   color: var(--color-prose-lead);
   margin: 2em 0 1em;
@@ -615,14 +664,14 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
 }
 @media (min-width: 768px) {
   .prose-article h3 {
-    font-size: 22px;
+    font-size: 1.3em;
     padding-left: 14px;
   }
 }
 .prose-article blockquote {
   font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
-  font-size: 15px;
-  line-height: 1.9;
+  font-size: 0.95em;
+  line-height: 1.85;
   color: var(--color-prose-blockquote-text);
   background: var(--color-prose-blockquote-bg);
   border: 1px solid var(--color-border);
@@ -634,8 +683,8 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
 }
 @media (min-width: 768px) {
   .prose-article blockquote {
-    font-size: 17px;
-    line-height: 2;
+    font-size: 1em;
+    line-height: 1.95;
     padding: 24px 28px;
   }
 }
@@ -655,7 +704,7 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
 }
 .prose-article .modern-mapping-title {
   font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
-  font-size: 11px;
+  font-size: 0.65em;
   color: var(--color-gold-dark);
   letter-spacing: 0.2em;
   margin-bottom: 12px;
@@ -663,14 +712,14 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
 }
 @media (min-width: 768px) {
   .prose-article .modern-mapping-title {
-    font-size: 12px;
+    font-size: 0.7em;
     margin-bottom: 14px;
   }
 }
 .prose-article .closing-quote {
   font-family: '"LXGW WenKai"', '"霞鹜文楷"', '"Noto Serif SC"', 'PingFang SC', 'Hiragino Sans GB', serif;
-  font-size: 17px;
-  line-height: 1.75;
+  font-size: 1em;
+  line-height: 1.7;
   color: var(--color-prose-lead);
   text-align: center;
   padding: 24px 0;
@@ -681,8 +730,8 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
 }
 @media (min-width: 768px) {
   .prose-article .closing-quote {
-    font-size: 19px;
-    line-height: 1.8;
+    font-size: 1.1em;
+    line-height: 1.75;
     padding: 32px 0;
   }
 }
