@@ -34,11 +34,11 @@ export const DYNASTIES: Dynasty[] = [
   },
   {
     name: '三国', period: '220 - 280', slug: 'sanguo', count: 31, primary: '#2C3E50', secondary: '#B23A3A', motif: 'flame',
-    aliases: ['三国', '蜀汉', '十六国/东晋'],  // 高平陵之变/淝水之战归三国时代
+    aliases: ['三国', '蜀汉'],  // 高平陵之变(249)归三国;淝水之战(383)归两晋
   },
   {
     name: '两晋', period: '265 - 420', slug: 'liangjin', count: 19, primary: '#5A7A8C', secondary: '#3A4A5A', motif: 'wave',
-    aliases: ['两晋', '东晋', '十六国', '东晋/十六国'],
+    aliases: ['两晋', '东晋', '十六国', '东晋/十六国', '十六国/东晋'],  // 淝水之战(383)归两晋
   },
   {
     name: '南北朝', period: '420 - 589', slug: 'nanbeichao', count: 24, primary: '#3A5A8A', secondary: '#A8895C', motif: 'mountain',

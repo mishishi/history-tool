@@ -10,7 +10,8 @@
  */
 import Link from 'next/link';
 import { hasCover as coverExists } from '@/lib/cover-slugs';
-import { findDynasty } from '@/lib/dynasties';
+import { findDynasty, type Dynasty } from '@/lib/dynasties';
+import type { ArticleMeta } from '@/lib/types';
 import type { TimelineColumn } from '@/lib/timeline';
 
 interface Props {
@@ -84,7 +85,7 @@ function DynastySectionMobile({ column }: { column: TimelineColumn }) {
 
 /* ===== 共用:列头 ===== */
 
-function ColumnHeader({ dynasty, count }: { dynasty: any; count: number }) {
+function ColumnHeader({ dynasty, count }: { dynasty: Dynasty; count: number }) {
   return (
     <div
       className="relative bg-paper-card border border-border rounded-sm p-4"
@@ -109,7 +110,7 @@ function ColumnHeader({ dynasty, count }: { dynasty: any; count: number }) {
 
 /* ===== 共用:文章小卡(横版 cover + 标题) ===== */
 
-function TimelineCard({ article }: { article: any }) {
+function TimelineCard({ article }: { article: ArticleMeta }) {
   const d = findDynasty(article.dynasty);
   const dynastyColor = d?.primary || '#5A5A5A';
   const hasWebp = coverExists(article.slug);
