@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import fs from 'node:fs';
+import path from 'node:path';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -14,6 +16,7 @@ import ArticleHero from '@/components/ArticleHero';
 import ArticleToc from '@/components/ArticleToc';
 import ArticleCompleteToast from '@/components/ArticleCompleteToast';
 import ClassicalTextCard from '@/components/ClassicalTextCard';
+import AudioPlayer from '@/components/AudioPlayer';
 import RevealOnScroll from '@/components/RevealOnScroll';
 import ShareButtons from '@/components/ShareButtons';
 import Seal from '@/components/Seal';
@@ -179,6 +182,17 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       {/* 文章 Hero — 滚动视差 */}
       <article className="max-w-reading mx-auto px-6 pt-10 pb-12">
         <ArticleHero article={article} />
+
+        {/* 音频朗读 — 仅在 public/audios/{slug}.mp3 存在时显示 */}
+        {fs.existsSync(
+          path.join(process.cwd(), 'public', 'audios', `${article.slug}.mp3`),
+        ) && (
+          <AudioPlayer
+            src={`/audios/${article.slug}.mp3`}
+            title={article.title}
+            durationLabel={`约 ${article.readingTime} 分钟`}
+          />
+        )}
 
         {/* 原文区(classic) */}
         {classic && (
