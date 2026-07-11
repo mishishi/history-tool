@@ -10,6 +10,13 @@ function getSystemTheme(): ResolvedTheme {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
+// 跟 ThemeInitScript 保持一致:auto 模式下夜间(21:00-7:00)也走 dark
+// 抽到模块顶层,applyTheme / 系统主题变化监听 / 60s 轮询共用
+function isNight(): boolean {
+  const h = new Date().getHours();
+  return h >= 21 || h < 7;
+}
+
 function getInitialMode(): ThemeMode {
   if (typeof window === 'undefined') return 'auto';
   try {
@@ -23,12 +30,19 @@ function getInitialMode(): ThemeMode {
 
 /**
  * 应用主题到 <html>:
- * - auto:跟随系统
+ * - auto:跟随系统(且 21:00-7:00 视为夜间,走 dark)
  * - light/dark:固定
+ *
+ * ⚠️ 必须跟 components/ThemeInitScript.tsx 的解析规则保持一致,否则会出现 hydration 后主题跳变(用户感知为"先暗后亮"闪烁)
  */
 function applyTheme(mode: ThemeMode) {
   const html = document.documentElement;
-  const resolved: ResolvedTheme = mode === 'auto' ? getSystemTheme() : mode;
+  const resolved: ResolvedTheme =
+    mode === 'auto'
+      ? getSystemTheme() === 'dark' || isNight()
+        ? 'dark'
+        : 'light'
+      : mode;
   if (resolved === 'dark') html.classList.add('dark');
   else html.classList.remove('dark');
   // 给 data-theme 给 CSS 用(便于针对 mode/resolved 写样式)
