@@ -84,6 +84,17 @@ export default function FiguresPage() {
               desc="反复出现 (3+ 篇)"
             />
           </div>
+
+          {/* 关系图谱入口 */}
+          <div className="flex justify-center">
+            <Link
+              href="/figures/graph"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-cinnabar text-paper rounded-sm hover:bg-cinnabar-dark transition-colors text-sm font-medium shadow-sm"
+            >
+              <span>探索关系图谱</span>
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 
