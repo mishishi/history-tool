@@ -18,7 +18,7 @@ export default function HomePage() {
     .filter((a) => a.slug !== featured?.slug)
     .sort((a, b) => (b.views || 0) - (a.views || 0))
     .slice(0, 3);
-  // mini 朝代入口:取前 6 个核心朝代(去掉"明清"和"现代"虚拟朝代,聚焦古典时代)
+  // mini 朝代入口:聚焦前 6 个古典朝代(战国→隋唐),明清/现代/宋/元 留给 /archive
   const featuredDynasties = DYNASTIES.slice(0, 6);
 
   // Schema.org JSON-LD
