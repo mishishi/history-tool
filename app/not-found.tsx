@@ -1,11 +1,15 @@
 import Link from 'next/link';
-import { getAllArticles } from '@/lib/articles';
+import { getTrendingArticles } from '@/lib/articles';
 import Seal from '@/components/Seal';
 
 export default function NotFound() {
-  // 拿最近 3 篇做兜底推荐
-  const articles = getAllArticles();
-  const recent = articles.slice(0, 3);
+  // 404 兜底推荐: 跟首页'最热 3 篇'用同一套 trending 算法
+  //   - 同朝代 + tag 重叠, recency 30d, classic ep 越小分越高
+  //   - 用户进 404 大概率是搜了一个不存在的 slug
+  //     给 ta 3 篇'开篇经典'(ep 1-10)比最新文章更有用
+  //     (如果搜的是'玄武门之变'找不到, 给'商鞅变法'/'围魏救赵'/'三家分晋'是连贯体验)
+  // 跟首页 topArticles 保持一致, 减少认知割裂
+  const recent = getTrendingArticles(3);
 
   return (
     <div className="max-w-reading mx-auto px-6 py-20 md:py-32">
