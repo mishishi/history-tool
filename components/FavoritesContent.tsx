@@ -8,6 +8,7 @@ import {
   getProgress,
   subscribe,
 } from '@/lib/user-data';
+import { getAllNotes, subscribeNotes, type Note } from '@/lib/notes';
 import type { ArticleMeta } from '@/lib/types';
 
 interface EnrichedArticle extends ArticleMeta {
@@ -21,6 +22,7 @@ export default function FavoritesContent({
 }) {
   const [favSlugs, setFavSlugs] = useState<string[]>([]);
   const [recentItems, setRecentItems] = useState<{ slug: string; ts: number }[]>([]);
+  const [notes, setNotes] = useState<Note[]>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -30,8 +32,13 @@ export default function FavoritesContent({
       setRecentItems(getRecent());
     };
     refresh();
-    const unsub = subscribe(refresh);
-    return unsub;
+    const unsubUser = subscribe(refresh);
+    setNotes(getAllNotes().slice(0, 8));
+    const unsubNotes = subscribeNotes(() => setNotes(getAllNotes().slice(0, 8)));
+    return () => {
+      unsubUser();
+      unsubNotes();
+    };
   }, []);
 
   // 服务端或未 hydration 时显示骨架,避免 mismatch
@@ -55,13 +62,70 @@ export default function FavoritesContent({
     .filter((a) => a.progress > 0 && a.progress < 100)
     .slice(0, 6);
 
-  // 两个都空 → 引导
-  if (favorites.length === 0 && recent.length === 0) {
+  // 三个都空 → 引导
+  if (favorites.length === 0 && recent.length === 0 && notes.length === 0) {
     return <EmptyState allArticles={allArticles} />;
   }
 
   return (
     <div className="space-y-12">
+      {notes.length > 0 && (
+        <section>
+          <div className="flex items-end justify-between mb-6">
+            <div>
+              <h2 className="text-xl font-bold text-ink mb-1 flex items-center gap-2">
+                <svg className="w-5 h-5 text-cinnabar" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                我的笔记
+                <span className="text-sm text-ink-mute font-normal">({notes.length})</span>
+              </h2>
+              <p className="text-sm text-ink-soft">在文章里标过的段落和批注</p>
+            </div>
+          </div>
+          <ul className="space-y-3">
+            {notes.map((n) => {
+              const article = bySlug.get(n.slug);
+              return (
+                <li key={n.id}>
+                  <Link
+                    href={`/article/${n.slug}#note-${n.id}`}
+                    className="block p-4 bg-paper-card border border-border hover:border-cinnabar rounded-sm transition-colors group"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`note-${n.color} w-1.5 h-1.5 rounded-full inline-block shrink-0`} style={{ backgroundColor: n.color === 'cinnabar' ? 'var(--color-cinnabar)' : n.color === 'gold' ? 'var(--color-gold)' : 'var(--color-ink-mute)' }} />
+                      {article ? (
+                        <>
+                          <span className="seal-gold">{article.dynasty}</span>
+                          <span className="text-[10px] text-ink-mute">
+                            {article.title}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-[10px] text-ink-mute">{n.slug}</span>
+                      )}
+                    </div>
+                    <blockquote className={`classical text-sm text-ink leading-relaxed pl-3 border-l-2 ${n.color === 'cinnabar' ? 'border-cinnabar' : n.color === 'gold' ? 'border-gold' : 'border-ink-mute'} line-clamp-2`}>
+                      「{n.text}」
+                    </blockquote>
+                    {n.noteText && (
+                      <p className="mt-2 text-sm text-cinnabar">
+                        {n.noteText}
+                      </p>
+                    )}
+                    {n.context && !n.noteText && (
+                      <p className="mt-1.5 text-[11px] text-ink-mute line-clamp-1">
+                        {n.context.replace(/⟦…⟧/g, '…')}
+                      </p>
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
       {favorites.length > 0 && (
         <section>
           <div className="flex items-end justify-between mb-6">

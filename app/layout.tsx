@@ -12,6 +12,8 @@ import ThemeInitScript from '@/components/ThemeInitScript';
 import ReadingPrefsScript from '@/components/ReadingPrefsScript';
 import KeyboardShortcuts from '@/components/KeyboardShortcuts';
 import ReadingPrefs from '@/components/ReadingPrefs';
+import PageTransition from '@/components/PageTransition';
+import SelectionToolbar from '@/components/SelectionToolbar';
 import ScrollToTop from '@/components/ScrollToTop';
 import MobileQRButton from '@/components/MobileQRButton';
 import NetworkBanner from '@/components/NetworkBanner';
@@ -132,7 +134,9 @@ export default function RootLayout({
         <NetworkBanner />
         <ReadingProgress />
         <Header docs={searchDocs} />
-        <main id="main-content" className="flex-1" tabIndex={-1}>{children}</main>
+        <main id="main-content" className="flex-1" tabIndex={-1}>
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
         {/* PWA:Service Worker 注册 + 桌面安装引导 */}
         <ServiceWorkerRegistrar />
@@ -142,6 +146,8 @@ export default function RootLayout({
         <MobileQRButton />
         {/* 阅读偏好浮窗 — 只在文章页显示 */}
         <ReadingPrefs />
+        {/* 选段引用工具条 — 只在文章页激活 */}
+        <SelectionToolbar />
         {/* 全局键盘快捷键(? 打开面板,文章页 j/k 翻页,+/- 调字号) */}
         <KeyboardShortcuts />
         {/* 首次访问引导 — 左下角气泡 */}

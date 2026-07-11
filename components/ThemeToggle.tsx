@@ -50,13 +50,18 @@ export default function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  // auto 模式:监听系统主题变化
+  // auto 模式:监听系统主题变化 + 跨时点(每分钟检查一次)
   useEffect(() => {
     if (!mounted || mode !== 'auto') return;
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     const onChange = () => applyTheme('auto');
     mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
+    // 跨时点(21:00 / 7:00)触发重解析 — 用 60s 轮询,够用
+    const timer = window.setInterval(() => applyTheme('auto'), 60_000);
+    return () => {
+      mq.removeEventListener('change', onChange);
+      window.clearInterval(timer);
+    };
   }, [mode, mounted]);
 
   // 点击外部关闭
