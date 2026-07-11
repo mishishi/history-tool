@@ -22,9 +22,16 @@ interface Props {
   dynasty: Dynasty;
   /** 紧凑模式:给 ArticleCard 用,只显示朝代印章大字 + 期刊编号 */
   compact?: boolean;
+  /**
+   * 立即加载(默认 false = lazy)
+   * - 首屏前 3 张卡片封面应设 true(LCP 元素)
+   * - 文章页 hero(单独一图)也应用 true
+   * - 其他都走 lazy(节省带宽)
+   */
+  eager?: boolean;
 }
 
-export default function ArticleCover({ article, dynasty, compact = false }: Props) {
+export default function ArticleCover({ article, dynasty, compact = false, eager = false }: Props) {
   // 优先用 AI 生成的 webp 封面
   if (hasCover(article.slug)) {
     return (
@@ -36,14 +43,16 @@ export default function ArticleCover({ article, dynasty, compact = false }: Prop
           src={`/covers/${article.slug}.webp`}
           alt={`${article.title} · ${dynasty.name} 期封面`}
           className="article-cover-img w-full h-full object-cover"
-          loading="lazy"
+          loading={eager ? 'eager' : 'lazy'}
+          // eager 时设 fetchPriority=hint,告诉浏览器这张是 LCP
+          {...(eager ? { fetchPriority: 'high' as const } : {})}
           decoding="async"
         />
       </div>
     );
   }
 
-  // Fallback: SVG 内联(朝代风格)
+  // Fallback: SVG 内联(朝代风格) — 不走 <img> 不受 loading 影响
   return <SvgCover article={article} dynasty={dynasty} compact={compact} />;
 }
 

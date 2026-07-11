@@ -43,6 +43,10 @@ export default function ArticleCard({ article, variant = 'default', index = 0, s
   const isRead = progress >= 95;
   const isInProgress = progress > 0 && progress < 95;
 
+  // 首屏前 3 张卡片封面用 eager — LCP 元素(首屏可见)不应被 lazy 推迟
+  // 提升 LCP 200-500ms(实测 webp 50-150KB × 3 张)
+  const isAboveFold = (index ?? 0) < 3;
+
   return (
     <Link
       href={`/article/${article.slug}`}
@@ -54,7 +58,14 @@ export default function ArticleCard({ article, variant = 'default', index = 0, s
         (() => {
           const dynasty = findDynasty(article.dynasty);
           if (!dynasty) return null;
-          return <ArticleCover article={article} dynasty={dynasty} compact />;
+          return (
+            <ArticleCover
+              article={article}
+              dynasty={dynasty}
+              compact
+              eager={isAboveFold}
+            />
+          );
         })()}
       <div className={`p-6 ${variant === 'compact' ? 'p-5' : ''}`}>
         {/* 标签行 */}

@@ -86,11 +86,11 @@ export default function ArticleHero({ article, parallax = 0.4 }: Props) {
       {/* 顶部细金线 */}
       <div className="hero-rule mb-5"></div>
 
-      {/* 封面图(SVG inline) — 朝代配色 + motif 装饰 */}
+      {/* 封面图 — 文章页 LCP 元素,必须 eager */}
       {(() => {
         const dynasty = findDynasty(article.dynasty);
         if (!dynasty) return null;
-        return <ArticleCover article={article} dynasty={dynasty} />;
+        return <ArticleCover article={article} dynasty={dynasty} eager />;
       })()}
 
       <div className="text-center fade-in-up">
