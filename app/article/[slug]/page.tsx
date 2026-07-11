@@ -55,10 +55,18 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       authors: ['读通鉴 · 主编 Jason'],
       tags: article.tags,
       images: [
+        // 主:per-article 1200×630 (Vercel build 期预生成, 抓取快 < 100ms)
         {
-          url: `${SITE_URL}/opengraph-image`,
+          url: `${SITE_URL}/article/${article.slug}/opengraph-image`,
           width: 1200,
           height: 630,
+          alt: article.title,
+        },
+        // 备:per-article 金句卡片 1200×1200 朝代印章风 — 朋友圈/小红书
+        {
+          url: `${SITE_URL}/api/card/${article.slug}`,
+          width: 1200,
+          height: 1200,
           alt: article.title,
         },
       ],
@@ -67,7 +75,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       card: 'summary_large_image',
       title: article.title,
       description: article.excerpt,
-      images: [`${SITE_URL}/opengraph-image`],
+      images: [
+        `${SITE_URL}/article/${article.slug}/opengraph-image`,
+        `${SITE_URL}/api/card/${article.slug}`,
+      ],
       // creator 字段省略 — 项目暂无官方 Twitter 账号,写了错的 handle 社交分享时品牌错位
     },
     other: {

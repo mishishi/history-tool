@@ -30,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${SITE_URL}/timeline`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${SITE_URL}/figures`,
       lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
