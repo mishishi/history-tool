@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { setProgress } from '@/lib/user-data';
 
@@ -84,15 +84,40 @@ export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle 
     };
   }, [slug]);
 
-  // 出现 3.5s 后自动消失
+  // 出现 3.5s 后自动消失 — 但用户 hover 时暂停消失
+  const [hovered, setHovered] = useState(false);
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || hovered) return;
     const t = setTimeout(() => {
       setExiting(true);
-      setTimeout(() => setVisible(false), 300); // fade-out 动画时长
+      setTimeout(() => setVisible(false), 300);
     }, 3500);
     return () => clearTimeout(t);
-  }, [visible]);
+  }, [visible, hovered]);
+
+  // 分享状态:copied=true 时 1.8s 内显示"已复制"
+  const [copied, setCopied] = useState(false);
+  const copyTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const onShare = async () => {
+    if (typeof window === 'undefined') return;
+    const url = window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      if (copyTimeout.current) clearTimeout(copyTimeout.current);
+      copyTimeout.current = setTimeout(() => setCopied(false), 1800);
+    } catch {
+      // 兜底
+      window.prompt('复制以下链接分享:', url);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeout.current) clearTimeout(copyTimeout.current);
+    };
+  }, []);
 
   const close = () => {
     setExiting(true);
@@ -108,6 +133,8 @@ export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle 
       }`}
       role="status"
       aria-live="polite"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       <div className="flex items-center gap-3 pl-3 pr-2 py-2 bg-paper-card border border-border rounded-full shadow-lg">
         {/* 印章感 ✓ */}
@@ -142,6 +169,29 @@ export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle 
             已是最新一篇
           </span>
         )}
+
+        {/* 分享 — 复制链接(取代 Web Share,后者在桌面端不可用) */}
+        <button
+          onClick={onShare}
+          className="flex items-center gap-1 px-2 py-1.5 ml-1 text-xs text-ink-soft hover:text-cinnabar transition-colors shrink-0"
+          aria-label="复制链接分享"
+        >
+          {copied ? (
+            <>
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <span className="hidden sm:inline">已复制</span>
+            </>
+          ) : (
+            <>
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m9.032 4.026a3 3 0 10-4.5-2.684m4.5 2.684a3 3 0 100-5.368M6.316 10.658L4.5 12m12.684 0L18.5 12m-9.032-1.342L8 12m6.5-1.342L13.5 12" />
+              </svg>
+              <span className="hidden sm:inline">分享</span>
+            </>
+          )}
+        </button>
 
         {/* 关闭 */}
         <button
