@@ -96,7 +96,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   // 注意:h2 已被 extractToc 转成 HTML 字符串,不会被 components 拦截
   let _pCount = 0;
   const mdComponents = {
-    p: ({ children, ...props }: any) => {
+    p: ({ children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => {
       _pCount++;
       const dataSeg = _pCount === 1 ? { 'data-segment-id': `seg-${article.slug}-lead` } : {};
       return <p {...dataSeg} {...props}>{children}</p>;

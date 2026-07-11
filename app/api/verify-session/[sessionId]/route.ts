@@ -41,11 +41,12 @@ export async function GET(
       // Stripe invoice 展开后才有 hosted_invoice_url;未展开时是 string id
       receiptUrl: typeof session.invoice === 'string' ? null : (session.invoice?.hosted_invoice_url ?? null),
     });
-  } catch (err: any) {
+  } catch (err) {
     console.error('[api/verify-session] error:', err);
     // Stripe 真 404(资源不存在)— 才是"会话不存在"
     // 其他异常(网络/限流/5xx)— 提示用户稍后再试
-    const isStripeNotFound = err?.statusCode === 404 || err?.code === 'resource_missing';
+    const stripeErr = err as { statusCode?: number; code?: string };
+    const isStripeNotFound = stripeErr?.statusCode === 404 || stripeErr?.code === 'resource_missing';
     if (isStripeNotFound) {
       return NextResponse.json(
         { ok: false, error: '会话不存在或已过期' },

@@ -131,7 +131,7 @@ export default function AskChat() {
         }
       }
     } catch (err) {
-      console.error(err);
+      console.error('[ask-chat] fetch error:', err);
       setMessages((m) =>
         m.map((msg, i) =>
           i === m.length - 1

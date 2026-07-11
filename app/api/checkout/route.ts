@@ -18,10 +18,15 @@ function getStripe(): Stripe | null {
 // 单期价格(USD) — 1.40 ≈ ¥9.9
 const SINGLE_PRICE_USD = 140; // cents
 
+interface CheckoutBody {
+  plan?: 'single' | 'annual';
+  email?: string;
+}
+
 export async function POST(req: NextRequest) {
-  let body: any;
+  let body: Partial<CheckoutBody> = {};
   try {
-    body = await req.json();
+    body = (await req.json()) as Partial<CheckoutBody>;
   } catch {
     body = {};
   }

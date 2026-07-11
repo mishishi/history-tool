@@ -70,7 +70,7 @@ export async function* streamAnswer(
     stream: true,
   });
 
-  for await (const chunk of stream as Stream<any>) {
+  for await (const chunk of stream) {
     const content = chunk.choices?.[0]?.delta?.content;
     if (content) yield content;
   }
