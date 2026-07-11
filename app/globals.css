@@ -248,8 +248,24 @@ html {
 /* ===== AI 封面 webp — 暗色模式微调 =====
    webp 是静态图,不像 SVG 跟 CSS 变量自动反色
    用 CSS filter 微微调亮度/对比度,统一暗色氛围 */
-.dark .article-cover-img {
+ .dark .article-cover-img {
   filter: brightness(0.85) contrast(1.05) saturate(0.9);
+}
+
+/* ===== 音频朗读段落同步高亮 (AudioSyncController 注入) =====
+   当前朗读的段落加 left 红色 border + 浅红背景 + 平滑过渡
+   用 border-left 避免移动内容,只标"我正在读这段" */
+.audio-highlight {
+  background-color: rgba(178, 58, 58, 0.06);
+  border-left: 3px solid var(--color-cinnabar);
+  padding-left: 1rem;
+  margin-left: -1.25rem;
+  border-radius: 2px;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+.dark .audio-highlight {
+  background-color: rgba(212, 193, 156, 0.08);
+  border-left-color: var(--color-gold);
 }
 
 /* ===== 选段高亮(由 SelectionToolbar 注入)=====

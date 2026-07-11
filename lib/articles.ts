@@ -144,9 +144,10 @@ function escapeHtml(str: string): string {
  * 注:之前是 ### / <h3>,改成 ## / <h2> 是为了符合 a11y heading-order 规则
  *    文章页 h1(标题)→ h2(节标题)→ ...,h1 后不能直接跳 h3
  */
-export function extractToc(markdown: string): { toc: TocItem[]; content: string } {
+export function extractToc(markdown: string, slug?: string): { toc: TocItem[]; content: string } {
   const toc: TocItem[] = [];
   const seen = new Map<string, number>();
+  let sCounter = 0; // segment 计数器 — 跟 audio timestamps 的 s1, s2, s3 对应
 
   const content = markdown.replace(/^## (.+)$/gm, (_, title: string) => {
     const trimmed = title.trim();
@@ -156,7 +157,11 @@ export function extractToc(markdown: string): { toc: TocItem[]; content: string 
     if (count > 0) id = `${id}-${count + 1}`;
 
     toc.push({ id, title: trimmed });
-    return `<h2 id="${id}">${escapeHtml(trimmed)}</h2>`;
+
+    // 同时注入 data-segment-id 给 audio 段落同步用
+    sCounter++;
+    const dataSeg = slug ? ` data-segment-id="seg-${slug}-s${sCounter}"` : '';
+    return `<h2 id="${id}"${dataSeg}>${escapeHtml(trimmed)}</h2>`;
   });
 
   return { toc, content };

@@ -11,12 +11,13 @@ import {
   getClassicBySlug,
   extractToc,
 } from '@/lib/articles';
+import { getTimestamps } from '@/lib/audio-timestamps';
 import ArticleCard from '@/components/ArticleCard';
 import ArticleHero from '@/components/ArticleHero';
 import ArticleToc from '@/components/ArticleToc';
 import ArticleCompleteToast from '@/components/ArticleCompleteToast';
 import ClassicalTextCard from '@/components/ClassicalTextCard';
-import AudioPlayer from '@/components/AudioPlayer';
+import AudioSyncController from '@/components/AudioSyncController';
 import RevealOnScroll from '@/components/RevealOnScroll';
 import ShareButtons from '@/components/ShareButtons';
 import Seal from '@/components/Seal';
@@ -84,8 +85,23 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   // 关联的原文
   const classic = getClassicBySlug(article.classicalSlug);
 
-  // 提取 ToC + 改写 h3 自动加 id
-  const { toc, content: articleContent } = extractToc(article.content);
+  // 提取 ToC + 改写 h2 自动加 id(同时注入 data-segment-id 给 audio sync 用)
+  const { toc, content: articleContent } = extractToc(article.content, article.slug);
+
+  // 加载音频时间戳(只在有音频时存在)
+  const timestamps = getTimestamps(article.slug);
+  const segments = timestamps?.segments;
+
+  // ReactMarkdown: 给 lead 段(第一个 p)加 data-segment-id
+  // 注意:h2 已被 extractToc 转成 HTML 字符串,不会被 components 拦截
+  let _pCount = 0;
+  const mdComponents = {
+    p: ({ children, ...props }: any) => {
+      _pCount++;
+      const dataSeg = _pCount === 1 ? { 'data-segment-id': `seg-${article.slug}-lead` } : {};
+      return <p {...dataSeg} {...props}>{children}</p>;
+    },
+  };
 
   // 所有文章 + 上一篇/下一篇(按发布时间倒序,索引 i-1 更新 / i+1 更早)
   const allArticles = getAllArticles();
@@ -180,17 +196,19 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       </div>
 
       {/* 文章 Hero — 滚动视差 */}
-      <article className="max-w-reading mx-auto px-6 pt-10 pb-12">
+      <article id={`seg-${article.slug}-excerpt`} className="max-w-reading mx-auto px-6 pt-10 pb-12 scroll-mt-20">
         <ArticleHero article={article} />
 
-        {/* 音频朗读 — 仅在 public/audios/{slug}.mp3 存在时显示 */}
+        {/* 音频朗读 — 段落同步(只在有音频 + segments 时启用) */}
         {fs.existsSync(
           path.join(process.cwd(), 'public', 'audios', `${article.slug}.mp3`),
-        ) && (
-          <AudioPlayer
+        ) && segments && (
+          <AudioSyncController
             src={`/audios/${article.slug}.mp3`}
             title={article.title}
             durationLabel={`约 ${article.readingTime} 分钟`}
+            segments={segments}
+            slug={article.slug}
           />
         )}
 
@@ -248,6 +266,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
+            components={mdComponents}
           >
             {articleContent}
           </ReactMarkdown>
