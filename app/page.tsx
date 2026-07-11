@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
-import { getAllArticles } from '@/lib/articles';
+import { getAllArticles, getTrendingArticles } from '@/lib/articles';
 import { DYNASTIES } from '@/lib/dynasties';
 import ArticleCard from '@/components/ArticleCard';
 import Seal from '@/components/Seal';
@@ -21,13 +21,13 @@ export default function HomePage() {
   const sortedBySlug = [...articles].sort((a, b) => a.slug.localeCompare(b.slug));
   const featured = sortedBySlug[dayOfYear % sortedBySlug.length];
   const latestArticles = articles.filter((a) => a.slug !== featured.slug); // 其余做列表
-  // Top 3 — "已读"算法:
-  //   1. 按 view 降序(种子数据,后期接 Vercel Analytics)
-  //   2. 排除 featured(避免重复),不限最新(因为 featured 已经按天轮换了)
-  const topArticles = [...articles]
-    .filter((a) => a.slug !== featured.slug)
-    .sort((a, b) => (b.views || 0) - (a.views || 0))
-    .slice(0, 3);
+  // Top 3 — trending 算法(取代假 views 排序):
+  //   - 0.30 recency (近 30 天线性衰减)
+  //   - 0.40 classic (ep 越小分越高,通鉴开篇经典前置)
+  //   - 0.15 density (tag 数量)
+  //   - 0.15 brevity (8 分钟短文优先,读完率高)
+  // 见 lib/articles.ts:getTrendingArticles
+  const topArticles = getTrendingArticles(3, [featured.slug]);
   // mini 朝代入口:聚焦前 6 个古典朝代(战国→隋唐),明清/现代/宋/元 留给 /archive
   const featuredDynasties = DYNASTIES.slice(0, 6);
 

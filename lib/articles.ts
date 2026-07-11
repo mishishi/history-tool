@@ -151,6 +151,63 @@ export function getRelatedArticles(slug: string, topN = 3): ArticleMeta[] {
 }
 
 /**
+ * Trending 推荐 — 取代假 views 排序
+ *
+ * 场景: 首页 "最热 3 篇" 卡片
+ * 原: 按 frontmatter `views` 倒序 — 50 篇 views 是手填假数据(1200-12000),
+ *    跟"热门"无关,且给用户"3.1k 人读过"的错觉
+ * 新: 纯 frontmatter metadata 算出"推荐分"
+ *
+ * 算法(无 LLM/无 RAG/无 Vercel Analytics — 全部本地):
+ *   trending = 0.30 * recency + 0.40 * classic + 0.15 * density + 0.15 * brevity
+ *
+ *   recency:  0-1, 越近发布分越高,30 天线性衰减
+ *             (保证新发布文章能爬上来,不是 50 天前的文章霸榜)
+ *   classic:  0-1, 越早(ep 越小)分越高 — 通鉴开篇(ep 1-10)是核心必读
+ *             (资治通鉴的"开篇经典"应该前置,像文集的"序"一样)
+ *   density:  0-1, tag 数量 / 6 (cap),信息密度高的优先
+ *   brevity:  0-1, 8 分钟 = 1, 12 分钟 = 0,短文读完率高
+ *
+ * 设计取舍:
+ *   - 完全不依赖 frontmatter `views`(假数据),等 Vercel Analytics 1 周后
+ *     可以再加个 'realViews' 维度,但现在 metadata 排序已经合理
+ *   - 用 slug 解析 episode(避免 39-boxer 这种 frontmatter 缺失导致 NaN)
+ *   - 同一个 build 周期结果稳定(SSR 友好 + CDN cache 友好)
+ *
+ * @param topN 返回数量(默认 3)
+ * @param excludeSlugs 排除的 slug 列表(典型用法: 排除今日推荐 featured)
+ */
+export function getTrendingArticles(topN = 3, excludeSlugs: string[] = []): ArticleMeta[] {
+  const all = getAllArticles();
+  const today = new Date();
+
+  const scored = all
+    .filter((a) => !excludeSlugs.includes(a.slug))
+    .map((a) => {
+      // episode 从 slug 解析(避免 frontmatter 缺失)
+      const slugEpMatch = a.slug.match(/^(\d+)-/);
+      const episode = slugEpMatch ? parseInt(slugEpMatch[1], 10) : 50;
+
+      const published = new Date(a.publishedAt);
+      const daysSince = Math.max(0, (today.getTime() - published.getTime()) / 86_400_000);
+
+      // 4 维特征,全部归一化到 0-1
+      const recency = Math.max(0, 1 - daysSince / 30);
+      const classic = Math.max(0, 1 - (episode - 1) / 49);
+      const density = Math.min((a.tags?.length || 0) / 6, 1);
+      const readingTime = a.readingTime || 10;
+      const brevity = Math.max(0, 1 - (readingTime - 8) / 4);
+
+      const trending = 0.30 * recency + 0.40 * classic + 0.15 * density + 0.15 * brevity;
+      return { article: a, trending };
+    })
+    .sort((a, b) => b.trending - a.trending)
+    .slice(0, topN);
+
+  return scored.map((x) => x.article);
+}
+
+/**
  * 文章目录项
  */
 export interface TocItem {
