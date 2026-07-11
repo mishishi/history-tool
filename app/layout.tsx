@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Analytics } from '@vercel/analytics/react';
 import { inter } from './fonts';
 import { AsyncFontCss } from '@/components/AsyncFontCss';
 import './globals.css';
@@ -160,6 +161,9 @@ export default function RootLayout({
         {/* 主题切换(在 Header 内部,Header 已是 page-level catch 范围) */}
         {/* 首次访问引导 — 左下角气泡 */}
         <OnboardingBubble articleCount={searchDocs.length} />
+        {/* Vercel Analytics — 真实用户数据(转化率/停留/跳出)
+            部署到 Vercel 后 Dashboard 自动出数据,无需配置 */}
+        <Analytics />
       </body>
     </html>
   );
