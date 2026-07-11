@@ -1,0 +1,47 @@
+{
+  "durationSec": 363.1,
+  "segments": [
+    {
+      "id": "excerpt",
+      "startSec": 0,
+      "endSec": 18.7,
+      "charCount": 85
+    },
+    {
+      "id": "lead",
+      "startSec": 18.7,
+      "endSec": 81.3,
+      "charCount": 285
+    },
+    {
+      "id": "s1",
+      "startSec": 81.3,
+      "endSec": 147.7,
+      "charCount": 302
+    },
+    {
+      "id": "s2",
+      "startSec": 147.7,
+      "endSec": 205.9,
+      "charCount": 265
+    },
+    {
+      "id": "s3",
+      "startSec": 205.9,
+      "endSec": 267.9,
+      "charCount": 282
+    },
+    {
+      "id": "s4",
+      "startSec": 267.9,
+      "endSec": 324.6,
+      "charCount": 258
+    },
+    {
+      "id": "s5",
+      "startSec": 324.6,
+      "endSec": 363.1,
+      "charCount": 175
+    }
+  ]
+}
