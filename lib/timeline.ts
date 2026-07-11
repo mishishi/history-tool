@@ -6,8 +6,10 @@
  * - 每组内按 episode 升序(早 → 晚)
  * - 时间线 X 轴 = 朝代,Y 轴 = 同一朝代内时间顺序
  */
+import 'server-only';
 import { getAllArticles } from './articles';
-import { DYNASTIES, findDynasty, type Dynasty } from './dynasties';
+import { findDynasty, type Dynasty } from './dynasties';
+import { getDynastiesWithCount } from './dynasties.server';
 import type { ArticleMeta } from './types';
 
 export interface TimelineColumn {
@@ -17,9 +19,10 @@ export interface TimelineColumn {
 
 export function getTimelineColumns(): TimelineColumn[] {
   const articles = getAllArticles();
+  const dynastiesWithCount = getDynastiesWithCount();
   // Map<主朝代 slug, articles[]>
   const byDynasty = new Map<string, ArticleMeta[]>();
-  for (const d of DYNASTIES) byDynasty.set(d.slug, []);
+  for (const d of dynastiesWithCount) byDynasty.set(d.slug, []);
   // 兜底 bucket:无法归类的文章
   const orphanKey = '__other__';
 
@@ -35,9 +38,9 @@ export function getTimelineColumns(): TimelineColumn[] {
     list.sort((a, b) => a.episode - b.episode);
   }
 
-  // 按 DYNASTIES 顺序输出列
+  // 按朝代顺序输出列(count 实时算)
   const out: TimelineColumn[] = [];
-  for (const d of DYNASTIES) {
+  for (const d of dynastiesWithCount) {
     const list = byDynasty.get(d.slug) || [];
     if (list.length === 0) continue; // 跳过空列
     out.push({ dynasty: d, articles: list });

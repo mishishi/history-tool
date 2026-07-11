@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { getAllArticles } from '@/lib/articles';
-import { DYNASTIES } from '@/lib/dynasties';
+import { DYNASTY_CONFIG } from '@/lib/dynasties';
 import { SITE_URL } from '@/lib/site-config';
 
 export const runtime = 'nodejs';
@@ -28,7 +28,7 @@ export default async function Image() {
   // 数字从 source 实时算,新增文章/朝代自动同步
   const articles = getAllArticles();
   const articleCount = articles.length;
-  const dynastyCount = DYNASTIES.length;
+  const dynastyCount = DYNASTY_CONFIG.length;
   // 从 SITE_URL 取 host(去掉 protocol),social 分享预览永远指向当前域名
   const displayHost = SITE_URL.replace(/^https?:\/\//, '').replace(/\/$/, '');
 

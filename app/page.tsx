@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
 import { getAllArticles, getTrendingArticles } from '@/lib/articles';
-import { DYNASTIES } from '@/lib/dynasties';
+import { getDynastiesWithCount } from '@/lib/dynasties.server';
 import ArticleCard from '@/components/ArticleCard';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
@@ -29,7 +29,10 @@ export default function HomePage() {
   // 见 lib/articles.ts:getTrendingArticles
   const topArticles = getTrendingArticles(3, [featured.slug]);
   // mini 朝代入口:聚焦前 6 个古典朝代(战国→隋唐),明清/现代/宋/元 留给 /archive
-  const featuredDynasties = DYNASTIES.slice(0, 6);
+  // count 用 getDynastiesWithCount() 实时算(取代手填,加新文章自动同步)
+  const featuredDynasties = getDynastiesWithCount().slice(0, 6);
+  // 完整朝代时间线 — 9 个全显示(count 都实时算)
+  const allDynasties = getDynastiesWithCount();
 
   // Schema.org JSON-LD
   const websiteJsonLd = {
@@ -182,7 +185,7 @@ export default function HomePage() {
               浏览器原生处理 hash 锚点跳转 — 比 Next.js 客户端 SPA + scroll-to-top
               后再手动滚更可靠 */}
           <div className="flex items-start justify-between gap-6 md:gap-4 -mt-[6px] overflow-x-auto pb-4 px-2 md:px-4 snap-x snap-mandatory scrollbar-thin">
-            {DYNASTIES.map((d, i) => (
+            {allDynasties.map((d, i) => (
               <a
                 key={d.slug}
                 href={`/archive#group-${d.slug}`}
@@ -205,7 +208,7 @@ export default function HomePage() {
             <a
               href="/archive#group-modern"
               className="timeline-node snap-center stagger-card"
-              style={{ ['--stagger-delay' as string]: `${DYNASTIES.length * 80}ms` } as CSSProperties}
+              style={{ ['--stagger-delay' as string]: `${allDynasties.length * 80}ms` } as CSSProperties}
             >
               <div className="timeline-name">近现代</div>
               <div className="timeline-dot"></div>

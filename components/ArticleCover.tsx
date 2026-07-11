@@ -14,12 +14,12 @@
  * - mountain(南北朝佛光)、cloud(隋唐盛世)、plain(五代乱世)、ring(默认)
  */
 import type { ArticleMeta } from '@/lib/types';
-import type { Dynasty } from '@/lib/articles';
+import type { DynastyConfig } from '@/lib/dynasties';
 import { hasCover } from '@/lib/cover-slugs';
 
 interface Props {
   article: ArticleMeta;
-  dynasty: Dynasty;
+  dynasty: DynastyConfig;
   /** 紧凑模式:给 ArticleCard 用,只显示朝代印章大字 + 期刊编号 */
   compact?: boolean;
   /**
@@ -155,7 +155,7 @@ function truncateQuote(quote: string, max = 28): string {
  * Motif 装饰层 — 根据朝代渲染不同几何/印章背景
  * 全部用 SVG,无外部资源依赖
  */
-function MotifLayer({ motif, primary, secondary }: { motif: Dynasty['motif']; primary: string; secondary: string }) {
+function MotifLayer({ motif, primary, secondary }: { motif: DynastyConfig['motif']; primary: string; secondary: string }) {
   switch (motif) {
     case 'seal':
       return (
