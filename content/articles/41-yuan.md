@@ -12,6 +12,9 @@ readingTime: 10
 views: 240
 publishedAt: 2026-07-08
 tags: [权力, 决策, 创始人, 信任, 传承]
+coverScene: "view of an empty Beijing throne hall, a single aging strongman in oversized yellow imperial dragon robes sitting alone on the throne, provincial independence telegrams piling up on a side table, a clock on the wall showing the time, dust on the floor"
+coverColor: "imperial yellow, slate, iron, fading gold"
+coverMood: "hubris, collapse, lonely, final-act"
 ---
 
 <p class="lead">公元 1915 年 12 月 12 日,57 岁的袁世凯接受"推戴书",宣布自己要做皇帝。83 天后(1916 年 3 月 22 日),他取消帝制。69 天后(6 月 6 日),他死于中南海。他一生"近到成功的边缘又退回来",最后一次他赌上了所有。</p>

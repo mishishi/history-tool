@@ -12,6 +12,9 @@ readingTime: 10
 views: 260
 publishedAt: 2026-07-08
 tags: [战略, 制度, 警觉, 团队, 决策]
+coverScene: "view of a Yellow Sea naval battle at sunset, the Beiyang fleet in flames, two ironclad warships sinking beneath the waves, dense black smoke, Japanese torpedo boats darting in the foreground, a half-sunk mast tilting, oil on the water"
+coverColor: "iron grey, sea blue, charcoal, cinnabar sunset"
+coverMood: "catastrophic, sobering, defeat, painful"
 ---
 
 <p class="lead">公元 1894 年 9 月 17 日,黄海海面,北洋舰队跟日本联合舰队决战。5 个小时后,北洋舰队损失 4 艘主力舰,致远管带邓世昌殉国;日本联合舰队无船被击沉。30 年洋务运动的"亚洲第一海军",5 个月就被清空。</p>

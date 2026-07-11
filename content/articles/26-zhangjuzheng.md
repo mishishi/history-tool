@@ -12,6 +12,9 @@ readingTime: 11
 views: 250
 publishedAt: 2026-07-08
 tags: [改革, 创业, 决策, 制度, 传承]
+coverScene: "interior of a bureaucratic study at night, an elderly minister in dark robes bent over a large scroll covered in accounting ledgers, candles burning low, a single successor emperor's empty throne visible in shadow behind him, scrolls and ink stones piled on the desk"
+coverColor: "scroll yellow, jade, cinnabar, charcoal"
+coverMood: "methodical, success-then-tragedy, solitary, illuminating"
 ---
 
 <p class="lead">明朝 200 年里的"老年人"几乎都在"不改革"。然后 1582 年,内阁首辅张居正去世了。10 年后,明朝的国库比张居正接手时多了 3 倍。然后 — — 他死后 5 年,这一切都被废除。</p>

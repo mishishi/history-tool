@@ -12,6 +12,9 @@ readingTime: 10
 views: 31000
 publishedAt: 2026-07-07
 tags: [盛极而衰, 自我欺骗, 危机, 安禄山, 唐玄宗, 信任]
+coverScene: "bird-eye view of the imperial city of Chang'an in flames, rebel cavalry pouring through a broken city gate, the imperial carriage fleeing through a western gate into mountains, palace rooftops ablaze, smoke filling the entire sky"
+coverColor: "cinnabar, ash, charcoal, flame orange"
+coverMood: "collapsing, betrayal, imperial ruin, dramatic"
 ---
 
 <p class="lead">755 年,所有人都觉得大唐会永远繁荣。然后一个胡人带着 15 万人,8 个月打下长安。</p>

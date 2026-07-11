@@ -12,6 +12,9 @@ readingTime: 8
 views: 250
 publishedAt: 2026-07-08
 tags: [权力, 制度设计, 创业, 合伙, 信任]
+coverScene: "interior of a palace banquet hall at night, a young emperor toasting a row of weathered veteran generals at a long table, jade cups raised, lanterns hanging, guards visible at the doorways, the generals exchanging uneasy glances, tension under courtesy"
+coverColor: "gold, cinnabar, silk, jade"
+coverMood: "tense, deceptive, banquet, political"
 ---
 
 <p class="lead">公元 960 年正月,赵匡胤通过"陈桥兵变",被将士披上黄袍,做了皇帝。一年之内,他完成了一件更难的事——把所有帮他上来的开国武将的权力全部收回,用的是"一杯酒"。</p>

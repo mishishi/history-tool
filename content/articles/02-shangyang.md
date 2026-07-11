@@ -12,6 +12,9 @@ readingTime: 8
 views: 2100
 publishedAt: 2026-07-07
 tags: [信用, 改革, 商鞅, 秦国, 组织管理]
+coverScene: "bird-eye view of a bustling market gate at dawn, an upright wooden post in the south gate plaza, a single commoner lifting the post and walking toward the north gate, a crowd of people pointing and watching, a stern official observing from a terrace above"
+coverColor: "cinnabar red, ochre, charcoal"
+coverMood: "civic, reformist, witness, dawn"
 ---
 
 <p class="lead">中国古代最贵的一次"市场推广",花了 50 金。</p>

@@ -12,6 +12,9 @@ readingTime: 8
 views: 8900
 publishedAt: 2026-07-07
 tags: [战略, 心理战, 孙膑, 庞涓, 数据决策, 用人]
+coverScene: "bird-eye view of a mountain pass at dusk, abandoned cooking hearths of a retreating army diminishing across the landscape from many to few, a pursuing enemy column advancing eagerly below, hidden crossbowmen concealed in the surrounding forest cliffs"
+coverColor: "iron blue-grey, cinnabar, dust ochre"
+coverMood: "calculated, patient, reversal, cunning"
 ---
 
 <p class="lead">庞涓第三天的"大喜"——是中国历史上最贵的一次"过早乐观"。</p>

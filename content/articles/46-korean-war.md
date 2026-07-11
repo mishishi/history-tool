@@ -12,6 +12,9 @@ readingTime: 11
 views: 270
 publishedAt: 2026-07-08
 tags: [战略, 决策, 团队, 决心, 压力]
+coverScene: "winter view of the Yalu River at dawn, Chinese volunteer soldiers in quilted uniforms crossing a half-frozen bridge, breath freezing, snow falling, distant American tanks and tents on the far bank, a red flag planted at the bridgehead"
+coverColor: "snow white, iron, cinnabar, dawn"
+coverMood: "defiant, costly, resolute, frozen"
 ---
 
 <p class="lead">公元 1950 年 10 月,中国刚建国 1 年。它面对一个选择 — —— 出兵朝鲜,或者看着美军进入中国东北边境。毛泽东 1950-10-08 决策出兵。中国人民志愿军 30 万人秘密跨过鸭绿江。36 万伤亡为代价,把美军退回到三八线,赢了一个「中国不要碰」的 50 年战略框架。</p>

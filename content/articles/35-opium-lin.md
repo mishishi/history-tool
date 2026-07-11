@@ -12,6 +12,9 @@ readingTime: 10
 views: 260
 publishedAt: 2026-07-08
 tags: [决策, 系统, 团队, 警觉, 个人vs制度]
+coverScene: "coastal view, foreground: a stern Chinese official in green robes supervising the destruction of piled opium crates at a seaside pit, smoke rising; background: a single British ironclad warship in the bay, sails furled, cannons visible, smoke-stacks"
+coverColor: "ash, iron grey, opium blue, charcoal"
+coverMood: "heroic-but-futile, modern-gulf, sobering"
 ---
 
 <p class="lead">公元 1839 年 3 月,55 岁的林则徐被任命为钦差大臣,赴广州查禁鸦片。28 个月后,清政府被迫签下中国近代史上第一个不平等条约《南京条约》。一个英雄 + 一个国家的悲剧,就是近代中国 100 年的缩影。</p>

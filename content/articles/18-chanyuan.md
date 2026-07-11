@@ -12,6 +12,9 @@ readingTime: 9
 views: 230
 publishedAt: 2026-07-08
 tags: [谈判, 决策, 威慑, 勇气, 联盟]
+coverScene: "view from a city wall above a winter river, the imperial yellow-robed emperor standing on the wall with banners, a massive enemy camp on the far bank, an arrow-struck enemy general falling from horseback below, soldiers cheering along the wall"
+coverColor: "river blue, cinnabar banner, gold, iron"
+coverMood: "tense, courageous, diplomatic, victorious"
 ---
 
 <p class="lead">公元 1004 年 11 月,辽国萧太后与皇帝耶律隆绪率 20 万大军南下,绕过北宋防线,直抵黄河边的澶州。满朝文武说"南逃",只有一个 60 多岁的宰相说:"陛下必须上前线。"北宋的命运,系在皇帝敢不敢走到前线那一刻。</p>

@@ -12,6 +12,9 @@ readingTime: 10
 views: 290
 publishedAt: 2026-07-08
 tags: [创始, 功臣, 决策, 信任, 制度]
+coverScene: "interior of a dark prison hall, rows of bound officials in chains being processed by guards, a young emperor at a high desk above reviewing a long list of names in a scroll, guards with halberds lining the walls, blood on the floor, candles low"
+coverColor: "blood cinnabar, charcoal, scroll"
+coverMood: "paranoid, ruthless, systematic, grim"
 ---
 
 <p class="lead">1368-1398 年,30 年里,朱元璋用 13 年时间杀了几乎所有跟他打天下的兄弟。4-5 万个官员直接或间接死掉。他的对手赵匡胤用一杯酒完成的事,他用 13 万杯血完成。</p>

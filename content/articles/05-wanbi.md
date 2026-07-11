@@ -12,6 +12,9 @@ readingTime: 8
 views: 11200
 publishedAt: 2026-07-07
 tags: [谈判, 心理战, 蔺相如, 决策, 准备工作]
+coverScene: "interior of a Qin imperial hall, a single envoy in jade-green robes holding a luminous jade disc high above his head beside a stone pillar, threatening to dash it against the column, the enthroned king reaching out in shock, courtiers frozen at the sides"
+coverColor: "jade green, cinnabar, charcoal, ritual gold"
+coverMood: "high-stakes, confrontational, principled, bold"
 ---
 
 <p class="lead">蔺相如在中国谈判史上封神,不是因为口才好,是因为他在上桌之前就把"剧本"写好了。</p>

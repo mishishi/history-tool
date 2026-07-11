@@ -12,6 +12,9 @@ readingTime: 11
 views: 280
 publishedAt: 2026-07-08
 tags: [遗产, 改革, 心理, 困境, 决策]
+coverScene: "view of a small hill behind the imperial palace at dawn, a lone emperor in yellow robes hanging from a willow tree, the abandoned capital burning in the far distance, a single attendant weeping below, crows flying, mist on the hill"
+coverColor: "ash, willow green, cinnabar, charcoal"
+coverMood: "tragic, lonely, terminal, dignified-in-death"
 ---
 
 <p class="lead">公元 1644 年 3 月 19 日,明朝崇祯帝朱由检在北京景山一棵歪脖子槐树下自缢。他写下了中国历史上最悲哀的遗书。他死后第三天,李自成进北京。他继位时,明朝已经病入膏肓。他不是昏君,但他死在了那把椅子上。</p>

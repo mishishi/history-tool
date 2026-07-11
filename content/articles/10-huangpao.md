@@ -12,6 +12,9 @@ readingTime: 9
 views: 18900
 publishedAt: 2026-07-07
 tags: [事件营销, 剧本式创业, 赵匡胤, 柴荣, 权力交接, 收编元老]
+coverScene: "dawn at a snow-dusted military encampment, a single kneeling general surrounded by armored soldiers, a yellow imperial robe being draped over his shoulders by his men, banners of a new dynasty rising on the camp walls, mist and the first light"
+coverColor: "imperial yellow, cinnabar, dawn pink"
+coverMood: "staged, performative, dawn-of-empire, theatrical"
 ---
 
 <p class="lead">960 年正月,一个 7 岁的小皇帝坐在龙椅上,赵匡胤"被将士"披上黄袍。这可能是中国历史上最成功的一次"剧本式创业"。</p>

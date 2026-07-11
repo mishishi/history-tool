@@ -12,6 +12,9 @@ readingTime: 11
 views: 290
 publishedAt: 2026-07-08
 tags: [哲学, 学习, 决策, 韧性, 领导力]
+coverScene: "view of a small cave at the edge of a remote mountain village, a single scholar in plain white robes sitting cross-legged in lotus position, dawn light breaking through the cave mouth, ancient pines and mist outside, a bamboo scroll unrolled beside him"
+coverColor: "ink jade, cinnabar, cave dark, gold dawn"
+coverMood: "enlightenment, solitary, dawn, quiet-epiphany"
 ---
 
 <p class="lead">公元 1508 年的贵州龙场,一个被太监打骂、贬到天涯的 36 岁中年官员,在洞穴里经历了一场"悟"。这一刻之后的 20 年里,他既打了胜仗(平宁王之乱只用了 21 天),又做了学问(讲学使"心学"覆盖大半个东亚)。他叫王阳明 — — 500 年来唯一能在"哲学 + 政治 + 军事"三栖都达到宗师级的人。</p>

@@ -12,6 +12,9 @@ readingTime: 9
 views: 270
 publishedAt: 2026-07-08
 tags: [危机, 爱情, 权力, 决策, 团队]
+coverScene: "misty dawn at a mountain pass, an old emperor in yellow imperial robes turning away from a Buddhist shrine, a silk cord descending from a wooden beam inside the shrine, imperial guards in the distance with bowed heads, fog drifting among pine trees"
+coverColor: "dawn pink, cinnabar, ash, silk"
+coverMood: "tragic, intimate, dynastic, sorrowful"
 ---
 
 <p class="lead">公元 756 年 6 月,一个享国 45 年的皇帝,带着他最爱的女人从长安出逃。3 天后,他被迫亲手签下令她死亡的文书。她死的时候,38 岁,他 71 岁。</p>

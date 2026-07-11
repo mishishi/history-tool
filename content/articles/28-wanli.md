@@ -12,6 +12,9 @@ readingTime: 10
 views: 250
 publishedAt: 2026-07-08
 tags: [组织, 治理, 决策, 创始人, 权力]
+coverScene: "view of a grand imperial throne hall, the dragon throne empty under a dusty canopy, court scrolls piled unopened on a side desk, cobwebs forming in corners, sunlight falling through broken roof tiles, no officials present, a single neglected incense burner"
+coverColor: "dark palace, empty throne, dim gold, cinnabar"
+coverMood: "abandonment, slow decline, hollow, eerie"
 ---
 
 <p class="lead">公元 1589 年,明朝万历帝作出了一个"休" — — 不再上朝。一开始只是不开心,后来是真不想见人。他"批准"奏折的方式是从太监手里"画朱"(画个红道),自己不见任何人。30 年后,他的帝国在外患上几乎失能。</p>

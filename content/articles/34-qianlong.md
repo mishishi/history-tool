@@ -12,6 +12,9 @@ readingTime: 10
 views: 240
 publishedAt: 2026-07-08
 tags: [组织, 决策, 战略, 警觉, 历史循环]
+coverScene: "bird-eye view of a long imperial dragon boat procession on the Grand Canal, silk banners and parasols, a long train of escort barges, willow-lined banks, a southern city with pagodas approaching, gaudy luxury and crowds of gawking commoners"
+coverColor: "silk, jade, pink, ocean teal"
+coverMood: "decadent, opulent, missed-opportunity, theatrical"
 ---
 
 <p class="lead">公元 1751 年(乾隆十六年),乾隆帝第一次下江南。30 多年里他去了 6 次,每一次都花费巨大。同期(1760-1840)英国正在发生工业革命。乾隆的"盛世",成为中国错过工业时代的隐藏起点。</p>

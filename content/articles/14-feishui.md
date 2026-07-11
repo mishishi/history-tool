@@ -12,6 +12,9 @@ readingTime: 9
 views: 310
 publishedAt: 2026-07-08
 tags: [战役, 决策, 心理战, 联盟, 以少胜多]
+coverScene: "bird-eye view of a riverbank in winter, a vast enemy army in chaos and retreat on one side with soldiers and horses tumbling into the river, a small disciplined force standing firm on the other bank, dust and panic, banners of Qin trampled into mud"
+coverColor: "river blue-grey, dust, cinnabar, iron"
+coverMood: "reversal, dramatic, doomed overconfidence, kinetic"
 ---
 
 <p class="lead">公元 383 年冬天,前秦皇帝苻坚率"百万大军"南下,自信满满地说:"这长江天堑,投鞭可断。"三个月后,他本人带着十几个人逃回北方。中国历史上最大的"自我打脸"战役,开始了。</p>

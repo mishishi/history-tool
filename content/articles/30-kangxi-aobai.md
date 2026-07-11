@@ -12,6 +12,9 @@ readingTime: 10
 views: 260
 publishedAt: 2026-07-08
 tags: [创业, 决策, 反败为胜, 团队, 韧性]
+coverScene: "interior of a palace courtyard, a young emperor in yellow robes on the steps watching, a group of adolescent wrestlers lunging at a single powerful minister and dragging him to the ground, fallen silk cushions, startled eunuchs fleeing to the side"
+coverColor: "imperial yellow, charcoal, iron, silk"
+coverMood: "cunning, youth-vs-age, decisive, sudden"
 ---
 
 <p class="lead">公元 1669 年 5 月戊申日,14 岁的康熙帝召 50 岁的辅政大臣鳌拜入宫。鳌拜以为少年皇帝又找他议事 — — 进宫后被 10 多个少年一拥而上擒住。这一天开始,康熙才真正是皇帝。</p>

@@ -12,6 +12,9 @@ readingTime: 11
 views: 260
 publishedAt: 2026-07-08
 tags: [战略, 全球化, 决策, 系统, 制度]
+coverScene: "bird-eye view of Shanghai port, mountains of colorful shipping containers stacked in a new terminal, a giant container ship being loaded by gantry cranes, distant Pudong skyscrapers, a long train of containers heading inland through the rail yard"
+coverColor: "container red, ocean blue, gold, slate"
+coverMood: "opening, global, new-chapter, energetic"
 ---
 
 <p class="lead">1986 年中国申请恢复 GATT 缔约方地位。15 年后,2001-12-11,中国正式成为 WTO 第 143 个成员。接下来 10 年,中国成为"世界工厂",GDP 增长 4 倍。</p>

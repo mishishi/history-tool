@@ -12,6 +12,9 @@ readingTime: 9
 views: 1200
 publishedAt: 2026-07-07
 tags: [用人, 德才, 家族, 决策]
+coverScene: "bird-eye view of a fortified city under siege, river waters diverted into its moat rising around the walls, panicked defenders on inner rooftops, a distant coalition of three armies watching from a hilltop ridge across the water, dawn light"
+coverColor: "cinnabar red, charcoal black, river-water blue-green"
+coverMood: "doomed, dramatic, karmic, vivid"
 ---
 
 <p class="lead">中国古代最强的家族,不是因为敌人太强而败,是因为他们没听一个族人的劝告。</p>

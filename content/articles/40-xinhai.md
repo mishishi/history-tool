@@ -12,6 +12,9 @@ readingTime: 11
 views: 280
 publishedAt: 2026-07-08
 tags: [变革, 系统, 觉醒, 决策, 团队]
+coverScene: "bird-eye view of Wuchang's military barracks at dawn, a single engineering company of soldiers firing their rifles into the air, a red signal flare rising, a stunned military governor fleeing through a side gate in his nightclothes, the first light of a new republic"
+coverColor: "dawn cinnabar, iron, charcoal, revolutionary blue"
+coverMood: "revolution, tipping-point, dawn-of-era, electric"
 ---
 
 <p class="lead">公元 1911 年 10 月 10 日,武昌新军工程营 1000 多人被迫提前起事。73 天后,持续 2132 年的中国帝制结束。这不是"革命者的胜利" — — 是"一个王朝自己崩了,革命党接住了崩盘"。</p>

@@ -12,6 +12,9 @@ readingTime: 11
 views: 280
 publishedAt: 2026-07-08
 tags: [战略, 决策, 团队, 韧性, 协同]
+coverScene: "view of a fortified walled town under heavy fire, Chinese defenders shooting from a breached wall, Japanese tanks burning in the town square, a single wounded soldier raising a republic flag from the gatehouse, dawn light breaking through smoke"
+coverColor: "blood cinnabar, iron, dawn pink, smoke"
+coverMood: "hard-won, hopeful, gritty, defiant"
 ---
 
 <p class="lead">公元 1938 年 3 月 24 日,日军两师团从山东南下,目标:打通津浦线、攻占徐州。第五战区司令长官李宗仁调集国军约 5 万人,在山东南部的台儿庄一线构建防线。15 天后,日军溃败。这是抗战以来,中国军队第一次重大胜利。</p>

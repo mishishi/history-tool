@@ -12,6 +12,9 @@ readingTime: 12
 views: 320
 publishedAt: 2026-07-08
 tags: [悲剧, 精神, 决策, 韧性, 文化]
+coverScene: "bird-eye view of a stormy southern sea, hundreds of Song refugee boats surrounded by Yuan warships, a small imperial barge sinking in the center, a young emperor being carried to the water by a minister, floating bodies in the waves, mist"
+coverColor: "ocean blue, iron grey, cinnabar, mist"
+coverMood: "mass tragedy, dignified, end-of-an-era, mournful"
 ---
 
 <p class="lead">1279 年 2 月 7 日,中国南海崖山海面。左丞相陆秀夫背起 8 岁的赵昺皇帝,从海船上跳海自尽。一周内,这片海域浮尸出海面者以万计。崖山海战是中国第一次"完全亡于外族"的汉族政权终结时刻。宋朝 — — 这个延续 320 年的王朝,在这片海里沉没。</p>

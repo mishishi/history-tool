@@ -12,6 +12,9 @@ readingTime: 11
 views: 260
 publishedAt: 2026-07-08
 tags: [创业, 转型, 领导力, 决策, 危机]
+coverScene: "bird-eye view of a long Red Army column snaking through a snowy mountain pass, a single thread of red flags threading through grey rock and white snow, exhausted soldiers linking arms, vast mountains surrounding, mist"
+coverColor: "red, iron, charcoal, snow white, grassland green"
+coverMood: "endurance, survival, reversal, indomitable"
 ---
 
 <p class="lead">公元 1934 年 10 月,中央红军 8.6 万人从江西瑞金撤离。2 年后,1936 年 10 月,只有约 7000 人到达陕北。存活率 8%。这 25,000 里的"难醒噩梦" — —— 实际上是中国革命最戏剧化的剧本。</p>

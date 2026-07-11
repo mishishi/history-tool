@@ -12,6 +12,9 @@ readingTime: 10
 views: 5600
 publishedAt: 2026-07-07
 tags: [决策, 权谋, 项羽, 刘邦, 鸿门宴, 领导力]
+coverScene: "interior of a military banquet tent at night, a banquet table with bronze ritual vessels and a jade disc, a single sword-dancer drawing a blade mid-pose near a seated guest in yellow royal robes, a second armored warrior bursting through the tent flap, candlelight and shadow"
+coverColor: "cinnabar red, iron-grey, candlelight gold"
+coverMood: "tense, fatal, intimate, dramatic"
 ---
 
 <p class="lead">项羽输掉天下,不是因为他不能赢,是因为他下不了手。</p>

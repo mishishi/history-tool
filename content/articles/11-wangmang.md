@@ -12,6 +12,9 @@ readingTime: 9
 views: 280
 publishedAt: 2026-07-08
 tags: [改革, 理想主义, 决策, 创始人]
+coverScene: "interior of a grand ceremonial hall, a single usurper in jade-green imperial robes standing alone on the throne dais, holding ancient bronze ritual vessels and a scroll of reforms, no one else on the dais, officials watching from below in shadow"
+coverColor: "jade green, charcoal, iron, dark gold"
+coverMood: "hubristic, idealist, doomed, hollow"
 ---
 
 <p class="lead">公元 9 年,一个被整个帝国敬仰的"圣人"废掉了皇帝,自己坐了上去。所有人都鼓掌。14 年后,他的头颅被割下,挂在校场上。</p>

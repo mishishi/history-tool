@@ -12,6 +12,9 @@ readingTime: 11
 views: 270
 publishedAt: 2026-07-08
 tags: [决策, 用人, 抗压, 团队, 危机]
+coverScene: "bird-eye view of a disastrous mountain pass retreat, a massive imperial army collapsing in disarray in a narrow valley, the baggage train broken and scattered, the captured young emperor in foreign horsemen's custody, banners of Ming trampled, dust rising"
+coverColor: "iron grey, blood, dust, charcoal"
+coverMood: "catastrophic, humiliation, swift-collapse"
 ---
 
 <p class="lead">1449 年 8 月,22 岁的明英宗朱祁镇想体验「御驾亲征」的浪漫感觉。一个太监说"没问题",他就有底气了。50 万(号称)大军出发,3 天后全军覆没。皇帝被俘,50+ 名高级将领被杀。这是"大明三百年未有之惨败"。</p>

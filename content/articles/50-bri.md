@@ -12,6 +12,9 @@ readingTime: 11
 views: 240
 publishedAt: 2026-07-08
 tags: [战略, 全球化, 长线, 战略, 系统]
+coverScene: "split bird-eye view: a Chinese high-speed train crossing a Eurasian steppe bridge on one side, a Chinese-built deep-water port in Africa on the other side, both marked with the same red-gold ribbon of a new Silk Road, container ships, modern cranes, continents connected by infrastructure"
+coverColor: "gold, ocean blue, sand, cinnabar"
+coverMood: "long-arc, infrastructure, modern, patient-ambition"
 ---
 
 <p class="lead">2013 年 9 月,习近平在哈萨克斯坦提出"丝绸之路经济带"。2013 年 10 月,在印尼提出"21 世纪海上丝绸之路"。10 年里,中国累计对 60+ 国家投资 2000-3000 亿美元到港口、铁路、能源网络。这是中国 21 世纪对外战略的最大动作。</p>

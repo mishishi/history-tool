@@ -12,6 +12,9 @@ readingTime: 11
 views: 270
 publishedAt: 2026-07-08
 tags: [领导, 组织, 信任, 决策, 团队]
+coverScene: "view of a walled rebel capital under siege, a fallen Taiping cross-banner lying in a muddy trench, Qing imperial troops breaching the gate, smoke and broken walls, dead soldiers on the slope, a single child looking on from behind rubble"
+coverColor: "cinnabar, charcoal, iron, blood"
+coverMood: "zealotry, collapse, wasted, sorrow"
 ---
 
 <p class="lead">公元 1851 年 1 月,一个 39 岁、连续 4 次科举落第的广东人,在广西桂平金田村起兵。他声称自己是上帝之子。13 年后,他的 600 万大军在长江流域被最后清空,他本人死在天京(南京)。</p>

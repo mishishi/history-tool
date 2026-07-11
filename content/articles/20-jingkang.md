@@ -12,6 +12,9 @@ readingTime: 11
 views: 280
 publishedAt: 2026-07-08
 tags: [崩溃, 决策, 教训, 战略, 体系]
+coverScene: "winter view of a sacked northern capital at dawn, two deposed emperors in yellow robes being led on foot through snow by foreign cavalry, the imperial palace burning in the distance, thousands of captive court ladies and officials in a long procession"
+coverColor: "ash, cinnabar, dark iron, charcoal"
+coverMood: "total, tragic, humiliating, terminal"
 ---
 
 <p class="lead">公元 1127 年三月,北宋的国都开封被金国军队攻破。一个做了 25 年皇帝的艺术家(宋徽宗)和他做了不到 2 年的儿子皇帝(宋钦宗),被金军押往黑龙江。他们再也没回到家乡。北宋 167 年的辉煌,从"完美"变成"耻辱",只用了 18 个月。</p>

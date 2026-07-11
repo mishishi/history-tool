@@ -12,6 +12,9 @@ readingTime: 10
 views: 270
 publishedAt: 2026-07-08
 tags: [觉醒, 创业, 文化, 公共舆论, 决策]
+coverScene: "bird-eye view of Tiananmen square at dawn, a crowd of students in white student robes marching with hand-painted banners, torches lit, the old city gates in the background, the first light breaking, no officials in sight, cobblestones wet with dew"
+coverColor: "dawn cinnabar, youth blue, charcoal, flag red"
+coverMood: "awakening, youthful, public, modern, electric"
 ---
 
 <p class="lead">1919 年 5 月 4 日,三千多北京高校学生在天安门集会。他们事后做的事 — — 罢课、罢工、罢市、逼政府、拒签字 — — 改写了 100 年的中国。</p>

@@ -12,6 +12,9 @@ readingTime: 11
 views: 260
 publishedAt: 2026-07-08
 tags: [改革, 创业, 决策, 制度, 管理体系]
+coverScene: "interior of a grand reform council hall, a single reformist minister in dark green robes presenting a long scroll of new laws to a divided assembly of officials, some nodding, others with arms crossed in opposition, ink brushes and bamboo slips scattered on tables"
+coverColor: "jade, slate, cinnabar, scroll yellow"
+coverMood: "idealist, bureaucratic, doomed, principled"
 ---
 
 <p class="lead">公元 1069 年,48 岁的王安石做了副宰相。他给宋神宗写了一段话,大意是:"大宋现在所有的财政问题,本质上是富人和豪强占了大便宜。如果国家把财政权重新拿上来,这个问题能解决。"他用了 16 年去验证这句话。结果——改革基本被废,北宋更弱。</p>

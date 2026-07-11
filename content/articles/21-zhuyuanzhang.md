@@ -12,6 +12,9 @@ readingTime: 11
 views: 300
 publishedAt: 2026-07-08
 tags: [创业, 草根, 用人, 决策, 制度]
+coverScene: "bird-eye view of Nanjing imperial city at dawn, a single figure in imperial yellow dragon robes ascending the central staircase alone, the road behind him stretching from a humble thatched village hut far in the distance all the way to the palace gate"
+coverColor: "imperial yellow, charcoal, iron, cinnabar"
+coverMood: "epic, ascent, peasant-emperor, mythical"
 ---
 
 <p class="lead">公元 1328 年,凤阳一个佃户家生了个男孩,起名朱重八。54 年后,这位朱重八坐上了龙椅,改名朱元璋。24 年里,他从乞丐到皇帝,完成了人类历史上最戏剧性的阶层跃迁。</p>

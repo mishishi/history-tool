@@ -12,6 +12,9 @@ readingTime: 11
 views: 310
 publishedAt: 2026-07-08
 tags: [创始人, 信任, 决策, 功臣, 抗争]
+coverScene: "winter view of a small prison courtyard at night, a loyal general kneeling calmly in his armor, a young attendant reading a fabricated accusation scroll aloud, snow falling on the bamboo grove, the moon partially hidden by clouds, no onlookers"
+coverColor: "ink snow, cinnabar, charcoal, silvery dawn"
+coverMood: "tragic, unjust, dignified, final"
 ---
 
 <p class="lead">公元 1140 年 7 月,岳飞率军北伐,在朱仙镇大破金兵,局势一片大好。他对手下说「直捣黄龙(指金国本部),与诸君痛饮」。赵构在同一日连发 12 道金牌,急令岳飞班师。14 个月后,岳飞死在大理寺的风波亭。他 39 岁。</p>

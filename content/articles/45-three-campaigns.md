@@ -12,6 +12,9 @@ readingTime: 12
 views: 270
 publishedAt: 2026-07-08
 tags: [战略, 决策, 团队, 协同, 杠杆]
+coverScene: "bird-eye view of a frozen winter battlefield, columns of PLA infantry in olive advancing across open ground, encircled Nationalist divisions raising white flags, supply trucks moving up, distant Huai River bridges, snow"
+coverColor: "red, iron, cinnabar, dawn"
+coverMood: "decisive, overwhelming, terminal, sweep"
 ---
 
 <p class="lead">公元 1948 年 9 月 - 1949 年 1 月,中国共产党跟国民党之间连续进行了三次战略决战 — — 辽沈、淮海、平津。5 个月里,共军消灭国军 154 万+,超过国民党在中国北方兵力的总和。三大战役决定了"中国是哪一方的中国"。</p>

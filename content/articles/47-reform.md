@@ -12,6 +12,9 @@ readingTime: 12
 views: 280
 publishedAt: 2026-07-08
 tags: [变革, 战略, 决策, 系统, 制度]
+coverScene: "bird-eye view of a 1980s Chinese coastal city in transformation, towering yellow construction cranes over a new deep-water port, skeletal skyscrapers rising from old tile-roofed neighborhoods, container ships in the harbor, a red flag on the tallest half-built tower"
+coverColor: "cinnabar, gold, slate, port water blue"
+coverMood: "transformative, dawn-of-era, kinetic, hopeful"
 ---
 
 <p class="lead">1978 年 12 月,中国共产党十一届三中全会召开。邓小平把全国政策方向从「阶级斗争为纲」转向「经济建设为中心」。接下来的 45 年里,中国 GDP 增长 50+ 倍,8 亿 + 人口脱贫。</p>

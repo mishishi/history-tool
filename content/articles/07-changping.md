@@ -12,6 +12,9 @@ readingTime: 9
 views: 18900
 publishedAt: 2026-07-07
 tags: [决策, 失败, 赵括, 白起, 反间计, 临阵换将, 听劝]
+coverScene: "vast bird-eye view of a mountain valley battlefield, a massive encircled army of soldiers trapped between two ridges with their banners lowered, distant Qin cavalry sealing the pass, smoke from burning supplies rising in columns, bone-dry valley floor"
+coverColor: "iron grey, bone white, charcoal, cinnabar"
+coverMood: "massive, annihilating, sorrow, grim"
 ---
 
 <p class="lead">蔺相如劝了,赵括母亲劝了,所有人都在劝——只有赵王自信。一战之后,赵国再无力和秦对抗。</p>

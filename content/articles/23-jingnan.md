@@ -12,6 +12,9 @@ readingTime: 11
 views: 270
 publishedAt: 2026-07-08
 tags: [内战, 接班, 创业, 组织, 决策]
+coverScene: "view of an imperial capital's wall under siege, an uncle's army attacking the gates defended by a young nephew-emperor, ladders raised and flaming arrows flying, the young emperor's banners being lowered, dust and smoke"
+coverColor: "war cinnabar, iron, smoke charcoal"
+coverMood: "war, betrayal, fraternal, bitter"
 ---
 
 <p class="lead">1398 年朱元璋死,16 岁的朱允炆继位。一年后,他的叔叔朱棣起兵,以"清君侧"为旗号。3 年后,朱棣打下南京,朱允炆失踪。这是中国历史上极少见的"叔叔夺侄位"。而这一切的根本,是朱元璋为保护朱允炆杀光了功臣——结果反而让朱允炆无将可挡。</p>

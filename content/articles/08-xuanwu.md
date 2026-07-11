@@ -12,6 +12,9 @@ readingTime: 9
 views: 22300
 publishedAt: 2026-07-07
 tags: [权力, 决策, 兄弟, 创业, 接班人, 股权之争]
+coverScene: "pre-dawn view of a palace gate from above, two brothers on horseback facing each other in the stone courtyard, arrows drawn, blood on the ground, a third brother fallen, palace lanterns still lit, dark clouds gathering above"
+coverColor: "blood cinnabar, charcoal, dark gold"
+coverMood: "brutal, intimate, fratricidal, decisive"
 ---
 
 <p class="lead">626 年 6 月 4 日清晨,李世民做了一个决定——杀自己的亲哥哥。这个决定,改变了中国 1300 年。</p>

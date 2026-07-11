@@ -12,6 +12,9 @@ readingTime: 11
 views: 280
 publishedAt: 2026-07-08
 tags: [项目, 战略, 国运, 投入, 决策]
+coverScene: "bird-eye view of a vast Chinese treasure fleet at sea, dozens of massive multi-masted junks with red sails and dragon figurehead prows, smaller escort boats arrayed behind, a coastline in the distance, calm turquoise water, the fleet heading outward in formation"
+coverColor: "imperial cinnabar, ocean blue, gold, ivory"
+coverMood: "magnificent, ocean-going, abandoned, epic"
 ---
 
 <p class="lead">1420 年,明朝拥有全世界最强大的海军 — 200+ 艘船,2 万多人,最远到达非洲东岸。但同一年,朱棣下令把首都从南京迁到北京(更靠近北方威胁)。1433 年郑和死了,明朝停止远航。71 年后,达·伽马绕过好望角到达印度西洋。这里有个问题:明朝为什么放弃?</p>

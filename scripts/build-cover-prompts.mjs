@@ -69,18 +69,29 @@ const STYLE_HEADER = `Chinese blue-green landscape painting qinglv shanshui,
 Dunhuang Mogao cave mural inspired.`.replace(/\s+/g, ' ');
 
 function buildPrompt(article) {
-  const { title, subtitle, excerpt, dynasty } = article;
-  const colorSpec = DYNASTY_COLORS[dynasty] || DEFAULT_COLOR;
+  const { title, subtitle, excerpt, dynasty, coverScene, coverColor, coverMood } = article;
 
-  // 场景从 excerpt 提取(取前 80 字作为"场景关键词")
-  const sceneHint = excerpt
+  // 优先用 frontmatter 的 coverScene 字段(每篇文章独立写出的具体画面)
+  // fallback: 旧版 excerpt + isBattle/isReform 三选一(容易雷同)
+  if (coverScene) {
+    const color = coverColor || (DYNASTY_COLORS[dynasty] || DEFAULT_COLOR).primary;
+    const mood = coverMood || (DYNASTY_COLORS[dynasty] || DEFAULT_COLOR).mood;
+    return [
+      `${STYLE_HEADER}. ${color} mineral color palette. ${mood} quality.`,
+      `SCENE: ${coverScene}.`,
+      `COMPOSITION: bird-eye panoramic view, foreground tiny lone figure in vermilion robes for scale and human reference, heavy gold contour outlines, flat mineral color fills, no atmospheric perspective, decorative cloud bands.`,
+      BAN_LIST,
+    ].join(' ').replace(/\s+/g, ' ').trim();
+  }
+
+  // Fallback: 旧版 generic prompt(用于没有 coverScene 字段的旧文章)
+  const colorSpec = DYNASTY_COLORS[dynasty] || DEFAULT_COLOR;
+  const sceneHint = (excerpt || '')
     .replace(/[「」『』"""'']/g, '')
     .replace(/\s+/g, ' ')
     .slice(0, 120)
     .trim();
-
-  // 朝代专有元素
-  const dynastyElement = pickDynastyElement(dynasty, excerpt);
+  const dynastyElement = pickDynastyElement(dynasty, excerpt || '');
 
   return [
     STYLE_HEADER,

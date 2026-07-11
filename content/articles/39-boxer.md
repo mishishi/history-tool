@@ -17,6 +17,9 @@ readingTime: 9
 views: 250
 publishedAt: 2026-07-08
 tags: [民粹, 决策, 信任, 政治, 操控]
+coverScene: "burning foreign legation quarter of Beijing at night, mobs of Boxers with red headbands torching buildings, foreign defenders on rooftops with rifles, the Forbidden City walls in the distance, a sandstorm of ash, a single foreigner sheltering under a broken cart"
+coverColor: "blood cinnabar, charcoal, scorched earth"
+coverMood: "mob, chaos, retribution, apocalyptic"
 ---
 
 <p class="lead">公元 1900 年,义和团进京,杀外国使节、杀传教士。47 岁的慈禧裹着裤腰带仓皇西逃。1 年后,赔款 4.5 亿两白银(本息共 9 亿)。这不只是"民国耻辱",是民粹被利用的极端样本。</p>

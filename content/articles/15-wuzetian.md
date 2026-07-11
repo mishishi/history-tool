@@ -12,6 +12,9 @@ readingTime: 10
 views: 240
 publishedAt: 2026-07-08
 tags: [改革, 权力, 用人, 性别, 创业者]
+coverScene: "interior of an imperial throne hall, a single mature woman in dragon-embroidered vermilion robes ascending the throne stairs alone, phoenix canopies held above her, all officials below kneeling in rows, no emperor anywhere in the frame"
+coverColor: "gold, cinnabar, malachite"
+coverMood: "solemn, solitary, breaking-convention, imperial, quiet"
 ---
 
 <p class="lead">公元 690 年九月,一个 66 岁的女人废了自己的儿子,自己坐上了龙椅。她叫武则天。在此之前的 30 年,她以"太后临朝"的方式已经实际掌握了大唐的最高权力。14 年皇帝 + 40 年掌权,她是一个奇迹——能上去,也能下来。</p>

@@ -12,6 +12,9 @@ readingTime: 10
 views: 320
 publishedAt: 2026-07-08
 tags: [决策, 联盟, 战役, 谈判, 以少胜多]
+coverScene: "bird-eye view of the Yangtze River at dusk, dozens of massive enemy warships chained together stern-to-stern forming a floating fortress, fire arrows streaking across the river from the southern bank setting the fleet ablaze, embers drifting on a fierce winter wind, two young allied commanders on a high cliff observing"
+coverColor: "iron blue-grey, cinnabar flames, charcoal smoke"
+coverMood: "epic reversal, heroic, smoky, fierce"
 ---
 
 <p class="lead">公元 208 年冬天,中国历史上最重要的"小个子打败大个子"的故事正在发生——一边是曹操的 20 万大军,一边是孙刘联军的 5 万。但真正决定胜负的,不是人数。</p>

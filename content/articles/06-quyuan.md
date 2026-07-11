@@ -12,6 +12,9 @@ readingTime: 9
 views: 14500
 publishedAt: 2026-07-07
 tags: [坚持, 妥协, 理想主义, 现实主义, 个人选择, 价值观]
+coverScene: "bird-eye view of a misty riverbank at twilight, a thin scholar in white robes standing alone on the shore clutching a bamboo scroll, a gnarled fisherman in a small boat drifting away, distant mist-covered mountains, a single crane flying low"
+coverColor: "ink blue-grey, jade mist, cinnabar accent"
+coverMood: "tragic, noble, mythic, solitary"
 ---
 
 <p class="lead">渔父说"举世皆浊,何不淈其泥而扬其波",屈原说"宁赴湘流,葬于江鱼之腹中"。这两句话,讨论了 2000 年。</p>

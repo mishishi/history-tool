@@ -12,6 +12,9 @@ readingTime: 11
 views: 290
 publishedAt: 2026-07-08
 tags: [创业, 组织, 团队, 决策, 制度]
+coverScene: "bird-eye view of vast Mongolian steppe at sunrise, a single young warrior on horseback silhouetted against a crimson sky on a low ridge, dozens of tribal yurts scattered across the endless grassland, a banner with a black wolf totem snapping in the wind, distant blue mountains on the horizon"
+coverColor: "cinnabar, malachite, ochre, dawn-pink"
+coverMood: "primordial, epic, nomadic, vast, silent"
 ---
 
 <p class="lead">公元 1170 年,9 岁的铁木真目睹父亲被塔塔儿部毒死。他和母亲、几个弟弟被部落抛弃,在草原上流浪。一切归零。33 年后,他坐在全蒙古部落的"忽里勒台"大会上,被一致推举为"成吉思汗"。到 1227 年去世,他打下了世界史上最大的陆帝国 — — 2400 万平方公里。</p>

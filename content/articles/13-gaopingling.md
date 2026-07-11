@@ -12,6 +12,9 @@ readingTime: 10
 views: 290
 publishedAt: 2026-07-08
 tags: [权力, 耐心, 决策, 创业, 韧性]
+coverScene: "winter view of a capital city gate at dawn, a single old general in plain dark robes standing at the gate with a small armed retinue, blocking the returning convoy of the young regent, snow falling, distant palace rooftops in fog"
+coverColor: "charcoal, iron, cinnabar, dark gold"
+coverMood: "patient, vulturine, decisive, cold"
 ---
 
 <p class="lead">公元 249 年正月,一个"快死的老头"突然把大将军和皇帝关在城外,接管了整个国家。他赢了。但你没听到的,是他在 70 岁之前"装死"装了整整 10 年。</p>
