@@ -31,6 +31,9 @@ const SPEED = 0.95;
 const MAX_CHARS = 1500; // 截断长度
 const MAX_CONCURRENT = 6; // 并发数(matrix TTS 没明确限流,6 保险)
 
+// mavis CLI 绝对路径(execSync 用 /bin/sh 不继承 shell 的 PATH)
+const MAVIS_CLI = '/Users/zhurenbao/.mavis/bin/mavis';
+
 /* ===== 文本处理 ===== */
 
 /** 清理 markdown + HTML 标签,保留中文标点 */
@@ -85,7 +88,7 @@ function callTts(text) {
     emotion: 'neutral',
   });
   const result = execSync(
-    `mavis mcp call matrix matrix_synthesize_speech '${args.replace(/'/g, "'\\''")}'`,
+    `${MAVIS_CLI} mcp call matrix matrix_synthesize_speech '${args.replace(/'/g, "'\\''")}'`,
     { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024, timeout: 120_000 },
   );
   return JSON.parse(result);
@@ -246,7 +249,29 @@ async function processBatch(items) {
 async function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
 
+  // CLI 参数: --slug <slug> 单篇重跑(用于修复之前失败的)
+  const args = process.argv.slice(2);
+  const slugArgIdx = args.indexOf('--slug');
+  const singleSlug = slugArgIdx >= 0 ? args[slugArgIdx + 1] : null;
+
   const files = fs.readdirSync(ARTICLES_DIR).filter((f) => f.endsWith('.md')).sort();
+  if (singleSlug) {
+    const target = files.find((f) => f.replace(/\.md$/, '') === singleSlug || (f.startsWith(singleSlug) && !singleSlug.includes('-')));
+    if (!target) {
+      console.error(`[generate-audios] --slug ${singleSlug} 没找到匹配的 .md`);
+      process.exit(1);
+    }
+    // 强制覆盖已存在文件
+    const dest = path.join(OUT_DIR, `${singleSlug}.mp3`);
+    if (fs.existsSync(dest)) {
+      console.error(`[single] 覆盖 ${dest}`);
+      fs.unlinkSync(dest);
+    }
+    const filteredFiles = [target];
+    console.error(`[generate-audios] 单篇模式: ${target}`);
+    return runBatch(filteredFiles);
+  }
+
   console.error(`[generate-audios] found ${files.length} articles`);
 
   const articles = files.map((f, i) => {
@@ -260,6 +285,10 @@ async function main() {
     };
   });
 
+  return runBatch(articles);
+}
+
+async function runBatch(articles) {
   // 跳过已有音频
   const todo = articles.filter((a) => {
     const p = path.join(OUT_DIR, `${a.slug}.mp3`);
