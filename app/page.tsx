@@ -11,11 +11,21 @@ import { SITE_URL } from '@/lib/site-config';
 
 export default function HomePage() {
   const articles = getAllArticles();
-  const featured = articles[0]; // 最新一篇做 Hero
-  const latestArticles = articles.slice(1); // 其余做列表
-  // Top 3 按阅读数降序(过滤最新一篇,避免与"今日推荐"重复)
+  // "今日推荐" — 按 day-of-year 取模轮换(50 篇覆盖 50 天)
+  // 同一个 build 周期所有用户看到同一篇(SSR 稳定 + CDN cache 友好)
+  // 比"永远是最新的"更"推荐"——给 49 篇非最新文章也曝光
+  const dayOfYear = Math.floor(
+    (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86_400_000
+  );
+  // 用 slug 排序后取模(避免 sort 顺序不稳定导致每天 featured 不一致)
+  const sortedBySlug = [...articles].sort((a, b) => a.slug.localeCompare(b.slug));
+  const featured = sortedBySlug[dayOfYear % sortedBySlug.length];
+  const latestArticles = articles.filter((a) => a.slug !== featured.slug); // 其余做列表
+  // Top 3 — "已读"算法:
+  //   1. 按 view 降序(种子数据,后期接 Vercel Analytics)
+  //   2. 排除 featured(避免重复),不限最新(因为 featured 已经按天轮换了)
   const topArticles = [...articles]
-    .filter((a) => a.slug !== featured?.slug)
+    .filter((a) => a.slug !== featured.slug)
     .sort((a, b) => (b.views || 0) - (a.views || 0))
     .slice(0, 3);
   // mini 朝代入口:聚焦前 6 个古典朝代(战国→隋唐),明清/现代/宋/元 留给 /archive
