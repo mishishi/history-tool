@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import { isRagConfigured } from '@/lib/rag/config';
 import AskChat from '@/components/AskChat';
 import JsonLd from '@/components/JsonLd';
+import SectionErrorBoundary from '@/components/SectionErrorBoundary';
 import { SITE_URL } from '@/lib/site-config';
 
 export const metadata: Metadata = {
@@ -45,7 +46,9 @@ export default function AskPage() {
         </div>
 
         {configured ? (
-          <AskChat />
+          <SectionErrorBoundary name="AI 问典">
+            <AskChat />
+          </SectionErrorBoundary>
         ) : (
           <NotConfiguredNotice />
         )}

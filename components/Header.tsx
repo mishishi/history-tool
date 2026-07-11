@@ -6,6 +6,7 @@ import MobileMenu from './MobileMenu';
 import SearchButton from './SearchButton';
 import ThemeToggle from './ThemeToggle';
 import ContinueReadingButton from './ContinueReadingButton';
+import SectionErrorBoundary from './SectionErrorBoundary';
 import type { SearchDoc } from '@/lib/search-client';
 
 export default function Header({ docs }: { docs: SearchDoc[] }) {
@@ -76,8 +77,12 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
           </Link>
-          <ThemeToggle />
-          <SearchButton docs={docs} />
+          <SectionErrorBoundary name="主题切换">
+            <ThemeToggle />
+          </SectionErrorBoundary>
+          <SectionErrorBoundary name="搜索">
+            <SearchButton docs={docs} />
+          </SectionErrorBoundary>
           <Link
             href="/unlock"
             className="px-4 py-1.5 bg-cinnabar hover:bg-cinnabar-dark text-paper text-sm rounded-md transition-colors font-medium"

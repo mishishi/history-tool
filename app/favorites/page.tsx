@@ -1,5 +1,6 @@
 import { getAllArticles } from '@/lib/articles';
 import FavoritesContent from '@/components/FavoritesContent';
+import SectionErrorBoundary from '@/components/SectionErrorBoundary';
 
 export const metadata = {
   title: '我的收藏 · 读通鉴',
@@ -19,7 +20,9 @@ export default function FavoritesPage() {
           数据存在你本机,清浏览器缓存会丢。
         </p>
       </div>
-      <FavoritesContent allArticles={allArticles} />
+      <SectionErrorBoundary name="我的收藏">
+        <FavoritesContent allArticles={allArticles} />
+      </SectionErrorBoundary>
     </section>
   );
 }
