@@ -38,7 +38,8 @@ export async function GET(
       currency: session.currency ?? null,
       customerEmail: session.customer_details?.email ?? null,
       // 给前端做展示用
-      receiptUrl: (session as any).receipt_url ?? null,
+      // Stripe invoice 展开后才有 hosted_invoice_url;未展开时是 string id
+      receiptUrl: typeof session.invoice === 'string' ? null : (session.invoice?.hosted_invoice_url ?? null),
     });
   } catch (err: any) {
     console.error('[api/verify-session] error:', err);

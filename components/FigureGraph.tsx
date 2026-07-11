@@ -24,7 +24,16 @@ import {
   MarkerType,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import * as d3 from 'd3-force';
+import {
+  forceSimulation,
+  forceLink,
+  forceManyBody,
+  forceCenter,
+  forceX,
+  forceY,
+  forceCollide,
+  type SimulationNodeDatum,
+} from 'd3-force';
 import Link from 'next/link';
 import { findDynasty } from '@/lib/dynasties';
 import type { FigureGraphNode, FigureGraphEdge } from '@/lib/figures-graph';
@@ -79,16 +88,21 @@ function nodeSize(count: number): 'sm' | 'md' | 'lg' | 'xl' {
   return 'sm';
 }
 
-/* ===== 力学布局 — d3-force ===== */
+/* ===== 力学布局 — d3-force (强类型,无 any) ===== */
 function applyForceLayout(
   nodes: Node[],
   edges: Edge[],
   width: number,
   height: number,
 ): { nodes: Node[]; edges: Edge[] } {
-  // 复制节点 + 给初始位置 + 速度
-  const simNodes = nodes.map((n, i) => {
-    // 螺旋初始位置(避免 d3 第一次 tick 时发散)
+  // 节点类型: react-flow Node 扩展 SimulationNodeDatum (x/y/vx/vy 由 d3 写入)
+  type SimNode = Node & SimulationNodeDatum;
+  // 边类型: d3-force forceLink 在 forceSimulation 跑过后,source/target 会被替换为 NodeDatum
+  // (即 { index, x, y, vx, vy, id }) — 所以回调里 source/target 可能是 string 或 {id}
+  type SimEdge = { source: string | SimNode; target: string | SimNode };
+
+  // 复制节点 + 螺旋初始位置(避免 d3 第一次 tick 时发散)
+  const simNodes: SimNode[] = nodes.map((n, i) => {
     const angle = i * 0.5;
     const radius = Math.sqrt(i) * 30;
     return {
@@ -98,39 +112,36 @@ function applyForceLayout(
       vx: 0,
       vy: 0,
     };
-  }) as Array<Node & { x: number; y: number; vx: number; vy: number }>;
-  const simEdges = edges.map((e) => ({ source: e.source, target: e.target }));
+  });
+  const simEdges: SimEdge[] = edges.map((e) => ({ source: e.source, target: e.target }));
 
   // 节点半径(用于 collision force)— 大节点半径更大
-  const nodeRadius = (n: Node & { x: number; y: number }) => {
+  const nodeRadius = (n: SimNode) => {
     const size = (n.data as FigureNodeData | undefined)?.size;
     return { sm: 30, md: 40, lg: 55, xl: 70 }[size || 'sm'];
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sim = (d3 as any)
-    .forceSimulation(simNodes)
+  const sim = forceSimulation<SimNode>(simNodes)
     .force(
       'link',
-      (d3 as any)
-        .forceLink(simEdges)
-        .id((d: { id: string }) => d.id)
-        .distance((l: { source: { id: string } | string; target: { id: string } | string }) => {
+      forceLink<SimNode, SimEdge>(simEdges)
+        .id((d) => d.id)
+        .distance((l) => {
           const sId = typeof l.source === 'string' ? l.source : l.source.id;
           const tId = typeof l.target === 'string' ? l.target : l.target.id;
           const w = Number(edges.find((oe) => oe.source === sId && oe.target === tId)?.data?.weight || 1);
           return Math.max(60, 180 - w * 25);
         })
-        .strength((l: { source: string; target: string }) => {
+        .strength((l) => {
           const w = Number(edges.find((oe) => oe.source === l.source && oe.target === l.target)?.data?.weight || 1);
           return Math.min(0.7, 0.1 + 0.2 * w);
         }),
     )
-    .force('charge', (d3 as any).forceManyBody().strength(-300))
-    .force('center', (d3 as any).forceCenter(width / 2, height / 2))
-    .force('x', (d3 as any).forceX(width / 2).strength(0.05))
-    .force('y', (d3 as any).forceY(height / 2).strength(0.05))
-    .force('collision', (d3 as any).forceCollide().radius((n: Node) => nodeRadius(n as Node & { x: number; y: number }) + 8))
+    .force('charge', forceManyBody<SimNode>().strength(-300))
+    .force('center', forceCenter<SimNode>(width / 2, height / 2))
+    .force('x', forceX<SimNode>(width / 2).strength(0.05))
+    .force('y', forceY<SimNode>(height / 2).strength(0.05))
+    .force('collision', forceCollide<SimNode>().radius((n) => nodeRadius(n) + 8))
     .stop();
 
   const ticks = 500;
@@ -138,7 +149,7 @@ function applyForceLayout(
 
   const positioned = nodes.map((n) => {
     const simNode = simNodes.find((s) => s.id === n.id)!;
-    return { ...n, position: { x: simNode.x || width / 2, y: simNode.y || height / 2 } };
+    return { ...n, position: { x: simNode.x ?? width / 2, y: simNode.y ?? height / 2 } };
   });
 
   return { nodes: positioned, edges };

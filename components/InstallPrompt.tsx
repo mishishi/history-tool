@@ -21,9 +21,8 @@ function isStandalone() {
   if (typeof window === 'undefined') return false;
   return (
     window.matchMedia('(display-mode: standalone)').matches ||
-    // iOS 旧写法
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (navigator as any).standalone === true
+    // iOS 旧写法 — 标准 Navigator 类型没有 standalone, 用 unknown 窄化
+    (navigator as unknown as { standalone?: boolean }).standalone === true
   );
 }
 

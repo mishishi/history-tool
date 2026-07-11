@@ -188,9 +188,9 @@ export default async function Image() {
         {
           name: 'Noto Serif SC',
           data: fontData,
-          weight: '400',
+          weight: 400,
           style: 'normal',
-        } as any,
+        },
       ],
     }
   );

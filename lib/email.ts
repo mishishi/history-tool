@@ -2,6 +2,12 @@
 import { Resend } from 'resend';
 import { MAIL_FROM } from './site-config';
 
+// 进程级 rate-limit map (放在 globalThis 跨 hot reload 保留)
+declare global {
+  // eslint-disable-next-line no-var
+  var __rl_map: Map<string, number[]> | undefined;
+}
+
 export interface EmailParams {
   to: string;
   subject: string;
@@ -56,7 +62,9 @@ export async function sendEmail(params: EmailParams): Promise<SendResult> {
     if ('error' in result && result.error) {
       return { ok: false, mode: 'sent', error: String(result.error) };
     }
-    return { ok: true, id: (result as any).data?.id, mode: 'sent' };
+    // 走到这里 result 是 { data: CreateEmailResponseSuccess, error: null }
+    const id = result.data && 'id' in result.data ? result.data.id : null;
+    return { ok: true, id: id ?? undefined, mode: 'sent' };
   } catch (err) {
     return { ok: false, mode: 'sent', error: String(err) };
   }
@@ -110,10 +118,9 @@ export async function checkRate(ip: string): Promise<{ ok: boolean; reset?: numb
   const now = Date.now();
   const windowMs = RATE_WINDOW_SEC * 1000;
 
-  // 拿 process-level Map(单实例)
-  const g = globalThis as any;
-  if (!g.__rl_map) g.__rl_map = new Map<string, number[]>();
-  const map = g.__rl_map as Map<string, number[]>;
+  // 拿 process-level Map(单实例,跨 hot reload 保留)
+  if (!globalThis.__rl_map) globalThis.__rl_map = new Map<string, number[]>();
+  const map = globalThis.__rl_map;
 
   const list = (map.get(key) || []).filter((t) => now - t < windowMs);
   if (list.length >= RATE_MAX) {
