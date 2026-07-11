@@ -10,6 +10,7 @@ import {
   getArticleBySlug,
   getClassicBySlug,
   extractToc,
+  getRelatedArticles,
 } from '@/lib/articles';
 import { getTimestamps } from '@/lib/audio-timestamps';
 import ArticleCard from '@/components/ArticleCard';
@@ -121,10 +122,9 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   const nextArticle =
     currentIndex >= 0 && currentIndex < allArticles.length - 1 ? allArticles[currentIndex + 1] : null;
 
-  // 相关推荐(同朝代的其他文章,排除当前)
-  const relatedArticles = allArticles
-    .filter((a) => a.slug !== article.slug && a.dynasty === article.dynasty)
-    .slice(0, 3);
+  // 相关推荐 — 优先同朝代 + tag 重叠排序(归一化朝代避免 战国 vs 战国中后期 误判)
+  // 见 lib/articles.ts:getRelatedArticles 算法
+  const relatedArticles = getRelatedArticles(article.slug, 3);
 
   // Schema.org Article JSON-LD(让搜索引擎理解文章结构)
   const articleJsonLd = {

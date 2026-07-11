@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
 import type { Article, ArticleMeta, Classic, KeyFigure } from './types';
+import { findDynasty } from './dynasties';
 
 const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles');
 const CLASSICS_DIR = path.join(process.cwd(), 'content', 'classics');
@@ -103,6 +104,51 @@ export function getClassicBySlug(slug: string): Classic | null {
 export { formatDate, formatRelativeDate } from './date';
 export { DYNASTIES, findDynasty } from './dynasties';
 export type { Dynasty } from './dynasties';
+
+/**
+ * 推荐相关文章(同朝代 + tag 重叠排序)
+ *
+ * 算法(无需 LLM/RAG,纯 metadata 排序):
+ *  1. 同朝代 +3 分
+ *  2. 每个共同 tag +1 分
+ *  3. 排除自己
+ *  4. 按分数降序,前 topN 篇
+ *
+ * 为什么不用 RAG: 文章页用 RAG 需要 embed+查询,每次增加 200-500ms 延迟;
+ *   metadata 排序在 0.5ms 内完成,体验更好。
+ *   留 /ask 页面给 LLM 驱动的"跨篇对话"需求
+ *
+ * @param slug 当前文章 slug(推荐时排除)
+ * @param topN 返回数量(默认 3)
+ */
+export function getRelatedArticles(slug: string, topN = 3): ArticleMeta[] {
+  const all = getAllArticles();
+  const cur = all.find((a) => a.slug === slug);
+  if (!cur) return [];
+
+  const curTags = new Set(cur.tags || []);
+
+  const scored = all
+    .filter((a) => a.slug !== slug)
+    .map((a) => {
+      let score = 0;
+      // 同朝代 +3 分(用归一化朝代 key 避免 战国 vs 战国中后期 误判)
+      if (findDynasty(a.dynasty)?.slug === findDynasty(cur.dynasty)?.slug) {
+        score += 3;
+      }
+      // tag 重叠 +1/个
+      const aTags = a.tags || [];
+      for (const t of aTags) {
+        if (curTags.has(t)) score += 1;
+      }
+      return { article: a, score };
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, topN);
+
+  return scored.map((x) => x.article);
+}
 
 /**
  * 文章目录项
