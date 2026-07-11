@@ -1,17 +1,21 @@
 /**
- * ArticleCover — 文章封面(SVG inline,无图依赖)
+ * ArticleCover — 文章封面
  *
- * - 4:3 比例
- * - 朝代配色 + motif 装饰,跟 ArticleHero 杂志感一致
- * - 不用 next/image(SVG 是 inline,体积小,无 LCP 风险)
- * - 暗色模式自动反转(用 CSS 变量)
+ * 渐进式 webp 优先 + SVG fallback:
+ * - public/covers/{slug}.webp 存在 → 用 AI 生成的青绿山水封面
+ * - 不存在 → fallback 到 SVG 内联(朝代配色 + motif 装饰)
  *
- * 7 个朝代 7 种 motif:
+ * 暗色模式:
+ * - SVG:用 CSS 变量自动反色
+ * - WebP:用 CSS filter 微微调亮度/对比度,统一暗色感
+ *
+ * 7 个朝代 7 种 SVG motif (fallback 用):
  * - seal(战国大篆)、flame(秦汉三国烽火)、wave(两晋玄学)
  * - mountain(南北朝佛光)、cloud(隋唐盛世)、plain(五代乱世)、ring(默认)
  */
 import type { ArticleMeta } from '@/lib/types';
 import type { Dynasty } from '@/lib/articles';
+import { hasCover } from '@/lib/cover-slugs';
 
 interface Props {
   article: ArticleMeta;
@@ -21,6 +25,30 @@ interface Props {
 }
 
 export default function ArticleCover({ article, dynasty, compact = false }: Props) {
+  // 优先用 AI 生成的 webp 封面
+  if (hasCover(article.slug)) {
+    return (
+      <div
+        className={`relative ${compact ? 'aspect-[4/3]' : 'aspect-[16/9]'} w-full overflow-hidden rounded-sm bg-paper-deep`}
+        data-cover-source="ai"
+      >
+        <img
+          src={`/covers/${article.slug}.webp`}
+          alt={`${article.title} · ${dynasty.name} 期封面`}
+          className="article-cover-img w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    );
+  }
+
+  // Fallback: SVG 内联(朝代风格)
+  return <SvgCover article={article} dynasty={dynasty} compact={compact} />;
+}
+
+/** SVG 封面(原实现,作为 fallback 保留) */
+function SvgCover({ article, dynasty, compact }: Required<Pick<Props, 'article' | 'dynasty' | 'compact'>>) {
   const { primary, secondary, motif } = dynasty;
   // 显示字号:cover 用大篆古典字,紧凑模式用更大字
   const titleSize = compact ? 'text-[80px] md:text-[120px]' : 'text-[140px] md:text-[220px]';
@@ -29,6 +57,7 @@ export default function ArticleCover({ article, dynasty, compact = false }: Prop
   return (
     <div
       className={`relative ${compact ? 'aspect-[4/3]' : 'aspect-[16/9]'} w-full overflow-hidden rounded-sm`}
+      data-cover-source="svg"
       style={{
         // 朝代主色径向渐变 → paper 暖底色
         background: `radial-gradient(ellipse at 30% 30%, ${primary}18 0%, var(--color-paper-card) 60%, var(--color-paper) 100%)`,
@@ -120,7 +149,6 @@ function truncateQuote(quote: string, max = 28): string {
 function MotifLayer({ motif, primary, secondary }: { motif: Dynasty['motif']; primary: string; secondary: string }) {
   switch (motif) {
     case 'seal':
-      // 战国:大篆四角印章,4 个角各有圆形封印
       return (
         <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice">
           <circle cx="40" cy="40" r="24" fill="none" stroke={primary} strokeWidth="2" />
@@ -134,7 +162,6 @@ function MotifLayer({ motif, primary, secondary }: { motif: Dynasty['motif']; pr
         </svg>
       );
     case 'flame':
-      // 秦汉/三国:烽火/火焰波纹
       return (
         <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 400 225" preserveAspectRatio="none">
           {Array.from({ length: 6 }).map((_, i) => (
@@ -149,7 +176,6 @@ function MotifLayer({ motif, primary, secondary }: { motif: Dynasty['motif']; pr
         </svg>
       );
     case 'wave':
-      // 两晋:水波纹
       return (
         <svg className="absolute inset-0 w-full h-full opacity-15" viewBox="0 0 400 225" preserveAspectRatio="none">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -164,7 +190,6 @@ function MotifLayer({ motif, primary, secondary }: { motif: Dynasty['motif']; pr
         </svg>
       );
     case 'mountain':
-      // 南北朝:山峦远景
       return (
         <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 400 225" preserveAspectRatio="none">
           <path d="M0 180 L80 120 L140 150 L220 90 L300 140 L400 100 L400 225 L0 225 Z" fill={primary} opacity="0.4" />
@@ -172,7 +197,6 @@ function MotifLayer({ motif, primary, secondary }: { motif: Dynasty['motif']; pr
         </svg>
       );
     case 'cloud':
-      // 隋唐:祥云纹
       return (
         <svg className="absolute inset-0 w-full h-full opacity-15" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice">
           {[60, 140, 220, 300].map((cx, i) => (
@@ -184,7 +208,6 @@ function MotifLayer({ motif, primary, secondary }: { motif: Dynasty['motif']; pr
         </svg>
       );
     case 'plain':
-      // 五代:残破,稀疏横线
       return (
         <svg className="absolute inset-0 w-full h-full opacity-15" viewBox="0 0 400 225" preserveAspectRatio="none">
           {[40, 90, 140, 200, 260].map((y, i) => (
@@ -194,7 +217,6 @@ function MotifLayer({ motif, primary, secondary }: { motif: Dynasty['motif']; pr
       );
     case 'ring':
     default:
-      // 默认:双环纹
       return (
         <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice">
           <circle cx="200" cy="112" r="80" fill="none" stroke={primary} strokeWidth="1.5" />
