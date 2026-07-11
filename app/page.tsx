@@ -150,7 +150,15 @@ export default function HomePage() {
       {/* 按朝代浏览 — 横向时间轴(点击跳到 /archive 完整目录) */}
       <section id="dynasties" className="max-w-wide mx-auto px-6 py-12 md:py-16">
         <div className="text-center mb-10 md:mb-14">
-          <h2 className="text-2xl md:text-3xl font-bold text-ink mb-2">按朝代浏览</h2>
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <h2 className="text-2xl md:text-3xl font-bold text-ink">按朝代浏览</h2>
+            <Link
+              href="/timeline"
+              className="inline-flex items-center gap-1 px-3 py-1 bg-cinnabar-soft text-cinnabar-dark hover:bg-cinnabar hover:text-paper rounded-sm text-xs font-medium transition-colors"
+            >
+              时间线视图 →
+            </Link>
+          </div>
           <p className="text-sm text-ink-mute">1362 年的历史,从战国走到五代</p>
         </div>
 
