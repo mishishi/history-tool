@@ -6,12 +6,20 @@ import ArticleCard from '@/components/ArticleCard';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
 import SubscribersBadge from '@/components/SubscribersBadge';
+import DiscoveryGrid from '@/components/DiscoveryGrid';
 import { SITE_URL } from '@/lib/site-config';
 
 export default function HomePage() {
   const articles = getAllArticles();
   const featured = articles[0]; // 最新一篇做 Hero
   const latestArticles = articles.slice(1); // 其余做列表
+  // Top 3 按阅读数降序(过滤最新一篇,避免与"今日推荐"重复)
+  const topArticles = [...articles]
+    .filter((a) => a.slug !== featured?.slug)
+    .sort((a, b) => (b.views || 0) - (a.views || 0))
+    .slice(0, 3);
+  // mini 朝代入口:取前 6 个核心朝代(去掉"明清"和"现代"虚拟朝代,聚焦古典时代)
+  const featuredDynasties = DYNASTIES.slice(0, 6);
 
   // Schema.org JSON-LD
   const websiteJsonLd = {
@@ -110,38 +118,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 栏目入口 */}
-      <section className="max-w-wide mx-auto px-6 py-8">
-        <div className="grid md:grid-cols-3 gap-4">
-          {[
-            { tag: '史', title: '每周精读', desc: '每周一篇深度解读,从一段古文读懂一段历史', bg: 'bg-cinnabar-soft text-cinnabar' },
-            { tag: '事', title: '事件脉络', desc: '同一事件的多源对照,还原历史现场', bg: 'bg-gold-soft text-gold-dark' },
-            { tag: '人', title: '人物长卷', desc: '帝王将相的关键决策,映射当代管理者的人性洞察', bg: 'bg-paper-deep text-gold-dark border border-gold/30' },
-          ].map((col) => (
-            <Link
-              key={col.title}
-              href="/#articles"
-              className="group p-6 bg-paper-card border border-border hover:border-cinnabar rounded-sm transition-all hover:shadow-md"
-            >
-              <div className="flex items-start justify-between mb-3">
-                <div className={`w-10 h-10 flex items-center justify-center ${col.bg} rounded-sm classical text-lg font-bold`}>
-                  {col.tag}
-                </div>
-                <svg
-                  className="w-4 h-4 text-ink-mute group-hover:text-cinnabar group-hover:translate-x-1 transition-all"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-              <h2 className="text-base font-semibold text-ink mb-2">{col.title}</h2>
-              <p className="text-xs text-ink-soft leading-relaxed">{col.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* 发现三栏 — 今日推荐 / 朝代入口 / 最热 3 篇 */}
+      <DiscoveryGrid
+        latest={articles[0]}
+        topArticles={topArticles}
+        featuredDynasties={featuredDynasties}
+      />
 
       {/* 最新解读 */}
       <section id="articles" className="max-w-wide mx-auto px-6 py-12">
