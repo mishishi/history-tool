@@ -6,6 +6,7 @@ import {
   toggleFavorite,
   subscribe,
 } from '@/lib/user-data';
+import { track } from '@/lib/analytics';
 
 export default function FavoriteButton({ slug, title }: { slug: string; title: string }) {
   const [fav, setFav] = useState(false);
@@ -24,6 +25,7 @@ export default function FavoriteButton({ slug, title }: { slug: string; title: s
       e.stopPropagation();
       const next = toggleFavorite(slug);
       setFav(next);
+      track(next ? 'favorite_add' : 'favorite_remove', { slug });
     },
     [slug]
   );

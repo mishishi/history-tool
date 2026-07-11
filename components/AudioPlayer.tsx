@@ -7,6 +7,8 @@
  * - HTML5 <audio> + 自定义控件(播放/暂停 + 进度条 + 时间)
  * - 段落同步:监听 audio.currentTime,匹配 segments 输出 currentSegmentId
  *   文章页接收 onSegmentChange 回调,高亮对应 DOM 段落
+ * - 埋点: tts_play / tts_pause / tts_complete (Vercel Analytics)
+ *   通过 lib/analytics.ts 集中调用
  *
  * 数据依赖:
  * - public/audios/{slug}.mp3
@@ -14,6 +16,7 @@
  *   TTS 流程:scripts/generate-audios.mjs + generate-timestamps.mjs
  */
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { track } from '@/lib/analytics';
 
 export interface AudioSegment {
   id: string;
@@ -82,6 +85,9 @@ export default function AudioPlayer({
     const onEnded = () => {
       setIsPlaying(false);
       if (onSegmentChange) onSegmentChange(null);
+      // 完播埋点 — 真正读完一篇文章的强信号
+      const slug = audio.src.replace(/^.*\/audios\//, '').replace(/\.mp3$/, '');
+      track('tts_complete', { slug, totalSec: Math.round(audio.duration) });
     };
     const onErr = () => setError('音频加载失败');
 
@@ -100,12 +106,16 @@ export default function AudioPlayer({
 
   const toggle = () => {
     if (!audioEl) return;
+    // 从 src 解析 slug(/audios/<slug>.mp3 → slug)
+    const slug = src.replace(/^\/audios\//, '').replace(/\.mp3$/, '');
     if (isPlaying) {
       audioEl.pause();
       setIsPlaying(false);
+      track('tts_pause', { slug, elapsedSec: Math.round(audioEl.currentTime) });
     } else {
       audioEl.play().catch(() => setError('播放失败,请重试'));
       setIsPlaying(true);
+      track('tts_play', { slug, durationSec: Math.round(audioEl.duration) });
     }
   };
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import type { ArticleMeta } from '@/lib/types';
+import { track } from '@/lib/analytics';
 
 interface Props {
   article: ArticleMeta;
@@ -33,6 +34,7 @@ export default function ShareButtons({ article }: Props) {
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
+      track('share_copy', { slug: article.slug, source: 'sharebar' });
     } catch {
       // 兜底:用 prompt 让用户手动复制
       window.prompt('复制以下链接分享:', url);
@@ -47,6 +49,7 @@ export default function ShareButtons({ article }: Props) {
         text: article.subtitle || article.excerpt || article.title,
         url,
       });
+      track('share_native', { slug: article.slug });
     } catch {
       // 用户取消分享
     }
@@ -112,6 +115,7 @@ export default function ShareButtons({ article }: Props) {
             href={weiboUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => track('share_weibo', { slug: article.slug })}
             className="share-btn hidden md:inline-flex"
             aria-label="分享到微博"
             title="分享到微博"
@@ -127,6 +131,7 @@ export default function ShareButtons({ article }: Props) {
             href={twitterUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => track('share_twitter', { slug: article.slug })}
             className="share-btn hidden md:inline-flex"
             aria-label="分享到 X (Twitter)"
             title="分享到 X"

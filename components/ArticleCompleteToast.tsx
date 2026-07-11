@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { setProgress } from '@/lib/user-data';
+import { track } from '@/lib/analytics';
 
 interface Props {
   /** 当前文章 slug(用于写进度) */
@@ -107,6 +108,8 @@ export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle 
       setCopied(true);
       if (copyTimeout.current) clearTimeout(copyTimeout.current);
       copyTimeout.current = setTimeout(() => setCopied(false), 1800);
+      // 埋点: 区分 toast(读完) vs sharebar(文章中) — 哪个位置触发分享更多
+      track('share_copy', { slug, source: 'toast' });
     } catch {
       // 兜底
       window.prompt('复制以下链接分享:', url);
