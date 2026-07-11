@@ -13,6 +13,7 @@ import ArticleCard from '@/components/ArticleCard';
 import ArticleHero from '@/components/ArticleHero';
 import ArticleToc from '@/components/ArticleToc';
 import ArticleCompleteToast from '@/components/ArticleCompleteToast';
+import ClassicalTextCard from '@/components/ClassicalTextCard';
 import RevealOnScroll from '@/components/RevealOnScroll';
 import ShareButtons from '@/components/ShareButtons';
 import Seal from '@/components/Seal';
@@ -188,54 +189,36 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               <div className="w-12 h-px bg-gold"></div>
             </div>
 
-            <div className="bg-paper-card border border-border rounded-sm p-6 md:p-8 shadow-sm">
-              <div className="text-center mb-5">
-                <span className="text-[10px] text-ink-mute tracking-[0.3em] uppercase">
-                  资治通鉴 · {classic.volume || article.volume} · {classic.period}
-                </span>
-              </div>
+            {classic.classicalText && (
+              <ClassicalTextCard
+                volume={classic.volume || article.volume}
+                period={classic.period}
+                classicalText={classic.classicalText}
+                background={classic.background}
+              />
+            )}
 
-              {/* 原文 */}
-              {classic.classicalText && (
-                <blockquote className="classical text-base md:text-lg text-ink leading-loose text-center mb-6 py-2">
-                  「{classic.classicalText.trim()}」
-                </blockquote>
-              )}
-
-              {/* 历史背景 */}
-              {classic.background && (
-                <div className="mb-5 pt-5 border-t border-border-soft">
-                  <div className="text-[11px] text-gold-dark classical tracking-widest uppercase mb-2 text-center">
-                    历 史 背 景
-                  </div>
-                  <div className="text-sm text-ink-soft leading-relaxed text-center max-w-xl mx-auto whitespace-pre-line">
-                    {classic.background.trim()}
-                  </div>
+            {/* 关键人物 */}
+            {classic.keyFigures && classic.keyFigures.length > 0 && (
+              <div className="mt-6 bg-paper-card border border-border rounded-sm p-6 md:p-8 shadow-sm">
+                <div className="text-[11px] text-gold-dark classical tracking-widest uppercase mb-3 text-center">
+                  关 键 人 物
                 </div>
-              )}
-
-              {/* 关键人物 */}
-              {classic.keyFigures && classic.keyFigures.length > 0 && (
-                <div className="pt-5 border-t border-border-soft">
-                  <div className="text-[11px] text-gold-dark classical tracking-widest uppercase mb-3 text-center">
-                    关 键 人 物
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-3 max-w-xl mx-auto">
-                    {classic.keyFigures.map((fig, i) => (
-                      <div key={i} className="flex items-start gap-3 px-3 py-2 bg-paper-deep rounded-sm">
-                        <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-cinnabar text-paper rounded-sm classical text-sm font-bold text-center leading-none">
-                          {fig.name.charAt(0)}
-                        </div>
-                        <div className="min-w-0">
-                          <div className="text-sm font-semibold text-ink">{fig.name}</div>
-                          <div className="text-xs text-ink-soft leading-snug">{fig.role}</div>
-                        </div>
+                <div className="grid sm:grid-cols-2 gap-3 max-w-xl mx-auto">
+                  {classic.keyFigures.map((fig, i) => (
+                    <div key={i} className="flex items-start gap-3 px-3 py-2 bg-paper-deep rounded-sm">
+                      <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-cinnabar text-paper rounded-sm classical text-sm font-bold text-center leading-none">
+                        {fig.name.charAt(0)}
                       </div>
-                    ))}
-                  </div>
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold text-ink">{fig.name}</div>
+                        <div className="text-xs text-ink-soft leading-snug">{fig.role}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </section>
         )}
 
