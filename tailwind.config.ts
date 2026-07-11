@@ -38,12 +38,15 @@ const config: Config = {
       // 浮动按钮底部偏移 — 多按钮共存时避免堆叠
       // fab-1: 最底层(ScrollToTop / 收藏按钮等)
       // fab-2: 中间层(MobileQRButton / OnboardingBubble)
-      // fab-3: 最上层(ArticleToc mobile 按钮)
+      // fab-3: 第三层(ReadingPrefs 调整字体)
+      // fab-4: 最高层(ArticleToc mobile 按钮)
+      // 64px stride > 56px 按钮 + 8px gap,确保按钮间有视觉间距
       // 用 className 而非 inline style,集中管理
       spacing: {
         'fab-1': 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)',
-        'fab-2': 'calc(env(safe-area-inset-bottom, 0px) + 5rem)',
-        'fab-3': 'calc(env(safe-area-inset-bottom, 0px) + 8rem)',
+        'fab-2': 'calc(env(safe-area-inset-bottom, 0px) + 5.5rem)',
+        'fab-3': 'calc(env(safe-area-inset-bottom, 0px) + 9.5rem)',
+        'fab-4': 'calc(env(safe-area-inset-bottom, 0px) + 13.5rem)',
       },
     },
   },

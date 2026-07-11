@@ -131,7 +131,7 @@ export default function ArticleToc({ items }: Props) {
       {/* Mobile — 浮动目录按钮(< xl 显示,避开右下 FAB,使用 fab-3 spacing token) */}
       <button
         onClick={() => setDrawerOpen(true)}
-        className="xl:hidden fixed right-4 bottom-fab-3 z-40 flex items-center gap-1.5 px-3 py-2 bg-paper-card border border-border rounded-full shadow-md text-xs text-ink-soft hover:text-cinnabar hover:border-cinnabar transition-colors"
+        className="xl:hidden fixed right-4 bottom-fab-4 z-40 flex items-center gap-1.5 px-3 py-2 bg-paper-card border border-border rounded-full shadow-md text-xs text-ink-soft hover:text-cinnabar hover:border-cinnabar transition-colors"
         aria-label="打开文章目录"
       >
         <svg
