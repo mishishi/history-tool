@@ -86,17 +86,27 @@ function applyForceLayout(
   width: number,
   height: number,
 ): { nodes: Node[]; edges: Edge[] } {
-  // 复制节点 (d3-force 会 mutate)
-  const simNodes = nodes.map((n) => ({ ...n, x: n.position.x, y: n.position.y })) as Array<Node & { x: number; y: number }>;
+  // 复制节点 + 给初始位置 + 速度
+  const simNodes = nodes.map((n, i) => {
+    // 螺旋初始位置(避免 d3 第一次 tick 时发散)
+    const angle = i * 0.5;
+    const radius = Math.sqrt(i) * 30;
+    return {
+      ...n,
+      x: width / 2 + Math.cos(angle) * radius,
+      y: height / 2 + Math.sin(angle) * radius,
+      vx: 0,
+      vy: 0,
+    };
+  }) as Array<Node & { x: number; y: number; vx: number; vy: number }>;
   const simEdges = edges.map((e) => ({ source: e.source, target: e.target }));
 
   // 节点半径(用于 collision force)— 大节点半径更大
-  const radius = (n: Node & { x: number; y: number }) => {
+  const nodeRadius = (n: Node & { x: number; y: number }) => {
     const size = (n.data as FigureNodeData | undefined)?.size;
     return { sm: 30, md: 40, lg: 55, xl: 70 }[size || 'sm'];
   };
 
-  // 用 any 绕过 d3-force 复杂的链式类型(实际工作)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sim = (d3 as any)
     .forceSimulation(simNodes)
@@ -109,24 +119,26 @@ function applyForceLayout(
           const sId = typeof l.source === 'string' ? l.source : l.source.id;
           const tId = typeof l.target === 'string' ? l.target : l.target.id;
           const w = Number(edges.find((oe) => oe.source === sId && oe.target === tId)?.data?.weight || 1);
-          return 180 - w * 25;
+          return Math.max(60, 180 - w * 25);
         })
         .strength((l: { source: string; target: string }) => {
           const w = Number(edges.find((oe) => oe.source === l.source && oe.target === l.target)?.data?.weight || 1);
           return Math.min(0.7, 0.1 + 0.2 * w);
         }),
     )
-    .force('charge', (d3 as any).forceManyBody().strength(-400))
+    .force('charge', (d3 as any).forceManyBody().strength(-300))
     .force('center', (d3 as any).forceCenter(width / 2, height / 2))
-    .force('collision', (d3 as any).forceCollide().radius((n: Node) => radius(n as Node & { x: number; y: number }) + 8))
+    .force('x', (d3 as any).forceX(width / 2).strength(0.05))
+    .force('y', (d3 as any).forceY(height / 2).strength(0.05))
+    .force('collision', (d3 as any).forceCollide().radius((n: Node) => nodeRadius(n as Node & { x: number; y: number }) + 8))
     .stop();
 
-  const ticks = 300;
+  const ticks = 500;
   for (let i = 0; i < ticks; i++) sim.tick();
 
   const positioned = nodes.map((n) => {
     const simNode = simNodes.find((s) => s.id === n.id)!;
-    return { ...n, position: { x: simNode.x || 0, y: simNode.y || 0 } };
+    return { ...n, position: { x: simNode.x || width / 2, y: simNode.y || height / 2 } };
   });
 
   return { nodes: positioned, edges };
