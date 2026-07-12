@@ -174,6 +174,10 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
   return (
     <>
+      {/* LCP 优化: 预加载 hero cover 图, 跟 <link> 一起会被 Next 14 hoist 到 <head> */}
+      {/* 50 篇都有 cover(public/covers/{slug}.webp) — 让浏览器跟 HTML 一起并发拉 */}
+      <link rel="preload" as="image" href={`/covers/${article.slug}.webp`} />
+
       {/* JSON-LD 结构化数据(SEO) */}
       <JsonLd data={articleJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
