@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type QRCode from 'qrcode';
+import { track } from '@/lib/analytics';
 
 /**
  * 全站右下角浮动按钮 + Modal
@@ -97,7 +98,10 @@ export default function MobileQRButton() {
       >
         <button
           type="button"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            setOpen(true);
+            track('fab_click', { name: 'mobile_qr' });
+          }}
           aria-label="在手机上继续阅读"
           className="floating-qr-btn relative w-12 h-12 md:w-14 md:h-14 rounded-full bg-cinnabar hover:bg-cinnabar-dark text-paper shadow-lg hover:shadow-xl flex items-center justify-center transition-all hover:-translate-y-0.5"
           style={{

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { track } from '@/lib/analytics';
 import ThemeToggle from './ThemeToggle';
 import SearchButton from './SearchButton';
 import type { SearchDoc } from '@/lib/search-client';
@@ -67,7 +68,10 @@ export default function MobileMenu({ docs }: Props) {
     <>
       {/* 汉堡按钮 — 仅 mobile 显示 */}
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          setOpen(!open);
+          track('fab_click', { name: 'mobile_menu' });
+        }}
         className="md:hidden p-2 rounded-md hover:bg-paper-deep text-ink-soft hover:text-ink transition-colors"
         aria-label="菜单"
         aria-expanded={open}

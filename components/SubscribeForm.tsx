@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { track } from '@/lib/analytics';
 
 type Status = 'idle' | 'submitting' | 'sent' | 'error';
 
@@ -35,6 +36,7 @@ export default function SubscribeForm({ compact = false }: Props) {
       setMessage(err);
       // 焦点回到 email,键盘用户可以立刻重输
       emailRef.current?.focus();
+      track('subscribe_submit', { result: 'validation_error' });
       return;
     }
 
@@ -53,19 +55,24 @@ export default function SubscribeForm({ compact = false }: Props) {
         setMessage(`确认邮件已发到 ${email.trim()}。点里面的链接就订阅成功。`);
         setEmail('');
         setConsent(false);
+        track('subscribe_submit', { result: 'success' });
       } else if (r.status === 409) {
         setStatus('error');
         setMessage('这个邮箱已经订阅过了,不用重复。');
+        track('subscribe_submit', { result: 'duplicate' });
       } else if (r.status === 429) {
         setStatus('error');
         setMessage(j.error || '请求过于频繁,请稍后再试');
+        track('subscribe_submit', { result: 'rate_limited' });
       } else {
         setStatus('error');
         setMessage(j.error || '提交失败,请稍后再试');
+        track('subscribe_submit', { result: 'server_error' });
       }
     } catch {
       setStatus('error');
       setMessage('网络异常,请检查连接后重试');
+      track('subscribe_submit', { result: 'network_error' });
     }
   };
 

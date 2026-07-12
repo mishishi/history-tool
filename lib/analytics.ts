@@ -8,9 +8,13 @@
  *        track('tts_play', { slug: '09-anshi' })
  *
  * 事件命名规范: 动词_名词,小写下划线
- *  - tts_play / tts_pause / tts_complete
- *  - favorite_add / favorite_remove
- *  - share_copy / share_weibo / share_twitter / share_native
+ *  - tts_play / tts_pause / tts_complete       (AudioPlayer)
+ *  - favorite_add / favorite_remove            (FavoriteButton)
+ *  - share_copy / share_weibo / share_twitter / share_native  (ShareButtons + Toast)
+ *  - search_open / search_query / search_result_click         (SearchModal)
+ *  - subscribe_open / subscribe_submit / subscribe_confirm    (SubscribeForm)
+ *  - fab_click                                  (MobileMenu / MobileQR / ContinueReading)
+ *  - ask_open / ask_submit / ask_response_done   (AskChat)
  *
  * Vercel Analytics dashboard 看:
  *   https://vercel.com/<team>/history-tool/analytics

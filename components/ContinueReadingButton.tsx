@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { track } from '@/lib/analytics';
 import { useRouter } from 'next/navigation';
 import { getRecent, getProgress, type RecentItem } from '@/lib/user-data';
 import type { SearchDoc } from '@/lib/search-client';
@@ -105,7 +106,10 @@ export default function ContinueReadingButton({ docs }: ContinueReadingButtonPro
     <div ref={containerRef} className="relative">
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          setOpen((v) => !v);
+          track('fab_click', { name: 'continue_reading' });
+        }}
         aria-label="继续阅读"
         aria-expanded={open}
         title="继续阅读"

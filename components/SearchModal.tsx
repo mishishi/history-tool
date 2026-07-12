@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { track } from '@/lib/analytics';
 import { useRouter } from 'next/navigation';
 import { searchDocs, type SearchDoc, type ScoredDoc } from '@/lib/search-client';
 import { highlightMatch } from '@/lib/highlight';
@@ -62,6 +63,8 @@ export default function SearchModal({ open, onClose, docs }: Props) {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    // 埋点: 搜索框打开
+    track('search_open');
     return () => {
       document.body.style.overflow = prev;
     };
@@ -124,9 +127,13 @@ export default function SearchModal({ open, onClose, docs }: Props) {
     } else if (e.key === 'Enter') {
       e.preventDefault();
       if (query.trim() && results[activeIdx]) {
+        // 埋点: 搜索 query 提交 + 选中结果
+        track('search_query', { query: query.trim(), resultSlug: results[activeIdx].slug, resultCount: results.length });
         router.push(`/article/${results[activeIdx].slug}`);
         onClose();
       } else if (!query.trim() && recents[activeIdx]) {
+        // 埋点: 直接从历史/推荐点开
+        track('search_result_click', { slug: recents[activeIdx].slug, source: 'recent' });
         router.push(`/article/${recents[activeIdx].slug}`);
         onClose();
       }
@@ -213,6 +220,7 @@ export default function SearchModal({ open, onClose, docs }: Props) {
                 onPick={(q) => {
                   setQuery(q);
                   inputRef.current?.focus();
+                  track('search_query', { query: q, source: 'popular' });
                 }}
               />
             </div>
@@ -225,6 +233,7 @@ export default function SearchModal({ open, onClose, docs }: Props) {
                 <li key={r.slug}>
                   <button
                     onClick={() => {
+                      track('search_result_click', { slug: r.slug, query: query.trim() });
                       router.push(`/article/${r.slug}`);
                       onClose();
                     }}

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, type FormEvent } from 'react';
 import Link from 'next/link';
+import { track } from '@/lib/analytics';
 
 interface Hit {
   title: string;
@@ -55,6 +56,9 @@ export default function AskChat() {
     setMessages((m) => [...m, userMsg, { role: 'assistant', content: '', streaming: true }]);
     setInput('');
     setLoading(true);
+    // 埋点: ask_submit — 算'开始问'漏斗顶端
+    track('ask_submit', { questionLength: question.trim().length });
+    const startTime = Date.now();
 
     try {
       const res = await fetch('/api/ask', {
@@ -72,6 +76,7 @@ export default function AskChat() {
               : msg,
           ),
         );
+        track('ask_response_done', { status: res.status, durationMs: Date.now() - startTime });
         return;
       }
 
@@ -141,6 +146,8 @@ export default function AskChat() {
       );
     } finally {
       setLoading(false);
+      // 埋点: 响应结束 (无论成功失败)
+      track('ask_response_done', { durationMs: Date.now() - startTime });
     }
   };
 
