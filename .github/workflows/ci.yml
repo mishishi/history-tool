@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# 防止 CI 跑一半被新 push 覆盖
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # === Job 1: TypeScript 严格检查(快速, 30s) ===
+  typecheck:
+    name: TypeScript Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: TypeScript strict check
+        run: npx tsc --noEmit
+
+  # === Job 2: Build 验证(慢, 3-5min — 50 篇 SSG + 50 张 og) ===
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: typecheck
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      # prebuild hook 自动跑 build-cover-manifest.mjs(扫 public/covers)
+      # build 跑 next build(50 篇文章 SSG + 50 张 per-article og)
+      # build 不会写 .env.local(env 在 Vercel 注入), 所以一些 feature 跳过(routes 用 process.env 判)
+      - name: Build
+        run: npm run build
+        env:
+          # mock env 让 build 跑得起来(实际功能 Vercel env 注入)
+          NEXT_TELEMETRY_DISABLED: '1'
