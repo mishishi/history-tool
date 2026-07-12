@@ -21,9 +21,12 @@ interface Message {
 }
 
 const SUGGESTED = [
-  '战国怎么当诸侯能活得久?',
+  // 3 个新手友好型问题(覆盖'看热闹/学经验/反思自己' 3 个心理)
+  // 1. 看热闹: 故事性 → 直接好玩
+  '玄武门之变跟靖难之役有何相似?',
+  // 2. 学经验: 实用性 → 立刻用得上
   '改革为什么总是失败?',
-  '唐玄宗为什么从盛世跌进安史之乱?',
+  // 3. 反思自己: 代入感 → 个人决策
   '在公司里怎么当一个不被架空的"曹操"?',
 ];
 
@@ -38,6 +41,7 @@ export default function AskChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // 新消息自动滚到底
@@ -170,18 +174,33 @@ export default function AskChat() {
       >
         {messages.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-sm text-ink-mute mb-6">试试问:</p>
-            <div className="flex flex-col gap-2 max-w-sm mx-auto">
+            <div className="inline-block px-4 py-1.5 bg-cinnabar/10 text-cinnabar text-xs tracking-widest rounded-sm mb-4">
+              AI 问典 · 50 篇解读
+            </div>
+            <h2 className="text-xl md:text-2xl font-bold text-ink mb-3">
+              问点什么?
+            </h2>
+            <p className="text-sm text-ink-mute mb-8 max-w-sm mx-auto">
+              基于 50 篇通鉴解读,基于原文回答,不会编造。
+            </p>
+            <div className="flex flex-col gap-2.5 max-w-md mx-auto">
               {SUGGESTED.map((q) => (
                 <button
                   key={q}
-                  onClick={() => send(q)}
-                  className="text-left text-sm px-4 py-2.5 bg-paper-card border border-border hover:border-cinnabar rounded-sm transition-colors"
+                  onClick={() => {
+                    track('ask_submit', { questionLength: q.length, source: 'preset' });
+                    send(q);
+                  }}
+                  className="group text-left text-sm px-4 py-3 bg-paper-card border border-border hover:border-cinnabar hover:bg-cinnabar/5 rounded-sm transition-all"
                 >
+                  <span className="inline-block text-cinnabar mr-2 opacity-50 group-hover:opacity-100 transition-opacity">→</span>
                   {q}
                 </button>
               ))}
             </div>
+            <p className="text-xs text-ink-mute mt-6">
+              也可输入自己的问题,按 Enter 发送
+            </p>
           </div>
         )}
 
@@ -194,11 +213,29 @@ export default function AskChat() {
       <form onSubmit={onSubmit} className="border-t border-border bg-paper/95 backdrop-blur-md py-3">
         <div className="flex items-center gap-2">
           <input
+            ref={inputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onFocus={() => {
+              // 移动端键盘弹起时,把输入框滚到视口里(避免被键盘遮)
+              // 用 setTimeout 是等 iOS Safari 键盘动画完成
+              setTimeout(() => {
+                inputRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+              }, 300);
+            }}
             placeholder="问点什么... (按 Enter 发送)"
             disabled={loading}
+            // 移动端键盘优化:
+            //  - inputMode='text' 强制显示普通文字键盘(不是 URL 键盘/数字键盘)
+            //  - enterKeyHint='send' 键盘右下角显示「发送」按钮(而不是回车)
+            //  - autoComplete='off' 关掉输入建议(中文不需要)
+            //  - inputMode + 中文输入会显示普通键盘 + 中文标点切换栏
+            inputMode="text"
+            enterKeyHint="send"
+            autoComplete="off"
+            autoCapitalize="off"
+            spellCheck={false}
             className="flex-1 px-4 py-3 bg-paper-card border border-border rounded-sm text-sm focus:border-cinnabar focus:outline-none disabled:opacity-50"
             maxLength={500}
           />
