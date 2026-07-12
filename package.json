@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "build-embeddings": "node scripts/build-embeddings.mjs",
-    "regen-covers": "node scripts/build-cover-prompts.mjs"
+    "regen-covers": "node scripts/build-cover-prompts.mjs",
+    "postinstall": "node scripts/install-hooks.mjs"
   },
   "dependencies": {
     "@types/d3-force": "^3.0.10",

@@ -1,0 +1,20 @@
+#!/bin/sh
+# pre-commit hook 源文件 — 真正安装到 .githooks/ 由 scripts/install-hooks.mjs 完成
+# 团队成员 clone 后 npm install 触发 postinstall → 自动安装
+# 单独跑: bash scripts/pre-commit (不装只测试脚本对不对)
+set -e
+current_branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
+if [ "$current_branch" = "main" ] || [ "$current_branch" = "master" ]; then
+  echo "❌ 禁止在 $current_branch 分支直接 commit"
+  echo "   请开 worktree: git worktree add .worktrees/feature-name -b feature/name"
+  echo "   跳过: git commit --no-verify"
+  exit 1
+fi
+echo "🔍 tsc --noEmit ..."
+if npx tsc --noEmit 2>&1 | tee /tmp/tsc-output.log; then
+  echo "✅ tsc 通过"
+else
+  echo "❌ tsc 失败, 拒绝 commit"
+  echo "   跳过: git commit --no-verify"
+  exit 1
+fi

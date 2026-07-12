@@ -53,6 +53,20 @@ npm run start
 
 ## 部署到 Vercel
 
+### 安装 + 启动
+
+```bash
+git clone https://github.com/mishishi/history-tool.git
+cd history-tool
+npm install   # 自动装 .githooks/pre-commit (防止直接在 main 改 + tsc 检查)
+npm run dev   # http://localhost:3000
+```
+
+**Pre-commit hook**（自动）:
+- 禁止在 `main` 分支直接 commit（强制开 worktree）
+- commit 前跑 `tsc --noEmit`，失败拒绝
+- 跳过：`git commit --no-verify`
+
 ### 第一次
 
 1. 把代码 push 到 GitHub
