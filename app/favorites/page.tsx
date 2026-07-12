@@ -1,4 +1,4 @@
-import { getAllArticles } from '@/lib/articles';
+import { getAllArticles, getTrendingArticles } from '@/lib/articles';
 import FavoritesContent from '@/components/FavoritesContent';
 import SectionErrorBoundary from '@/components/SectionErrorBoundary';
 
@@ -10,6 +10,9 @@ export const metadata = {
 
 export default function FavoritesPage() {
   const allArticles = getAllArticles();
+  // 空态推荐用 trending 算法(0.30 recency + 0.40 classic + ...),取代假 views
+  // server 端算, 避免 client bundle 带 fs
+  const recommended = getTrendingArticles(3);
   return (
     <section className="max-w-narrow mx-auto px-6 py-12 md:py-16">
       <div className="mb-10">
@@ -21,7 +24,7 @@ export default function FavoritesPage() {
         </p>
       </div>
       <SectionErrorBoundary name="我的收藏">
-        <FavoritesContent allArticles={allArticles} />
+        <FavoritesContent allArticles={allArticles} recommended={recommended} />
       </SectionErrorBoundary>
     </section>
   );

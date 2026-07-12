@@ -17,8 +17,14 @@ interface EnrichedArticle extends ArticleMeta {
 
 export default function FavoritesContent({
   allArticles,
+  recommended = [],
 }: {
   allArticles: ArticleMeta[];
+  /**
+   * 空态推荐列表 — server 端算 (trending 算法), 取代手填假 views
+   * 默认空数组: server 没传也不会崩, 只是退化到按 episode 排序
+   */
+  recommended?: ArticleMeta[];
 }) {
   const [favSlugs, setFavSlugs] = useState<string[]>([]);
   const [recentItems, setRecentItems] = useState<{ slug: string; ts: number }[]>([]);
@@ -64,7 +70,7 @@ export default function FavoritesContent({
 
   // 三个都空 → 引导
   if (favorites.length === 0 && recent.length === 0 && notes.length === 0) {
-    return <EmptyState allArticles={allArticles} />;
+    return <EmptyState allArticles={allArticles} recommended={recommended} />;
   }
 
   return (
@@ -226,11 +232,12 @@ function FavoritesSkeleton() {
   );
 }
 
-function EmptyState({ allArticles }: { allArticles: ArticleMeta[] }) {
-  // 取阅读数最高的 3 篇作为推荐
-  const recommended = [...allArticles]
-    .sort((a, b) => (b.views ?? 0) - (a.views ?? 0))
-    .slice(0, 3);
+function EmptyState({ allArticles, recommended: recsFromServer }: { allArticles: ArticleMeta[]; recommended: ArticleMeta[] }) {
+  // 推荐列表: 优先用 server 端算的 trending(取代假 views)
+  // 兜底: 没传 / 数组空 → 按 episode 排
+  const recommended = recsFromServer.length > 0
+    ? recsFromServer
+    : [...allArticles].sort((a, b) => a.episode - b.episode).slice(0, 3);
 
   return (
     <div className="py-12 md:py-16">
