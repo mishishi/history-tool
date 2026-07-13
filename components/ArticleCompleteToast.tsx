@@ -10,10 +10,18 @@ interface Props {
   slug: string;
   /** 当前文章标题 */
   title: string;
-  /** 下一篇 slug(可选) */
+  /** 顺序下一篇(按 publishedAt 倒序) slug(可选) */
   nextSlug?: string;
-  /** 下一篇标题(可选) */
+  /** 顺序下一篇(按 publishedAt 倒序) 标题(可选) */
   nextTitle?: string;
+  /**
+   * trending 推荐下一篇(可选)
+   * 优先级高于 nextSlug: 用户读完后,给"最可能喜欢"的下一篇
+   * 跟首页/404/相关推荐算法一致
+   */
+  recommendSlug?: string;
+  /** trending 推荐下一篇标题(可选) */
+  recommendTitle?: string;
 }
 
 /**
@@ -24,7 +32,18 @@ interface Props {
  * - 3.5s 自动消失(用户可点 × 立即关闭)
  * - 含下一篇跳转 CTA
  */
-export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle }: Props) {
+export default function ArticleCompleteToast({
+  slug,
+  title,
+  nextSlug,
+  nextTitle,
+  recommendSlug,
+  recommendTitle,
+}: Props) {
+  // 优先用 trending 推荐, 兜底用顺序下一篇
+  const targetSlug = recommendSlug ?? nextSlug;
+  const targetTitle = recommendTitle ?? nextTitle;
+  const isRecommend = !!recommendSlug;
   const [visible, setVisible] = useState(false);
   const [exiting, setExiting] = useState(false);
 
@@ -155,13 +174,17 @@ export default function ArticleCompleteToast({ slug, title, nextSlug, nextTitle 
           </span>
         </div>
 
-        {/* 下一篇 CTA 或「已是最新」 */}
-        {nextSlug && nextTitle ? (
+        {/* 下一篇 CTA (trending 推荐优先, 顺序下一篇兜底) 或「已是最新」 */}
+        {targetSlug && targetTitle ? (
           <Link
-            href={`/article/${nextSlug}`}
+            href={`/article/${targetSlug}`}
             className="flex items-center gap-1.5 pl-3 pr-2.5 py-1.5 ml-1 bg-cinnabar hover:bg-cinnabar-dark text-paper text-xs font-medium rounded-full transition-colors shrink-0"
+            title={isRecommend ? '基于你的阅读推荐' : '按发布时间顺序'}
           >
-            <span className="hidden sm:inline truncate max-w-[160px]">{nextTitle}</span>
+            {isRecommend && (
+              <span className="hidden sm:inline text-[10px] opacity-75 mr-0.5">推荐</span>
+            )}
+            <span className="hidden sm:inline truncate max-w-[160px]">{targetTitle}</span>
             <span className="sm:hidden">下一篇</span>
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

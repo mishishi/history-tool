@@ -11,6 +11,7 @@ import {
   getClassicBySlug,
   extractToc,
   getRelatedArticles,
+  getTrendingArticles,
 } from '@/lib/articles';
 import { getTimestamps } from '@/lib/audio-timestamps';
 import ArticleCard from '@/components/ArticleCard';
@@ -122,6 +123,11 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   const nextArticle =
     currentIndex >= 0 && currentIndex < allArticles.length - 1 ? allArticles[currentIndex + 1] : null;
 
+  // "再看一篇" — trending 算法推荐下一篇(避开当前文章)
+  // 跟首页/404/相关推荐保持一致: 0.30 recency + 0.40 classic + 0.15 density + 0.15 brevity
+  const trendingNextList = getTrendingArticles(1, [article.slug]);
+  const trendingNext = trendingNextList[0];
+
   // 相关推荐 — 优先同朝代 + tag 重叠排序(归一化朝代避免 战国 vs 战国中后期 误判)
   // 见 lib/articles.ts:getRelatedArticles 算法
   const relatedArticles = getRelatedArticles(article.slug, 3);
@@ -193,6 +199,8 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         title={article.title}
         nextSlug={nextArticle?.slug}
         nextTitle={nextArticle?.title}
+        recommendSlug={trendingNext?.slug}
+        recommendTitle={trendingNext?.title}
       />
 
       {/* 面包屑 */}
