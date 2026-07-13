@@ -90,6 +90,21 @@ export const COVER_SLUGS: ReadonlySet<string> = new Set([
   '83-ming-yongle',
   '84-ming-tumu',
   '85-ming-donglin',
+  '86-qing-yangwu',
+  '87-qing-wuxu',
+  '88-minguo-junfa',
+  '89-kangzhan',
+  '90-wenge',
+  '91-nanxun',
+  '92-wto',
+  '93-aoyun',
+  '94-chuangxin',
+  '95-tuopin',
+  '96-yidaiyilu',
+  '97-gongtong',
+  '98-quanmianxiaokang',
+  '99-zhongguoshi',
+  '100-zongjie',
 ]);
 
 export function hasCover(slug: string): boolean {
