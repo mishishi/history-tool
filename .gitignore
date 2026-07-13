@@ -42,6 +42,9 @@ lighthouse-reports/      # Lighthouse 跑分报告(临时)
 scripts/fonts/sources/
 scripts/fonts/out/
 
+# 临时目录 — pilot / scratch / 调试用,不入 git
+/tmp/
+
 # Python pyftsubset 缓存
 __pycache__/
 *.pyc
