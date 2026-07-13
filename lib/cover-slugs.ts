@@ -74,6 +74,7 @@ export const COVER_SLUGS: ReadonlySet<string> = new Set([
   '66-sanguo-wujing',
   '67-han-jinggezhi',
   '69-tang-li-longji-marshal',
+  '70-song-yuefei',
 ]);
 
 export function hasCover(slug: string): boolean {
