@@ -9,7 +9,19 @@
  * - 下载到 tmp/cover-v2/{slug}.webp
  * - sips 验证 width/height
  * - 失败重试一次
+ *
+ * ⚠️  DEPRECATED (2026-07-13): `mavis` CLI 已被 MiniMax Code 3.0.48 主动移除。
+ *   matrix image gen 改走 MCP native tools,直接让 mavis agent 用
+ *   image_synthesize(prompt=统一拼接) 跑单张,8-way parallel 由 agent 调度。
+ *   保留此文件供回滚参考 — 直接跑会立刻抛错。
  */
+throw new Error(
+  '[regen-covers-v2] DEPRECATED: mavis CLI 已被 MiniMax Code 3.0.48 移除。\n' +
+  '  → matrix image gen 现在走 native MCP tools。\n' +
+  '  → 让 mavis agent 用 image_synthesize(input_file_paths=[]) 跑单张。\n' +
+  '  详见 scripts/regen-covers-v2.mjs 顶部 DEPRECATED 注释。'
+);
+
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

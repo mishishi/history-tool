@@ -13,6 +13,12 @@
  * - excerpt (前 100 字) + body 段落 (累计到 ~1500 字)
  * - 中文 200-300 字/分钟 → 音频 ~5-7 分钟
  * - 清理 markdown (**bold** / # heading / [link](url) / 等等)
+ *
+ * ⚠️  DEPRECATED (2026-07-13): `mavis` CLI 已被 MiniMax Code 3.0.48 主动移除
+ *   (整个 resources/daemon/ 目录不存在了,见 memory/cli-sunset-notice.js)。
+ *   matrix TTS 现在走 MCP native tools,跟 agent 直接说"用 batch_text_to_audio
+ *   跑 #XX-XX 的 TTS"即可,不需要这个脚本。
+ *   保留此文件供回滚参考 — 直接跑会立刻抛错。
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -31,8 +37,14 @@ const SPEED = 0.95;
 const MAX_CHARS = 1500; // 截断长度
 const MAX_CONCURRENT = 6; // 并发数(matrix TTS 没明确限流,6 保险)
 
-// mavis CLI 绝对路径(execSync 用 /bin/sh 不继承 shell 的 PATH)
-const MAVIS_CLI = '/Users/zhurenbao/.mavis/bin/mavis';
+// mavis CLI 已被新版 MiniMax Code 移除 (2026-07-13)。脚本不再可用。
+// 如需批量 TTS,改用 mavis agent 的 batch_text_to_audio native tool。
+throw new Error(
+  '[generate-audios] DEPRECATED: mavis CLI 已被 MiniMax Code 3.0.48 移除。\n' +
+  '  → matrix TTS 现在走 native MCP tools。\n' +
+  '  → 让 mavis agent 用 batch_text_to_audio 跑批量 TTS 即可。\n' +
+  '  详见 scripts/generate-audios.mjs 顶部 DEPRECATED 注释。'
+);
 
 /* ===== 文本处理 ===== */
 

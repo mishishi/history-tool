@@ -16,7 +16,19 @@
  *   - 临时文本 47-reform-cleaned.txt
  *   - 调用 matrix TTS,存到 public/audios/47-reform.mp3
  *   - 生成 lib/audio-timestamps/47-reform.json
+ *
+ * ⚠️  DEPRECATED (2026-07-13): `mavis` CLI 已被 MiniMax Code 3.0.48 主动移除。
+ *   matrix TTS 改走 MCP native tools,直接让 mavis agent 用 synthesize_speech
+ *   跑单条(敏感词中性化逻辑可由 agent 在 prompt 里实现)。
+ *   保留此文件供回滚参考 — 直接跑会立刻抛错。
  */
+throw new Error(
+  '[regen-47-tts] DEPRECATED: mavis CLI 已被 MiniMax Code 3.0.48 移除。\n' +
+  '  → matrix TTS 现在走 native MCP tools。\n' +
+  '  → 让 mavis agent 用 synthesize_speech(text=中性化后的) 跑单条。\n' +
+  '  详见 scripts/regen-47-tts.mjs 顶部 DEPRECATED 注释。'
+);
+
 import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
