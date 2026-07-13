@@ -24,8 +24,10 @@
  */
 throw new Error(
   '[regen-47-tts] DEPRECATED: mavis CLI 已被 MiniMax Code 3.0.48 移除。\n' +
-  '  → matrix TTS 现在走 native MCP tools。\n' +
-  '  → 让 mavis agent 用 synthesize_speech(text=中性化后的) 跑单条。\n' +
+  '  → 改用 scripts/publish-audio.mjs:\n' +
+  '     1. node scripts/publish-audio.mjs sanitize 47-reform   拿中性化 text\n' +
+  '     2. mavis agent 调 synthesize_speech(text=中性化后的, output_file_path=tmp/audio-47-reform-raw.mp3)\n' +
+  '     3. node scripts/publish-audio.mjs publish 47-reform   入库 + 时间戳\n' +
   '  详见 scripts/regen-47-tts.mjs 顶部 DEPRECATED 注释。'
 );
 

@@ -6,12 +6,15 @@
  * TTS 文本跟时间戳对齐:每段 = heading + 后续所有内容
  *
  * 段数 4-6 个,每段 60-90 秒,符合"段落同步高亮"的用户期望
+ *
+ * 注: 文本/段落/中性化逻辑在 lib/tts-text.mjs,本脚本只负责批跑 public/audios/ 全部 mp3
+ *     新的"单篇/自动"流程用 scripts/publish-audio.mjs
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import matter from 'gray-matter';
+import { TTS_CONFIG, buildTtsText, extractSections, parseArticle } from '../lib/tts-text.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,76 +22,6 @@ const ROOT = path.resolve(__dirname, '..');
 const ARTICLES_DIR = path.join(ROOT, 'content', 'articles');
 const OUT_DIR = path.join(ROOT, 'lib', 'audio-timestamps');
 const AUDIO_DIR = path.join(ROOT, 'public', 'audios');
-
-const MAX_CHARS = 1500;
-
-function cleanInline(s) {
-  return s
-    .replace(/<[^>]+>/g, '')
-    .replace(/\*\*([^*]+)\*\*/g, '$1')
-    .replace(/__([^_]+)__/g, '$1')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/^>\s*/gm, '')
-    .replace(/^[\-\*]\s+/gm, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function cleanHeading(s) {
-  // heading 只要去 #,保留 "一、孙权集团的 9 成官员主张投降" 这种标题
-  return s.replace(/^#+\s*/, '').trim();
-}
-
-function extractSections(body) {
-  // 按 ## heading 切分(保留 heading 行作为每段开头)
-  // lead 段(## 之前)id = "lead", ## 段 id = s1, s2, s3...
-  const lines = body.split('\n');
-  const sections = [];
-  let current = null;
-  let leadText = [];
-  let sCounter = 0;
-
-  for (const line of lines) {
-    if (line.startsWith('## ')) {
-      if (current) {
-        current.text = current.text.join('\n').trim();
-        sections.push(current);
-      } else if (leadText.length > 0) {
-        sections.push({ id: 'lead', heading: null, text: leadText.join('\n').trim() });
-      }
-      sCounter++;
-      current = {
-        id: `s${sCounter}`,
-        heading: cleanHeading(line),
-        text: [cleanHeading(line)],
-      };
-    } else {
-      if (current) {
-        current.text.push(line);
-      } else {
-        leadText.push(line);
-      }
-    }
-  }
-  if (current) {
-    current.text = current.text.join('\n').trim();
-    sections.push(current);
-  } else if (leadText.length > 0) {
-    sections.push({ id: 'lead', heading: null, text: leadText.join('\n').trim() });
-  }
-
-  // 清理 + 截断
-  const out = [];
-  let totalChars = 0;
-  for (const s of sections) {
-    if (totalChars >= MAX_CHARS) break;
-    const cleaned = cleanInline(s.text);
-    if (cleaned.length === 0) continue;
-    out.push({ id: s.id, heading: s.heading, text: cleaned });
-    totalChars += cleaned.length;
-  }
-  return out;
-}
 
 function probeDuration(mp3Path) {
   try {
@@ -102,16 +35,6 @@ function probeDuration(mp3Path) {
   }
 }
 
-function buildTtsText(article) {
-  const sections = extractSections(article.body);
-  const parts = [];
-  if (article.excerpt) parts.push(cleanInline(article.excerpt));
-  for (const s of sections) {
-    parts.push(s.text);
-  }
-  return parts.join('\n\n');
-}
-
 function computeTimestamps(slug) {
   const file = path.join(ARTICLES_DIR, `${slug}.md`);
   if (!fs.existsSync(file)) return null;
@@ -120,19 +43,17 @@ function computeTimestamps(slug) {
   const durationSec = probeDuration(mp3);
   if (!durationSec) return null;
 
-  const { data, content } = matter(fs.readFileSync(file, 'utf8'));
-  const sections = extractSections(content);
+  const md = fs.readFileSync(file, 'utf8');
+  const article = parseArticle(md);
+  if (!article) return null;
+
+  const sections = extractSections(article.body || '');
   if (sections.length === 0) return null;
 
-  // TTS 文本 (跟 generate-audios 一样) — 段边界
-  // id 区分:excerpt(摘要) / intro(## 前引言) / s1+ (## 段)
   const allSegments = [];
-  if (data.excerpt) allSegments.push({ id: 'excerpt', text: cleanInline(data.excerpt) });
-  for (const s of sections) {
-    allSegments.push({ id: s.id, text: s.text });
-  }
+  if (article.excerpt) allSegments.push({ id: 'excerpt', text: article.excerpt.replace(/\s+/g, ' ').trim() });
+  for (const s of sections) allSegments.push({ id: s.id, text: s.text });
 
-  // 字数累加 → 时间戳
   const totalChars = allSegments.reduce((sum, seg) => sum + seg.text.length, 0);
   let cumulative = 0;
   const out = allSegments.map((seg) => {

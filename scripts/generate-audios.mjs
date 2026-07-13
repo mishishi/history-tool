@@ -38,11 +38,13 @@ const MAX_CHARS = 1500; // 截断长度
 const MAX_CONCURRENT = 6; // 并发数(matrix TTS 没明确限流,6 保险)
 
 // mavis CLI 已被新版 MiniMax Code 移除 (2026-07-13)。脚本不再可用。
-// 如需批量 TTS,改用 mavis agent 的 batch_text_to_audio native tool。
+// 用 scripts/publish-audio.mjs 替代:build 拿 prompt → mavis 调 synthesize_speech → publish 入库。
 throw new Error(
   '[generate-audios] DEPRECATED: mavis CLI 已被 MiniMax Code 3.0.48 移除。\n' +
-  '  → matrix TTS 现在走 native MCP tools。\n' +
-  '  → 让 mavis agent 用 batch_text_to_audio 跑批量 TTS 即可。\n' +
+  '  → 改用 scripts/publish-audio.mjs:\n' +
+  '     1. node scripts/publish-audio.mjs build <slug>...   拿 TTS 文本\n' +
+  '     2. mavis agent 调 synthesize_speech(text=..., output_file_path=tmp/audio-{slug}-raw.mp3)\n' +
+  '     3. node scripts/publish-audio.mjs publish <slug>... 入库 + 时间戳\n' +
   '  详见 scripts/generate-audios.mjs 顶部 DEPRECATED 注释。'
 );
 
