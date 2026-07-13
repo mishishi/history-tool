@@ -49,6 +49,7 @@ export default function AudioPlayer({
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [playbackRate, setPlaybackRate] = useState(1.0);
   const lastSegIdRef = useRef<string | null>(null);
 
   // 根据 currentTime 找当前段
@@ -69,6 +70,9 @@ export default function AudioPlayer({
   useEffect(() => {
     if (!audioEl) return;
     const audio = audioEl;
+
+    // 每次 audioEl 重新创建(切歌)时, 同步当前调速设置
+    audio.playbackRate = playbackRate;
 
     const onLoaded = () => setDuration(audio.duration);
     const onTime = () => {
@@ -103,6 +107,12 @@ export default function AudioPlayer({
       audio.removeEventListener('error', onErr);
     };
   }, [audioEl, findSegment, onSegmentChange]);
+
+  // 调速变化时, 同步到 audioEl.playbackRate
+  // (用户切歌时用上面的 useEffect 重置)
+  useEffect(() => {
+    if (audioEl) audioEl.playbackRate = playbackRate;
+  }, [playbackRate, audioEl]);
 
   const toggle = () => {
     if (!audioEl) return;
@@ -240,6 +250,33 @@ export default function AudioPlayer({
               </>
             )}
           </div>
+        </div>
+
+        {/* 调速按钮 — 4 档(0.75x/1.0x/1.25x/1.5x) */}
+        <div
+          className="shrink-0 flex items-center bg-paper-deep rounded-full p-0.5 text-[10px] font-medium"
+          role="group"
+          aria-label="调速"
+        >
+          {[0.75, 1.0, 1.25, 1.5].map((rate) => (
+            <button
+              key={rate}
+              type="button"
+              onClick={() => {
+                setPlaybackRate(rate);
+                track('tts_speed_change', { rate });
+              }}
+              aria-pressed={playbackRate === rate}
+              aria-label={`调速 ${rate}x`}
+              className={`px-2 py-1 rounded-full transition-colors tabular-nums ${
+                playbackRate === rate
+                  ? 'bg-cinnabar text-paper'
+                  : 'text-ink-mute hover:text-ink'
+              }`}
+            >
+              {rate}x
+            </button>
+          ))}
         </div>
       </div>
     </div>

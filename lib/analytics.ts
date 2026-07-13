@@ -8,7 +8,7 @@
  *        track('tts_play', { slug: '09-anshi' })
  *
  * 事件命名规范: 动词_名词,小写下划线
- *  - tts_play / tts_pause / tts_complete       (AudioPlayer)
+ *  - tts_play / tts_pause / tts_complete / tts_speed_change  (AudioPlayer)
  *  - favorite_add / favorite_remove            (FavoriteButton)
  *  - share_copy / share_weibo / share_twitter / share_native  (ShareButtons + Toast)
  *  - search_open / search_query / search_result_click         (SearchModal)
