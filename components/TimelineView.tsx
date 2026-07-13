@@ -1,13 +1,17 @@
+'use client';
+
 /**
  * TimelineView — 资治通鉴朝代时间线
  *
  * 横向 8 列 (朝代) × 纵向 N 张文章 (按 episode 升序)
  * - 桌面:横向滚动,snap-x(每个朝代列占满视口宽度方向)
+ *   - 键盘 ←→ 切列 / Home/End 跳首尾
  * - 移动:竖向滚动(每朝代单独 section)
  *
  * 数据:lib/timeline.ts (getTimelineColumns)
  * 跟 figures-graph 形成"网+轴"双视角
  */
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { hasCover as coverExists } from '@/lib/cover-slugs';
 import { findDynasty, type Dynasty } from '@/lib/dynasties';
@@ -19,6 +23,41 @@ interface Props {
 }
 
 export default function TimelineView({ columns }: Props) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // 桌面:键盘 ←→ 切朝代列, Home/End 跳首尾
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const onKey = (e: KeyboardEvent) => {
+      // 只在 scroll container 有焦点时响应(避免抢全局)
+      if (document.activeElement !== el && !el.contains(document.activeElement as Node)) return;
+      // 桌面才生效
+      if (window.innerWidth < 768) return;
+
+      // 一列的宽度 = 容器的 clientWidth(因为有 snap-center)
+      const step = el.clientWidth * 0.85; // 略小于一列, 给点边距
+
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        el.scrollBy({ left: step, behavior: 'smooth' });
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        el.scrollBy({ left: -step, behavior: 'smooth' });
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        el.scrollTo({ left: 0, behavior: 'smooth' });
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        el.scrollTo({ left: el.scrollWidth, behavior: 'smooth' });
+      }
+    };
+
+    el.addEventListener('keydown', onKey);
+    return () => el.removeEventListener('keydown', onKey);
+  }, []);
+
   if (columns.length === 0) {
     return (
       <div className="text-center py-20 text-ink-mute">
@@ -29,15 +68,20 @@ export default function TimelineView({ columns }: Props) {
 
   return (
     <>
-      {/* 桌面:横向滚动(>= md) */}
+      {/* 桌面:横向滚动(>= md) — tabIndex 让 div 接受键盘事件 */}
       <div className="hidden md:block">
-        <div className="flex gap-6 overflow-x-auto pb-8 px-2 snap-x snap-mandatory scrollbar-thin">
+        <div
+          ref={scrollRef}
+          tabIndex={0}
+          aria-label="朝代时间线, 用 ← → 键切换朝代"
+          className="flex gap-6 overflow-x-auto pb-8 px-2 snap-x snap-mandatory scrollbar-thin focus:outline-none focus-visible:ring-2 focus-visible:ring-cinnabar/30 focus-visible:ring-offset-2 focus-visible:rounded-sm"
+        >
           {columns.map((col) => (
             <DynastyColumn key={col.dynasty.slug} column={col} />
           ))}
         </div>
         <div className="text-center text-[10px] text-ink-mute tracking-widest uppercase mt-2">
-          ← 横向滑动查看朝代 →
+          ← 横向滑动 / 键盘 ← → 查看朝代 →
         </div>
       </div>
 
