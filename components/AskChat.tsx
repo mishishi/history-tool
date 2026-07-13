@@ -278,10 +278,14 @@ function MessageBubble({ msg }: { msg: Message }) {
   return (
     <div className="flex justify-start">
       <div className="max-w-[85%] space-y-2">
-        {/* 参考来源 */}
+        {/* 参考来源 — N 篇相关解读(让用户立刻知道 AI 在基于什么) */}
         {msg.hits && msg.hits.length > 0 && (
-          <div className="text-[10px] text-ink-mute space-y-1">
-            <div className="uppercase tracking-widest">基于这些解读</div>
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-1.5 text-[10px] text-ink-mute">
+              <span className="uppercase tracking-widest">基于 {msg.hits.length} 篇相关解读</span>
+              <span className="w-1 h-1 rounded-full bg-ink-mute/40" />
+              <span className="text-ink-mute/70">新窗口打开</span>
+            </div>
             <div className="flex flex-wrap gap-1.5">
               {msg.hits.map((h) => (
                 <Link
@@ -289,10 +293,12 @@ function MessageBubble({ msg }: { msg: Message }) {
                   href={`/article/${h.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-cinnabar-soft text-cinnabar-dark border border-cinnabar/20 rounded-sm hover:bg-cinnabar/10 transition-colors"
-                  title={h.title}
+                  className="inline-flex items-center gap-1 px-2 py-1 bg-cinnabar-soft text-cinnabar-dark border border-cinnabar/20 rounded-sm hover:bg-cinnabar hover:text-paper transition-colors text-[11px]"
+                  title={`${h.title}\n\n基于该解读回答, 点开新窗口`}
                 >
-                  <span className="text-[10px]">{h.dynasty} · {h.era}</span>
+                  <span className="font-medium">{h.dynasty}</span>
+                  <span className="opacity-60">·</span>
+                  <span className="opacity-90">{h.era}</span>
                 </Link>
               ))}
             </div>
