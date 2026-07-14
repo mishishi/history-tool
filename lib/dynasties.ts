@@ -66,12 +66,13 @@ export const DYNASTY_CONFIG: DynastyConfig[] = [
   },
   {
     name: '明清', period: '1368 - 1911', slug: 'mingqing', primary: '#B23A3A', secondary: '#A8895C', motif: 'cloud',
-    aliases: ['明', '明初', '明末', '清初', '清中期', '清末'],
+    // aliases 包含 name 本身 + 实际文章在用的变体
+    aliases: ['明清', '明', '明初', '明末', '清初', '清中期', '清末', '清', '明中期'],
   },
   {
     // 民国 1912-1949,归"现代"(1911-至今)而非"明清"
     name: '现代', period: '1911 - 至今', slug: 'modern', primary: '#2C3E50', secondary: '#B23A3A', motif: 'ring',
-    aliases: ['民国初', '民国', '民国 / 日据', '中华苏维埃共和国', '中华人民共和国'],
+    aliases: ['现代', '民国初', '民国', '民国 / 日据', '中华苏维埃共和国', '中华人民共和国', '当代', '共和', '现代/当代'],
   },
 ];
 
@@ -81,9 +82,13 @@ for (const d of DYNASTY_CONFIG) {
   for (const alias of d.aliases) {
     ALIAS_TO_CONFIG.set(alias, d);
   }
+  // 也把 name 本身加入 map(支持直接用 name 查,比如 article.dynasty = '明清')
+  ALIAS_TO_CONFIG.set(d.name, d);
 }
 
-/** 通过 article.dynasty 字符串查找 config(纯配置,无 count) */
+/** 通过 article.dynasty 字符串查找 config(纯配置,无 count) ——
+ * 支持 name 直接查(article.dynasty = '明清' / '宋' 等) + alias 查
+ */
 export function findDynasty(name: string): DynastyConfig | undefined {
   return ALIAS_TO_CONFIG.get(name);
 }
