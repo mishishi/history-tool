@@ -5,7 +5,6 @@
   "description": "读通鉴 — 把资治通鉴讲成现代人爱听的故事",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/build-cover-manifest.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

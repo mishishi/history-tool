@@ -201,7 +201,6 @@ history-tool/
 │   └── ...
 ├── scripts/                      # 构建脚本
 │   ├── build-article-data.mjs
-│   ├── build-cover-manifest.mjs # prebuild:扫 public/covers 生成 lib/cover-slugs.ts
 │   ├── build-embeddings.mjs     # 100 篇 → Upstash Vector
 │   ├── generate-audios.mjs      # TTS 生成(三级重试: 原文/中性化/分段拼接)
 │   ├── generate-timestamps.mjs  # TTS 段落时间戳
