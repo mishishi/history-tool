@@ -48,3 +48,9 @@ scripts/fonts/out/
 # Python pyftsubset 缓存
 __pycache__/
 *.pyc
+
+# --- TCB 静态资源(音频)---
+# 上 TCB 后,从 git 删除(保留在本地磁盘供 backup + 重新上传)
+# git rm --cached public/audios/*.mp3 一次性从历史中 untrack
+# 选 A:只 audio;选 B:也 cover(也加 public/covers/ 到 .gitignore)
+public/audios/

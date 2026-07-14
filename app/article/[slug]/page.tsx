@@ -24,7 +24,7 @@ import RevealOnScroll from '@/components/RevealOnScroll';
 import ShareButtons from '@/components/ShareButtons';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
-import { SITE_URL } from '@/lib/site-config';
+import { SITE_URL, audioUrl } from '@/lib/site-config';
 
 // 静态生成所有路由
 export async function generateStaticParams() {
@@ -233,12 +233,11 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       <article id={`seg-${article.slug}-excerpt`} className="max-w-reading mx-auto px-6 pt-10 pb-12 scroll-mt-20">
         <ArticleHero article={article} />
 
-        {/* 音频朗读 — 段落同步(只在有音频 + segments 时启用) */}
-        {fs.existsSync(
-          path.join(process.cwd(), 'public', 'audios', `${article.slug}.mp3`),
-        ) && segments && (
+        {/* 音频朗读 — 段落同步(只在有音频 + segments 时启用)
+            src 默认走 Vercel 静态资源;设 NEXT_PUBLIC_AUDIO_BASE_URL 时改走 TCB */}
+        {segments && (
           <AudioSyncController
-            src={`/audios/${article.slug}.mp3`}
+            src={audioUrl(article.slug)}
             title={article.title}
             durationLabel={`约 ${article.readingTime} 分钟`}
             segments={segments}
