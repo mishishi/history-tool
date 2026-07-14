@@ -117,7 +117,7 @@ export default function RootLayout({
         <AsyncFontCss href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" />
         <AsyncFontCss href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/lxgwwenkaiscreen.css" />
         {/* iOS PWA 适配 */}
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="读通鉴" />
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />

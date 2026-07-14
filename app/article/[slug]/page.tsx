@@ -191,9 +191,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      {/* LCP 优化: 预加载 hero cover 图, 跟 <link> 一起会被 Next 14 hoist 到 <head> */}
-      {/* 100 篇都有 cover(public/covers/{slug}.webp 或 TCB) — 让浏览器跟 HTML 一起并发拉 */}
-      <link rel="preload" as="image" href={coverUrl(article.slug)} />
+      {/* hero cover 用 fetchPriority="high" 在 ArticleCover 里(避免 preload + img src 时序 race) */}
 
       {/* JSON-LD 结构化数据(SEO) */}
       <JsonLd data={articleJsonLd} />
