@@ -17,6 +17,7 @@ export const COVER_SLUGS: ReadonlySet<string> = new Set([
   '09-anshi',
   '10-huangpao',
   '100-zongjie',
+  '101-ming-sarhu',
   '11-wangmang',
   '12-chibi',
   '13-gaopingling',
