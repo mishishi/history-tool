@@ -16,6 +16,7 @@
 import type { ArticleMeta } from '@/lib/types';
 import type { DynastyConfig } from '@/lib/dynasties';
 import { hasCover } from '@/lib/cover-slugs';
+import { coverUrl } from '@/lib/site-config';
 
 interface Props {
   article: ArticleMeta;
@@ -40,7 +41,7 @@ export default function ArticleCover({ article, dynasty, compact = false, eager 
         data-cover-source="ai"
       >
         <img
-          src={`/covers/${article.slug}.webp`}
+          src={coverUrl(article.slug)}
           alt={`${article.title} · ${dynasty.name} 期封面`}
           className="article-cover-img w-full h-full object-cover"
           loading={eager ? 'eager' : 'lazy'}

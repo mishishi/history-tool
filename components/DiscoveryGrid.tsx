@@ -12,6 +12,7 @@ import Link from 'next/link';
 import type { ArticleMeta } from '@/lib/types';
 import type { Dynasty } from '@/lib/dynasties';
 import { formatDate } from '@/lib/date';
+import { coverUrl } from '@/lib/site-config';
 
 interface Props {
   latest: ArticleMeta | undefined;
@@ -47,7 +48,7 @@ function TodayPick({ article }: { article: ArticleMeta }) {
       {/* cover 缩略 */}
       <div className="relative aspect-[16/9] overflow-hidden bg-paper-deep">
         <img
-          src={`/covers/${article.slug}.webp`}
+          src={coverUrl(article.slug)}
           alt={article.title}
           className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
           loading="lazy"

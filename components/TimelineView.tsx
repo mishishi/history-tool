@@ -17,6 +17,7 @@ import { hasCover as coverExists } from '@/lib/cover-slugs';
 import { findDynasty, type Dynasty } from '@/lib/dynasties';
 import type { ArticleMeta } from '@/lib/types';
 import type { TimelineColumn } from '@/lib/timeline';
+import { coverUrl } from '@/lib/site-config';
 
 interface Props {
   columns: TimelineColumn[];
@@ -169,7 +170,7 @@ function TimelineCard({ article }: { article: ArticleMeta }) {
       <div className="shrink-0 w-16 h-12 overflow-hidden rounded-sm bg-paper-deep">
         {hasWebp ? (
           <img
-            src={`/covers/${article.slug}.webp`}
+            src={coverUrl(article.slug)}
             alt={article.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             loading="lazy"

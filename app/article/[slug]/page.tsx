@@ -24,7 +24,7 @@ import RevealOnScroll from '@/components/RevealOnScroll';
 import ShareButtons from '@/components/ShareButtons';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
-import { SITE_URL, audioUrl } from '@/lib/site-config';
+import { SITE_URL, audioUrl, coverUrl } from '@/lib/site-config';
 
 // 静态生成所有路由
 export async function generateStaticParams() {
@@ -192,8 +192,8 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   return (
     <>
       {/* LCP 优化: 预加载 hero cover 图, 跟 <link> 一起会被 Next 14 hoist 到 <head> */}
-      {/* 50 篇都有 cover(public/covers/{slug}.webp) — 让浏览器跟 HTML 一起并发拉 */}
-      <link rel="preload" as="image" href={`/covers/${article.slug}.webp`} />
+      {/* 100 篇都有 cover(public/covers/{slug}.webp 或 TCB) — 让浏览器跟 HTML 一起并发拉 */}
+      <link rel="preload" as="image" href={coverUrl(article.slug)} />
 
       {/* JSON-LD 结构化数据(SEO) */}
       <JsonLd data={articleJsonLd} />
