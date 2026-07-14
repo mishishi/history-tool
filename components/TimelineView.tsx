@@ -13,7 +13,6 @@
  */
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { hasCover as coverExists } from '@/lib/cover-slugs';
 import { findDynasty, type Dynasty } from '@/lib/dynasties';
 import type { ArticleMeta } from '@/lib/types';
 import type { TimelineColumn } from '@/lib/timeline';
@@ -158,7 +157,7 @@ function ColumnHeader({ dynasty, count }: { dynasty: Dynasty; count: number }) {
 function TimelineCard({ article }: { article: ArticleMeta }) {
   const d = findDynasty(article.dynasty);
   const dynastyColor = d?.primary || '#5A5A5A';
-  const hasWebp = coverExists(article.slug);
+  // 永远走 webp(100% 文章都有 AI 封面)—— 不再用 cover-slugs 检查
 
   return (
     <Link
@@ -168,18 +167,13 @@ function TimelineCard({ article }: { article: ArticleMeta }) {
     >
       {/* cover 缩略 4:3 */}
       <div className="shrink-0 w-16 h-12 overflow-hidden rounded-sm bg-paper-deep">
-        {hasWebp ? (
-          <img
-            src={coverUrl(article.slug)}
-            alt={article.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            loading="lazy"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-[10px] text-ink-mute">
-            鉴
-          </div>
-        )}
+        <img
+          src={coverUrl(article.slug)}
+          alt={article.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+        />
       </div>
 
       <div className="min-w-0 flex-1">
