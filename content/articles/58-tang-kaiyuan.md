@@ -1,6 +1,6 @@
 ---
-slug: 58-tang-huangchao
-classicalSlug: 58-tang-huangchao
+slug: 58-tang-kaiyuan
+classicalSlug: 58-tang-kaiyuan
 title: 开元盛世:李隆基前 28 年 —— 跟 9-安史之乱 同一个人,前后两个剧本
 subtitle: 712-741 年,李隆基从 27 岁做到 56 岁,28 年时间把唐朝推上中国历史最高峰。GDP 占世界 58%,长安人口 100 万,科举制度成熟,诗词文化巅峰。但 28 年后,他把这一切都输了 —— 同一个皇帝,前后两个剧本。9-安史之乱 写了'怎么崩',这一篇写'怎么起'。
 dynasty: 隋唐

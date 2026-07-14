@@ -63,7 +63,7 @@ export const COVER_SLUGS: ReadonlySet<string> = new Set([
   '54-beiwei-fenlie',
   '56-sanguo-chibi-deeper',
   '57-sui-emperor-yang',
-  '58-tang-huangchao',
+  '58-tang-kaiyuan',
   '59-tang-huangchao',
   '60-wudai-zhuhou',
   '61-qin-burnbooks',
