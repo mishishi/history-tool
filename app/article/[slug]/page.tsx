@@ -234,7 +234,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         <ArticleHero article={article} />
 
         {/* 音频朗读 — 段落同步(只在有音频 + segments 时启用)
-            src 默认走 Vercel 静态资源;设 NEXT_PUBLIC_AUDIO_BASE_URL 时改走 TCB */}
+            src 默认走 Vercel 静态资源;设 NEXT_PUBLIC_CDN_BASE_URL 时改走 TCB */}
         {segments && (
           <AudioSyncController
             src={audioUrl(article.slug)}

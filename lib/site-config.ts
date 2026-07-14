@@ -20,27 +20,27 @@ export const MARKETING_STATS = {
 export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'hello@du-tongjian.com';
 
 /**
- * 静态资源 CDN base URL(音频 / 封面)。
- * 默认走 Vercel 静态资源(/audios/{slug}.mp3, /covers/{slug}.webp),
- * 走 TCB/对象存储时,设:
- *   NEXT_PUBLIC_AUDIO_BASE_URL = "https://xxx.tcb.qcloud.la/history-tool/audio"
- *   NEXT_PUBLIC_COVER_BASE_URL = "https://xxx.tcb.qcloud.la/history-tool/cover"
+ * 静态资源 CDN base URL(单一配置,内部按 type 拼子目录)
  *
- * 多项目 TCB 共享 bucket 时,路径必须含项目名(防止音频/封面跨项目混)
+ * 默认走 Vercel 静态资源:
+ *   /audios/{slug}.mp3  /  /covers/{slug}.webp
+ *
+ * 走 TCB / 对象存储时,设:
+ *   NEXT_PUBLIC_CDN_BASE_URL = "https://xxx.tcb.qcloud.la/history-tool"
+ *   (helper 内部自动加 /audio/{slug}.mp3 或 /cover/{slug}.webp)
+ *
+ * 多项目 TCB 共享 bucket 时,路径里必须含项目名(防跨项目混)
  */
-export const AUDIO_BASE_URL =
-  process.env.NEXT_PUBLIC_AUDIO_BASE_URL || '';
-export const COVER_BASE_URL =
-  process.env.NEXT_PUBLIC_COVER_BASE_URL || '';
+export const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_BASE_URL || '';
 
-/** 构造 audio src:`${AUDIO_BASE_URL}/${slug}.mp3`(默认空 → Vercel 静态) */
+/** 构造 audio src:`${CDN_BASE_URL}/audio/${slug}.mp3`(默认空 → /audios/{slug}.mp3) */
 export function audioUrl(slug: string): string {
-  return AUDIO_BASE_URL ? `${AUDIO_BASE_URL}/${slug}.mp3` : `/audios/${slug}.mp3`;
+  return CDN_BASE_URL ? `${CDN_BASE_URL}/audio/${slug}.mp3` : `/audios/${slug}.mp3`;
 }
 
-/** 构造 cover src:`${COVER_BASE_URL}/${slug}.webp`(默认空 → Vercel 静态) */
+/** 构造 cover src:`${CDN_BASE_URL}/cover/${slug}.webp`(默认空 → /covers/{slug}.webp) */
 export function coverUrl(slug: string): string {
-  return COVER_BASE_URL ? `${COVER_BASE_URL}/${slug}.webp` : `/covers/${slug}.webp`;
+  return CDN_BASE_URL ? `${CDN_BASE_URL}/cover/${slug}.webp` : `/covers/${slug}.webp`;
 }
 
 /** Resend / SMTP 发件人(可被 SUBSCRIBE_FROM_EMAIL 环境变量覆盖) */
