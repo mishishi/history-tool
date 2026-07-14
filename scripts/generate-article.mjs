@@ -223,7 +223,9 @@ function runPublishAudioBuild(slug) {
 // ---------------------------------------------------------------------------
 
 function buildFrontmatter({ slug, episode, dynasty, volume, title, source, llmUsage }) {
-  const today = new Date().toISOString().split('T')[0];
+  // 本地日期(避免 UTC 跨日:北京 0-8 点跑出来是前一天的 UTC)
+  const d = new Date();
+  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   // 估算 readingTime:2000-3500 字 → 8-12 分钟
   const readingTime = 10;
 
