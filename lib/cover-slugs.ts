@@ -16,6 +16,7 @@ export const COVER_SLUGS: ReadonlySet<string> = new Set([
   '08-xuanwu',
   '09-anshi',
   '10-huangpao',
+  '100-zongjie',
   '11-wangmang',
   '12-chibi',
   '13-gaopingling',
@@ -57,10 +58,10 @@ export const COVER_SLUGS: ReadonlySet<string> = new Set([
   '49-wto',
   '50-bri',
   '51-nanbei-juntianzhi',
-  '55-sanguo-yuanmen',
   '52-xiaodao-cuansong',
   '53-xiaowen-reform',
   '54-beiwei-fenlie',
+  '55-sanguo-yuanmen',
   '56-sanguo-chibi-deeper',
   '57-sui-emperor-yang',
   '58-tang-kaiyuan',
@@ -73,6 +74,7 @@ export const COVER_SLUGS: ReadonlySet<string> = new Set([
   '65-sanguo-simayi',
   '66-sanguo-wujing',
   '67-han-jinggezhi',
+  '68-han-wugu',
   '69-tang-li-longji-marshal',
   '70-song-yuefei',
   '71-song-jingkang',
@@ -104,8 +106,6 @@ export const COVER_SLUGS: ReadonlySet<string> = new Set([
   '97-gongtong',
   '98-quanmianxiaokang',
   '99-zhongguoshi',
-  '100-zongjie',
-  '68-han-wugu',
 ]);
 
 export function hasCover(slug: string): boolean {
