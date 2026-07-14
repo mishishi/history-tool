@@ -16,10 +16,32 @@ import { getTimelineColumns, getTimelineMeta } from '@/lib/timeline';
 import { SITE_URL } from '@/lib/site-config';
 
 export const metadata: Metadata = {
-  title: '朝代时间线 — 50 篇 / 1362 年 / 一条河',
+  title: '朝代时间线 — 100 篇 / 1362 年 / 一条河',
   description:
-    '把 50 篇文章铺在朝代时间线上,从战国到一带一路。每列是一个朝代,按时间顺序展开,一眼看清一个朝代的全貌。',
+    '把 100 篇文章铺在朝代时间线上,从战国到一带一路。每列是一个朝代,按时间顺序展开,一眼看清一个朝代的全貌。',
   alternates: { canonical: `${SITE_URL}/timeline` },
+  openGraph: {
+    title: '朝代时间线 — 100 篇 / 1362 年 / 一条河',
+    description: '把 100 篇文章铺在朝代时间线上,一眼看清一个朝代的全貌。',
+    type: 'website',
+    url: `${SITE_URL}/timeline`,
+    siteName: '读通鉴',
+    locale: 'zh_CN',
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: '朝代时间线 — 100 篇 / 1362 年',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '朝代时间线 — 100 篇 / 1362 年 / 一条河',
+    description: '把 100 篇文章铺在朝代时间线上',
+    images: [`${SITE_URL}/opengraph-image`],
+  },
 };
 
 export default function TimelinePage() {
@@ -31,7 +53,7 @@ export default function TimelinePage() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: '读通鉴 · 朝代时间线',
-    description: '资治通鉴 50 篇文章按朝代时间线组织',
+    description: '资治通鉴 100 篇文章按朝代时间线组织',
     numberOfItems: meta.totalArticles,
   };
 

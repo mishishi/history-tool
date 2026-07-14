@@ -56,10 +56,35 @@ export default function HomePage() {
     },
   };
 
+  // Organization JSON-LD — Google Knowledge Graph 关联 + 站点身份
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: '读通鉴',
+    alternateName: 'Du Tongjian',
+    url: SITE_URL,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/icons/icon-512.png`,
+      width: 512,
+      height: 512,
+    },
+    description: '用 AI 重读 1362 年的资治通鉴。每周一篇深度解读,带你看懂古代决策如何影响今天。',
+    foundingDate: '2026',
+    inLanguage: 'zh-CN',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'hello@du-tongjian.com',
+      contactType: 'customer support',
+      availableLanguage: ['zh-Hans'],
+    },
+  };
+
   return (
     <>
       {/* SEO 结构化数据 */}
       <JsonLd data={websiteJsonLd} />
+      <JsonLd data={orgJsonLd} />
       {/* Hero 区 */}
       <section id="hero" className="max-w-wide mx-auto px-6 pt-12 md:pt-20 pb-12">
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">

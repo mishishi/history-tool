@@ -20,6 +20,28 @@ export const metadata: Metadata = {
   description:
     '从三家分晋到一带一路,所有关键人物一目了然。按出现频次排序,看一个人的全部决策。',
   alternates: { canonical: `${SITE_URL}/figures` },
+  openGraph: {
+    title: '人物长卷 — 238 个跨越 1362 年的关键人物',
+    description: '从三家分晋到一带一路,所有关键人物一目了然。',
+    type: 'website',
+    url: `${SITE_URL}/figures`,
+    siteName: '读通鉴',
+    locale: 'zh_CN',
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: '人物长卷 — 238 个跨越 1362 年的关键人物',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '人物长卷 — 238 个跨越 1362 年的关键人物',
+    description: '从三家分晋到一带一路,所有关键人物一目了然。',
+    images: [`${SITE_URL}/opengraph-image`],
+  },
 };
 
 export default function FiguresPage() {
@@ -41,7 +63,7 @@ export default function FiguresPage() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: '读通鉴 · 人物长卷',
-    description: '资治通鉴 50 篇解读中所有关键人物',
+    description: '资治通鉴 100 篇解读中所有关键人物',
     numberOfItems: totalFigures,
     itemListElement: featured.slice(0, 20).map((f, i) => ({
       '@type': 'ListItem',

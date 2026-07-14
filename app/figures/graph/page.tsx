@@ -16,8 +16,30 @@ import FigureGraph from '@/components/FigureGraph';
 export const metadata: Metadata = {
   title: '人物关系图谱 — 读通鉴',
   description:
-    '把 50 篇通鉴文章里 230+ 人物的关系画成一张图。同一个事件里同时出现 = 一条关系;反复共同出现 = 关系越强。',
+    '把 100 篇通鉴文章里 230+ 人物的关系画成一张图。同一个事件里同时出现 = 一条关系;反复共同出现 = 关系越强。',
   alternates: { canonical: `${SITE_URL}/figures/graph` },
+  openGraph: {
+    title: '人物关系图谱 — 读通鉴',
+    description: '把 100 篇通鉴文章里 230+ 人物的关系画成一张图。',
+    type: 'website',
+    url: `${SITE_URL}/figures/graph`,
+    siteName: '读通鉴',
+    locale: 'zh_CN',
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: '人物关系图谱 — 读通鉴',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '人物关系图谱 — 读通鉴',
+    description: '把 100 篇通鉴文章里 230+ 人物的关系画成一张图。',
+    images: [`${SITE_URL}/opengraph-image`],
+  },
 };
 
 export default function FiguresGraphPage() {

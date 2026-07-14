@@ -18,10 +18,33 @@ import JsonLd from '@/components/JsonLd';
 import { SITE_URL } from '@/lib/site-config';
 
 export const metadata: Metadata = {
-  title: '通鉴目录 — 50 篇 / 8 个时代 / 1 份 1362 年的决策复盘',
+  title: '通鉴目录 — 100 篇 / 8 个时代 / 1 份 1362 年的决策复盘',
   description:
-    '读通鉴全部 50 篇解读的完整目录。按朝代、主题、时代三种维度组织,从战国到一带一路。',
+    '读通鉴全部 100 篇解读的完整目录。按朝代、主题、时代三种维度组织,从战国到一带一路。',
   alternates: { canonical: `${SITE_URL}/archive` },
+  openGraph: {
+    title: '通鉴目录 — 100 篇 / 8 个时代 / 1 份 1362 年的决策复盘',
+    description:
+      '读通鉴全部 100 篇解读的完整目录。按朝代、主题、时代三种维度组织,从战国到一带一路。',
+    type: 'website',
+    url: `${SITE_URL}/archive`,
+    siteName: '读通鉴',
+    locale: 'zh_CN',
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: '通鉴目录 — 100 篇 / 8 个时代',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '通鉴目录 — 100 篇 / 8 个时代 / 1 份 1362 年的决策复盘',
+    description: '读通鉴全部 100 篇解读的完整目录',
+    images: [`${SITE_URL}/opengraph-image`],
+  },
 };
 
 // 资治通鉴总卷数 — 用于进度条
@@ -81,7 +104,7 @@ export default function ArchivePage() {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: '读通鉴 · 通鉴目录',
-    description: '50 篇资治通鉴 AI 解读,按朝代和主题组织。',
+    description: '100 篇资治通鉴 AI 解读,按朝代和主题组织。',
     url: `${SITE_URL}/archive`,
     isPartOf: { '@type': 'WebSite', name: '读通鉴', url: SITE_URL },
     hasPart: enriched.slice(0, 10).map((a) => ({
@@ -105,7 +128,7 @@ export default function ArchivePage() {
             <span className="w-8 h-px bg-cinnabar"></span>
           </div>
           <h1 className="text-3xl md:text-5xl font-bold text-ink leading-tight mb-4">
-            50 篇 · 8 个时代 · 一份 1362 年的决策复盘
+            100 篇 · 8 个时代 · 一份 1362 年的决策复盘
           </h1>
           <p className="text-base md:text-lg text-ink-soft leading-relaxed mb-8">
             从三家分晋到一带一路,所有关键决策都在这里。按朝代、主题或时代浏览,找到你想读的那一篇。

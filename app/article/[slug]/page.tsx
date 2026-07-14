@@ -138,13 +138,24 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
     '@type': 'Article',
     headline: article.title,
     description: article.excerpt,
-    image: [`${SITE_URL}/opengraph-image`],
+    image: [
+      `${SITE_URL}/article/${article.slug}/opengraph-image`,
+      `${SITE_URL}/api/card/${article.slug}`,
+    ],
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     inLanguage: 'zh-CN',
     articleSection: '历史解读',
     keywords: (article.tags?.length ? article.tags : [article.dynasty, '资治通鉴']).join(','),
     wordCount: article.content.length,
+    // ISO 8601 duration — Google Rich Results / 预估阅读时间
+    timeRequired: `PT${article.readingTime}M`,
+    isAccessibleForFree: true,
+    // Speakable(Google News / 语音助手用)
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['.prose-article'],
+    },
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${SITE_URL}/article/${article.slug}`,

@@ -13,6 +13,29 @@ export const metadata: Metadata = {
   description:
     '读通鉴是谁?我们如何用 AI 重读 1362 年的资治通鉴?AI 解读 + 人类编辑 + 公共领域原文,这是我们的工作流。',
   keywords: ['关于读通鉴', 'AI 解读工作流', '资治通鉴', 'AI 历史解读'],
+  alternates: { canonical: `${SITE_URL}/about` },
+  openGraph: {
+    title: '关于我们 — 读通鉴',
+    description: '我们如何用 AI 重读 1362 年的资治通鉴',
+    type: 'website',
+    url: `${SITE_URL}/about`,
+    siteName: '读通鉴',
+    locale: 'zh_CN',
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: '关于我们 — 读通鉴',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '关于我们 — 读通鉴',
+    description: '我们如何用 AI 重读 1362 年的资治通鉴',
+    images: [`${SITE_URL}/opengraph-image`],
+  },
 };
 
 export default function AboutPage() {

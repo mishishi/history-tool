@@ -12,8 +12,30 @@ import { SITE_URL } from '@/lib/site-config';
 export const metadata: Metadata = {
   title: 'AI 问典 — 用对话读通鉴',
   description:
-    '跟 50 篇通鉴解读对话。问"战国怎么当诸侯" / "改革为什么总是失败" / "X 和 Y 有何相似" — AI 给你基于原文的回答。',
+    '跟 100 篇通鉴解读对话。问"战国怎么当诸侯" / "改革为什么总是失败" / "X 和 Y 有何相似" — AI 给你基于原文的回答。',
   alternates: { canonical: `${SITE_URL}/ask` },
+  openGraph: {
+    title: 'AI 问典 — 用对话读通鉴',
+    description: '跟 100 篇通鉴解读对话。AI 基于原文给你回答。',
+    type: 'website',
+    url: `${SITE_URL}/ask`,
+    siteName: '读通鉴',
+    locale: 'zh_CN',
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: 'AI 问典 — 用对话读通鉴',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI 问典 — 用对话读通鉴',
+    description: '跟 100 篇通鉴解读对话',
+    images: [`${SITE_URL}/opengraph-image`],
+  },
 };
 
 export default function AskPage() {
@@ -26,7 +48,7 @@ export default function AskPage() {
           '@context': 'https://schema.org',
           '@type': 'WebApplication',
           name: '读通鉴 · AI 问典',
-          description: '跟 50 篇资治通鉴 AI 解读对话,基于原文回答',
+          description: '跟 100 篇资治通鉴 AI 解读对话,基于原文回答',
           url: `${SITE_URL}/ask`,
         }}
       />
@@ -41,7 +63,7 @@ export default function AskPage() {
             跟通鉴对话
           </h1>
           <p className="text-sm md:text-base text-ink-soft leading-relaxed">
-            50 篇 AI 解读,问什么都行
+            100 篇 AI 解读,问什么都行
           </p>
         </div>
 

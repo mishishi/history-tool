@@ -67,6 +67,14 @@ export const metadata: Metadata = {
         { url: `${SITE_URL}/feed.xml`, title: '读通鉴 RSS' },
       ],
     },
+    canonical: SITE_URL,
+  },
+  // 站长平台验证 — GSC + 百度(部署后填入 token,留空字符串也行)
+  // 百度: 站长平台 → 站点管理 → 验证网站 → HTML 标签验证 → 复制 content 值
+  // Google: Search Console → 添加资源 → URL 前缀 → HTML 标签 → 复制 content 值
+  verification: {
+    // google: 'your-gsc-token',
+    // baidu: 'your-baidu-token',
   },
   openGraph: {
     title: '读通鉴 — 把资治通鉴讲成你听得懂的故事',
