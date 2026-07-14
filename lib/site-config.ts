@@ -22,9 +22,9 @@ export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'hello@du-tongjian.com
 /**
  * 静态资源 CDN base URL(音频 / 封面)。
  * 默认走 Vercel 静态资源(/audios/{slug}.mp3),
- * 走 TCB/对象存储时,设 NEXT_PUBLIC_AUDIO_BASE_URL = "https://xxx.tcb.qcloud.la/audio"
+ * 走 TCB/对象存储时,设 NEXT_PUBLIC_AUDIO_BASE_URL = "https://xxx.tcb.qcloud.la/history-tool/audio"
  * ——
- * AUDIO_BASE_URL 已包含 /audio 子路径(避免每个 src 都拼两段)
+ * AUDIO_BASE_URL 已包含 /history-tool/audio 子路径(多项目 TCB 共享 bucket 时避免混)
  */
 export const AUDIO_BASE_URL =
   process.env.NEXT_PUBLIC_AUDIO_BASE_URL || '';

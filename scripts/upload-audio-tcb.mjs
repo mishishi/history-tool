@@ -59,7 +59,8 @@ const client = new COS({
 
 const DRY_RUN = process.argv.includes('--dry-run');
 const CONCURRENCY = 10;
-const KEY_PREFIX = 'audio/';
+// TCB bucket 多项目共用 → 用项目名分桶,避免 audio/cover 跨项目混
+const KEY_PREFIX = 'history-tool/audio/';
 
 async function sha256(filePath) {
   const buf = fs.readFileSync(filePath);
@@ -155,9 +156,9 @@ async function main() {
     });
   }
 
-  // 输出 sample URL
+  // 输出 sample URL(用实际 KEY_PREFIX)
   const sample = slugs[0];
-  console.log(`\n📋 Sample URL: ${process.env.TCB_DOMAIN}/audio/${sample}.mp3`);
+  console.log(`\n📋 Sample URL: https://${process.env.TCB_DOMAIN}/${KEY_PREFIX}${sample}.mp3`);
   console.log('   复制这个到浏览器验证可访问');
 }
 
