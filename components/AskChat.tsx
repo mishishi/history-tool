@@ -175,13 +175,13 @@ export default function AskChat() {
         {messages.length === 0 && (
           <div className="text-center py-12">
             <div className="inline-block px-4 py-1.5 bg-cinnabar/10 text-cinnabar text-xs tracking-widest rounded-sm mb-4">
-              AI 问典 · 50 篇解读
+              AI 问典 · 100 篇解读
             </div>
             <h2 className="text-xl md:text-2xl font-bold text-ink mb-3">
               问点什么?
             </h2>
             <p className="text-sm text-ink-mute mb-8 max-w-sm mx-auto">
-              基于 50 篇通鉴解读,基于原文回答,不会编造。
+              基于 100 篇通鉴解读,基于原文回答,不会编造。
             </p>
             <div className="flex flex-col gap-2.5 max-w-md mx-auto">
               {SUGGESTED.map((q) => (

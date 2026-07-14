@@ -1,7 +1,7 @@
 # 读通鉴 · Du Tongjian
 
 > 把司马光写给皇帝的这部书，翻译成当代人能读懂、能用上的东西。
-> 50 篇深度解读 · 1362 年 · 9 朝代 · 238 人物。
+> 100 篇深度解读 · 1362 年 · 9 朝代 · 238 人物。
 
 **线上**：https://history-tool.vercel.app
 
@@ -15,8 +15,8 @@
 
 1. **AI 封面**：每篇文章配一张朝代印章风的 AI 封面（青绿山水 / 敦煌壁画 / 古地图风格）
 2. **人物图谱**：238 位历史人物的关系网络（d3-force 力学布局 + react-flow 渲染）
-3. **TTS 朗读**：49/50 篇配 AI 朗读 + 段落自动高亮（通勤路上听）
-4. **AI 问典**：基于 50 篇内容的 RAG 聊天，问"玄武门之变跟靖难之役有何相似" AI 给你基于原文的回答
+3. **TTS 朗读**：100/100 篇配 AI 朗读 + 段落自动高亮（通勤路上听）
+4. **AI 问典**：基于 100 篇内容的 RAG 聊天，问"玄武门之变跟靖难之役有何相似" AI 给你基于原文的回答
 
 ---
 
@@ -47,7 +47,7 @@ npm run build   # 自动跑 prebuild: build-cover-manifest.mjs
 npm run start
 ```
 
-50 篇文章全 SSG 预渲染（< 60s），50 张 per-article og 图同时 build 期生成。
+100 篇文章全 SSG 预渲染（< 60s），100 张 per-article og 图同时 build 期生成。
 
 ---
 
@@ -105,10 +105,10 @@ npm run dev   # http://localhost:3000
 2. **Embedding**（DeepSeek 没 embedding，单独配 OpenAI）：
    - `EMBEDDING_API_KEY=sk-xxx`，`EMBEDDING_BASE_URL=https://api.openai.com/v1`，`EMBEDDING_MODEL=text-embedding-3-small`
 3. **Upstash Vector**：`https://console.upstash.com` → **Create Database** → 选 **Vector** 类型（不是 Redis）→ 复制 REST URL + Token
-4. **跑一次 embed**（把 50 篇灌到 Vector）：
+4. **跑一次 embed**（把 100 篇灌到 Vector）：
    ```bash
    npm run build-embeddings
-   # 看到 ✅ Done! 50 articles embedded. 即可
+   # 看到 ✅ Done! 100 articles embedded. 即可
    ```
 5. **部署到 Vercel**：在 Vercel Project → Settings → Environment Variables 加上面 6 个 env，Redeploy
 6. **重要**：prod 的 Upstash Vector 也是空的，**需要在 Vercel 跑一次 build-embeddings**：
@@ -141,7 +141,7 @@ npm run dev   # http://localhost:3000
 history-tool/
 ├── app/                          # Next.js 14 App Router
 │   ├── page.tsx                 # 首页(今日推荐 + trending + 朝代时间线)
-│   ├── article/[slug]/          # 文章页(50 篇 SSG)
+│   ├── article/[slug]/          # 文章页(100 篇 SSG)
 │   │   ├── page.tsx
 │   │   └── opengraph-image.tsx  # per-article 1200×630 og 图(build 期预生成)
 │   ├── archive/                 # IA 8 朝代目录
@@ -157,7 +157,7 @@ history-tool/
 │   │   ├── checkout/            # Stripe 支付
 │   │   ├── subscribe/           # 邮件订阅
 │   │   └── ...
-│   ├── sitemap.ts               # 主 sitemap(50 文章 + 238 人物)
+│   ├── sitemap.ts               # 主 sitemap(100 文章 + 238 人物)
 │   ├── sitemap-articles.xml/    # Google News 风格子集
 │   ├── robots.ts                # SEO robots
 │   ├── opengraph-image.tsx      # 站点级 og 图
@@ -179,7 +179,7 @@ history-tool/
 │   ├── ThemeToggle.tsx          # 暗色模式切换
 │   └── ...
 ├── content/
-│   ├── articles/                # 50 篇 markdown
+│   ├── articles/                # 100 篇 markdown
 │   └── classics/                # 资治通鉴原文 + keyFigures
 ├── lib/
 │   ├── articles.ts              # 文章 IO + getRelatedArticles + getTrendingArticles
@@ -202,14 +202,14 @@ history-tool/
 ├── scripts/                      # 构建脚本
 │   ├── build-article-data.mjs
 │   ├── build-cover-manifest.mjs # prebuild:扫 public/covers 生成 lib/cover-slugs.ts
-│   ├── build-embeddings.mjs     # 50 篇 → Upstash Vector
+│   ├── build-embeddings.mjs     # 100 篇 → Upstash Vector
 │   ├── generate-audios.mjs      # TTS 生成(三级重试: 原文/中性化/分段拼接)
 │   ├── generate-timestamps.mjs  # TTS 段落时间戳
 │   ├── regen-covers-v2.mjs      # AI 封面 v2 重生成
 │   └── subset-font.mjs          # 中文字体子集化(给 Satori 用)
 ├── public/
 │   ├── audios/                  # 49 篇 mp3 + timestamps
-│   ├── covers/                  # 50 张 webp 封面
+│   ├── covers/                  # 100 张 webp 封面
 │   ├── icons/                   # PWA 图标
 │   ├── fonts/                   # NotoSerifSC-subset.ttf
 │   ├── manifest.json            # PWA manifest
@@ -307,7 +307,7 @@ score = (同朝代 ? 3 : 0) + (共同 tag 数量 × 1)
 
 - **首页 LCP**：~1.2s（hero 不含图，主要靠 earger cover）
 - **文章页 LCP**：~1.5s（ArticleHero cover eager + fetchPriority=high）
-- **build 时间**：~3 min（50 篇文章 + 50 张 og 图同时预生成）
+- **build 时间**：~3 min（100 篇文章 + 100 张 og 图同时预生成）
 - **公开 sitemap**：288 条 URL（50 文章 + 238 人物） + 50 条 Google News 子集
 - **JS bundle（首页）**：~103 KB（gzip 前）
 - **音频大小**：49 × ~5.5 MB = 270 MB（mp3 不进 git，Vercel 上传时打）
@@ -317,11 +317,11 @@ score = (同朝代 ? 3 : 0) + (共同 tag 数量 × 1)
 ## 未来路线图
 
 **M1（基础完整）— 已完成**：
-- 50 篇内容 + AI 封面 + 人物图谱 + TTS + RAG + 移动端适配 + SEO + PWA + 暗色模式
+- 100 篇内容 + AI 封面 + 人物图谱 + TTS + RAG + 移动端适配 + SEO + PWA + 暗色模式
 
 **M2（数据驱动）— 1-2 周后**：
 - Vercel Analytics 真 view 数据 → 替换 trending 算法的 views 维度
-- 5 篇 TTS 完播率 → 扩到 50 篇
+- 5 篇 TTS 完播率 → 扩到 100 篇
 - 收藏数 + 分享来源 → 优化推送
 
 **M3（产品化）— 1-2 月**：
