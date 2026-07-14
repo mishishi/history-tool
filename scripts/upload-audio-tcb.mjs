@@ -31,10 +31,12 @@
  *   - 上传完成后建议在腾讯云控制台撤销 key + 重新生成
  */
 
-import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+// dotenv 是 npm dep,显式读 .env.local(Next.js 默认会读但 CLI 脚本不会)
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 import COS from 'cos-nodejs-sdk-v5';
 
 const AUDIO_DIR = path.join(process.cwd(), 'public', 'audios');
