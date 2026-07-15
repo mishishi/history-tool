@@ -71,7 +71,7 @@ for (const a of articles) {
     // === 2. cover prompt ===
     const coverOut = execSync(
       `node /Users/zhurenbao/.mavis/skills/content-pipeline/scripts/publish-cover.mjs --root ${ROOT} build ${slug}`,
-      { encoding: 'utf-8' }
+      { encoding: 'utf-8', env: { ...process.env, PATH: `${process.env.PATH}:/usr/local/bin:/opt/homebrew/bin` } }
     );
     fs.writeFileSync(path.join(ROOT, 'tmp', `${slug}-cover-prompt.txt`), coverOut, 'utf-8');
     console.log(`  ✅ cover prompt`);
@@ -79,7 +79,7 @@ for (const a of articles) {
     // === 3. TTS text ===
     execSync(
       `node /Users/zhurenbao/.mavis/skills/content-pipeline/scripts/publish-audio.mjs --root ${ROOT} build ${slug}`,
-      { encoding: 'utf-8' }
+      { encoding: 'utf-8', env: { ...process.env, PATH: `${process.env.PATH}:/usr/local/bin:/opt/homebrew/bin` } }
     );
     const article = parseArticle(fs.readFileSync(articlePath, 'utf-8'));
     const audioText = buildTtsText(article);
