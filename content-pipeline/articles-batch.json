@@ -1,29 +1,29 @@
 [
   {
-    "slug": "123-hanwudi-baichu",
-    "episode": 123,
-    "dynasty": "西汉",
-    "volume": "卷三",
-    "title": "汉武帝罢黜百家:雄才大略的代价",
-    "sourceFile": "content-pipeline/sources/123_hanwudi.md",
-    "bodyFile": "content-pipeline/sources/123_article_body.md"
+    "slug": "126-suitang-zhenguan-zhizhi",
+    "episode": 126,
+    "dynasty": "隋唐",
+    "volume": "卷一百九十二",
+    "title": "贞观之治:房谋杜断的决策艺术",
+    "sourceFile": "content-pipeline/sources/126_zhenguan.md",
+    "bodyFile": "content-pipeline/sources/126_article_body.md"
   },
   {
-    "slug": "124-sanguo-yiling-zhizhan",
-    "episode": 124,
-    "dynasty": "三国",
-    "volume": "卷六十九",
-    "title": "夷陵之战:复仇心态毁掉蜀汉",
-    "sourceFile": "content-pipeline/sources/124_yiling.md",
-    "bodyFile": "content-pipeline/sources/124_article_body.md"
+    "slug": "127-donghan-liuxiu-zhongxing",
+    "episode": 127,
+    "dynasty": "秦汉",
+    "volume": "卷四十",
+    "title": "光武中兴:刘秀的草根逆袭",
+    "sourceFile": "content-pipeline/sources/127_liuxiu.md",
+    "bodyFile": "content-pipeline/sources/127_article_body.md"
   },
   {
-    "slug": "125-sanguo-zhuge-beifa",
-    "episode": 125,
-    "dynasty": "三国",
-    "volume": "卷七十一",
-    "title": "诸葛亮北伐:明知不可为而为之",
-    "sourceFile": "content-pipeline/sources/125_zhuge_beifa.md",
-    "bodyFile": "content-pipeline/sources/125_article_body.md"
+    "slug": "128-suitang-xuanzang-qujing",
+    "episode": 128,
+    "dynasty": "隋唐",
+    "volume": "卷一百九十二",
+    "title": "玄奘取经:17年西行的文化交流",
+    "sourceFile": "content-pipeline/sources/128_xuanzang.md",
+    "bodyFile": "content-pipeline/sources/128_article_body.md"
   }
 ]
