@@ -1,11 +1,38 @@
 [
   {
-    "slug": "106-zhou-zhaowang-nanzheng",
-    "episode": 106,
-    "dynasty": "西周",
-    "volume": "卷一",
-    "title": "昭王南征:西周由盛转衰的转折点",
-    "sourceFile": "content-pipeline/sources/106_zhaowang_nanzheng.md",
-    "bodyFile": "content-pipeline/sources/106_article_body.md"
+    "slug": "119-zhanguo-likui-wuqi",
+    "episode": 119,
+    "dynasty": "战国",
+    "volume": "卷四",
+    "title": "李悝 + 吴起:战国变法的前传",
+    "sourceFile": "content-pipeline/sources/119_likui_wuqi.md",
+    "bodyFile": "content-pipeline/sources/119_article_body.md"
+  },
+  {
+    "slug": "120-zhanguo-fanji-yuanjiao",
+    "episode": 120,
+    "dynasty": "战国中后期",
+    "volume": "卷五",
+    "title": "范雎远交近攻:让秦统一天下的地缘战略",
+    "sourceFile": "content-pipeline/sources/120_fanji_yuanjiao.md",
+    "bodyFile": "content-pipeline/sources/120_article_body.md"
+  },
+  {
+    "slug": "121-zhanguo-suqin-hezong",
+    "episode": 121,
+    "dynasty": "战国中后期",
+    "volume": "卷三",
+    "title": "苏秦合纵:佩六国相印的外交家",
+    "sourceFile": "content-pipeline/sources/121_suqin_hezong.md",
+    "bodyFile": "content-pipeline/sources/121_article_body.md"
+  },
+  {
+    "slug": "122-zhanguo-lubuwei-qihuo",
+    "episode": 122,
+    "dynasty": "战国末",
+    "volume": "卷六",
+    "title": "吕不韦奇货可居:商人从政的鼻祖",
+    "sourceFile": "content-pipeline/sources/122_lubuwei_qihuo.md",
+    "bodyFile": "content-pipeline/sources/122_article_body.md"
   }
 ]
