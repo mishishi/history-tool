@@ -13,7 +13,7 @@ import Link from 'next/link';
 import type { CSSProperties } from 'react';
 import { getAllArticles } from '@/lib/articles';
 import { findDynasty } from '@/lib/dynasties';
-import { ARCHIVE_GROUPS, getArticleArchive, type ArchiveGroup } from '@/lib/archive';
+import { ARCHIVE_GROUPS, getArticleArchive, type ArchiveGroup, type ArticleArchiveMeta } from '@/lib/archive';
 import JsonLd from '@/components/JsonLd';
 import { SITE_URL } from '@/lib/site-config';
 
@@ -57,13 +57,55 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+/**
+ * Fallback: META 字典没收录的文章,用 frontmatter 的 dynasty 字段推断 archive meta
+ *
+ * 映射规则(资治通鉴 8 个 IA 组):
+ *   zhanguo / qinhan / sanguo / liangjin / nanbeichao / suitang / wudai → 同名 group
+ *   song / yuan / mingqing / modern  → modern(通鉴之后,合并到"近现代")
+ *
+ * 推断的 volume/era/year 用 frontmatter 字段填(没填的留 null/空)
+ */
+function inferArchiveMeta(article: { dynasty: string; volume?: string; publishedAt: string }): ArticleArchiveMeta | null {
+  const d = findDynasty(article.dynasty);
+  if (!d) return null;
+
+  // dynasty.slug → archive.groupId
+  // 通鉴 7 朝代 1:1 + 通鉴之外的朝代(宋/元/明清/现代)→ modern
+  const groupIdMap: Record<string, ArticleArchiveMeta['groupId']> = {
+    zhanguo: 'zhanguo',
+    qinhan: 'qinhan',
+    sanguo: 'sanguo',
+    liangjin: 'liangjin',
+    nanbeichao: 'nanbeichao',
+    suitang: 'suitang',
+    wudai: 'wudai',
+    song: 'modern',
+    yuan: 'modern',
+    mingqing: 'modern',
+    modern: 'modern',
+  };
+  const groupId = groupIdMap[d.slug];
+  if (!groupId) return null;
+
+  return {
+    groupId,
+    volumeStandard: null, // 推断的没有标准卷数
+    volumeLabel: article.volume || `${d.name} · 补注`,
+    era: d.name, // 用朝代名当 era(META 里有更精确的 era,但 fallback 用粗粒度)
+    year: new Date(article.publishedAt).getFullYear(),
+  };
+}
+
 export default function ArchivePage() {
   const articles = getAllArticles();
 
   // 1. 给每篇文章富化 archive 字段(groupId + era 等元数据)
+  // 优先用 lib/archive.ts 的 META(精确控制),META 没收录的 fallback 用 dynasty 字段推断
+  // — 否则 22 篇文章扩展(#102-#122)就因为没 META 而被 archive 过滤掉,只显示 50 篇
   const enriched = articles
     .map((a) => {
-      const meta = getArticleArchive(a.slug);
+      const meta = getArticleArchive(a.slug) ?? inferArchiveMeta(a);
       if (!meta) return null;
       return { ...a, archive: meta };
     })
