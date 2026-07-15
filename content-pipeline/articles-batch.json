@@ -25,5 +25,14 @@
     "title": "郑和下西洋:2000年海权鼻祖",
     "sourceFile": "content-pipeline/sources/131_zhenghe.md",
     "bodyFile": "content-pipeline/sources/131_article_body.md"
+  },
+  {
+    "slug": "132-beisong-wanganshi-bianfa",
+    "episode": 132,
+    "dynasty": "北宋",
+    "volume": "卷二百二十七",
+    "title": "王安石变法:天变不足畏的改革者",
+    "sourceFile": "content-pipeline/sources/132_wanganshi.md",
+    "bodyFile": "content-pipeline/sources/132_article_body.md"
   }
 ]
