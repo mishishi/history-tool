@@ -8,38 +8,47 @@ import AskChat from '@/components/AskChat';
 import JsonLd from '@/components/JsonLd';
 import SectionErrorBoundary from '@/components/SectionErrorBoundary';
 import { SITE_URL } from '@/lib/site-config';
+import { getAllArticles } from '@/lib/articles';
 
-export const metadata: Metadata = {
-  title: 'AI 问典 — 用对话读通鉴',
-  description:
-    '跟 100 篇通鉴解读对话。问"战国怎么当诸侯" / "改革为什么总是失败" / "X 和 Y 有何相似" — AI 给你基于原文的回答。',
-  alternates: { canonical: `${SITE_URL}/ask` },
-  openGraph: {
-    title: 'AI 问典 — 用对话读通鉴',
-    description: '跟 100 篇通鉴解读对话。AI 基于原文给你回答。',
-    type: 'website',
-    url: `${SITE_URL}/ask`,
-    siteName: '读通鉴',
-    locale: 'zh_CN',
-    images: [
-      {
-        url: `${SITE_URL}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: 'AI 问典 — 用对话读通鉴',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'AI 问典 — 用对话读通鉴',
-    description: '跟 100 篇通鉴解读对话',
-    images: [`${SITE_URL}/opengraph-image`],
-  },
-};
+/**
+ * Dynamic metadata — 文章数实时算(取代 hardcode "100 篇")
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const articleCount = getAllArticles().length;
+  const title = 'AI 问典 — 用对话读通鉴';
+  const description = `跟 ${articleCount} 篇通鉴解读对话。问"战国怎么当诸侯" / "改革为什么总是失败" / "X 和 Y 有何相似" — AI 给你基于原文的回答。`;
+  return {
+    title,
+    description,
+    alternates: { canonical: `${SITE_URL}/ask` },
+    openGraph: {
+      title,
+      description: `跟 ${articleCount} 篇通鉴解读对话。AI 基于原文给你回答。`,
+      type: 'website',
+      url: `${SITE_URL}/ask`,
+      siteName: '读通鉴',
+      locale: 'zh_CN',
+      images: [
+        {
+          url: `${SITE_URL}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: `跟 ${articleCount} 篇通鉴解读对话`,
+      images: [`${SITE_URL}/opengraph-image`],
+    },
+  };
+}
 
 export default function AskPage() {
   const configured = isRagConfigured();
+  const articleCount = getAllArticles().length;
 
   return (
     <>
@@ -48,7 +57,7 @@ export default function AskPage() {
           '@context': 'https://schema.org',
           '@type': 'WebApplication',
           name: '读通鉴 · AI 问典',
-          description: '跟 100 篇资治通鉴 AI 解读对话,基于原文回答',
+          description: `跟 ${articleCount} 篇资治通鉴 AI 解读对话,基于原文回答`,
           url: `${SITE_URL}/ask`,
         }}
       />
@@ -63,7 +72,7 @@ export default function AskPage() {
             跟通鉴对话
           </h1>
           <p className="text-sm md:text-base text-ink-soft leading-relaxed">
-            100 篇 AI 解读,问什么都行
+            {articleCount} 篇 AI 解读,问什么都行
           </p>
         </div>
 

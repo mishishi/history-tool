@@ -63,7 +63,7 @@ export default function FiguresPage() {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: '读通鉴 · 人物长卷',
-    description: '资治通鉴 100 篇解读中所有关键人物',
+    description: `资治通鉴 ${getAllArticles().length} 篇解读中所有关键人物`,
     numberOfItems: totalFigures,
     itemListElement: featured.slice(0, 20).map((f, i) => ({
       '@type': 'ListItem',

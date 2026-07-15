@@ -6,7 +6,7 @@
  * 2. 主视图:按朝代(8 组)展开,每组内含二级时代分组
  * 3. 横向视图:按主题(tag 云)
  *
- * 不做时间轴(50 篇时间跨度大,横轴画不下;改由 朝代内二级 era 替代)
+ * 不做时间轴(篇幅跨度大,横轴画不下;改由 朝代内二级 era 替代)
  */
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -17,43 +17,50 @@ import { ARCHIVE_GROUPS, getArticleArchive, type ArchiveGroup } from '@/lib/arch
 import JsonLd from '@/components/JsonLd';
 import { SITE_URL } from '@/lib/site-config';
 
-export const metadata: Metadata = {
-  title: '通鉴目录 — 100 篇 / 8 个时代 / 1 份 1362 年的决策复盘',
-  description:
-    '读通鉴全部 100 篇解读的完整目录。按朝代、主题、时代三种维度组织,从战国到一带一路。',
-  alternates: { canonical: `${SITE_URL}/archive` },
-  openGraph: {
-    title: '通鉴目录 — 100 篇 / 8 个时代 / 1 份 1362 年的决策复盘',
-    description:
-      '读通鉴全部 100 篇解读的完整目录。按朝代、主题、时代三种维度组织,从战国到一带一路。',
-    type: 'website',
-    url: `${SITE_URL}/archive`,
-    siteName: '读通鉴',
-    locale: 'zh_CN',
-    images: [
-      {
-        url: `${SITE_URL}/opengraph-image`,
-        width: 1200,
-        height: 630,
-        alt: '通鉴目录 — 100 篇 / 8 个时代',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: '通鉴目录 — 100 篇 / 8 个时代 / 1 份 1362 年的决策复盘',
-    description: '读通鉴全部 100 篇解读的完整目录',
-    images: [`${SITE_URL}/opengraph-image`],
-  },
-};
-
 // 资治通鉴总卷数 — 用于进度条
 const TOTAL_VOLUMES = 294;
+
+/**
+ * Dynamic metadata — 标题里的文章数实时算(取代 hardcode "100 篇")
+ * build 时调一次,加新文章自动同步,SEO title 永远反映真实数量。
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const articleCount = getAllArticles().length;
+  const title = `通鉴目录 — ${articleCount} 篇 / 8 个时代 / 1 份 1362 年的决策复盘`;
+  const description = `读通鉴全部 ${articleCount} 篇解读的完整目录。按朝代、主题、时代三种维度组织,从战国到一带一路。`;
+  return {
+    title,
+    description,
+    alternates: { canonical: `${SITE_URL}/archive` },
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url: `${SITE_URL}/archive`,
+      siteName: '读通鉴',
+      locale: 'zh_CN',
+      images: [
+        {
+          url: `${SITE_URL}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `通鉴目录 — ${articleCount} 篇 / 8 个时代`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${SITE_URL}/opengraph-image`],
+    },
+  };
+}
 
 export default function ArchivePage() {
   const articles = getAllArticles();
 
-  // 1. 给每篇文章富化 archive 字段(0 → 50)
+  // 1. 给每篇文章富化 archive 字段(groupId + era 等元数据)
   const enriched = articles
     .map((a) => {
       const meta = getArticleArchive(a.slug);
@@ -73,7 +80,7 @@ export default function ArchivePage() {
   for (const a of enriched) byGroup[a.archive.groupId].push(a);
 
   // 3. 主题聚合:tag → articles
-  // 注意:部分文章 tags 字段有重复(50-bri 的 "战略" 写了 2 次),先 dedupe 再按 tag 聚合
+  // 注意:部分文章 tags 字段有重复(历史遗留),先 dedupe 再按 tag 聚合
   const tagMap = new Map<string, typeof enriched>();
   for (const a of enriched) {
     const seen = new Set<string>();
@@ -104,7 +111,7 @@ export default function ArchivePage() {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: '读通鉴 · 通鉴目录',
-    description: '100 篇资治通鉴 AI 解读,按朝代和主题组织。',
+    description: `${totalCount} 篇资治通鉴 AI 解读,按朝代和主题组织。`,
     url: `${SITE_URL}/archive`,
     isPartOf: { '@type': 'WebSite', name: '读通鉴', url: SITE_URL },
     hasPart: enriched.slice(0, 10).map((a) => ({
@@ -128,7 +135,7 @@ export default function ArchivePage() {
             <span className="w-8 h-px bg-cinnabar"></span>
           </div>
           <h1 className="text-3xl md:text-5xl font-bold text-ink leading-tight mb-4">
-            100 篇 · 8 个时代 · 一份 1362 年的决策复盘
+            {totalCount} 篇 · 8 个时代 · 一份 1362 年的决策复盘
           </h1>
           <p className="text-base md:text-lg text-ink-soft leading-relaxed mb-8">
             从三家分晋到一带一路,所有关键决策都在这里。按朝代、主题或时代浏览,找到你想读的那一篇。
