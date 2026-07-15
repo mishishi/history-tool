@@ -2,11 +2,13 @@
 slug: 118-chunqiu-wuyue-zhengba
 classicalSlug: 118-chunqiu-wuyue-zhengba
 title: 吴越争霸:勾践卧薪尝胆 + 夫差亡国
-subtitle: **吴越争霸**(前 514 - 前 473),**春秋晚期**最重要的事件之一
+subtitle: >-
+  **吴越争霸**(前 514 - 前 473),**春秋晚期**最重要的事件之一
 dynasty: 春秋
 volume: 卷四
 episode: 118
-excerpt: **吴越争霸**(前 514 - 前 473),**春秋晚期**最重要的事件之一。
+excerpt: >-
+  **吴越争霸**(前 514 - 前 473),**春秋晚期**最重要的事件之一。
 classicalQuote: 吴王夫差伐越,败之。越王勾践以甲兵五千人栖于会稽,使人行成于吴。
 readingTime: 10
 views: 0

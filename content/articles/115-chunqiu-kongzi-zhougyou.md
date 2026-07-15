@@ -2,11 +2,13 @@
 slug: 115-chunqiu-kongzi-zhougyou
 classicalSlug: 115-chunqiu-kongzi-zhougyou
 title: 孔子周游列国:14 年失败的教育家
-subtitle: **孔子**(前 551 - 前 479),**春秋末期鲁国人**,**中国文化的奠基者**
+subtitle: >-
+  **孔子**(前 551 - 前 479),**春秋末期鲁国人**,**中国文化的奠基者**
 dynasty: 春秋
 volume: 卷三
 episode: 115
-excerpt: **孔子**(前 551 - 前 479),**春秋末期鲁国人**,**中国文化的奠基者**。
+excerpt: >-
+  **孔子**(前 551 - 前 479),**春秋末期鲁国人**,**中国文化的奠基者**。
 classicalQuote: 孔子年十七,鲁大夫孟僖子病且死,诫其嗣懿子曰:"孔丘,圣人之后,吾弗逮识,必达其道。"
 readingTime: 10
 views: 0

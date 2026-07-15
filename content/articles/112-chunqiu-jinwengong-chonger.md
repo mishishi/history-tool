@@ -2,11 +2,13 @@
 slug: 112-chunqiu-jinwengong-chonger
 classicalSlug: 112-chunqiu-jinwengong-chonger
 title: 晋文公重耳:春秋第 2 霸的 19 年流亡
-subtitle: **晋文公姬重耳**(前 636 - 前 628 在位),**春秋第 2 霸**
+subtitle: >-
+  **晋文公姬重耳**(前 636 - 前 628 在位),**春秋第 2 霸**
 dynasty: 春秋
 volume: 卷二
 episode: 112
-excerpt: **晋文公姬重耳**(前 636 - 前 628 在位),**春秋第 2 霸**。
+excerpt: >-
+  **晋文公姬重耳**(前 636 - 前 628 在位),**春秋第 2 霸**。
 classicalQuote: 晋公子重耳之及于难也,晋人伐诸蒲城。
 readingTime: 10
 views: 0

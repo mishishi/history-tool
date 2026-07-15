@@ -2,11 +2,13 @@
 slug: 113-chunqiu-chuzhuangwang-yiming
 classicalSlug: 113-chunqiu-chuzhuangwang-yiming
 title: 楚庄王一鸣惊人:春秋第 3 霸的沉默与爆发
-subtitle: **楚庄王芈旅(熊旅)**(前 613 - 前 591 在位),**春秋第 3 霸**
+subtitle: >-
+  **楚庄王芈旅(熊旅)**(前 613 - 前 591 在位),**春秋第 3 霸**
 dynasty: 春秋
 volume: 卷二
 episode: 113
-excerpt: **楚庄王芈旅(熊旅)**(前 613 - 前 591 在位),**春秋第 3 霸**。
+excerpt: >-
+  **楚庄王芈旅(熊旅)**(前 613 - 前 591 在位),**春秋第 3 霸**。
 classicalQuote: 楚庄王即位,三年不出号令。日夜为乐,令国中曰:"敢谏者死无赦!"
 readingTime: 10
 views: 0

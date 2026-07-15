@@ -2,11 +2,13 @@
 slug: 108-zhou-gonghe-xingzheng
 classicalSlug: 108-zhou-gonghe-xingzheng
 title: 共和行政:中国历史有确切纪年的开始
-subtitle: **共和元年 = 公元前 841 年** — 这是中国历史**有确切纪年的开始**
+subtitle: >-
+  **共和元年 = 公元前 841 年** — 这是中国历史**有确切纪年的开始**
 dynasty: 西周
 volume: 卷一
 episode: 108
-excerpt: **共和元年 = 公元前 841 年** — 这是中国历史**有确切纪年的开始**。
+excerpt: >-
+  **共和元年 = 公元前 841 年** — 这是中国历史**有确切纪年的开始**。
 classicalQuote: 厉王虐,国人谤王。邵公告曰:"民不堪命矣。"王使卫巫监谤者,以告则杀之。道路以目。
 readingTime: 10
 views: 0

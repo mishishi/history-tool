@@ -2,11 +2,13 @@
 slug: 111-chunqiu-qihuangong-guanzhong
 classicalSlug: 111-chunqiu-qihuangong-guanzhong
 title: 齐桓公 + 管仲:春秋首霸的知人善任
-subtitle: **齐桓公姜小白**(前 685 - 前 643 在位),**春秋五霸之首**
+subtitle: >-
+  **齐桓公姜小白**(前 685 - 前 643 在位),**春秋五霸之首**
 dynasty: 春秋
 volume: 卷一
 episode: 111
-excerpt: **齐桓公姜小白**(前 685 - 前 643 在位),**春秋五霸之首**。
+excerpt: >-
+  **齐桓公姜小白**(前 685 - 前 643 在位),**春秋五霸之首**。
 classicalQuote: 齐桓公二年,桓公自莒归于齐,使鲍叔为宰。
 readingTime: 10
 views: 0

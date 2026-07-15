@@ -2,7 +2,8 @@
 slug: 104-zhou-zhougong-dongzheng
 classicalSlug: 104-zhou-zhougong-dongzheng
 title: 周公东征:三年平三监 + 周礼奠基
-subtitle: 周武王克商后,留下了一个**极度复杂的政治局面**:
+subtitle: >-
+  周武王克商后,留下了一个**极度复杂的政治局面**:
 dynasty: 西周
 volume: 卷一
 episode: 104
