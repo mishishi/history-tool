@@ -1,11 +1,11 @@
 [
   {
-    "slug": "104-zhou-zhougong-dongzheng",
-    "episode": 104,
+    "slug": "106-zhou-zhaowang-nanzheng",
+    "episode": 106,
     "dynasty": "西周",
     "volume": "卷一",
-    "title": "周公东征:三年平三监 + 周礼奠基",
-    "sourceFile": "content-pipeline/sources/104_zhougong_dongzheng.md",
-    "bodyFile": "content-pipeline/sources/104_article_body.md"
+    "title": "昭王南征:西周由盛转衰的转折点",
+    "sourceFile": "content-pipeline/sources/106_zhaowang_nanzheng.md",
+    "bodyFile": "content-pipeline/sources/106_article_body.md"
   }
 ]
