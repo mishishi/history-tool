@@ -1,0 +1,29 @@
+{
+  "durationSec": 527,
+  "segments": [
+    {
+      "id": "excerpt",
+      "startSec": 0,
+      "endSec": 0.7,
+      "charCount": 2
+    },
+    {
+      "id": "s1",
+      "startSec": 0.7,
+      "endSec": 230.2,
+      "charCount": 654
+    },
+    {
+      "id": "s2",
+      "startSec": 230.2,
+      "endSec": 396.2,
+      "charCount": 473
+    },
+    {
+      "id": "s3",
+      "startSec": 396.2,
+      "endSec": 527,
+      "charCount": 373
+    }
+  ]
+}
