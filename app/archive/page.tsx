@@ -63,12 +63,14 @@ export async function generateMetadata(): Promise<Metadata> {
  * 映射规则(资治通鉴 8 个 IA 组):
  *   zhanguo / qinhan / sanguo / liangjin / nanbeichao / suitang / wudai → 同名 group
  *   song / yuan / mingqing / modern  → modern(通鉴之后,合并到"近现代")
+ *   春秋 / 西周 / 周 / 东周        → zhanguo(通鉴"周纪"概念)
+ *     (findDynasty 不认识这些 — 它们不在 9 个朝代配置里 —
+ *      archive 单独给它们 mapping,不污染 dynasties.ts 的 brand 配置)
  *
  * 推断的 volume/era/year 用 frontmatter 字段填(没填的留 null/空)
  */
 function inferArchiveMeta(article: { dynasty: string; volume?: string; publishedAt: string }): ArticleArchiveMeta | null {
   const d = findDynasty(article.dynasty);
-  if (!d) return null;
 
   // dynasty.slug → archive.groupId
   // 通鉴 7 朝代 1:1 + 通鉴之外的朝代(宋/元/明清/现代)→ modern
@@ -85,14 +87,37 @@ function inferArchiveMeta(article: { dynasty: string; volume?: string; published
     mingqing: 'modern',
     modern: 'modern',
   };
-  const groupId = groupIdMap[d.slug];
+
+  let groupId: ArticleArchiveMeta['groupId'] | null = null;
+  let era: string;
+  let volumeLabel: string;
+
+  if (d) {
+    groupId = groupIdMap[d.slug] || null;
+    era = d.name;
+    volumeLabel = article.volume || `${d.name} · 补注`;
+  } else {
+    // Special case: dynasty 字段没在 DYNASTY_CONFIG 9 个朝代里
+    // 春秋/西周/周/东周: 通鉴"周纪"概念 → 归 zhanguo
+    const zhouJigroup: Record<string, true> = {
+      春秋: true, 西周: true, 周: true, 东周: true,
+    };
+    if (zhouJigroup[article.dynasty]) {
+      groupId = 'zhanguo';
+      era = article.dynasty;
+      volumeLabel = article.volume || '通鉴·周纪';
+    } else {
+      return null;
+    }
+  }
+
   if (!groupId) return null;
 
   return {
     groupId,
     volumeStandard: null, // 推断的没有标准卷数
-    volumeLabel: article.volume || `${d.name} · 补注`,
-    era: d.name, // 用朝代名当 era(META 里有更精确的 era,但 fallback 用粗粒度)
+    volumeLabel,
+    era,
     year: new Date(article.publishedAt).getFullYear(),
   };
 }
