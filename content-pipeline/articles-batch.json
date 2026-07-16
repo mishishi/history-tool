@@ -304,5 +304,14 @@
     "title": "元和中兴:15年平藩镇与李愬雪夜入蔡州",
     "sourceFile": "content-pipeline/sources/162_yuanhe.md",
     "bodyFile": "content-pipeline/sources/162_article_body.md"
+  },
+  {
+    "slug": "163-suitang-huichang-zhongxing",
+    "episode": 163,
+    "dynasty": "隋唐",
+    "volume": "卷二百四十六~卷二百四十八",
+    "title": "会昌中兴:6年灭佛26万与李德裕贤相",
+    "sourceFile": "content-pipeline/sources/163_huichang.md",
+    "bodyFile": "content-pipeline/sources/163_article_body.md"
   }
 ]
