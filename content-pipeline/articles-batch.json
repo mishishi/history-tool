@@ -79,5 +79,14 @@
     "title": "安史之乱:8年从开元盛世到藩镇割据的盛转衰",
     "sourceFile": "content-pipeline/sources/137_anshi.md",
     "bodyFile": "content-pipeline/sources/137_article_body.md"
+  },
+  {
+    "slug": "138-xihan-wangmang-gaizhi",
+    "episode": 138,
+    "dynasty": "秦汉",
+    "volume": "卷三十七~卷四十",
+    "title": "王莽改制:15年短命王朝的改革失败鼻祖",
+    "sourceFile": "content-pipeline/sources/138_wangmang.md",
+    "bodyFile": "content-pipeline/sources/138_article_body.md"
   }
 ]
