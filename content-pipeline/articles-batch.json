@@ -286,5 +286,14 @@
     "title": "隋炀帝:50岁弑君与大运河3征高丽37年隋亡",
     "sourceFile": "content-pipeline/sources/160_suiyangdi.md",
     "bodyFile": "content-pipeline/sources/160_article_body.md"
+  },
+  {
+    "slug": "161-suitang-kaiyuan-shengshi",
+    "episode": 161,
+    "dynasty": "隋唐",
+    "volume": "卷二百一十~卷二百一十四",
+    "title": "开元盛世:29年唐玄宗盛世明君与诗仙诗圣",
+    "sourceFile": "content-pipeline/sources/161_kaiyuan.md",
+    "bodyFile": "content-pipeline/sources/161_article_body.md"
   }
 ]
