@@ -187,5 +187,14 @@
     "title": "岳飞抗金:39岁精忠报国与莫须有的忠烈鼻祖",
     "sourceFile": "content-pipeline/sources/149_yuefei.md",
     "bodyFile": "content-pipeline/sources/149_article_body.md"
+  },
+  {
+    "slug": "150-song-menggu-ruqin",
+    "episode": 150,
+    "dynasty": "宋",
+    "volume": "卷二百零一~卷二百一十八",
+    "title": "蒙古入侵:74年从大蒙古国到崖山南宋亡的草原征服",
+    "sourceFile": "content-pipeline/sources/150_menggu.md",
+    "bodyFile": "content-pipeline/sources/150_article_body.md"
   }
 ]
