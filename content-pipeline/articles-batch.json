@@ -214,5 +214,14 @@
     "title": "刘裕代晋:60岁北府兵布衣皇帝与刘宋开国",
     "sourceFile": "content-pipeline/sources/152_liuyu.md",
     "bodyFile": "content-pipeline/sources/152_article_body.md"
+  },
+  {
+    "slug": "153-nanbeichao-yuanjia-zhizhi",
+    "episode": 153,
+    "dynasty": "宋",
+    "volume": "卷一百二十~卷一百二十七",
+    "title": "元嘉之治:30年南北朝盛世与自毁长城的教训",
+    "sourceFile": "content-pipeline/sources/153_yuanjia.md",
+    "bodyFile": "content-pipeline/sources/153_article_body.md"
   }
 ]
