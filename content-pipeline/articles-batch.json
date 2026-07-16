@@ -250,5 +250,14 @@
     "title": "侯景之乱:4年叛将台城之围与86岁梁武帝饿死",
     "sourceFile": "content-pipeline/sources/156_houjing.md",
     "bodyFile": "content-pipeline/sources/156_article_body.md"
+  },
+  {
+    "slug": "157-nanbeichao-beizhou-wudi",
+    "episode": 157,
+    "dynasty": "宋",
+    "volume": "卷一百六十六~卷一百七十三",
+    "title": "北周武帝:35岁灭佛与统一北方的明君早逝",
+    "sourceFile": "content-pipeline/sources/157_beizhouwudi.md",
+    "bodyFile": "content-pipeline/sources/157_article_body.md"
   }
 ]
