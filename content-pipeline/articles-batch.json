@@ -295,5 +295,14 @@
     "title": "开元盛世:29年唐玄宗盛世明君与诗仙诗圣",
     "sourceFile": "content-pipeline/sources/161_kaiyuan.md",
     "bodyFile": "content-pipeline/sources/161_article_body.md"
+  },
+  {
+    "slug": "162-suitang-yuanhe-zhongxing",
+    "episode": 162,
+    "dynasty": "隋唐",
+    "volume": "卷二百三十五~卷二百四十一",
+    "title": "元和中兴:15年平藩镇与李愬雪夜入蔡州",
+    "sourceFile": "content-pipeline/sources/162_yuanhe.md",
+    "bodyFile": "content-pipeline/sources/162_article_body.md"
   }
 ]
