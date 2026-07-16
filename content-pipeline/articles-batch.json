@@ -493,5 +493,14 @@
     "title": "辛亥革命:1911年武昌起义与清亡帝制终结",
     "sourceFile": "content-pipeline/sources/188_xinhai.md",
     "bodyFile": "content-pipeline/sources/188_article_body.md"
+  },
+  {
+    "slug": "179-ming-nanming-yongli",
+    "episode": 179,
+    "dynasty": "明",
+    "volume": "卷一百二十~卷一百三十",
+    "title": "南明:18年弘光隆武鲁监国永历与郑成功收台湾",
+    "sourceFile": "content-pipeline/sources/179_nanming.md",
+    "bodyFile": "content-pipeline/sources/179_article_body.md"
   }
 ]
