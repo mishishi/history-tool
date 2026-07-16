@@ -115,5 +115,14 @@
     "title": "楚汉相争:布衣皇帝刘邦与霸王项羽的4年终局",
     "sourceFile": "content-pipeline/sources/141_chuhang.md",
     "bodyFile": "content-pipeline/sources/141_article_body.md"
+  },
+  {
+    "slug": "142-xihan-wenjing-zhizhi",
+    "episode": 142,
+    "dynasty": "西汉",
+    "volume": "卷十三~卷十六",
+    "title": "文景之治:39年黄老无为之治的盛世经典",
+    "sourceFile": "content-pipeline/sources/142_wenjing.md",
+    "bodyFile": "content-pipeline/sources/142_article_body.md"
   }
 ]
