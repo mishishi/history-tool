@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getAllArticles } from '@/lib/articles';
 import { getAllFigures } from '@/lib/figures';
+import { getAllTopicTags } from '@/lib/topics';
 import { SITE_URL } from '@/lib/site-config';
 
 // 静态页 lastModified 用固定 build 时间,避免误导爬虫每周都改
@@ -42,6 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${SITE_URL}/topic`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
       url: `${SITE_URL}/ask`,
       lastModified: BUILD_DATE,
       changeFrequency: 'monthly',
@@ -78,5 +85,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: f.articleSlugs.length >= 2 ? 0.7 : 0.5,
   }));
 
-  return [...staticPages, ...articlePages, ...figurePages];
+  // 主题深读页 — 跨朝代聚合,长尾 SEO 黄金
+  const topicPages: MetadataRoute.Sitemap = getAllTopicTags().map((t) => ({
+    url: `${SITE_URL}/topic/${encodeURIComponent(t.tag)}`,
+    lastModified: BUILD_DATE,
+    changeFrequency: 'monthly',
+    priority: t.count >= 10 ? 0.8 : 0.6,
+  }));
+
+  return [...staticPages, ...articlePages, ...figurePages, ...topicPages];
 }

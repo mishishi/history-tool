@@ -162,9 +162,10 @@ export default function ArchivePage() {
     }
   }
   // 排序:篇数降序,再按 tag 名升序
+  // 注:String() 强制转型,防止 gray-matter 把裸数字 tag(1860 等)解析成 number
   const allTags = Array.from(tagMap.entries())
-    .map(([name, arts]) => ({ name, count: arts.length, articles: arts }))
-    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+    .map(([name, arts]) => ({ name: String(name), count: arts.length, articles: arts }))
+    .sort((a, b) => b.count - a.count || String(a.name).localeCompare(String(b.name)));
   // 主题云只展示「跨文章」有价值的 tag(count >= 2) — 单次 tag 太碎,藏在展开里
   const tags = allTags.filter((t) => t.count >= 2);
   const singleCountTags = allTags.length - tags.length;
@@ -207,6 +208,28 @@ export default function ArchivePage() {
           <p className="text-base md:text-lg text-ink-soft leading-relaxed mb-8">
             从三家分晋到一带一路,所有关键决策都在这里。按朝代、主题或时代浏览,找到你想读的那一篇。
           </p>
+
+          {/* 视图切换:按朝代 / 按主题 */}
+          <div className="flex flex-wrap items-center gap-3 mb-8 text-sm">
+            <Link
+              href="/archive#by-dynasty"
+              className="px-4 py-2 bg-cinnabar text-paper rounded-sm hover:bg-cinnabar-dark transition-colors font-medium"
+            >
+              按朝代浏览 ↓
+            </Link>
+            <Link
+              href="/topic"
+              className="px-4 py-2 bg-paper-card border border-border rounded-sm hover:border-cinnabar hover:text-cinnabar transition-colors"
+            >
+              按主题浏览 →
+            </Link>
+            <Link
+              href="/timeline"
+              className="px-4 py-2 bg-paper-card border border-border rounded-sm hover:border-cinnabar hover:text-cinnabar transition-colors"
+            >
+              时间线视图
+            </Link>
+          </div>
 
           {/* 统计卡 — 3 张 */}
           <div className="grid grid-cols-3 gap-3 md:gap-4 mb-6">
@@ -322,7 +345,9 @@ export default function ArchivePage() {
             return (
               <Link
                 key={t.name}
-                href={`#tag-${t.name}`}
+                // ≥3 篇的"主题"tag 链到 /topic/[tag] 深读页;
+                // <3 篇的"事件/人名"tag 留在当前页 anchor(深读页门槛太低无意义)
+                href={t.count >= 3 ? `/topic/${encodeURIComponent(t.name)}` : `#tag-${t.name}`}
                 className={`inline-flex items-center gap-1.5 border rounded-sm transition-colors ${sizeClass} ${colorClass}`}
               >
                 <span>{t.name}</span>

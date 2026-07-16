@@ -57,6 +57,7 @@ export default function MobileMenu({ docs }: Props) {
   const navLinks = [
     { href: '/', label: '首页' },
     { href: '/archive', label: '通鉴目录' },
+    { href: '/topic', label: '主题深读' },
     { href: '/figures', label: '人物长卷' },
     { href: '/ask', label: 'AI 问典' },
     { href: '/#articles', label: '最新解读' },

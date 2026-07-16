@@ -52,6 +52,9 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
           <Link href="/archive" className="text-ink-soft hover:text-cinnabar transition-colors">
             目录
           </Link>
+          <Link href="/topic" className="text-ink-soft hover:text-cinnabar transition-colors">
+            主题
+          </Link>
           <Link href="/figures" className="text-ink-soft hover:text-cinnabar transition-colors">
             人物
           </Link>
