@@ -14,6 +14,7 @@ import type { CSSProperties } from 'react';
 import { getAllArticles } from '@/lib/articles';
 import { findDynasty } from '@/lib/dynasties';
 import { ARCHIVE_GROUPS, getArticleArchive, type ArchiveGroup, type ArticleArchiveMeta } from '@/lib/archive';
+import { getAllTopicTags } from '@/lib/topics';
 import JsonLd from '@/components/JsonLd';
 import { SITE_URL } from '@/lib/site-config';
 
@@ -210,7 +211,7 @@ export default function ArchivePage() {
           </p>
 
           {/* 视图切换:按朝代 / 按主题 */}
-          <div className="flex flex-wrap items-center gap-3 mb-8 text-sm">
+          <div className="flex flex-wrap items-center gap-3 mb-6 text-sm">
             <Link
               href="/archive#by-dynasty"
               className="px-4 py-2 bg-cinnabar text-paper rounded-sm hover:bg-cinnabar-dark transition-colors font-medium"
@@ -230,6 +231,38 @@ export default function ArchivePage() {
               时间线视图
             </Link>
           </div>
+
+          {/* 热门主题 chip — 给主题深读页一个直接入口
+              取所有 ≥5 篇主题的 top 6,直接链 /topic/[tag] */}
+          {(() => {
+            const topTopics = getAllTopicTags()
+              .filter((t) => t.count >= 5)
+              .slice(0, 6);
+            if (topTopics.length === 0) return null;
+            return (
+              <div className="mb-10 flex flex-wrap items-center gap-2 text-sm">
+                <span className="text-ink-mute text-xs">🔥 热门主题:</span>
+                {topTopics.map((t) => (
+                  <Link
+                    key={t.tag}
+                    href={`/topic/${encodeURIComponent(t.tag)}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-paper-card border border-border hover:border-cinnabar hover:text-cinnabar rounded-sm transition-colors"
+                  >
+                    <span>{t.tag}</span>
+                    <span className="text-[10px] text-ink-mute tabular-nums">
+                      {t.count}
+                    </span>
+                  </Link>
+                ))}
+                <Link
+                  href="/topic"
+                  className="text-xs text-ink-mute hover:text-cinnabar transition-colors ml-1"
+                >
+                  全部 →
+                </Link>
+              </div>
+            );
+          })()}
 
           {/* 统计卡 — 3 张 */}
           <div className="grid grid-cols-3 gap-3 md:gap-4 mb-6">

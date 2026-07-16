@@ -30,6 +30,47 @@ const SUGGESTED = [
   '在公司里怎么当一个不被架空的"曹操"?',
 ];
 
+// localStorage 持久化 — AI 问典 history 不该刷新即失
+// 限制 50 条防止 localStorage 撑爆(每条 ~2KB, 上限 ~100KB)
+const ASK_HISTORY_KEY = 'dt-ask-history';
+const ASK_HISTORY_MAX = 50;
+
+function loadHistory(): Message[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(ASK_HISTORY_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter(
+        (m: unknown) =>
+          m &&
+          typeof m === 'object' &&
+          (m as Message).role &&
+          typeof (m as Message).content === 'string' &&
+          ((m as Message).role === 'user' || (m as Message).role === 'assistant'),
+      )
+      .slice(-ASK_HISTORY_MAX);
+  } catch {
+    return [];
+  }
+}
+
+function saveHistory(messages: Message[]) {
+  if (typeof window === 'undefined') return;
+  try {
+    // 只存 user 提问 + assistant 文本(去掉 streaming/error 等 transient 字段)
+    const compact = messages
+      .filter((m) => m.content)
+      .slice(-ASK_HISTORY_MAX)
+      .map((m) => ({ role: m.role, content: m.content, hits: m.hits }));
+    localStorage.setItem(ASK_HISTORY_KEY, JSON.stringify(compact));
+  } catch {
+    /* ignore */
+  }
+}
+
 /**
  * AI 问典 — ChatGPT 风格聊天 UI
  * - 输入在底部
@@ -38,11 +79,23 @@ const SUGGESTED = [
  * - 「重新开始」清空历史
  */
 export default function AskChat() {
+  // 初始 mount 时从 localStorage 恢复(避开 SSR,先空数组,挂载后再读)
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // mount 时读 localStorage
+  useEffect(() => {
+    setMessages(loadHistory());
+  }, []);
+
+  // 消息变化时持久化(节流:同一帧多次更新只写 1 次)
+  useEffect(() => {
+    if (messages.length === 0) return;
+    saveHistory(messages);
+  }, [messages]);
 
   // 新消息自动滚到底
   useEffect(() => {
@@ -163,6 +216,12 @@ export default function AskChat() {
   const reset = () => {
     setMessages([]);
     setInput('');
+    // 同步清 localStorage,避免下次 mount 又恢复
+    try {
+      localStorage.removeItem(ASK_HISTORY_KEY);
+    } catch {
+      /* ignore */
+    }
   };
 
   return (
