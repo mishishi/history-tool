@@ -259,5 +259,14 @@
     "title": "北周武帝:35岁灭佛与统一北方的明君早逝",
     "sourceFile": "content-pipeline/sources/157_beizhouwudi.md",
     "bodyFile": "content-pipeline/sources/157_article_body.md"
+  },
+  {
+    "slug": "158-nanbeichao-chenbaxian-chen",
+    "episode": 158,
+    "dynasty": "宋",
+    "volume": "卷一百六十五~卷一百七十",
+    "title": "陈霸先与陈:32年南朝最后与南北朝终结",
+    "sourceFile": "content-pipeline/sources/158_chen.md",
+    "bodyFile": "content-pipeline/sources/158_article_body.md"
   }
 ]
