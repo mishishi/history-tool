@@ -205,5 +205,14 @@
     "title": "文天祥:状元起兵勤王与留取丹心照汗青的忠烈",
     "sourceFile": "content-pipeline/sources/151_wentianxiang.md",
     "bodyFile": "content-pipeline/sources/151_article_body.md"
+  },
+  {
+    "slug": "152-nanbeichao-liuyu-daijin",
+    "episode": 152,
+    "dynasty": "宋",
+    "volume": "卷一百一十五~卷一百一十九",
+    "title": "刘裕代晋:60岁北府兵布衣皇帝与刘宋开国",
+    "sourceFile": "content-pipeline/sources/152_liuyu.md",
+    "bodyFile": "content-pipeline/sources/152_article_body.md"
   }
 ]
