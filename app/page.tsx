@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { getAllArticles, getTrendingArticles } from '@/lib/articles';
 import { getDynastiesWithCount } from '@/lib/dynasties.server';
 import ArticleCard from '@/components/ArticleCard';
+import ForYouSection from '@/components/ForYouSection';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
 import SubscribersBadge from '@/components/SubscribersBadge';
@@ -33,6 +34,10 @@ export default function HomePage() {
   const featuredDynasties = getDynastiesWithCount().slice(0, 6);
   // 完整朝代时间线 — 9 个全显示(count 都实时算)
   const allDynasties = getDynastiesWithCount();
+
+  // "为你推荐" trending 排除 — 避免与「最新解读」重复
+  // featured + top 3 都已经在最新区,ForYouSection 排重
+  const forYouExclude = [featured.slug, ...topArticles.map((a) => a.slug)];
 
   // Schema.org JSON-LD
   const websiteJsonLd = {
@@ -162,6 +167,13 @@ export default function HomePage() {
         topArticles={topArticles}
         featuredDynasties={featuredDynasties}
       />
+
+      {/* 为你推荐 — 基于 localStorage 协同过滤(client component)
+          - 冷启动:CTA 引导开始读
+          - 有信号:3 篇个性化推荐 */}
+      <div className="max-w-wide mx-auto px-6">
+        <ForYouSection allArticles={articles} trendingSlugs={forYouExclude} />
+      </div>
 
       {/* 最新解读 */}
       <section id="articles" className="max-w-wide mx-auto px-6 py-12">
