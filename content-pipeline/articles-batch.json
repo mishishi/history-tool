@@ -52,5 +52,14 @@
     "title": "范仲淹与庆历新政:先天下之忧而忧的士大夫鼻祖",
     "sourceFile": "content-pipeline/sources/134_fanzhongyan.md",
     "bodyFile": "content-pipeline/sources/134_article_body.md"
+  },
+  {
+    "slug": "135-sanguo-chibi-zhizhan",
+    "episode": 135,
+    "dynasty": "三国",
+    "volume": "卷六十五~卷六十八",
+    "title": "赤壁之战:5万对20万的三国分水岭",
+    "sourceFile": "content-pipeline/sources/135_chibi.md",
+    "bodyFile": "content-pipeline/sources/135_article_body.md"
   }
 ]
