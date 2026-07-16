@@ -142,5 +142,14 @@
     "title": "武则天:中国唯一女皇的82年传奇",
     "sourceFile": "content-pipeline/sources/144_wuzetian.md",
     "bodyFile": "content-pipeline/sources/144_article_body.md"
+  },
+  {
+    "slug": "145-tangmo-huangchao-zhilian",
+    "episode": 145,
+    "dynasty": "隋唐",
+    "volume": "卷二百五十二~卷二百五十七",
+    "title": "黄巢之乱:10年私盐贩子的民变入长安与称帝",
+    "sourceFile": "content-pipeline/sources/145_huangchao.md",
+    "bodyFile": "content-pipeline/sources/145_article_body.md"
   }
 ]
