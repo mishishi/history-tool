@@ -223,5 +223,14 @@
     "title": "元嘉之治:30年南北朝盛世与自毁长城的教训",
     "sourceFile": "content-pipeline/sources/153_yuanjia.md",
     "bodyFile": "content-pipeline/sources/153_article_body.md"
+  },
+  {
+    "slug": "154-nanbeichao-xiaowen-gaige",
+    "episode": 154,
+    "dynasty": "宋",
+    "volume": "卷一百三十一~卷一百四十",
+    "title": "孝文帝改革:迁都洛阳与汉化民族大融合的鼻祖",
+    "sourceFile": "content-pipeline/sources/154_xiaowen.md",
+    "bodyFile": "content-pipeline/sources/154_article_body.md"
   }
 ]
