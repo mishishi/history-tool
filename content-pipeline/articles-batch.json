@@ -160,5 +160,14 @@
     "title": "永乐盛世:朱棣22年的海权、类书与5次北征",
     "sourceFile": "content-pipeline/sources/146_yongle.md",
     "bodyFile": "content-pipeline/sources/146_article_body.md"
+  },
+  {
+    "slug": "147-jin-yongjia-zhilian",
+    "episode": 147,
+    "dynasty": "隋唐",
+    "volume": "卷八十六~卷八十九",
+    "title": "永嘉之乱:51年西晋亡与衣冠南渡的五胡入华",
+    "sourceFile": "content-pipeline/sources/147_yongjia.md",
+    "bodyFile": "content-pipeline/sources/147_article_body.md"
   }
 ]
