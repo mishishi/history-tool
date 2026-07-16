@@ -178,5 +178,14 @@
     "title": "淝水之战:8万对90万的以少胜多与南北朝起点",
     "sourceFile": "content-pipeline/sources/148_feishui.md",
     "bodyFile": "content-pipeline/sources/148_article_body.md"
+  },
+  {
+    "slug": "149-song-yuefei-kangjin",
+    "episode": 149,
+    "dynasty": "宋",
+    "volume": "卷一百九十二~卷二百零一",
+    "title": "岳飞抗金:39岁精忠报国与莫须有的忠烈鼻祖",
+    "sourceFile": "content-pipeline/sources/149_yuefei.md",
+    "bodyFile": "content-pipeline/sources/149_article_body.md"
   }
 ]
