@@ -268,5 +268,14 @@
     "title": "陈霸先与陈:32年南朝最后与南北朝终结",
     "sourceFile": "content-pipeline/sources/158_chen.md",
     "bodyFile": "content-pipeline/sources/158_article_body.md"
+  },
+  {
+    "slug": "159-nanbeichao-yangjian-sui",
+    "episode": 159,
+    "dynasty": "宋",
+    "volume": "卷一百七十五~卷一百八十",
+    "title": "杨坚与隋:开皇之治与三省六部科举的鼻祖",
+    "sourceFile": "content-pipeline/sources/159_yangjian.md",
+    "bodyFile": "content-pipeline/sources/159_article_body.md"
   }
 ]
