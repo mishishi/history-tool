@@ -97,5 +97,14 @@
     "title": "五代十国与朱温篡唐:5朝53年短命王朝的篡位与统一",
     "sourceFile": "content-pipeline/sources/139_wudai.md",
     "bodyFile": "content-pipeline/sources/139_article_body.md"
+  },
+  {
+    "slug": "140-zhanguo-changping-zhizhan",
+    "episode": 140,
+    "dynasty": "战国",
+    "volume": "卷四~卷七",
+    "title": "长平之战:40万坑杀与纸上谈兵的战国分水岭",
+    "sourceFile": "content-pipeline/sources/140_changping.md",
+    "bodyFile": "content-pipeline/sources/140_article_body.md"
   }
 ]
