@@ -448,5 +448,50 @@
     "title": "乾隆:60年六下江南四库全书与和珅跌倒",
     "sourceFile": "content-pipeline/sources/183_qianlong.md",
     "bodyFile": "content-pipeline/sources/183_article_body.md"
+  },
+  {
+    "slug": "184-qing-jiaqing-he-shen-beizhu",
+    "episode": 184,
+    "dynasty": "清",
+    "volume": "卷一百五十~卷一百七十",
+    "title": "嘉庆与和珅被诛:25年白莲教与天理教攻紫禁城",
+    "sourceFile": "content-pipeline/sources/184_jiaqing.md",
+    "bodyFile": "content-pipeline/sources/184_article_body.md"
+  },
+  {
+    "slug": "185-qing-yapian-zhanzheng",
+    "episode": 185,
+    "dynasty": "清",
+    "volume": "卷一百七十~卷一百八十",
+    "title": "鸦片战争:1840年林则徐虎门销烟与南京条约",
+    "sourceFile": "content-pipeline/sources/185_yapian.md",
+    "bodyFile": "content-pipeline/sources/185_article_body.md"
+  },
+  {
+    "slug": "186-qing-taiping-tianguo",
+    "episode": 186,
+    "dynasty": "清",
+    "volume": "卷一百八十~卷二百一十",
+    "title": "太平天国:1851年金田起义与14年内战",
+    "sourceFile": "content-pipeline/sources/186_taiping.md",
+    "bodyFile": "content-pipeline/sources/186_article_body.md"
+  },
+  {
+    "slug": "187-qing-wuxu-bianfa",
+    "episode": 187,
+    "dynasty": "清",
+    "volume": "卷二百一十~卷二百一十五",
+    "title": "戊戌变法:1898年103天百日维新与六君子",
+    "sourceFile": "content-pipeline/sources/187_wuxu.md",
+    "bodyFile": "content-pipeline/sources/187_article_body.md"
+  },
+  {
+    "slug": "188-qing-xinhai-geming",
+    "episode": 188,
+    "dynasty": "清",
+    "volume": "卷二百一十五~卷二百二十",
+    "title": "辛亥革命:1911年武昌起义与清亡帝制终结",
+    "sourceFile": "content-pipeline/sources/188_xinhai.md",
+    "bodyFile": "content-pipeline/sources/188_article_body.md"
   }
 ]
