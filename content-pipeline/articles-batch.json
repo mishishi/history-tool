@@ -241,5 +241,14 @@
     "title": "宇文泰与府兵制:沙苑1万击溃20万与西魏16年",
     "sourceFile": "content-pipeline/sources/155_yuwentai.md",
     "bodyFile": "content-pipeline/sources/155_article_body.md"
+  },
+  {
+    "slug": "156-nanbeichao-houjing-zhilian",
+    "episode": 156,
+    "dynasty": "宋",
+    "volume": "卷一百五十九~卷一百六十二",
+    "title": "侯景之乱:4年叛将台城之围与86岁梁武帝饿死",
+    "sourceFile": "content-pipeline/sources/156_houjing.md",
+    "bodyFile": "content-pipeline/sources/156_article_body.md"
   }
 ]
