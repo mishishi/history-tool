@@ -277,5 +277,14 @@
     "title": "杨坚与隋:开皇之治与三省六部科举的鼻祖",
     "sourceFile": "content-pipeline/sources/159_yangjian.md",
     "bodyFile": "content-pipeline/sources/159_article_body.md"
+  },
+  {
+    "slug": "160-sui-yangguang-sui-wang",
+    "episode": 160,
+    "dynasty": "隋唐",
+    "volume": "卷一百七十九~卷一百八十六",
+    "title": "隋炀帝:50岁弑君与大运河3征高丽37年隋亡",
+    "sourceFile": "content-pipeline/sources/160_suiyangdi.md",
+    "bodyFile": "content-pipeline/sources/160_article_body.md"
   }
 ]
