@@ -367,5 +367,50 @@
     "title": "于谦保卫北京:1449年22万京师瓦剌也先",
     "sourceFile": "content-pipeline/sources/170_yuqian.md",
     "bodyFile": "content-pipeline/sources/170_article_body.md"
+  },
+  {
+    "slug": "171-ming-jiajing-yansong",
+    "episode": 171,
+    "dynasty": "明",
+    "volume": "卷八十~卷一百",
+    "title": "嘉靖与严嵩:45年大礼议壬寅宫变与严嵩20年专权",
+    "sourceFile": "content-pipeline/sources/171_jiajing.md",
+    "bodyFile": "content-pipeline/sources/171_article_body.md"
+  },
+  {
+    "slug": "172-ming-qijiguang-kangwo",
+    "episode": 172,
+    "dynasty": "明",
+    "volume": "卷九十五~卷一百一十",
+    "title": "戚继光抗倭:鸳鸯阵与戚家军的12人阵法",
+    "sourceFile": "content-pipeline/sources/172_qijiguang.md",
+    "bodyFile": "content-pipeline/sources/172_article_body.md"
+  },
+  {
+    "slug": "174-ming-wanli-zhong-houqi",
+    "episode": 174,
+    "dynasty": "明",
+    "volume": "卷一百~卷一百一十",
+    "title": "万历中后期:48年30年不上朝与萨尔浒之战",
+    "sourceFile": "content-pipeline/sources/174_wanli.md",
+    "bodyFile": "content-pipeline/sources/174_article_body.md"
+  },
+  {
+    "slug": "175-ming-donglin-dangzheng",
+    "episode": 175,
+    "dynasty": "明",
+    "volume": "卷一百一十~卷一百二十",
+    "title": "东林党争:1624年杨涟弹魏忠贤24罪与东林六君子",
+    "sourceFile": "content-pipeline/sources/175_donglin.md",
+    "bodyFile": "content-pipeline/sources/175_article_body.md"
+  },
+  {
+    "slug": "176-ming-chongzhen-meishan-zixi",
+    "episode": 176,
+    "dynasty": "明",
+    "volume": "卷一百一十五~卷一百二十",
+    "title": "崇祯与煤山自缢:17年袁崇焕冤杀与明朝亡",
+    "sourceFile": "content-pipeline/sources/176_chongzhen.md",
+    "bodyFile": "content-pipeline/sources/176_article_body.md"
   }
 ]
