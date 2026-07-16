@@ -331,5 +331,41 @@
     "title": "甘露之变:835年文宗与李训郑注诛宦官的失败",
     "sourceFile": "content-pipeline/sources/165_ganlu.md",
     "bodyFile": "content-pipeline/sources/165_article_body.md"
+  },
+  {
+    "slug": "166-ming-zhuyuanzhang-mingchao-jianli",
+    "episode": 166,
+    "dynasty": "明",
+    "volume": "卷一~卷二十",
+    "title": "朱元璋:1368年从乞丐到皇帝建立明朝",
+    "sourceFile": "content-pipeline/sources/166_zhu.md",
+    "bodyFile": "content-pipeline/sources/166_article_body.md"
+  },
+  {
+    "slug": "168-ming-renxuan-zhizhi",
+    "episode": 168,
+    "dynasty": "明",
+    "volume": "卷三十~卷四十",
+    "title": "仁宣之治:11年明中期盛世与三杨贤相",
+    "sourceFile": "content-pipeline/sources/168_renxuan.md",
+    "bodyFile": "content-pipeline/sources/168_article_body.md"
+  },
+  {
+    "slug": "169-ming-tumu-bao-zhibian",
+    "episode": 169,
+    "dynasty": "明",
+    "volume": "卷五十~卷六十五",
+    "title": "土木堡之变:1449年20万明军全军覆没与王振",
+    "sourceFile": "content-pipeline/sources/169_tumu.md",
+    "bodyFile": "content-pipeline/sources/169_article_body.md"
+  },
+  {
+    "slug": "170-ming-yuqian-baowei-beijing",
+    "episode": 170,
+    "dynasty": "明",
+    "volume": "卷五十~卷六十五",
+    "title": "于谦保卫北京:1449年22万京师瓦剌也先",
+    "sourceFile": "content-pipeline/sources/170_yuqian.md",
+    "bodyFile": "content-pipeline/sources/170_article_body.md"
   }
 ]
