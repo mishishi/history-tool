@@ -322,5 +322,14 @@
     "title": "大中之治:13年唐亡前最后治世与小太宗",
     "sourceFile": "content-pipeline/sources/164_dazhong.md",
     "bodyFile": "content-pipeline/sources/164_article_body.md"
+  },
+  {
+    "slug": "165-suitang-ganlu-zhibian",
+    "episode": 165,
+    "dynasty": "隋唐",
+    "volume": "卷二百四十五",
+    "title": "甘露之变:835年文宗与李训郑注诛宦官的失败",
+    "sourceFile": "content-pipeline/sources/165_ganlu.md",
+    "bodyFile": "content-pipeline/sources/165_article_body.md"
   }
 ]
