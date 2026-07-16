@@ -61,5 +61,14 @@
     "title": "赤壁之战:5万对20万的三国分水岭",
     "sourceFile": "content-pipeline/sources/135_chibi.md",
     "bodyFile": "content-pipeline/sources/135_article_body.md"
+  },
+  {
+    "slug": "136-sanguo-shuhan-miewang",
+    "episode": 136,
+    "dynasty": "三国",
+    "volume": "卷七十八",
+    "title": "邓艾偷渡阴平与蜀汉灭亡:42年短命王朝的5大反思",
+    "sourceFile": "content-pipeline/sources/136_shuhan.md",
+    "bodyFile": "content-pipeline/sources/136_article_body.md"
   }
 ]
