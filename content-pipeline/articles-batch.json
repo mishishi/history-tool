@@ -124,5 +124,14 @@
     "title": "文景之治:39年黄老无为之治的盛世经典",
     "sourceFile": "content-pipeline/sources/142_wenjing.md",
     "bodyFile": "content-pipeline/sources/142_article_body.md"
+  },
+  {
+    "slug": "143-suitang-xuanwumen-zhibian",
+    "episode": 143,
+    "dynasty": "隋唐",
+    "volume": "卷一百九十~卷一百九十一",
+    "title": "玄武门之变:9人800骑的政变与千古一帝即位",
+    "sourceFile": "content-pipeline/sources/143_xuanwumen.md",
+    "bodyFile": "content-pipeline/sources/143_article_body.md"
   }
 ]
