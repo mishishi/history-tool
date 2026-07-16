@@ -313,5 +313,14 @@
     "title": "会昌中兴:6年灭佛26万与李德裕贤相",
     "sourceFile": "content-pipeline/sources/163_huichang.md",
     "bodyFile": "content-pipeline/sources/163_article_body.md"
+  },
+  {
+    "slug": "164-suitang-dazhong-zhizhi",
+    "episode": 164,
+    "dynasty": "隋唐",
+    "volume": "卷二百四十八~卷二百五十一",
+    "title": "大中之治:13年唐亡前最后治世与小太宗",
+    "sourceFile": "content-pipeline/sources/164_dazhong.md",
+    "bodyFile": "content-pipeline/sources/164_article_body.md"
   }
 ]
