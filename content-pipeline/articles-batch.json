@@ -151,5 +151,14 @@
     "title": "黄巢之乱:10年私盐贩子的民变入长安与称帝",
     "sourceFile": "content-pipeline/sources/145_huangchao.md",
     "bodyFile": "content-pipeline/sources/145_article_body.md"
+  },
+  {
+    "slug": "146-ming-yongle-shengshi",
+    "episode": 146,
+    "dynasty": "明",
+    "volume": "卷二百三十~卷二百四十",
+    "title": "永乐盛世:朱棣22年的海权、类书与5次北征",
+    "sourceFile": "content-pipeline/sources/146_yongle.md",
+    "bodyFile": "content-pipeline/sources/146_article_body.md"
   }
 ]
