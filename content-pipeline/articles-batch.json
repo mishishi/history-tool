@@ -412,5 +412,41 @@
     "title": "崇祯与煤山自缢:17年袁崇焕冤杀与明朝亡",
     "sourceFile": "content-pipeline/sources/176_chongzhen.md",
     "bodyFile": "content-pipeline/sources/176_article_body.md"
+  },
+  {
+    "slug": "180-qing-shunzhi",
+    "episode": 180,
+    "dynasty": "清",
+    "volume": "卷一~卷十",
+    "title": "顺治:18年6岁入关亲政与23岁早逝的红颜薄命",
+    "sourceFile": "content-pipeline/sources/180_shunzhi.md",
+    "bodyFile": "content-pipeline/sources/180_article_body.md"
+  },
+  {
+    "slug": "181-qing-kangxi",
+    "episode": 181,
+    "dynasty": "清",
+    "volume": "卷一~卷五十",
+    "title": "康熙:61年擒鳌拜平三藩收台湾的千古一帝",
+    "sourceFile": "content-pipeline/sources/181_kangxi.md",
+    "bodyFile": "content-pipeline/sources/181_article_body.md"
+  },
+  {
+    "slug": "182-qing-yongzheng",
+    "episode": 182,
+    "dynasty": "清",
+    "volume": "卷五十~卷八十",
+    "title": "雍正:13年军机处摊丁入亩与九子夺嫡的继位",
+    "sourceFile": "content-pipeline/sources/182_yongzheng.md",
+    "bodyFile": "content-pipeline/sources/182_article_body.md"
+  },
+  {
+    "slug": "183-qing-qianlong",
+    "episode": 183,
+    "dynasty": "清",
+    "volume": "卷八十~卷一百五十",
+    "title": "乾隆:60年六下江南四库全书与和珅跌倒",
+    "sourceFile": "content-pipeline/sources/183_qianlong.md",
+    "bodyFile": "content-pipeline/sources/183_article_body.md"
   }
 ]
