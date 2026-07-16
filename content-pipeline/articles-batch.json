@@ -106,5 +106,14 @@
     "title": "长平之战:40万坑杀与纸上谈兵的战国分水岭",
     "sourceFile": "content-pipeline/sources/140_changping.md",
     "bodyFile": "content-pipeline/sources/140_article_body.md"
+  },
+  {
+    "slug": "141-qinhan-chuhang-xiangzheng",
+    "episode": 141,
+    "dynasty": "秦汉",
+    "volume": "卷七~卷十二",
+    "title": "楚汉相争:布衣皇帝刘邦与霸王项羽的4年终局",
+    "sourceFile": "content-pipeline/sources/141_chuhang.md",
+    "bodyFile": "content-pipeline/sources/141_article_body.md"
   }
 ]
