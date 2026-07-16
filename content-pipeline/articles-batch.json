@@ -88,5 +88,14 @@
     "title": "王莽改制:15年短命王朝的改革失败鼻祖",
     "sourceFile": "content-pipeline/sources/138_wangmang.md",
     "bodyFile": "content-pipeline/sources/138_article_body.md"
+  },
+  {
+    "slug": "139-wudai-zhuwen-cuantang",
+    "episode": 139,
+    "dynasty": "宋",
+    "volume": "卷二百五十九~卷二百七十二",
+    "title": "五代十国与朱温篡唐:5朝53年短命王朝的篡位与统一",
+    "sourceFile": "content-pipeline/sources/139_wudai.md",
+    "bodyFile": "content-pipeline/sources/139_article_body.md"
   }
 ]
