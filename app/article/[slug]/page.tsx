@@ -21,6 +21,7 @@ import ArticleCompleteToast from '@/components/ArticleCompleteToast';
 import ClassicalTextCard from '@/components/ClassicalTextCard';
 import AudioSyncController from '@/components/AudioSyncController';
 import RevealOnScroll from '@/components/RevealOnScroll';
+import RelatedTopics from '@/components/RelatedTopics';
 import ShareButtons from '@/components/ShareButtons';
 import Seal from '@/components/Seal';
 import JsonLd from '@/components/JsonLd';
@@ -323,6 +324,11 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         <div className="mt-10 no-print">
           <ShareButtons article={article} />
         </div>
+
+        {/* 相关主题 — 文章 → 主题深读页 流量闭环
+            只显示有独立 /topic/[tag] 深读页的 tag(≥ MIN_TAG_COUNT),
+            用户读完一篇 → 点 chip → 跳同主题跨朝代聚合页 */}
+        <RelatedTopics tags={article.tags || []} limit={3} />
       </article>
 
       {/* 订阅引导 */}
