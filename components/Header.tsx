@@ -6,6 +6,7 @@ import MobileMenu from './MobileMenu';
 import SearchButton from './SearchButton';
 import ThemeToggle from './ThemeToggle';
 import ContinueReadingButton from './ContinueReadingButton';
+import ReadingProgressBadge from './ReadingProgressBadge';
 import SectionErrorBoundary from './SectionErrorBoundary';
 import type { SearchDoc } from '@/lib/search-client';
 
@@ -70,6 +71,8 @@ export default function Header({ docs }: { docs: SearchDoc[] }) {
         <div className="hidden md:flex items-center gap-2">
           {/* 继续阅读 — 只在有未读完文章时出现 */}
           <ContinueReadingButton docs={docs} />
+          {/* 已读进度 — 只在已读 ≥1 篇时出现,0 篇隐藏避免打击感 */}
+          <ReadingProgressBadge total={docs.length} />
           <Link
             href="/favorites"
             aria-label="我的收藏"

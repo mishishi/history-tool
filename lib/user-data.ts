@@ -15,6 +15,8 @@ const FAVORITES_KEY = 'dt-favorites';
 const RECENT_KEY = 'dt-recent';
 const PROGRESS_PREFIX = 'dt-progress-';
 
+export { PROGRESS_PREFIX, FAVORITES_KEY, RECENT_KEY };
+
 type Listener = () => void;
 const listeners = new Set<Listener>();
 function notify() {
