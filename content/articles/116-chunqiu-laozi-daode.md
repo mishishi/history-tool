@@ -9,7 +9,8 @@ volume: 卷三
 episode: 116
 excerpt: >-
   **老子(李耳)**(约前 571 - 前 471),**春秋末期楚国苦县人**(今河南鹿邑),**道家创始人**。
-classicalQuote: 孔子问礼于老子。老子曰:"子之所言,其人与骨皆已朽矣,独其言在耳。"
+classicalQuote: >-
+  孔子问礼于老子。老子曰:"子之所言,其人与骨皆已朽矣,独其言在耳。"
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

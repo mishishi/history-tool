@@ -9,7 +9,8 @@ volume: 卷二
 episode: 114
 excerpt: >-
   **子产**(公孙侨,前 542 - 前 522),**郑国著名政治家**,**中国第一位"法治"先驱**。
-classicalQuote: 郑子产有疾,谓子太叔曰:"我死,子必为政。唯有德者能以宽服民,其次莫如猛。"
+classicalQuote: >-
+  郑子产有疾,谓子太叔曰:"我死,子必为政。唯有德者能以宽服民,其次莫如猛。"
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

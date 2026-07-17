@@ -2,12 +2,15 @@
 slug: 13-gaopingling
 classicalSlug: 13-gaopingling
 title: 高平陵之变:司马懿装病十年的耐心
-subtitle: 三国最后的赢家不是曹操、刘备、孙权,是一个"快死的老头"。
+subtitle: >-
+  三国最后的赢家不是曹操、刘备、孙权,是一个"快死的老头"。
 dynasty: 魏晋
 volume: 卷七十五
 episode: 13
-excerpt: 司马懿在死前 5 年装病,差点把曹爽忽悠瘸了。249 年正月,他只用了 30 天夺了整个国家。但这场胜利,准备了整整 10 年。
-classicalQuote: 大司农桓范驰赴之,劝爽奉天子诣许都,徵兵讨懿。爽不能用其策。
+excerpt: >-
+  司马懿在死前 5 年装病,差点把曹爽忽悠瘸了。249 年正月,他只用了 30 天夺了整个国家。但这场胜利,准备了整整 10 年。
+classicalQuote: >-
+  大司农桓范驰赴之,劝爽奉天子诣许都,徵兵讨懿。爽不能用其策。
 readingTime: 10
 views: 290
 publishedAt: 2026-07-08

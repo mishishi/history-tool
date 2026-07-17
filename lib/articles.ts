@@ -8,7 +8,44 @@ const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles');
 const CLASSICS_DIR = path.join(process.cwd(), 'content', 'classics');
 
 /**
+ * 安全解析单篇文章的 frontmatter
+ *
+ * 历史踩坑 (2026-07-17):
+ * - Vercel 环境的 js-yaml 比本地更严,某些 plain unquoted scalar 带 ( ) , 等
+ *   特殊字符的会解析失败
+ * - 之前:单文件炸 → 整个 next build 报 "Failed to collect page data for /unlock"
+ *   整个站点无法部署
+ * - 现在:try/catch 包住,失败文件 log 到 stderr,跳过(返回 null)
+ *   其他 183 篇正常构建,只丢一篇坏数据
+ * - 配合 scripts/validate-articles.mjs 预构建验证,build 前就能发现并修复
+ */
+function safeParseMatter(
+  fileContents: string,
+  filename: string,
+): ReturnType<typeof matter> | null {
+  try {
+    return matter(fileContents);
+  } catch (e: any) {
+    // eslint-disable-next-line no-console
+    console.error(
+      `[articles] YAML parse failed for ${filename}:`,
+      e?.message || String(e),
+    );
+    if (e?.mark) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `  → pos ${e.mark.position}, line ${e.mark.line}, col ${e.mark.column}`,
+      );
+    }
+    return null;
+  }
+}
+
+/**
  * 读取所有文章(按发布时间倒序)
+ *
+ * 单个文件 YAML 解析失败不会拖垮整个 build — 跳过该文件,其他继续。
+ * 配合 scripts/validate-articles.mjs 预构建验证,确保 0 失败。
  */
 export function getAllArticles(): ArticleMeta[] {
   if (!fs.existsSync(ARTICLES_DIR)) {
@@ -17,13 +54,16 @@ export function getAllArticles(): ArticleMeta[] {
 
   const files = fs.readdirSync(ARTICLES_DIR).filter((f) => f.endsWith('.md'));
 
-  const articles = files.map((file) => {
+  const articles: ArticleMeta[] = [];
+  for (const file of files) {
     const slug = file.replace(/\.md$/, '');
     const filePath = path.join(ARTICLES_DIR, file);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContents);
+    const parsed = safeParseMatter(fileContents, file);
+    if (!parsed) continue; // 跳过坏文件,不连累 build
 
-    return {
+    const { data } = parsed;
+    articles.push({
       slug,
       classicalSlug: data.classicalSlug || slug,
       title: data.title || '',
@@ -37,8 +77,8 @@ export function getAllArticles(): ArticleMeta[] {
       views: data.views || 0,
       publishedAt: data.publishedAt || new Date().toISOString(),
       tags: data.tags || [],
-    } as ArticleMeta;
-  });
+    } as ArticleMeta);
+  }
 
   return articles.sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
@@ -47,6 +87,9 @@ export function getAllArticles(): ArticleMeta[] {
 
 /**
  * 读取单个文章(含正文)
+ *
+ * 同样 try/catch 包住 — 坏文件返回 null,调用方 notFound() 处理。
+ * 不会让 build 进程整体崩。
  */
 export function getArticleBySlug(slug: string): Article | null {
   const filePath = path.join(ARTICLES_DIR, `${slug}.md`);
@@ -55,7 +98,9 @@ export function getArticleBySlug(slug: string): Article | null {
   }
 
   const fileContents = fs.readFileSync(filePath, 'utf8');
-  const { data, content } = matter(fileContents);
+  const parsed = safeParseMatter(fileContents, `${slug}.md`);
+  if (!parsed) return null;
+  const { data, content } = parsed;
 
   return {
     slug,
@@ -85,7 +130,9 @@ export function getClassicBySlug(slug: string): Classic | null {
   }
 
   const fileContents = fs.readFileSync(filePath, 'utf8');
-  const { data } = matter(fileContents);
+  const parsed = safeParseMatter(fileContents, `${slug}.md (classic)`);
+  if (!parsed) return null;
+  const { data } = parsed;
 
   return {
     slug: data.slug || slug,

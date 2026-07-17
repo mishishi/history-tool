@@ -9,7 +9,8 @@ volume: 卷三
 episode: 123
 excerpt: >-
   **汉武帝刘彻**(前 156 - 前 87) — "**罢黜百家,独尊儒术**" + 卫青霍去病北伐匈奴 50 年 = 中国 2000 年"统一思想"的鼻祖。
-classicalQuote: 罢黜百家,独尊儒术。
+classicalQuote: >-
+  罢黜百家,独尊儒术。
 readingTime: 12
 views: 0
 publishedAt: 2026-07-15

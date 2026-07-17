@@ -9,7 +9,8 @@ volume: 卷四
 episode: 119
 excerpt: >-
   **李悝(约前 455 - 前 395)** + **吴起(约前 440 - 前 381)** = **战国变法的"前传"**。
-classicalQuote: 魏文侯以卜式为师,师文为友,任西门豹为邺令。
+classicalQuote: >-
+  魏文侯以卜式为师,师文为友,任西门豹为邺令。
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

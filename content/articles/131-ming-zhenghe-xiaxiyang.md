@@ -9,7 +9,8 @@ volume: 卷一
 episode: 131
 excerpt: >-
   **郑和**(1371-1433) 七下西洋(1405-1433) — 28 年 200 艘船 30+ 国家 — 比西方大航海早 87 年 — 中国 2000 年"海权"鼻祖 + "**海禁**"错过大航海。
-classicalQuote: 耀兵异域,示中国富强。
+classicalQuote: >-
+  耀兵异域,示中国富强。
 readingTime: 12
 views: 0
 publishedAt: 2026-07-16

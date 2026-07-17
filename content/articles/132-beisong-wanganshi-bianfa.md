@@ -9,7 +9,8 @@ volume: 卷二百三十七
 episode: 132
 excerpt: >-
   **王安石**(1021-1086) 变法(1069-1085) — "**天变不足畏,祖宗不足法,人言不足恤**" — 5 大新法 + 司马光对决 — 中国 2000 年"改革"鼻祖。
-classicalQuote: 天变不足畏,祖宗不足法,人言不足恤。
+classicalQuote: >-
+  天变不足畏,祖宗不足法,人言不足恤。
 readingTime: 13
 views: 0
 publishedAt: 2026-07-16

@@ -2,12 +2,15 @@
 slug: 103-zhou-wuwang-keshang
 classicalSlug: 103-zhou-wuwang-keshang
 title: 武王克商:牧野之战的"人心向背"
-subtitle: 公元前 1046 年(也有说前 1044 年),中国历史上最关键的一场战争爆发 — 周武王率联军在牧野击败商纣,商朝六百年统治终结,周朝取而代之
+subtitle: >-
+  公元前 1046 年(也有说前 1044 年),中国历史上最关键的一场战争爆发 — 周武王率联军在牧野击败商纣,商朝六百年统治终结,周朝取而代之
 dynasty: 西周
 volume: 卷一
 episode: 103
-excerpt: 公元前 1046 年(也有说前 1044 年),中国历史上最关键的一场战争爆发 — 周武王率联军在牧野击败商纣,商朝六百年统治终结,周朝取而代之。
-classicalQuote: 用于 AI 解读生成的原始素材
+excerpt: >-
+  公元前 1046 年(也有说前 1044 年),中国历史上最关键的一场战争爆发 — 周武王率联军在牧野击败商纣,商朝六百年统治终结,周朝取而代之。
+classicalQuote: >-
+  用于 AI 解读生成的原始素材
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

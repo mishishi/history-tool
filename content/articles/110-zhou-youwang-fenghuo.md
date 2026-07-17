@@ -9,7 +9,8 @@ volume: 卷一
 episode: 110
 excerpt: >-
   **周幽王姬涅**(前 781 - 前 771),在位 **11 年**,西周最后一代王。
-classicalQuote: 幽王三年,王嬖褒姒。
+classicalQuote: >-
+  幽王三年,王嬖褒姒。
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

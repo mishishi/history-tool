@@ -9,7 +9,8 @@ volume: 卷一
 episode: 109
 excerpt: >-
   **周宣王姬静**(前 827 - 前 782),在位 **46 年**,西周第 11 代王。
-classicalQuote: 宣王即位,二相辅之,脩政,法文王、武王、成王、康王之遗风,诸侯复宗周。
+classicalQuote: >-
+  宣王即位,二相辅之,脩政,法文王、武王、成王、康王之遗风,诸侯复宗周。
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

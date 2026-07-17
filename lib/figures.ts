@@ -58,7 +58,13 @@ function aggregateFigures(): FigureEntry[] {
     if (!articleSet.has(slug)) continue;
 
     const raw = fs.readFileSync(path.join(CLASSICS_DIR, file), 'utf8');
-    const { data } = matter(raw);
+    let data: any;
+    try {
+      ({ data } = matter(raw));
+    } catch (e: any) {
+      console.error(`[figures] YAML parse failed for ${file}:`, e?.message);
+      continue; // 跳过坏文件
+    }
     const figures = (data.keyFigures || []) as (KeyFigure | string)[];
 
     for (const fig of figures) {

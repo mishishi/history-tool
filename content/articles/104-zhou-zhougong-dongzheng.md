@@ -7,8 +7,10 @@ subtitle: >-
 dynasty: 西周
 volume: 卷一
 episode: 104
-excerpt: 周武王克商后,留下了一个**极度复杂的政治局面**:。
-classicalQuote: 武王克商,封纣子武庚于殷,以殷余民封康叔于卫,俾相之。
+excerpt: >-
+  周武王克商后,留下了一个**极度复杂的政治局面**:。
+classicalQuote: >-
+  武王克商,封纣子武庚于殷,以殷余民封康叔于卫,俾相之。
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

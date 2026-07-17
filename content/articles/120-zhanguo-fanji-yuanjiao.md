@@ -9,7 +9,8 @@ volume: 卷五
 episode: 120
 excerpt: >-
   **范雎**(约前 335 - 前 255) 提出的"**远交近攻**"战略 = 秦国 50 年统一天下的"总路线图"。
-classicalQuote: 王不如远交而近攻,得寸则王之寸也,得尺亦王之尺也。
+classicalQuote: >-
+  王不如远交而近攻,得寸则王之寸也,得尺亦王之尺也。
 readingTime: 11
 views: 0
 publishedAt: 2026-07-15

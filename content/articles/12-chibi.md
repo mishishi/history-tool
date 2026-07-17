@@ -2,12 +2,15 @@
 slug: 12-chibi
 classicalSlug: 12-chibi
 title: 赤壁之战:8 万对 20 万的逆转
-subtitle: 公元 208 年冬天,中国最重要的"小个子打败大个子"的故事。
+subtitle: >-
+  公元 208 年冬天,中国最重要的"小个子打败大个子"的故事。
 dynasty: 三国
 volume: 卷六十八
 episode: 12
-excerpt: 周瑜时年 34 岁,手握 3 万精兵,对面是曹操的 20 万大军。孙权集团里 9 成官员主张投降。这个仗该不该打,怎么打?答案是:打。
-classicalQuote: 瑜请得精兵三万人,进住夏口,保为将军破之。
+excerpt: >-
+  周瑜时年 34 岁,手握 3 万精兵,对面是曹操的 20 万大军。孙权集团里 9 成官员主张投降。这个仗该不该打,怎么打?答案是:打。
+classicalQuote: >-
+  瑜请得精兵三万人,进住夏口,保为将军破之。
 readingTime: 10
 views: 320
 publishedAt: 2026-07-08

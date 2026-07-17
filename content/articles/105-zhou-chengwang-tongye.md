@@ -2,12 +2,15 @@
 slug: 105-zhou-chengwang-tongye
 classicalSlug: 105-zhou-chengwang-tongye
 title: 成王桐叶封弟:君无戏言的政治仪式
-subtitle: 西周初年,周公摄政七年(前 1042 - 前 1035),成王年幼
+subtitle: >-
+  西周初年,周公摄政七年(前 1042 - 前 1035),成王年幼
 dynasty: 西周
 volume: 卷一
 episode: 105
-excerpt: 西周初年,周公摄政七年(前 1042 - 前 1035),成王年幼。
-classicalQuote: 成王与叔虞戏,削桐叶为圭以与叔虞,曰:"以此封若。"
+excerpt: >-
+  西周初年,周公摄政七年(前 1042 - 前 1035),成王年幼。
+classicalQuote: >-
+  成王与叔虞戏,削桐叶为圭以与叔虞,曰:"以此封若。"
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

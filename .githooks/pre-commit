@@ -1,5 +1,5 @@
 #!/bin/sh
-# pre-commit hook — 防御: 改代码前先 tsc 检查
+# pre-commit hook — 防御: 改代码前先 tsc + 验证 article YAML
 set -e
 current_branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
 if [ "$current_branch" = "main" ] || [ "$current_branch" = "master" ]; then
@@ -8,6 +8,20 @@ if [ "$current_branch" = "main" ] || [ "$current_branch" = "master" ]; then
   echo "   跳过: git commit --no-verify"
   exit 1
 fi
+
+# 只在改到 content/articles/*.md 或 content/classics/*.md 时跑 YAML 验证
+if git diff --cached --name-only | grep -qE '^content/(articles|classics)/.*\.md$'; then
+  echo "🔍 验证 article YAML ..."
+  if node scripts/validate-articles.mjs 2>&1 | tail -20; then
+    echo "✅ YAML 验证通过"
+  else
+    echo "❌ YAML 验证失败, 拒绝 commit"
+    echo "   修复方法: node scripts/migrate-block-scalar.mjs"
+    echo "   跳过: git commit --no-verify"
+    exit 1
+  fi
+fi
+
 echo "🔍 tsc --noEmit ..."
 if npx tsc --noEmit 2>&1 | tee /tmp/tsc-output.log; then
   echo "✅ tsc 通过"

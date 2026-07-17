@@ -9,7 +9,8 @@ volume: 卷一百九十二
 episode: 128
 excerpt: >-
   **玄奘**(600-664) 17 年西行取经(627-645) — 翻译佛经 75 部 1335 卷 — 中国 2000 年"文化交流"鼻祖 + 1300 年后《西游记》"唐僧"原型。
-classicalQuote: 西行求法,生死以之。
+classicalQuote: >-
+  西行求法,生死以之。
 readingTime: 12
 views: 0
 publishedAt: 2026-07-15

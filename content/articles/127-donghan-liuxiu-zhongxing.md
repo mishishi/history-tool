@@ -9,7 +9,8 @@ volume: 卷四十
 episode: 127
 excerpt: >-
   **刘秀**(前 5 - 57) — 从 24 岁农民到 12 年统一天下,昆阳之战 1.9 万击溃 42 万 — 中国 2000 年"草根逆袭"鼻祖。
-classicalQuote: 有志者事竟成。
+classicalQuote: >-
+  有志者事竟成。
 readingTime: 12
 views: 0
 publishedAt: 2026-07-15

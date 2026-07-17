@@ -58,7 +58,13 @@ function getArticleMap(): Map<string, ArticleMeta> {
   for (const f of fs.readdirSync(ARTICLES_DIR).filter((f) => f.endsWith('.md'))) {
     const slug = f.replace(/\.md$/, '');
     const raw = fs.readFileSync(path.join(ARTICLES_DIR, f), 'utf8');
-    const { data } = matter(raw);
+    let data: any;
+    try {
+      ({ data } = matter(raw));
+    } catch (e: any) {
+      console.error(`[figures-graph] YAML parse failed for ${f}:`, e?.message);
+      continue;
+    }
     map.set(slug, {
       slug,
       title: String(data.title || slug),
@@ -92,7 +98,13 @@ function getClassicsKeyFigures(): ArticleKeyFigures[] {
     const slug = f.replace(/\.md$/, '');
     if (!articleMap.has(slug)) continue;
     const raw = fs.readFileSync(path.join(CLASSICS_DIR, f), 'utf8');
-    const { data } = matter(raw);
+    let data: any;
+    try {
+      ({ data } = matter(raw));
+    } catch (e: any) {
+      console.error(`[figures-graph] YAML parse failed for ${f}:`, e?.message);
+      continue;
+    }
     const figures = (data.keyFigures || []) as Array<{ name?: string; role?: string }>;
     const article = articleMap.get(slug)!;
     const names: string[] = [];

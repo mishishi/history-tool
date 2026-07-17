@@ -9,7 +9,8 @@ volume: 卷二
 episode: 113
 excerpt: >-
   **楚庄王芈旅(熊旅)**(前 613 - 前 591 在位),**春秋第 3 霸**。
-classicalQuote: 楚庄王即位,三年不出号令。日夜为乐,令国中曰:"敢谏者死无赦!"
+classicalQuote: >-
+  楚庄王即位,三年不出号令。日夜为乐,令国中曰:"敢谏者死无赦!"
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

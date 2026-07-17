@@ -9,7 +9,8 @@ volume: 卷一
 episode: 111
 excerpt: >-
   **齐桓公姜小白**(前 685 - 前 643 在位),**春秋五霸之首**。
-classicalQuote: 齐桓公二年,桓公自莒归于齐,使鲍叔为宰。
+classicalQuote: >-
+  齐桓公二年,桓公自莒归于齐,使鲍叔为宰。
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

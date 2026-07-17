@@ -9,7 +9,8 @@ volume: 卷二
 episode: 112
 excerpt: >-
   **晋文公姬重耳**(前 636 - 前 628 在位),**春秋第 2 霸**。
-classicalQuote: 晋公子重耳之及于难也,晋人伐诸蒲城。
+classicalQuote: >-
+  晋公子重耳之及于难也,晋人伐诸蒲城。
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

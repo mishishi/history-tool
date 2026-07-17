@@ -2,12 +2,15 @@
 slug: 102-zhou-fengjian
 classicalSlug: 102-zhou-fengjian
 title: 西周封建:血缘如何撑起八百年
-subtitle: 公元前 1046 年(也有说前 1044 年),周武王率联军在牧野击败商纣,商朝六百年统治终结,周朝取而代之
+subtitle: >-
+  公元前 1046 年(也有说前 1044 年),周武王率联军在牧野击败商纣,商朝六百年统治终结,周朝取而代之
 dynasty: 周
 volume: 卷一
 episode: 102
-excerpt: 公元前 1046 年(也有说前 1044 年),周武王率联军在牧野击败商纣,商朝六百年统治终结,周朝取而代之。
-classicalQuote: 用于 AI 解读生成的原始素材
+excerpt: >-
+  公元前 1046 年(也有说前 1044 年),周武王率联军在牧野击败商纣,商朝六百年统治终结,周朝取而代之。
+classicalQuote: >-
+  用于 AI 解读生成的原始素材
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

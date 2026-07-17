@@ -9,7 +9,8 @@ volume: 卷四
 episode: 118
 excerpt: >-
   **吴越争霸**(前 514 - 前 473),**春秋晚期**最重要的事件之一。
-classicalQuote: 吴王夫差伐越,败之。越王勾践以甲兵五千人栖于会稽,使人行成于吴。
+classicalQuote: >-
+  吴王夫差伐越,败之。越王勾践以甲兵五千人栖于会稽,使人行成于吴。
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

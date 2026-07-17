@@ -2,12 +2,15 @@
 slug: 107-zhou-muwang-xixun
 classicalSlug: 107-zhou-muwang-xixun
 title: 穆王西巡:神话与现实 + 西周财政的转折
-subtitle: 穆王姬满,昭王之子,前 976 - 前 922 年,在位 **55 年**(西周在位最长的王之一)
+subtitle: >-
+  穆王姬满,昭王之子,前 976 - 前 922 年,在位 **55 年**(西周在位最长的王之一)
 dynasty: 西周
 volume: 卷一
 episode: 107
-excerpt: 穆王姬满,昭王之子,前 976 - 前 922 年,在位 **55 年**(西周在位最长的王之一)。
-classicalQuote: 穆王即位,年已五十矣。
+excerpt: >-
+  穆王姬满,昭王之子,前 976 - 前 922 年,在位 **55 年**(西周在位最长的王之一)。
+classicalQuote: >-
+  穆王即位,年已五十矣。
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

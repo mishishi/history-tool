@@ -9,7 +9,8 @@ volume: 卷六
 episode: 122
 excerpt: >-
   **吕不韦**(约前 291 - 前 235) "**奇货可居**" 投资异人(秦庄襄王) — 中国 2000 年前最早的"风险投资"案例。
-classicalQuote: 耕田之利十倍,珠玉之赢百倍,立国家之主赢无数。
+classicalQuote: >-
+  耕田之利十倍,珠玉之赢百倍,立国家之主赢无数。
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

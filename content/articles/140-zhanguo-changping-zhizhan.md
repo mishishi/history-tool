@@ -9,7 +9,8 @@ volume: 卷四~卷七
 episode: 140
 excerpt: >-
   **长平之战**(前 260) —— **白起"杀神"** + **赵括"纸上谈兵"** + **廉颇"老将被弃"** —— **40 万赵军坑杀** —— 中国 2000 年"**决战 + 杀神 + 纸上**"**三联**鼻祖 + **秦统一**基础。
-classicalQuote: 纸上谈兵。
+classicalQuote: >-
+  纸上谈兵。
 readingTime: 25
 views: 0
 publishedAt: 2026-07-16

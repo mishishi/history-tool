@@ -73,7 +73,14 @@ function loadArticle(slug: string): Article | null {
   const file = path.join(ARTICLES_DIR, `${slug}.md`);
   if (!fs.existsSync(file)) return null;
   const raw = fs.readFileSync(file, 'utf8');
-  const { data, content } = matter(raw);
+  let data: any;
+  let content: string;
+  try {
+    ({ data, content } = matter(raw));
+  } catch (e: any) {
+    console.error(`[audio-timestamps] YAML parse failed for ${slug}:`, e?.message);
+    return null;
+  }
   return {
     slug: data.slug || slug,
     excerpt: data.excerpt || '',

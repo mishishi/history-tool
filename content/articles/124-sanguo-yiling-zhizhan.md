@@ -9,7 +9,8 @@ volume: 卷六十九
 episode: 124
 excerpt: >-
   **夷陵之战**(猇亭之战,222 年 6 月) — 蜀汉 5 万大军"连营 700 里"被陆逊"火烧连营" — 中国 2000 年"复仇心态"的最大教训。
-classicalQuote: 朕不为弟报仇,虽亿万何用?
+classicalQuote: >-
+  朕不为弟报仇,虽亿万何用?
 readingTime: 11
 views: 0
 publishedAt: 2026-07-15

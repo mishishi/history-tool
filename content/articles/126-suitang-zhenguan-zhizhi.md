@@ -9,7 +9,8 @@ volume: 卷一百九十二
 episode: 126
 excerpt: >-
   **唐太宗李世民**(599-649) 贞观之治(627-649) — "**房谋杜断**" + "**魏徵直谏**" + "**水能载舟**" = 中国 2000 年来"治国"的最高典范。
-classicalQuote: 以人为镜,可以明得失。
+classicalQuote: >-
+  以人为镜,可以明得失。
 readingTime: 13
 views: 0
 publishedAt: 2026-07-15

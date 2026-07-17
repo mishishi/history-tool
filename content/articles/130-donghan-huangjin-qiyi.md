@@ -9,7 +9,8 @@ volume: 卷五十八
 episode: 130
 excerpt: >-
   **黄巾起义**(184 年 3 月) — 张角"**太平道**" 36 方 30 万黄巾军,"**苍天已死,黄天当立**" — 中国 2000 年"民变"鼻祖。
-classicalQuote: 苍天已死,黄天当立,岁在甲子,天下大吉。
+classicalQuote: >-
+  苍天已死,黄天当立,岁在甲子,天下大吉。
 readingTime: 12
 views: 0
 publishedAt: 2026-07-16

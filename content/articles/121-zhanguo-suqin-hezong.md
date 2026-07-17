@@ -9,7 +9,8 @@ volume: 卷三
 episode: 121
 excerpt: >-
   **苏秦**(约前 340 - 前 286) "佩六国相印" 创立"**合纵**"理论 — 2000 年前"北约"的雏形。
-classicalQuote: 合众弱以攻一强,合小以攻大。
+classicalQuote: >-
+  合众弱以攻一强,合小以攻大。
 readingTime: 10
 views: 0
 publishedAt: 2026-07-15

@@ -9,7 +9,8 @@ volume: 卷七十一
 episode: 125
 excerpt: >-
   **诸葛亮**(181-234) 6 次北伐(228-234),以 1 州对 9 州,胜算接近 0 —— 中国 2000 年"明知不可为而为之"的最大经典。
-classicalQuote: 臣本布衣,躬耕于南阳。
+classicalQuote: >-
+  臣本布衣,躬耕于南阳。
 readingTime: 13
 views: 0
 publishedAt: 2026-07-15

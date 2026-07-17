@@ -8,6 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "validate-articles": "node scripts/validate-articles.mjs",
+    "prebuild": "node scripts/validate-articles.mjs",
     "build-embeddings": "node scripts/build-embeddings.mjs",
     "regen-covers": "node scripts/build-cover-prompts.mjs",
     "postinstall": "node scripts/install-hooks.mjs"

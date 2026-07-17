@@ -2,12 +2,15 @@
 slug: 49-wto
 classicalSlug: 49-wto
 title: 中国加入 WTO:全球化 2000 年的"中国时刻" —— 15 年谈判换来"世界工厂"标签
-subtitle: 2001-12-11 中国正式加入 WTO。15 年谈判 + 大幅降税 + 开放服务业 = 出口 6 倍增长 + GDP 4 倍增长。
+subtitle: >-
+  2001-12-11 中国正式加入 WTO。15 年谈判 + 大幅降税 + 开放服务业 = 出口 6 倍增长 + GDP 4 倍增长。
 dynasty: 中华人民共和国
 volume: 卷四百零九
 episode: 49
-excerpt: 1986-2001 的 15 年谈判,中国用真金白银的"减让"换了入场券。加入 WTO 后 10 年,中国变身世界工厂。
-classicalQuote: 大幅降低关税、取消出口补贴、开放服务业。
+excerpt: >-
+  1986-2001 的 15 年谈判,中国用真金白银的"减让"换了入场券。加入 WTO 后 10 年,中国变身世界工厂。
+classicalQuote: >-
+  大幅降低关税、取消出口补贴、开放服务业。
 readingTime: 11
 views: 260
 publishedAt: 2026-07-08
