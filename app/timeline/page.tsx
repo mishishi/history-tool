@@ -13,6 +13,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import TimelineView from '@/components/TimelineView';
 import { getTimelineColumns, getTimelineMeta } from '@/lib/timeline';
+import { getAllTopicTags } from '@/lib/topics';
 import { SITE_URL } from '@/lib/site-config';
 
 export const metadata: Metadata = {
@@ -47,6 +48,8 @@ export const metadata: Metadata = {
 export default function TimelinePage() {
   const columns = getTimelineColumns();
   const meta = getTimelineMeta(columns);
+  // 主题 tag 列表(≥MIN_TAG_COUNT)— 给 preview drawer 用,显示相关主题 chip
+  const topicTags = getAllTopicTags();
 
   // JSON-LD:ItemList(每篇文章)
   const jsonLd = {
@@ -89,7 +92,7 @@ export default function TimelinePage() {
         </header>
 
         {/* 时间线主体 */}
-        <TimelineView columns={columns} />
+        <TimelineView columns={columns} topicTags={topicTags} />
 
         {/* 底部说明 */}
         <section className="mt-12 grid sm:grid-cols-3 gap-4 text-sm">

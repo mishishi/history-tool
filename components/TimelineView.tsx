@@ -8,22 +8,34 @@
  *   - 键盘 ←→ 切列 / Home/End 跳首尾
  * - 移动:竖向滚动(每朝代单独 section)
  *
+ * 互动化 (2026-07-18):
+ * - 点文章卡 → 弹右侧预览抽屉(不跳走)
+ * - 抽屉内:封面 + 标题 + 摘要 + 关键人物 + 主题 chip + 读全文 CTA
+ * - 关闭:右上 X / 背景点 / Esc
+ *
  * 数据:lib/timeline.ts (getTimelineColumns)
  * 跟 figures-graph 形成"网+轴"双视角
  */
-import { useEffect, useRef } from 'react';
-import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 import { findDynasty, type Dynasty } from '@/lib/dynasties';
-import type { ArticleMeta } from '@/lib/types';
-import type { TimelineColumn } from '@/lib/timeline';
+import type { TimelineArticle, TimelineColumn } from '@/lib/timeline';
 import { coverUrl } from '@/lib/site-config';
+import TimelinePreviewDrawer from './TimelinePreviewDrawer';
+
+interface TopicTag {
+  tag: string;
+  count: number;
+}
 
 interface Props {
   columns: TimelineColumn[];
+  /** 全局主题 tag 列表(给 preview drawer 筛 related topics 用) */
+  topicTags: TopicTag[];
 }
 
-export default function TimelineView({ columns }: Props) {
+export default function TimelineView({ columns, topicTags }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeArticle, setActiveArticle] = useState<TimelineArticle | null>(null);
 
   // 桌面:键盘 ←→ 切朝代列, Home/End 跳首尾
   useEffect(() => {
@@ -73,38 +85,63 @@ export default function TimelineView({ columns }: Props) {
         <div
           ref={scrollRef}
           tabIndex={0}
-          aria-label="朝代时间线, 用 ← → 键切换朝代"
+          aria-label="朝代时间线, 用 ← → 键切换朝代, 点文章卡预览"
           className="flex gap-6 overflow-x-auto pb-8 px-2 snap-x snap-mandatory scrollbar-thin focus:outline-none focus-visible:ring-2 focus-visible:ring-cinnabar/30 focus-visible:ring-offset-2 focus-visible:rounded-sm"
         >
           {columns.map((col) => (
-            <DynastyColumn key={col.dynasty.slug} column={col} />
+            <DynastyColumn
+              key={col.dynasty.slug}
+              column={col}
+              onCardClick={setActiveArticle}
+            />
           ))}
         </div>
         <div className="text-center text-[10px] text-ink-mute tracking-widest uppercase mt-2">
-          ← 横向滑动 / 键盘 ← → 查看朝代 →
+          ← 横向滑动 / 键盘 ← → 切朝代 / 点文章卡预览 →
         </div>
       </div>
 
       {/* 移动:竖向滚动(< md) */}
       <div className="md:hidden space-y-10">
         {columns.map((col) => (
-          <DynastySectionMobile key={col.dynasty.slug} column={col} />
+          <DynastySectionMobile
+            key={col.dynasty.slug}
+            column={col}
+            onCardClick={setActiveArticle}
+          />
         ))}
       </div>
+
+      {/* 预览抽屉 */}
+      <TimelinePreviewDrawer
+        article={activeArticle}
+        topicTags={topicTags}
+        onClose={() => setActiveArticle(null)}
+      />
     </>
   );
 }
 
 /* ===== 桌面:每个朝代占满一屏宽 ===== */
 
-function DynastyColumn({ column }: { column: TimelineColumn }) {
+function DynastyColumn({
+  column,
+  onCardClick,
+}: {
+  column: TimelineColumn;
+  onCardClick: (a: TimelineArticle) => void;
+}) {
   const { dynasty, articles } = column;
   return (
     <div className="flex-shrink-0 w-[min(420px,90vw)] snap-center">
       <ColumnHeader dynasty={dynasty} count={articles.length} />
       <div className="space-y-2.5 mt-4">
         {articles.map((article) => (
-          <TimelineCard key={article.slug} article={article} />
+          <TimelineCard
+            key={article.slug}
+            article={article}
+            onClick={() => onCardClick(article)}
+          />
         ))}
       </div>
     </div>
@@ -113,14 +150,24 @@ function DynastyColumn({ column }: { column: TimelineColumn }) {
 
 /* ===== 移动:每朝代一段 ===== */
 
-function DynastySectionMobile({ column }: { column: TimelineColumn }) {
+function DynastySectionMobile({
+  column,
+  onCardClick,
+}: {
+  column: TimelineColumn;
+  onCardClick: (a: TimelineArticle) => void;
+}) {
   const { dynasty, articles } = column;
   return (
     <section>
       <ColumnHeader dynasty={dynasty} count={articles.length} />
       <div className="space-y-2.5 mt-3">
         {articles.map((article) => (
-          <TimelineCard key={article.slug} article={article} />
+          <TimelineCard
+            key={article.slug}
+            article={article}
+            onClick={() => onCardClick(article)}
+          />
         ))}
       </div>
     </section>
@@ -154,15 +201,22 @@ function ColumnHeader({ dynasty, count }: { dynasty: Dynasty; count: number }) {
 
 /* ===== 共用:文章小卡(横版 cover + 标题) ===== */
 
-function TimelineCard({ article }: { article: ArticleMeta }) {
+function TimelineCard({
+  article,
+  onClick,
+}: {
+  article: TimelineArticle;
+  onClick: () => void;
+}) {
   const d = findDynasty(article.dynasty);
   const dynastyColor = d?.primary || '#5A5A5A';
   // 永远走 webp(100% 文章都有 AI 封面)—— 不再用 cover-slugs 检查
 
   return (
-    <Link
-      href={`/article/${article.slug}`}
-      className="group flex items-center gap-3 p-2 bg-paper-card border border-border hover:border-cinnabar rounded-sm transition-all hover:shadow-sm"
+    <button
+      type="button"
+      onClick={onClick}
+      className="group flex items-center gap-3 p-2 bg-paper-card border border-border hover:border-cinnabar rounded-sm transition-all hover:shadow-sm w-full text-left"
       style={{ borderLeft: `2px solid ${dynastyColor}` }}
     >
       {/* cover 缩略 4:3 */}
@@ -186,6 +240,17 @@ function TimelineCard({ article }: { article: ArticleMeta }) {
           <span className="truncate">{article.dynasty}</span>
         </div>
       </div>
-    </Link>
+
+      {/* hover 时显示 → 提示"点开预览" */}
+      <svg
+        className="w-4 h-4 text-ink-mute opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
   );
 }

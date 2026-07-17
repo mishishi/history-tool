@@ -832,6 +832,18 @@ body:has([role="dialog"][aria-label="安装读通鉴到桌面"]) button[aria-lab
 .fade-in-up.delay-200 { animation-delay: 0.2s; }
 .fade-in-up.delay-300 { animation-delay: 0.3s; }
 
+/* Timeline 预览抽屉 (2026-07-18) */
+.fade-in { animation: fadeIn 0.3s var(--ease-out-expo) both; }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.slide-in-right { animation: slideInRight 0.4s var(--ease-out-expo) both; }
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
 /* OnboardingBubble 进入/退出 */
 @keyframes onboardingFadeIn {
   from { opacity: 0; transform: translateY(10px) scale(0.96); }

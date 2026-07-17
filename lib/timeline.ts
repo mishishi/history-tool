@@ -5,23 +5,31 @@
  * - 用 findDynasty(article.dynasty) 把 30 种 dynasty 字符串归类到 8 主朝代
  * - 每组内按 episode 升序(早 → 晚)
  * - 时间线 X 轴 = 朝代,Y 轴 = 同一朝代内时间顺序
+ *
+ * TimelineArticle 扩展自 ArticleMeta,加入 keyFigures 用于 preview drawer
+ * (避免 drawer 打开时再去 fetch classic 文件,体验更顺)
  */
 import 'server-only';
-import { getAllArticles } from './articles';
+import { getAllArticles, getClassicBySlug } from './articles';
 import { findDynasty, type Dynasty } from './dynasties';
 import { getDynastiesWithCount } from './dynasties.server';
-import type { ArticleMeta } from './types';
+import type { ArticleMeta, KeyFigure } from './types';
+
+export interface TimelineArticle extends ArticleMeta {
+  /** 关联 classic 文件的 keyFigures(供 preview drawer 用) */
+  keyFigures: KeyFigure[];
+}
 
 export interface TimelineColumn {
   dynasty: Dynasty;
-  articles: ArticleMeta[];
+  articles: TimelineArticle[];
 }
 
 export function getTimelineColumns(): TimelineColumn[] {
   const articles = getAllArticles();
   const dynastiesWithCount = getDynastiesWithCount();
   // Map<主朝代 slug, articles[]>
-  const byDynasty = new Map<string, ArticleMeta[]>();
+  const byDynasty = new Map<string, TimelineArticle[]>();
   for (const d of dynastiesWithCount) byDynasty.set(d.slug, []);
   // 兜底 bucket:无法归类的文章
   const orphanKey = '__other__';
@@ -30,7 +38,12 @@ export function getTimelineColumns(): TimelineColumn[] {
     const d = findDynasty(a.dynasty);
     const slug = d?.slug || orphanKey;
     if (!byDynasty.has(slug)) byDynasty.set(slug, []);
-    byDynasty.get(slug)!.push(a);
+    // 关联 keyFigures(可能为空)
+    const classic = getClassicBySlug(a.classicalSlug);
+    byDynasty.get(slug)!.push({
+      ...a,
+      keyFigures: classic?.keyFigures || [],
+    });
   }
 
   // 每组内按 episode 升序
